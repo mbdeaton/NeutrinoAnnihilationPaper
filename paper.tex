@@ -2602,11 +2602,11 @@ We use the following procedure:
     \label{eqn:J_from_gray}
     J(\varepsilon) &=
     J \frac{\varepsilon^3}{T_\nu^4 \,\mathscr{F}_3(\eta_\nu)}
-    (1+\exp(\varepsilon/T_\nu-\eta_\nu)^{-1}, \\
+    \big(1+\exp(\varepsilon/T_\nu-\eta_\nu)\big)^{-1}, \\
     \label{eqn:H_from_gray}
     H^\mu(\varepsilon) &=
     H^\mu \frac{\varepsilon^3}{T_\nu^4\, \mathscr{F}_3(\eta_\nu)}
-    (1+\exp(\varepsilon/T_\nu-\eta_\nu)^{-1}.
+    \big(1+\exp(\varepsilon/T_\nu-\eta_\nu)\big)^{-1}.
   \end{align}
 \end{enumerate}
 
@@ -2653,7 +2653,8 @@ neutrinos and antineutrinos. \lstinline{NuLib} follows
 by computing the emissivity of the pair processes in
 \footnote{TODO: describe better}
 Tab.~\ref{tab:neutrino_processes}, and applying Kirchoff's law,
-Eqn.~\ref{eqn:kirchoffs_law}, to convert this to an opacity.
+Eqn.~\ref{eqn:kirchoffs_law}, to convert this to an effective absorption opacity,
+and its corresponding emissivity obeying Kirchoff's law.
 We only use this effective opacity for heavy-lepton neutrinos because
 it is subdominant to the true absorption opacity for
 $\nu_e$ and $\bar{\nu}_e$.
