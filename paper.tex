@@ -804,9 +804,64 @@ Plot in Fig.~\ref{fig:avg_eps_collapse}.
 \subsection{Hypermassive Neutron Star Remnant:
   Testing Everything}
 \label{ssec:test_disk_comparison}
-Total and relative number and energy luminosities for the disk evolved
-in \cite{fouc2016-m1_evolve_n}.
-Agreement better than 10\%.
+The merger of two neutron stars by gravitational wave emission produces a
+postmerger configuration composed of a single neutron star surrounded by a disk.
+Because of the strong differential rotation of the remnant it temporarily avoids
+collapse to a black hole, even if its mass exceeds the threshold of dynamical
+instability for a rigidly rotating neutron star \cite{duez2009-review}.
+These objects are called hypermassive neutron stars.
+
+Such a configuration was modeled by \cite{fouc2016-m1_nsns} by
+evolving the final inspiral and merger of two identical neutron stars of
+isolated gravitational mass 1.2~$M_{\odot}$. The postmerger configuration
+was evolved using an M1 transport scheme for the neutrinos, evolving the
+energy density, number density, and energy flux \cite{fouc2016-m1_evolve_n}
+for $\sim10\,{\rm ms}$ following merger, defined as the time of the peak of the
+gravitational wave strain.
+
+We used a single time snapshot of the volume data from that configuration
+at $t=11\,{\rm ms}$ after merger (see
+Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat})
+sampling the neutrino fields with ray tracing to compare to some
+measures of the field computed from the M1 transport simulation.
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{production-colormap-merid-rho}
+  \caption{A meridional slice of density in the hypermassive neutron
+    star and disk configuration.
+    The distorted rectangular boundaries are the boundaries of the grid
+    used in the numerical simulation, which employs a coordinate mapping to
+    concentrate points near the central object.}
+  \label{fig:nsns_rho_merid}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{production-colormap-equat-rho}
+  \caption{An equatorial slice of density in the hypermassive neutron
+    star and disk configuration.}
+  \label{fig:nsns_rho_equat}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{production-colormap-merid-temp}
+  \caption{A meridional slice of temperature in the hypermassive neutron
+    star and disk configuration.}
+  \label{fig:nsns_temp_merid}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{production-colormap-equat-temp}
+  \caption{An equatorial slice of temperature in the hypermassive neutron
+    star and disk configuration.}
+  \label{fig:nsns_temp_equat}
+\end{figure}
+
+In Tab.~\ref{tab:nsns_rt_vs_m1} we present total and relative number and
+energy luminosities for this configuration.
+With scattering turned off, ray tracing errors are as large as 250\%
+(for heavy lepton energy luminosities).
+But with scattering turned on, agreement is better than 20\%, and
+in most cases much better.
 \todo{get accurage M1 numbers from Francois}
 
 \begin{table}%[h]
@@ -836,34 +891,6 @@ Agreement better than 10\%.
     \hline
   \end{tabularx}
 \end{table}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{production-colormap-merid-rho}
-  \caption{A meridional slice of density in the hypermassive neutron
-    star and disk configuration.}
-  \label{fig:nsns_rho_merid}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{production-colormap-equat-rho}
-  \caption{An equatorial slice of density in the hypermassive neutron
-    star and disk configuration.}
-  \label{fig:nsns_rho_equat}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{production-colormap-merid-temp}
-  \caption{A meridional slice of temperature in the hypermassive neutron
-    star and disk configuration.}
-  \label{fig:nsns_temp_merid}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{production-colormap-equat-temp}
-  \caption{An equatorial slice of temperature in the hypermassive neutron
-    star and disk configuration.}
-  \label{fig:nsns_temp_equat}
-\end{figure}
 
 \section{Applications}
 \label{sec:applications}
