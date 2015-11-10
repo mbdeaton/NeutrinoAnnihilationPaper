@@ -18,3 +18,23 @@ The principle statements of the paper are (or in the case of #2, may be):
 2. The trend in the literature is that neutrino annihilation is insufficient to
    power the most luminous short gamma ray burst jets. But in some high mass disk
    cases, for example this M14_6-S9 merger, it is amply luminous at early times.
+
+## Build Instructions
+Compile the paper with the usual pdflatex sequence:
+```
+pdflatex paper.tex
+bibtex paper
+pdflatex paper.tex
+pdflatex paper.tex
+```
+The `bibtex` and subsequent `pdflatex` calls are redundant if no new references
+have been added between compiles.
+
+## Style Guidelines
+"Prefer to..." below means break the rule if it makes sense to.
+
+* Prefer to write things in words not letters throughout: e.g. avoid "NSBH" or
+  "MRI".
+* Prefer to use "neutron star--black hole" to "black hole--neutron star"
+  because this paper focuses on the matter.
+* Prefer to use abbreviations like "Eqn." and "Fig." in the text.
