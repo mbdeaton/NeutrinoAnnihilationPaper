@@ -12,6 +12,7 @@ finding in numerical spacetimes) and Brett Deaton (using Andy's framework
 to find neutrino trajectories).
 
 The principle statements of the paper are (or in the case of #2, may be):
+
 1. Here's a new raytracing code for neutrino emission; here's where it's valid,
    here's where it sucks.
 2. The trend in the literature is that neutrino annihilation is insufficient to
