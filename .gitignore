@@ -1,0 +1,16 @@
+# .gitignore file for NeutrinoAnnihilationPaper
+# Brett Deaton -- Fall 2015
+
+# Temporary editor files
+*~
+*.swp
+\#*\#
+.\#*
+
+# TeX products
+/paper.pdf
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
