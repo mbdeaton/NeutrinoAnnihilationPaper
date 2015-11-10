@@ -1,6 +1,7 @@
-# NeutrinoAnnihilationPaper
-Deaton et al. 2015
+# Ray Tracing Neutrino Annihilation Paper
+Deaton et al. 2015-2016
 
+### Overview
 This paper uses a general relativistic ray tracing code to examine the neutrino
 annihilation mechanism as an energy source for the relativistic jet linking
 a short gamma ray burst to its central engine. We will examine one or a few
@@ -11,7 +12,7 @@ within SpEC developed by Andy Bohn (for gravitational lensing and event horizon
 finding in numerical spacetimes) and Brett Deaton (using Andy's framework
 to find neutrino trajectories).
 
-The principle statements of the paper are (or in the case of #2, may be):
+The principle statements of the paper are:
 
 1. Here's a new raytracing code for neutrino emission; here's where it's valid,
    here's where it sucks.
@@ -19,7 +20,7 @@ The principle statements of the paper are (or in the case of #2, may be):
    power the most luminous short gamma ray burst jets. But in some high mass disk
    cases, for example this M14_6-S9 merger, it is amply luminous at early times.
 
-## Build Instructions
+### Build Instructions
 Compile the paper with the usual pdflatex sequence:
 ```
 pdflatex paper.tex
@@ -30,7 +31,8 @@ pdflatex paper.tex
 The `bibtex` and subsequent `pdflatex` calls are redundant if no new references
 have been added between compiles.
 
-## Style Guidelines
+### Text Guidelines
+These guidelines establish conventions to improve the text of the article.
 "Prefer to..." below means break the rule if it makes sense to.
 
 * Prefer to write things in words not letters throughout: e.g. avoid "NSBH" or
@@ -38,3 +40,19 @@ have been added between compiles.
 * Prefer to use "neutron star--black hole" to "black hole--neutron star"
   because this paper focuses on the matter.
 * Prefer to use abbreviations like "Eqn." and "Fig." in the text.
+
+### LaTeX Guidelines
+These guidelines establish conventions to make it easier to read and write
+the raw LaTeX in paper.tex.
+
+* __Object labels__.
+  Use four letters or fewer for the class (e.g. `sec`, `ssec`, `fig`, etc.),
+  followed by a colon,
+  followed by a shortish underscore separated name (e.g. `nu_energy_spectrum`).
+  Example: `\label{fig:nu_energy_spectrum}`.
+* __BibTeX keys__.
+  The key format in references.bib is `<surname><year>-<unique>` where
+  `<surname>` is the 1st four (or fewer) letters of the 1st author's surname,
+  `<date>` is the four-digit year of publication, and
+  `<unique>` is a unique specifier from the title journal or whatever.
+  Example: `deat2013-leakage`.
