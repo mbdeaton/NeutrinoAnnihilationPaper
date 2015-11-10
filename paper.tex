@@ -1,0 +1,66 @@
+\documentclass[aps,prd,twocolumn,superscriptaddress,groupedaddress]{revtex4}
+% Intended to be built with pdflatex, using REVTEX 4
+% Template taken from FermiLab APS Jouranl template.
+% Labeling convention example: \label{ssec:acknowledge}.
+%   Specifically, use (<=4)-letter class (e.g. chap, sec, ssec, fig, etc.),
+%   followed by a colon, followed by a shortish underscore separated name
+%   (e.g. intro, nu_energy_spectrum).
+
+% packages
+\usepackage{amssymb}              % for \gtrsim ...
+\usepackage{amsmath}              % for \text, align, split ...
+\usepackage{graphicx}             % for \includegraphics
+\usepackage{hyperref}             % for \url and \href
+
+% commands/initialization
+\hyphenation{ALPGEN} % avoid incorrect hyphenation
+\hyphenation{EVTGEN} % ''
+\hyphenation{PYTHIA} % ''
+
+% *******************************************************************************
+\begin{document}
+
+% The following information is for internal review, please remove them for submission
+\widetext
+\leftline{Compiled \today}
+\leftline{To be submitted to PRD}
+
+\title{Neutrino Annihilation Around Massive Nuclear Accretion Disks}
+
+\author{M.\ Brett Deaton}
+\affiliation{Department of Physics \& Astronomy,
+  Washington State University, Pullman, WA 99164, USA}
+\affiliation{Joint Institute for Nuclear Astrophysics,
+  Michigan State University, East Lansing, MI 48824, USA}
+\affiliation{Department of Physics,
+  North Carolina State University, Raleigh, NC 27695, USA}
+\email{mbdeaton@ncsu.edu}
+
+\author{Matthew D.\ Duez}
+\affiliation{Department of Physics \& Astronomy,
+  Washington State University, Pullman, WA 99164, USA}
+
+\author{Evan O'Connor}
+\affiliation{Department of Physics,
+  North Carolina State University, Raleigh, NC 27695, USA}
+
+\author{Francois Foucart}
+\affiliation{Lawrence Berkeley National Laboratory,
+  1 Cyclotron Rd., Berkeley, CA 94720, USA}
+
+\author{Andy Bohn}
+\affiliation{Center for Radiophysics and Space Research,
+  Cornell University, Ithaca, NY 14853, USA}
+
+\begin{abstract}
+  This is our abstract.
+\end{abstract}
+
+\maketitle
+
+This is some text in the body.
+The high disk mass model is described in \cite{deat2013-leakage}.
+
+\bibliography{references}
+
+\end{document}
