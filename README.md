@@ -18,7 +18,9 @@ The principle statements of the paper are:
    here's where it sucks.
 2. The trend in the literature is that neutrino annihilation is insufficient to
    power the most luminous short gamma ray burst jets. But in some high mass disk
-   cases, for example this M14_6-S9 merger, it is amply luminous at early times.
+   cases, for example this M14_6-S9 merger, it is amply luminous at early
+   times...maybe. If we find that it is not, in our high-spin massive disks, then
+   we can contribute some more weight to the current lore.
 
 ### Build Instructions
 Compile the paper with the usual pdflatex sequence:
