@@ -32,6 +32,7 @@ have been added between compiles.
 These guidelines establish conventions to improve the text of the article.
 "Prefer to..." below means break the rule if it makes sense to.
 
+* Use abstract tensor notation, no bold or bbold for vectors.
 * Prefer to write things in words not letters throughout: e.g. avoid "NSBH" or
   "MRI".
 * Prefer to use "neutron star--black hole" to "black hole--neutron star"

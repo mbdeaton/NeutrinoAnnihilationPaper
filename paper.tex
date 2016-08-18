@@ -5,6 +5,8 @@
 % packages
 \usepackage{amssymb}              % for \gtrsim ...
 \usepackage{amsmath}              % for \text, align, split ...
+\usepackage{color}                % for colorful margin notes
+\usepackage[mathscr]{euscript}    % for \mathscr
 \usepackage{graphicx}             % for \includegraphics
 \usepackage{hyperref}             % for \url and \href
 
@@ -12,6 +14,9 @@
 \hyphenation{ALPGEN} % avoid incorrect hyphenation
 \hyphenation{EVTGEN} % ''
 \hyphenation{PYTHIA} % ''
+
+\newcommand{\todo}[1]{\marginpar{\tiny{\textcolor{red}{#1}}}}
+%\renewcommand\todo[1]{} % if you wish to hide all todo notes
 
 % *******************************************************************************
 \begin{document}
@@ -56,14 +61,100 @@
 % *******************************************************************************
 
 \begin{abstract}
-  This is our abstract.
+  We present a ray tracing algorithm for computing neutrino distributions in
+  general numerical spacetimes with hydrodynamical sources.
+  The formulation is fully coordinate invariant and accurately describes
+  radiation in regimes spanning optically thick to optically thin.
+  We test the new code, highlight its strengths and weaknesses, and
+  apply it to estimate power
+  liberated by neutrino-antineutrino annihilation in the funnel of a
+  post-merger accretion disk.
 \end{abstract}
 
 \maketitle
 
-This is some text in the body.
+Greek tensor indices ($\alpha, \beta, ...$) range over all four coordinates,
+whereas Latin indices ($i, j, ...$) range over the spatial coordinates 1--3.
+We use naturalized units in which $\hbar=c=1$.
 
 \section{Ray tracing formalism}
+
+The neutrino distribution function, $f(p_\beta; x^\alpha)$ is an invariant
+quantity counting the number of neutrinos in a given momentum volume centered on
+$p_\beta$ and spatial volume centered on $x^\alpha$.
+The neutrino momentum is written
+\begin{equation}
+  \label{eqn:def_momentum}
+  p_\beta = \varepsilon (u_\beta + \ell_\beta),
+\end{equation}
+with $u^\beta$ a general observer's velocity,
+$\varepsilon$ the energy measured by that observer,
+and $\ell_\beta$ the direction vector subject to the constraints
+$u^\alpha \ell_\alpha = 0$ and
+$\ell^\alpha \ell_\alpha=1$.
+Because $\ell$ is normalized and perpendicular to the observer's velocity,
+it has two degrees of freedom, which we can make explicit by defining its
+spatial components with respect to spherical polar angles
+\begin{equation}
+  \label{eq:def_direction}
+  \ell_i :=
+  (\sin\upsilon_1\cos\upsilon_2,\sin\upsilon_1\sin\upsilon_2,\cos\upsilon_1).
+\end{equation}
+
+Neutrino radiation obeys the relativistic Boltzmann equation
+\todo{integral isn't explicitly covariant}
+\begin{equation}
+  \label{eqn:boltzmann}
+  p^\beta \nabla_\beta f = \mathscr{E} - \mathscr{K} f
+  + \mathscr{K}_s \oint d\ell' \phi(\ell_\alpha,\ell_\beta') f,
+\end{equation}
+where $\nabla_\beta$ denotes a covariant derivative. We have introduced
+$\mathscr{E}$, the invariant emissivity,
+$\mathscr{K}\equiv\mathscr{K}_a+\mathscr{K}_s$, the invariant total opacity
+comprised of absorption and scattering opacities, and
+$\phi(\ell_\alpha,\ell_\beta')$, the elastic scattering kernel, representing the
+likelihood of scattering from the direction $\ell_\beta'$ to the direction
+$\ell_\alpha$, subject to the normalization
+\todo{confirm this}
+\begin{equation}
+  \oint d\ell' \phi(\ell_\alpha,\ell_\beta') = 1.
+  \nonumber
+\end{equation}
+
+\subsection{Trajectories}
+\label{ssc:trajectories}
+Each trajectory is labeled by a pair of vectors
+giving some position on the trajectory, $x^\alpha$,
+and the normalized momentum direction at that position,
+$\ell_\beta$.
+A family of trajectories shares the same $x^\alpha$; for example,
+the family of emission trajectories is ($x^\alpha_e,\ell_\beta$),
+and the family of observation trajectories is ($x^\alpha_o,\ell_\beta$).
+
+A neutrino trajectory obeys the geodesic equations
+\begin{equation}
+\label{eqn:geodesic_x}
+  \frac{d x^\alpha}{d\lambda} = p^\alpha,
+\end{equation}
+and
+\begin{equation}
+\label{eqn:geodesic_p}
+  \frac{d p_\beta}{d\lambda} = -\psi_{\alpha\beta}\Gamma^\alpha_{\mu\gamma} p^\mu p^\gamma,
+\end{equation}
+where $\psi_{\alpha\beta}$ is the metric, and
+$\Gamma^\alpha_{\mu\gamma}$ are the standard connection coefficients,
+\begin{equation}
+  \label{eqn:christoffel}
+  \Gamma^\beta_{\alpha\gamma} =
+  \frac{1}{2} \psi^{\beta\mu}
+  (\psi_{\mu\alpha,\gamma} + \psi_{\mu\gamma,\alpha} - \psi_{\alpha\gamma,\mu}).
+\end{equation}
+
+Each trajectory is parameterized by proper distance, $s$, increasing in
+the direction of $\ell$. We choose $s=0$ at $x^\alpha_e$.
+and $s=s_o$ at $x^\alpha_o$.
+According to Eqn.~\ref{eqn:geodesic_x} proper distance relates to the affine
+parameter by $ds=p^t d\lambda$.
 
 \section{Fundamental Tests}
 
