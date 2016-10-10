@@ -61,14 +61,17 @@
 % *******************************************************************************
 
 \begin{abstract}
-  We present a ray tracing algorithm for computing neutrino distributions in
-  general numerical spacetimes with hydrodynamical sources.
-  The formulation is fully coordinate invariant and accurately describes
-  radiation in regimes spanning optically thick to optically thin.
+  We present a ray tracing algorithm for computing high-resolution neutrino
+  distributions in general numerical spacetimes with hydrodynamical sources.
+  Our formulation is covariant and treats elastic scattering by incorporating
+  estimates of the neutrino fields evolved in a low-order moment simulation.
+  It handles radiation in regimes spanning optically thick to optically thin.
   We test the new code, highlight its strengths and weaknesses, and
-  apply it to estimate power
-  liberated by neutrino-antineutrino annihilation near the hypermassive neutron
-  star formed by a merger.
+  apply it to simulations of neutron star mergers to
+  1) compute neutrino fluxes as a function of energy and emission angle, and
+  2) compute the radiation pressure tensor in the funnel of the disk,
+  demonstrating a way to improve the closure relations used in the truncated
+  moment formalism.
 \end{abstract}
 
 \maketitle
@@ -97,32 +100,44 @@ it has two degrees of freedom, which we can make explicit by defining its
 spatial components with respect to spherical polar angles
 \begin{equation}
   \label{eq:def_direction}
-  \ell_i :=
-  (\sin\upsilon_1\cos\upsilon_2,\sin\upsilon_1\sin\upsilon_2,\cos\upsilon_1).
+  \ell_\alpha :=
+  q (s,\sin\upsilon_1\cos\upsilon_2,\sin\upsilon_1\sin\upsilon_2,\cos\upsilon_1),
 \end{equation}
+with $q$ and $s$ functions of $\upsilon_1$ and $\upsilon_2$.
 
 Neutrino radiation obeys the relativistic Boltzmann equation
 \begin{equation}
   \label{eqn:boltzmann}
-  \frac{d}{d\lambda}f = \mathscr{E} - \mathscr{K} f
-  + \mathscr{K}_s \oint d\Omega' \phi(\ell_\alpha,\ell_\beta') f,
+  \frac{d}{d\lambda}f(x^\alpha;\varepsilon,\ell_\beta) =
+  C[f](x^\alpha;\varepsilon,\ell_\beta),
 \end{equation}
 where $\frac{d}{d\lambda}$ denotes a derivative with respect to the affine
 parameter defining the neutrino momentum,
-and $d\Omega'$ is the element of area in momentum space, with $\ell_\alpha$
-ranging over the sphere.
-We have introduced
-$\mathscr{E}$, the invariant emissivity,
-$\mathscr{K}\equiv\mathscr{K}_a+\mathscr{K}_s$, the invariant total opacity
-comprised of absorption and scattering opacities, and
-$\phi(\ell_\alpha,\ell_\beta')$, the elastic scattering kernel, representing the
-likelihood of scattering from the direction $\ell_\beta'$ to the direction
-$\ell_\alpha$, subject to the normalization
-\todo{confirm this}
+and $C[f](x^\alpha;\varepsilon,\ell_\beta)$
+is the source term arising from interactions with the medium,
+including absorption/emission, elastic scattering, inellastic scattering,
+and pair annihilation/production processes.
+We symbolize $C$ this way to remind us that it depends on the positon and
+momentum of the neutrinos in question, and nonlocally on $f$ at other positions
+and momenta.
+We compute $C$ in App.~\ref{sec:source_terms}.
+
+We make the right hand side of Eqn.~\ref{eqn:boltzmann} explicit by writing
+the source term linear in $f$:
 \begin{equation}
-  \oint d\ell' \phi(\ell_\alpha,\ell_\beta') = 1.
-  \nonumber
+  \label{eqn:boltzmann_linear}
+  \frac{d}{d\lambda}f =
+  \mathscr{E}^* - \mathscr{K}^* f,
 \end{equation}
+where we have introduced
+$\mathscr{E}^*$, the invariant emissivity, and
+$\mathscr{K}^*$, the invariant opacity, and for simplicity we have suppressed
+the arguments of $f$.
+These coefficients account for Fermi-blocking and involve integrals over the
+neutrino distribution function at other energies and angles,
+$f(\varepsilon', \ell'_\beta)$.
+We derive them for the relevant microphysical processes in
+App.~\ref{sec:source_terms}
 
 \subsection{Trajectories}
 \label{ssc:trajectories}
@@ -134,7 +149,8 @@ A family of trajectories shares the same $x^\alpha$; for example,
 the family of emission trajectories is ($x^\alpha_e,\ell_\beta$),
 and the family of observation trajectories is ($x^\alpha_o,\ell_\beta$).
 
-A neutrino trajectory obeys the geodesic equations
+A neutrino trajectory obeys the geodesic equation, which may be decomposed into
+the coupled first-order equations
 \begin{equation}
 \label{eqn:geodesic_x}
   \frac{d x^\alpha}{d\lambda} = p^\alpha,
@@ -142,28 +158,41 @@ A neutrino trajectory obeys the geodesic equations
 and
 \begin{equation}
 \label{eqn:geodesic_p}
-  \frac{d p_\beta}{d\lambda} = -\psi_{\alpha\beta}\Gamma^\alpha_{\mu\gamma} p^\mu p^\gamma,
+  \frac{d p_\beta}{d\lambda} = -\Gamma^\alpha_{\mu\beta} p^\mu p_\alpha,
 \end{equation}
-where $\psi_{\alpha\beta}$ is the metric, and
-$\Gamma^\alpha_{\mu\gamma}$ are the standard connection coefficients,
+where $\Gamma^\alpha_{\mu\gamma}$ are the standard connection coefficients,
 \begin{equation}
   \label{eqn:christoffel}
   \Gamma^\beta_{\alpha\gamma} =
   \frac{1}{2} \psi^{\beta\mu}
-  (\psi_{\mu\alpha,\gamma} + \psi_{\mu\gamma,\alpha} - \psi_{\alpha\gamma,\mu}).
+  (\psi_{\mu\alpha,\gamma} + \psi_{\mu\gamma,\alpha} - \psi_{\alpha\gamma,\mu}),
 \end{equation}
+and $\psi_{\alpha\beta}$ is the spacetime metric.
 
-Each trajectory is parameterized by proper distance, $s$, increasing in
-the direction of $\ell$. We choose $s=0$ at $x^\alpha_e$.
-and $s=s_o$ at $x^\alpha_o$.
+Each trajectory is parameterized by affine parameter, $\lambda$, increasing in
+the direction of $\ell$. We choose $\lambda=0$ at $x^\alpha_e$.
+and $\lambda=\lambda_o$ at $x^\alpha_o$.
 According to Eqn.~\ref{eqn:geodesic_x} proper distance relates to the affine
 parameter by $ds=p^t d\lambda$.
 
 \section{Fundamental Tests}
 
-\section{Neutrino annihilation}
+\section{Emission Spectra}
 The high disk mass model is described in \cite{deat2013-leakage}.
 
+\section{Closure Relation}
+
+% ******************************************************************************
+\appendix
+
+\section{Source Terms}
+\label{sec:source_terms}
+The source terms comprising the right hand side of the Boltzmann Equation
+(Eqn.~\ref{eqn:boltzmann}), can be analyzed in terms of the microphysical
+processes of absorption/emission, elastic scattering, inellastic scattering,
+and pair annihilation/production.
+
+% ******************************************************************************
 \bibliography{references}
 
 \end{document}
