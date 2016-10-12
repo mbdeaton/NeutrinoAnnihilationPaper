@@ -77,19 +77,79 @@
 \maketitle
 
 \section{Introduction}
+Neutrinos are one of the dominant energy transport phenomena at play in
+neutron star mergers, heating, cooling, and pushing the disrupted nuclear
+matter.
+In addition, they change the composition of the matter via charged current
+interactions.
+Because neutrinos scatter over length scales both large and small with
+respect to fluid scales, accurate models require a neutrino treatment that
+respects the freedom of the neutrino distribution functions to vary
+drastically from equilibrium.
+
+This is a challenging task in the environment of a merger,
+which generally lacks any spatial symmetries.
+The state of the art today employs a truncated moment formalism
+\citep{fouc2015-m1_bhns, fouc2016-m1_nsns},
+evolving the zeroth- and first-angular moments of the distribution function
+(the energy density and flux respectively) for the zeroth-energy moment
+(the total energy).
+Recently, \cite{fouc2016-m1_evolve_n} have expanded their code to also evolve
+the number densities of neutrinos, giving a more accurate estimate of the
+average neutrino energies.
+But with only two angular moments and one energy moment, the distribution
+function has very limited angular and spectral information.
 
 \subsection{What physics problems do we want to address?}
+But many interesting unsolved problems require an accurate model of the neutrino
+spectra and angular distribution.
+With a model of the neutrino emission from a merger we can
+1) examine neutrino effects on the nucleosynthesis of the ejected material
+\citep{robe2016-nsbh_sph_nucleo},
+2) explore the rich flavor oscillation physics likely to occur here
+\citep{malk2012-mnr_1, malk2014-mnr_2, malk2015-mnr_3, zhu2016-mnr_disk,
+  vaan2016-uncovering_mnr},
+3) improve closure relations used in truncated moment evolution schemes, and
+4) look at jet formation due to neutrino annihilation
+\citep{birk2007-nunubar}.
 
 \subsection{Why ray tracing?}
+In this work we present a ray tracing method to compute neutrino distribution
+functions from the state of the art general relativistic radiation
+hydrodynamics simulations.
+We choose ray tracing because it is conceptually simple, numerically cheap,
+and easily extends to high resolution in energy and angle.
 
 \subsection{What is new/better about this ray tracing formulation?}
+We build upon ray tracing methods already in the literature
+\citep{hari2010-nunubar_gr, ?}
+by including an elastic scattering approximation
+\todo{and perhaps inelastic}
+and removing any assumptions about the spacetime geometry.
+To incorporate elastic scattering in our method, we employ the lower-order
+estimates of the distribution function evolved in a moment scheme.
 
 \subsection{Why does scattering matter?}
+It is essential that we include scattering because although elastic scattering
+doesn't change the emitted spectrum, it can significantly modify neutrino
+distributions in angle, and dilute the emitted spectrum over a larger emitting
+surface \citep{yonglin_collab}, especially for heavy-lepton neutrinos.
+Any phenomena that involve neutrino-neutrino interactions (neutrino oscillations,
+and neutrino-antineutrino annihilation) can depend sensitively on the angular
+distribution.
+And a diluted spectrum can have a different effect on the nucleosynthesis
+occuring in the ejected and irradiated material.
 
 \subsection{In what ways is this method limited?}
+Ray tracing, however, has the fundamental limitation that it treats the
+Boltzmann equation as completely decoupled between different neutrino momenta
+and species. In this paper we seek to push this limitation by incorporating
+coupling terms that depend on previously-evolved estimates of the neutrino
+fields. This method is not a standalone radiation transport scheme, but
+is presented as one component of a  hybrid scheme, piggybacking on a
+lower-order radiation transport method as a post-processing step.
 
 \subsection{Outline}
-
 In Sec.~\ref{sec:formulation} we derive the ray tracing equations from the
 Boltzmann equation and describe our numerical scheme.
 In Sec.~\ref{sec:tests} we present some tests of the code.
@@ -105,7 +165,6 @@ We use naturalized units in which $\hbar=c=1$.
 
 \section{Ray tracing formulation}
 \label{sec:formulation}
-
 The neutrino distribution function, $f(x^\alpha; p_\beta)$ is an invariant
 quantity counting the number of neutrinos in a given momentum volume centered on
 $p_\beta$ and spatial volume centered on $x^\alpha$.
@@ -212,8 +271,7 @@ parameter by $ds=p^t d\lambda$.
 
 \subsection{Emission Spectra}
 \label{ssec:spectra}
-
-The high disk mass model is described in \cite{deat2013-leakage}.
+The merger models are described in \cite{fouc2015-m1_nsbh,fouc2016-m1_nsns}.
 
 \subsection{Closure Relation}
 \label{ssec:closure}
