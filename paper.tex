@@ -84,13 +84,14 @@ In addition, they change the composition of the matter via charged current
 interactions.
 Because neutrinos scatter over length scales both large and small with
 respect to fluid scales, accurate models require a neutrino treatment that
-respects the freedom of the neutrino distribution functions to vary
-drastically from equilibrium.
+respects the freedom of neutrino distribution functions to vary
+drastically from thermodynamic equilibrium.
 
 This is a challenging task in the environment of a merger,
 which generally lacks any spatial symmetries.
-The state of the art today employs a truncated moment formalism
-\citep{fouc2015-m1_bhns, fouc2016-m1_nsns},
+The state of the art today employs either a
+or a truncated moment formalism
+\citep{fouc2015-m1_nsbh, fouc2016-m1_nsns},
 evolving the zeroth- and first-angular moments of the distribution function
 (the energy density and flux respectively) for the zeroth-energy moment
 (the total energy).
@@ -105,13 +106,13 @@ But many interesting unsolved problems require an accurate model of the neutrino
 spectra and angular distribution.
 With a model of the neutrino emission from a merger we can
 1) examine neutrino effects on the nucleosynthesis of the ejected material
-\citep{robe2016-nsbh_sph_nucleo},
+\citep{robe2016-sph_nu_nucleo},
 2) explore the rich flavor oscillation physics likely to occur here
-\citep{malk2012-mnr_1, malk2014-mnr_2, malk2015-mnr_3, zhu2016-mnr_disk,
+\citep{malk2012-mnr_1, malk2015-mnr_2, malk2016-mnr_3, zhu2016-mnr_nsns_remnant,
   vaan2016-uncovering_mnr},
 3) improve closure relations used in truncated moment evolution schemes, and
 4) look at jet formation due to neutrino annihilation
-\citep{birk2007-nunubar}.
+\citep{birk2007-nunubar, hari2010-gr_nunubar_collapsar, ?}.
 
 \subsection{Why ray tracing?}
 In this work we present a ray tracing method to compute neutrino distribution
@@ -122,7 +123,8 @@ and easily extends to high resolution in energy and angle.
 
 \subsection{What is new/better about this ray tracing formulation?}
 We build upon ray tracing methods already in the literature
-\citep{hari2010-nunubar_gr, ?}
+\citep{hari2010-gr_nunubar_collapsar, youn2012-gr_radiative_transfer,
+  kova2011-gr_ray_tracing, ?}
 by including an elastic scattering approximation
 \todo{and perhaps inelastic}
 and removing any assumptions about the spacetime geometry.
@@ -133,7 +135,7 @@ estimates of the distribution function evolved in a moment scheme.
 It is essential that we include scattering because although elastic scattering
 doesn't change the emitted spectrum, it can significantly modify neutrino
 distributions in angle, and dilute the emitted spectrum over a larger emitting
-surface \citep{yonglin_collab}, especially for heavy-lepton neutrinos.
+surface \citep{pere2016-asl}, especially for heavy-lepton neutrinos.
 Any phenomena that involve neutrino-neutrino interactions (neutrino oscillations,
 and neutrino-antineutrino annihilation) can depend sensitively on the angular
 distribution.
@@ -271,7 +273,7 @@ parameter by $ds=p^t d\lambda$.
 
 \subsection{Emission Spectra}
 \label{ssec:spectra}
-The merger models are described in \cite{fouc2015-m1_nsbh,fouc2016-m1_nsns}.
+The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
 
 \subsection{Closure Relation}
 \label{ssec:closure}
