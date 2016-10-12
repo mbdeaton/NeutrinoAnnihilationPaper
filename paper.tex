@@ -76,26 +76,52 @@
 
 \maketitle
 
+\section{Introduction}
+
+\subsection{What physics problems do we want to address?}
+
+\subsection{Why ray tracing?}
+
+\subsection{What is new/better about this ray tracing formulation?}
+
+\subsection{Why does scattering matter?}
+
+\subsection{In what ways is this method limited?}
+
+\subsection{Outline}
+
+In Sec.~\ref{sec:formulation} we derive the ray tracing equations from the
+Boltzmann equation and describe our numerical scheme.
+In Sec.~\ref{sec:tests} we present some tests of the code.
+In Sec.~\ref{sec:applications} we present two applications:
+neutrino spectra as a function of observer's angle, and
+a variable closure relation for a truncated moment formalism.
+We present both applications in the dynamical environments following the merger
+of a neutron star--neutron star and a black hole--neutron star binary.
+
 Greek tensor indices ($\alpha, \beta, ...$) range over all four coordinates,
 whereas Latin indices ($i, j, ...$) range over the spatial coordinates 1--3.
 We use naturalized units in which $\hbar=c=1$.
 
 \section{Ray tracing formulation}
+\label{sec:formulation}
 
-The neutrino distribution function, $f(p_\beta; x^\alpha)$ is an invariant
+The neutrino distribution function, $f(x^\alpha; p_\beta)$ is an invariant
 quantity counting the number of neutrinos in a given momentum volume centered on
 $p_\beta$ and spatial volume centered on $x^\alpha$.
-The neutrino momentum is written
+We may decompose the neutrino momentum
 \begin{equation}
   \label{eqn:def_momentum}
   p_\beta = \varepsilon (u_\beta + \ell_\beta),
 \end{equation}
-with $u^\beta$ a general observer's velocity,
+with $u^\beta$ some fiducial observer's velocity,
 $\varepsilon=-p_\mu u^\mu$ the energy measured by that observer,
-and $\ell_\beta$ the direction vector subject to the constraints
+and $\ell_\beta$ the direction subject to the constraints
 $u^\alpha \ell_\alpha = 0$ and
 $\ell^\alpha \ell_\alpha=1$.
-Because $\ell$ is normalized and perpendicular to the observer's velocity,
+With this decompositon we can write the arguments to the distribution function
+$f(x^\alpha;\varepsilon,\ell_\beta)$.
+Because $\ell_\beta$ is normalized and perpendicular to the observer's velocity,
 it has two degrees of freedom, which we can make explicit by defining its
 spatial components with respect to spherical polar angles
 \begin{equation}
@@ -175,20 +201,30 @@ and $\lambda=\lambda_o$ at $x^\alpha_o$.
 According to Eqn.~\ref{eqn:geodesic_x} proper distance relates to the affine
 parameter by $ds=p^t d\lambda$.
 
-\section{Fundamental Tests}
+\subsection{Numerical Implementation}
+\label{sec:numerical}
 
-\section{Emission Spectra}
+\section{Fundamental Tests}
+\label{sec:tests}
+
+\section{Applications}
+\label{sec:applications}
+
+\subsection{Emission Spectra}
+\label{ssec:spectra}
+
 The high disk mass model is described in \cite{deat2013-leakage}.
 
-\section{Closure Relation}
+\subsection{Closure Relation}
+\label{ssec:closure}
 
 % ******************************************************************************
 \appendix
 
 \section{Source Terms}
 \label{sec:source_terms}
-The source terms comprising the right hand side of the Boltzmann Equation
-(Eqn.~\ref{eqn:boltzmann}), can be analyzed in terms of the microphysical
+Here we present the source terms comprising the right hand side of the
+Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) in terms of the microphysical
 processes of absorption/emission, elastic scattering, inellastic scattering,
 and pair annihilation/production.
 
