@@ -1,4 +1,4 @@
-\documentclass[aps,prd,twocolumn,superscriptaddress,groupedaddress]{revtex4}
+\documentclass[aps,prd,twocolumn,superscriptaddress,groupedaddress]{revtex4-1}
 % Intended to be built with pdflatex, using the REVTEX 4 package.
 % Template taken from FermiLab APS Jouranl template.
 
@@ -9,6 +9,7 @@
 \usepackage[mathscr]{euscript}    % for \mathscr
 \usepackage{graphicx}             % for \includegraphics
 \usepackage{hyperref}             % for \url and \href
+\usepackage{tabularx}             % for tabularx
 
 % commands/initialization
 \hyphenation{ALPGEN} % avoid incorrect hyphenation
@@ -25,7 +26,8 @@
 \leftline{Compiled \today}
 \leftline{To be submitted to PRD}
 
-\title{General Relativistic Ray Tracing for Neutrinos}
+\title{Scattering and Pair Processes in General Relativistic Ray Tracing for Neutrinos}
+\todo{you sure about including all processes?}
 
 \author{M.\ Brett Deaton}
 \affiliation{Joint Institute for Nuclear Astrophysics,
@@ -61,10 +63,15 @@
 % *******************************************************************************
 
 \begin{abstract}
-  We present a ray tracing algorithm for computing high-resolution neutrino
-  distributions in general numerical spacetimes with hydrodynamical sources.
-  Our formulation is covariant and treats elastic scattering by incorporating
-  estimates of the neutrino fields evolved in a low-order moment simulation.
+  We present a covariant ray tracing algorithm for computing high-resolution
+  neutrino distributions in general numerical spacetimes with hydrodynamical
+  sources.
+  Our formulation treats scattering and pair processes
+  by incorporating estimates of the background neutrino fields.
+  These background fields may be taken from a low-order moment simulation,
+  be supplied analytically in simple cases,
+  or be ignored entirely, in which case the method
+  reduces to a standard state-of-the-art ray tracing formulation.
   It handles radiation in regimes spanning optically thick to optically thin.
   We test the new code, highlight its strengths and weaknesses, and
   apply it to simulations of neutron star mergers to
@@ -88,72 +95,152 @@ respects the freedom of neutrino distribution functions to vary
 drastically from thermodynamic equilibrium.
 
 This is a challenging task in the environment of a merger,
-which generally lacks any spatial symmetries.
-The state of the art today employs either a
-or a truncated moment formalism
-\citep{fouc2015-m1_nsbh, fouc2016-m1_nsns},
+which generally lacks any spatial symmetries so that fully general
+seven-dimensional solutions to the Boltzmann Equation are not feasible.
+Leakage approximations
+\citep{deat2013-leakage, pere2016-asl, radi2016-dynamical, ?}
+capture the qualitative effects of neutrinos on the matter, but
+produce limited information about the neutrino field itself.
+Monte Carlo methods \citep{abdi2012-monte_carlo, rich2015-monte_carlo}
+suffer from noise.
+\todo{discuss mc more clearly}
+The state of the art today employs a truncated moment formalism
+\citep{shib2011-truncated_moment, fouc2015-m1_nsbh, fouc2016-m1_nsns,
+  just2015-m1_code, ?},
 evolving the zeroth- and first-angular moments of the distribution function
-(the energy density and flux respectively) for the zeroth-energy moment
-(the total energy).
+(the energy density and flux respectively) representing the zeroth-energy moment
+of the radiation field (the total energy).
 Recently, \cite{fouc2016-m1_evolve_n} have expanded their code to also evolve
-the number densities of neutrinos, giving a more accurate estimate of the
-average neutrino energies.
+the number densities of neutrinos, providing an estimate of the average neutrino
+energies in addition to their totals.
 But with only two angular moments and one energy moment, the distribution
 function has very limited angular and spectral information.
 
-\subsection{What physics problems do we want to address?}
+\subsubsection*{What physics problems do we want to address?}
 But many interesting unsolved problems require an accurate model of the neutrino
-spectra and angular distribution.
+spectra and angular distributions.
 With a model of the neutrino emission from a merger we can
 1) examine neutrino effects on the nucleosynthesis of the ejected material
-\citep{robe2016-sph_nu_nucleo},
-2) explore the rich flavor oscillation physics likely to occur here
+\citep{surm2011-nickel_56, robe2016-sph_nu_nucleo},
+2) explore the rich flavor oscillation physics likely to occur
 \citep{malk2012-mnr_1, malk2015-mnr_2, malk2016-mnr_3, zhu2016-mnr_nsns_remnant,
   vaan2016-uncovering_mnr},
-3) improve closure relations used in truncated moment evolution schemes, and
-4) look at jet formation due to neutrino annihilation
-\citep{birk2007-nunubar, hari2010-gr_nunubar_collapsar, ?}.
+3) improve closure relations used in truncated moment schemes
+\citep{ramp2002-truncated_moment, shib2011-truncated_moment,
+  card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}, and
+4) study possible jet formation due to neutrino annihilation
+\citep{ruff1999-nunubar_nsns, asan2000-nunubar, birk2007-nunubar,
+  hari2010-gr_nunubar_collapsar, zala2011-nunubar, leng2014-nunubar}.
 
-\subsection{Why ray tracing?}
+\subsubsection*{Why ray tracing?}
 In this work we present a ray tracing method to compute neutrino distribution
-functions from the state of the art general relativistic radiation
+functions from state-of-the-art general relativistic radiation
 hydrodynamics simulations.
 We choose ray tracing because it is conceptually simple, numerically cheap,
 and easily extends to high resolution in energy and angle.
 
-\subsection{What is new/better about this ray tracing formulation?}
-We build upon ray tracing methods already in the literature
-\citep{hari2010-gr_nunubar_collapsar, youn2012-gr_radiative_transfer,
-  kova2011-gr_ray_tracing, ?}
-by including an elastic scattering approximation
-\todo{and perhaps inelastic}
-and removing any assumptions about the spacetime geometry.
-To incorporate elastic scattering in our method, we employ the lower-order
-estimates of the distribution function evolved in a moment scheme.
+With a ray tracing method we approach radiation transport from the perspective
+of a single observer at a spacetime event $x_o^\alpha$.
+Our goal is to compute the distribution function $f(x_o^\alpha;p_\beta)$,
+or the amount of radiation with momentum $p_\beta$ impinging on $x_o^\alpha$.
+To do so we trace a geodesic trajectory in the backwards direction
+$-p_\beta$ to sample the incoming radiation along that line of sight.
+By tracing a family of rays intersecting $x_o^\alpha$ we build up a
+picture of the distribution function there.
+And by sampling many observation points we construct a global picture
+of $f(x^\alpha;p_\beta)$.
 
-\subsection{Why does scattering matter?}
-It is essential that we include scattering because although elastic scattering
-doesn't change the emitted spectrum, it can significantly modify neutrino
+The ray tracing framework
+is conceptually simple because it interprets the equation of radiation
+transport (Eqn.~\ref{eqn:boltzmann})
+as a one-dimensional ordinary differential equation,
+it is numerically cheap because it confines computations of
+$f(x_o^\alpha;p_\beta)$ to the past light-cone of $x_o^\alpha$,
+and it easily extends to high resolution in energy and angle by simply
+increasing the number of rays sampled.
+
+\subsubsection*{What is new and better about this ray tracing formulation?}
+Several ray tracing formulations for radiation transport already exist.
+Most formulations assume an analytic spacetime metric
+\citep{birk2007-nunubar, hari2010-gr_nunubar_collapsar, kova2011-gr_ray_tracing}.
+And many make the simplifying assumption of blackbody emission from a
+neutrinosurface \citep{birk2007-nunubar, kova2011-gr_ray_tracing}.
+Current state-of-the-art ray tracing formulations avoid the assumption of
+blackbody spectra by integrating a local emissivity along each geodesic
+(e.g. \cite{hari2010-gr_nunubar_collapsar} for neutrinos and
+\cite{youn2012-gr_radiative_transfer} for photons).
+But no formulations to date account for the important scattering and pair
+processes outlined in Tab.~\ref{tab:neutrino_processes}.
+
+We build upon existing ray tracing formulations
+by eschewing any assumptions about the spacetime geometry
+and by including scattering and pair processes in the integration along each
+geodesic.
+To incorporate these neutrino processes in our method, we employ
+estimates of the first two angular moments of the distribution function
+computed in a truncated moment scheme (formulated by
+\cite{thor1981-truncated_moment, shib2011-truncated_moment}
+and applied e.g. in \cite{ramp2002-truncated_moment,
+  card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}).
+If the first two angular moments are not available either from
+a truncated moment evolution or a trustworthy analytical estimate,
+our method reduces to the current state-of-the-art ray tracing method,
+neglecting scattering and pair processes.
+
+\subsubsection*{Why does a covariant formulation matter?}
+We formulate our ray tracing equations covariantly---free from
+assumptions about the spacetime geometry or coordinates. This is essential
+because we want to apply the method as a postprocessing step using
+time snapshots of data computed from general relativistic evolutions.
+The spacetime represented in these snapshots is not analytic (i.e. Kerr).
+And even in configurations that are described well by the Kerr metric
+(e.g. a low-mass disk around a massive black hole),
+the evolution coordinates are unlikely to present the metric in
+a familiar analytic form.
+This is because integrating the Einstein Equations often requires complicated,
+time-dependent guage conditions
+\citep{lind2007-gen_harmonic, fouc2013-compactness_and_spin}.
+
+\subsubsection*{Why do scattering and pair processes matter?}
+Inelastic scattering and pair processes introduce significant changes to
+a spectrum,
+\todo{clarify these terms}
+\todo{justify these statements}
+and elastic scattering can signicantly modify neutrino
 distributions in angle, and dilute the emitted spectrum over a larger emitting
 surface \citep{pere2016-asl}, especially for heavy-lepton neutrinos.
 Any phenomena that involve neutrino-neutrino interactions (neutrino oscillations,
 and neutrino-antineutrino annihilation) can depend sensitively on the angular
 distribution.
-And a diluted spectrum can have a different effect on the nucleosynthesis
+And spectral changes can strongly affect the nucleosynthesis
 occuring in the ejected and irradiated material.
+\todo{justify these statements}
 
-\subsection{In what ways is this method limited?}
-Ray tracing, however, has the fundamental limitation that it treats the
-Boltzmann equation as completely decoupled between different neutrino momenta
-and species. In this paper we seek to push this limitation by incorporating
-coupling terms that depend on previously-evolved estimates of the neutrino
-fields. This method is not a standalone radiation transport scheme, but
-is presented as one component of a  hybrid scheme, piggybacking on a
-lower-order radiation transport method as a post-processing step.
+\subsubsection*{In what ways is this method limited?}
+Ray tracing is ideally suited to problems requiring detailed knowledge of
+radiation distribution functions over small regions of spacetime:
+for example along a matter or radiation trajectory,
+or over a small volume outside a source.
+But the method becomes computationally burdensome when the inquiry extends
+to large volumes of spacetime.
+
+More fundamentally, though, ray tracing is limited by its naive
+treatment of the Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}),
+a treatment which essentially decouples different neutrino momenta and species.
+\todo{clarify how momenta are decoupled}
+In this paper we outwit this limitation by incorporating coupling
+terms that depend on either previously-evolved or analytical
+estimates of the neutrino fields.
+We also retain the freedom to drop the coupling terms, in which case our method
+becomes similar to existing state-of-the-art ray tracing methods.
+Our method is not a standalone radiation transport scheme,
+but serves as the final component of a hybrid scheme,
+piggy-backing on a lower-order radiation transport method as a
+post-processing step.
 
 \subsection{Outline}
 In Sec.~\ref{sec:formulation} we derive the ray tracing equations from the
-Boltzmann equation and describe our numerical scheme.
+Boltzmann Equation and describe our numerical scheme.
 In Sec.~\ref{sec:tests} we present some tests of the code.
 In Sec.~\ref{sec:applications} we present two applications:
 neutrino spectra as a function of observer's angle, and
@@ -177,13 +264,13 @@ We may decompose the neutrino momentum
 \end{equation}
 with $u^\beta$ some fiducial observer's velocity,
 $\varepsilon=-p_\mu u^\mu$ the energy measured by that observer,
-and $\ell_\beta$ the direction subject to the constraints
-$u^\alpha \ell_\alpha = 0$ and
-$\ell^\alpha \ell_\alpha=1$.
+and $\ell_\beta$ the direction normal subject to the constraints
+$u^\alpha \ell_\alpha = 0$ and $\ell^\alpha \ell_\alpha=1$.
 With this decompositon we can write the arguments to the distribution function
 $f(x^\alpha;\varepsilon,\ell_\beta)$.
-Because $\ell_\beta$ is normalized and perpendicular to the observer's velocity,
-it has two degrees of freedom, which we can make explicit by defining its
+Because $\ell_\beta$ is subject to two constraints
+(normalization and orthogonality to the observer's velocity)
+it has two degrees of freedom; we this make explicit by defining its
 spatial components with respect to spherical polar angles
 \begin{equation}
   \label{eq:def_direction}
@@ -191,23 +278,28 @@ spatial components with respect to spherical polar angles
   q (s,\sin\upsilon_1\cos\upsilon_2,\sin\upsilon_1\sin\upsilon_2,\cos\upsilon_1),
 \end{equation}
 with $q$ and $s$ functions of $\upsilon_1$ and $\upsilon_2$.
+Now our symbol for the distribution function,
+$f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2)$,
+makes manifest its seven independent arguments.
 
-Neutrino radiation obeys the relativistic Boltzmann equation
+Neutrino radiation obeys the relativistic Boltzmann Equation
+\todo{explain limit of QKEs}
 \begin{equation}
   \label{eqn:boltzmann}
-  \frac{d}{d\lambda}f(x^\alpha;\varepsilon,\ell_\beta) =
-  C[f](x^\alpha;\varepsilon,\ell_\beta),
+  \frac{d}{d\lambda}f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2) = C[f],
 \end{equation}
 where $\frac{d}{d\lambda}$ denotes a derivative with respect to the affine
-parameter defining the neutrino momentum,
-and $C[f](x^\alpha;\varepsilon,\ell_\beta)$
-is the source term arising from interactions with the medium,
-including absorption/emission, elastic scattering, inellastic scattering,
-and pair annihilation/production processes.
-We symbolize $C$ this way to remind us that it depends on the positon and
-momentum of the neutrinos in question, and nonlocally on $f$ at other positions
-and momenta.
-We compute $C$ in App.~\ref{sec:source_terms}.
+parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x})
+and $C[f]$ is the source term arising from interactions with the medium.
+The source term varies over phase space $(x^\alpha,p_\beta)$,
+and depends locally on the distribution function
+$f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2)$,
+positon $x^\alpha$, and momentum $p_\beta$ of the neutrinos in question,
+and nonlocally on the distribution function of this neutrino and its
+antiparticle at different momenta, $f'$ and $\bar{f}'$.
+For clarity we symbolize all of these dependencies with the shorthand $C[f]$.
+The various neutrino interactions contributing to $C[f]$ are detailed in
+App.~\ref{sec:source_terms}.
 
 We make the right hand side of Eqn.~\ref{eqn:boltzmann} explicit by writing
 the source term linear in $f$:
@@ -217,26 +309,24 @@ the source term linear in $f$:
   \mathscr{E}^* - \mathscr{K}^* f,
 \end{equation}
 where we have introduced
-$\mathscr{E}^*$, the invariant emissivity, and
-$\mathscr{K}^*$, the invariant opacity, and for simplicity we have suppressed
-the arguments of $f$.
-These coefficients account for Fermi-blocking and involve integrals over the
-neutrino distribution function at other energies and angles,
-$f(\varepsilon', \ell'_\beta)$.
-We derive them for the relevant microphysical processes in
-App.~\ref{sec:source_terms}
+$\mathscr{E}^*$, the invariant total emissivity, and
+$\mathscr{K}^*$, the invariant total opacity,
+and for simplicity we have suppressed the arguments of $f$.
+These coefficients are derived by considering Fermi-blocking and
+dependencies on neutrino and antineutrino distribution functions at other
+momenta.
+They are derived in App.~\ref{sec:source_terms}.
 
 \subsection{Trajectories}
-\label{ssc:trajectories}
+\label{ssec:trajectories}
 Each trajectory is labeled by a pair of vectors
-giving some position on the trajectory, $x^\alpha$,
-and the normalized momentum direction at that position,
-$\ell_\beta$.
+giving some event on the trajectory, $x^\alpha$,
+and the momentum at that event, $p_\beta$.
 A family of trajectories shares the same $x^\alpha$; for example,
-the family of emission trajectories is ($x^\alpha_e,\ell_\beta$),
-and the family of observation trajectories is ($x^\alpha_o,\ell_\beta$).
+the family of emission trajectories is ($x^\alpha_e,p_\beta$),
+and the family of observation trajectories is ($x^\alpha_o,p_\beta$).
 
-A neutrino trajectory obeys the geodesic equation, which may be decomposed into
+Neutrino trajectories obey the geodesic equation, which may be decomposed into
 the coupled first-order equations
 \begin{equation}
 \label{eqn:geodesic_x}
@@ -257,16 +347,48 @@ where $\Gamma^\alpha_{\mu\gamma}$ are the standard connection coefficients,
 and $\psi_{\alpha\beta}$ is the spacetime metric.
 
 Each trajectory is parameterized by affine parameter, $\lambda$, increasing in
-the direction of $\ell$. We choose $\lambda=0$ at $x^\alpha_e$.
+the direction of $\ell_\beta$. We choose $\lambda=0$ at $x^\alpha_e$
 and $\lambda=\lambda_o$ at $x^\alpha_o$.
 According to Eqn.~\ref{eqn:geodesic_x} proper distance relates to the affine
 parameter by $ds=p^t d\lambda$.
+\todo{show}
+
+\subsection{The Rendering Equation}
+\label{ssec:rendering_eqn}
+
+\subsection{Neutrinosurface approximation}
+\label{ssec:neutrinosurface}
+
+\subsection{Moments of the Distribution Function}
+\label{ssec:moments}
 
 \subsection{Numerical Implementation}
-\label{sec:numerical}
+\label{ssec:numerical}
 
 \section{Fundamental Tests}
 \label{sec:tests}
+
+\subsection{Dummy Tests}
+Maybe we don't need to present these tests, but make sure to establish
+confidence in the basics:
+gravitational redshift, Doppler shift, thermodynamic equilibrium.
+
+\subsection{Homogenous Absorbing Star}
+Test described in~\cite[Sec.~3.2]{smit1997-two_moment}
+
+\subsection{Homogenous Scattering Star}
+Test presented in~\cite{humm1971-grey_transfer}
+and described in~\cite[Sec.~9.1.1]{abdi2012-monte_carlo}.
+
+\subsection{Post-Bounce Neutron Core}
+Standard radiation transport test described in~\cite{ocon2015-gr1d_with_nu},
+and in \cite[App.~E.6]{fouc2015-m1_nsbh},
+and in~\cite{abdi2012-monte_carlo}.
+
+\subsection{Disk Comparison to M1}
+Compute total and relative number and energy luminosities for a disk evolved
+in one of~\cite{fouc2015-m1_nsbh, fouc2016-m1_nsns, fouc2016-m1_evolve_n}.
+Expect agreement within factors of a few (?).
 
 \section{Applications}
 \label{sec:applications}
@@ -274,9 +396,20 @@ parameter by $ds=p^t d\lambda$.
 \subsection{Emission Spectra}
 \label{ssec:spectra}
 The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
+Something like this is presented in~\cite[Fig.~10-11]{pere2014-nu_wind};
+compare.
 
 \subsection{Closure Relation}
 \label{ssec:closure}
+This is a little tricky. Unless we can come up with a new improved analytic
+closure relation and use ray tracing to evaluate its trustworthiness,
+it's going to be hard to get anything useful from computing
+$P^{\alpha\beta}$.
+
+Maybe the variable Eddington closure is more suitable to this application.
+If I understand it right, applying ray tracing to that method would require
+computing $P^{\alpha\beta}$ on the fly throughout the spatial volume.
+That would certainly be doable for a quasi-stationary disk configuration.
 
 % ******************************************************************************
 \appendix
@@ -286,7 +419,43 @@ The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
 Here we present the source terms comprising the right hand side of the
 Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) in terms of the microphysical
 processes of absorption/emission, elastic scattering, inellastic scattering,
-and pair annihilation/production.
+and pair annihilation/production
+(detailed in Tab.~\ref{tab:neutrino_processes}).
+
+\begin{table}
+  \centering
+  \begin{tabularx}{\columnwidth}{X X}
+    \hline \hline
+    absorption/emission
+    & $\nu_e + n \leftrightarrow e^- + p$                          \\
+    & $\bar{\nu}_e + p \leftrightarrow e^+ + n$                    \\
+    & $\nu_e + {}^AZ \leftrightarrow e^- + {}^A(Z+1)$              \\
+    & $\bar{\nu}_e + {}^AZ \leftrightarrow e^+ + {}^A(Z-1)$        \\
+    \hline
+    elastic scattering
+    & $\nu + N \leftrightarrow \nu + N$                            \\
+    & $\nu + {}^AZ \leftrightarrow \nu + {}^AZ$                    \\
+    \hline
+    inelastic scattering
+    & $\nu + e^- \leftrightarrow \nu' + e^{-'}$                    \\
+    & $\nu + e^+ \leftrightarrow \nu' + e^{+'}$                    \\
+    \hline
+    pair processes
+    & $\nu + \bar{\nu} \leftrightarrow e^{-} + e^{+}$              \\
+    & $\nu + \bar{\nu} + N + N \leftrightarrow N' + N'$            \\
+    & $\nu + \bar{\nu} \leftrightarrow \gamma$                     \\
+    \hline \hline
+  \end{tabularx}
+  \caption{
+    We analyze neutrino interaction processes in terms of these categories.
+    $\nu$ without a label represents a neutrino or antineutrino of any flavor,
+    $N$ represents a nucleon $n$ or $p$,
+    ${}^ZA$ represents a nucleus with mass number $A$ and charge $Z$, and
+    $\gamma$ represents a high-energy photon.
+    A prime indicates a change in that particle's energy.
+  }
+  \label{tab:neutrino_processes}
+\end{table}
 
 % ******************************************************************************
 \bibliography{references}
