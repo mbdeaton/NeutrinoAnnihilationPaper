@@ -283,7 +283,7 @@ $f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2)$,
 makes manifest its seven independent arguments.
 
 Neutrino radiation obeys the relativistic Boltzmann Equation
-\todo{explain limit of QKEs}
+\todo{point out limit of QKEs}
 \begin{equation}
   \label{eqn:boltzmann}
   \frac{d}{d\lambda}f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2) = C[f],
@@ -347,23 +347,65 @@ where $\Gamma^\alpha_{\mu\gamma}$ are the standard connection coefficients,
 and $\psi_{\alpha\beta}$ is the spacetime metric.
 
 Each trajectory is parameterized by affine parameter, $\lambda$, increasing in
-the direction of $\ell_\beta$. We choose $\lambda=0$ at $x^\alpha_e$
-and $\lambda=\lambda_o$ at $x^\alpha_o$.
+the direction of $\ell_\beta$. We choose $\lambda=\lambda_0$ at $x^\alpha_e$
+and $\lambda=\lambda$ at $x^\alpha_o$, as in Fig.~\ref{fig:affine_param}.
+\todo{choose a better notation}
 According to Eqn.~\ref{eqn:geodesic_x} proper distance relates to the affine
 parameter by $ds=p^t d\lambda$.
-\todo{show}
+\todo{show explicitly}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{affine_parameter_label}
+  \caption{Affine parameterization of a trajectory.}
+  \label{fig:affine_param}
+\end{figure}
 
 \subsection{The Rendering Equation}
 \label{ssec:rendering_eqn}
+\todo{type up derivation from notes}
+We can integrate Eqn.~\ref{eqn:boltzmann_linear} directly,
+\begin{equation}
+  \label{eqn:rendering}
+  f(\lambda) = f(\lambda_0) e^{-\tau(\lambda,\lambda_0)} +
+  \int_{\lambda_0}^\lambda d\lambda'\,e^{-\tau(\lambda,\lambda')}
+  \mathscr{K}^*(\lambda') \mathscr{S}^*(\lambda'),
+\end{equation}
+where the parameterization conventions are depicted in
+Fig.~\ref{fig:affine_param}.
 
-\subsection{Neutrinosurface approximation}
+\subsection{Neutrinosurface Approximation}
 \label{ssec:neutrinosurface}
+\todo{derive $\tau=2/3$ approx \cite[Chap.~4]{shu1991-book_radiation},
+  and \cite{miln1921-radiative_equil_1}}
+In the simplified configuration of a plane-parallel atmosphere, the
+rendering equation reduces to 
+\begin{equation}
+\label{eqn:neutrinosurface}
+  f(\lambda) = f^{\rm eq}(\lambda_0),
+\end{equation}
+where $\tau(\lambda,\lambda_0)=2/3$.
 
 \subsection{Moments of the Distribution Function}
 \label{ssec:moments}
+\todo{clarify integral differentials}
+We may take angular moments of the distribution function:
+\begin{align}
+  J(\varepsilon) &=
+  \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \\
+  H^\mu(\varepsilon) &=
+  \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \\
+  S^{\mu\gamma}(\varepsilon) &=
+  \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \ell^\gamma,
+\end{align}
+which represent energy density, energy flux, and momentum flux, respectively.
+\todo{clarify moment frame and relate to other frames}
 
 \subsection{Numerical Implementation}
 \label{ssec:numerical}
+Much of our numerical implementation is borrowed from the geodesic evolution
+system described in~\cite{bohn2016-code}.
+\todo{describe eqns for $f_{\rm integ}$ and $\tau$}
+\todo{describe $\nu$-specific numerics}
 
 \section{Fundamental Tests}
 \label{sec:tests}
@@ -372,23 +414,32 @@ parameter by $ds=p^t d\lambda$.
 Maybe we don't need to present these tests, but make sure to establish
 confidence in the basics:
 gravitational redshift, Doppler shift, thermodynamic equilibrium.
+\todo{setup and run dummy tests}
 
 \subsection{Homogenous Absorbing Star}
 Test described in~\cite[Sec.~3.2]{smit1997-two_moment}
+\todo{Jerred: run test}
 
 \subsection{Homogenous Scattering Star}
 Test presented in~\cite{humm1971-grey_transfer}
 and described in~\cite[Sec.~9.1.1]{abdi2012-monte_carlo}.
+\todo{formulate analytic $J$ and $F^\mu$}
+\todo{Jerred: setup and run test}
 
 \subsection{Post-Bounce Neutron Core}
 Standard radiation transport test described in~\cite{ocon2015-gr1d_with_nu},
 and in \cite[App.~E.6]{fouc2015-m1_nsbh},
 and in~\cite{abdi2012-monte_carlo}.
+\todo{Evan: provide initial data and $H^r(\varepsilon)$}
+\todo{Jerred: setup and run test}
 
 \subsection{Disk Comparison to M1}
 Compute total and relative number and energy luminosities for a disk evolved
 in one of~\cite{fouc2015-m1_nsbh, fouc2016-m1_nsns, fouc2016-m1_evolve_n}.
 Expect agreement within factors of a few (?).
+\todo{code up moment integrals}
+\todo{compute luminosities from M1}
+\todo{compute luminosities from ray tracing}
 
 \section{Applications}
 \label{sec:applications}
@@ -398,25 +449,32 @@ Expect agreement within factors of a few (?).
 The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
 Something like this is presented in~\cite[Fig.~10-11]{pere2014-nu_wind};
 compare.
+\todo{code up moment integrals}
+\todo{compute $H^r(\theta;\varepsilon)$ in nsns and nsbh}
+\todo{maybe compute at several times}
 
 \subsection{Closure Relation}
 \label{ssec:closure}
+\todo{figure out your approach}
 This is a little tricky. Unless we can come up with a new improved analytic
 closure relation and use ray tracing to evaluate its trustworthiness,
 it's going to be hard to get anything useful from computing
-$P^{\alpha\beta}$.
+$S^{\alpha\beta}$.
 
 Maybe the variable Eddington closure is more suitable to this application.
 If I understand it right, applying ray tracing to that method would require
-computing $P^{\alpha\beta}$ on the fly throughout the spatial volume.
+computing $S^{\alpha\beta}$ on the fly throughout the spatial volume.
 That would certainly be doable for a quasi-stationary disk configuration.
+\todo{compute $S^{\alpha\beta}$ and evaluate its effect on evolution}
 
 % ******************************************************************************
 \appendix
 
 \section{Source Terms}
 \label{sec:source_terms}
-Here we present the source terms comprising the right hand side of the
+\todo{derive and type up sources in terms of $J$ and $H^\alpha$
+  following \cite[Sec.~4]{shib2011-truncated_moment}}
+Here we present the sources comprising the right hand side of the
 Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) in terms of the microphysical
 processes of absorption/emission, elastic scattering, inellastic scattering,
 and pair annihilation/production
