@@ -365,15 +365,22 @@ neutrino as measured by our fiducial obsever $u^\alpha$.
 
 \subsection{The Rendering Equation}
 \label{ssec:rendering_eqn}
-\todo{type up derivation from notes}
-We can integrate Eqn.~\ref{eqn:boltzmann_linear} directly,
+Defining the source function
+$\mathscr{S}^*\equiv\mathscr{E}^*/\mathscr{K}^*$,
+we can integrate Eqn.~\ref{eqn:boltzmann_linear} directly,
 \begin{equation}
   \label{eqn:rendering}
   f(\lambda) = f(\lambda_e) e^{-\tau(\lambda,\lambda_e)} +
   \int_{\lambda_e}^\lambda d\lambda'\,e^{-\tau(\lambda,\lambda')}
   \mathscr{K}^*(\lambda') \mathscr{S}^*(\lambda'),
 \end{equation}
-where the parameterization conventions are depicted in
+where the optical depth is defined,
+\begin{equation}
+  \label{eqn:optical_depth}
+  \tau(\lambda,\lambda') \equiv -\int_{\lambda'}^\lambda
+  d\lambda'' \, \mathscr{K}^*(\lambda''),
+\end{equation}
+and the parameterization conventions are depicted in
 Fig.~\ref{fig:affine_param}.
 
 \subsection{Neutrinosurface Approximation}
@@ -387,6 +394,10 @@ rendering equation reduces to
   f(\lambda) = f^{\rm eq}(\lambda_e),
 \end{equation}
 where $\tau(\lambda,\lambda_e)=2/3$.
+At an optical depth of $2/3$, the energy flux is equivalent to the
+the blackbody value $\sigma T^4$, with $\sigma$, the Stefan-Boltzmann radiation
+constant.
+\todo{verify}
 
 \subsection{Moments of the Distribution Function}
 \label{ssec:moments}
@@ -483,8 +494,16 @@ processes of absorption/emission, elastic scattering, inellastic scattering,
 and pair annihilation/production
 (detailed in Tab.~\ref{tab:neutrino_processes}).
 
-\begin{table}
-  \centering
+\begin{table}[h]
+  \caption{
+    We analyze neutrino interaction processes in terms of these categories.
+    $\nu$ without a label represents a neutrino or antineutrino of any flavor,
+    $N$ represents a nucleon $n$ or $p$,
+    ${}^ZA$ represents a nucleus with mass number $A$ and charge $Z$, and
+    $\gamma$ represents a high-energy photon.
+    A prime indicates a change in that particle's energy.
+  }
+  \label{tab:neutrino_processes}
   \begin{tabularx}{\columnwidth}{X X}
     \hline \hline
     absorption/emission
@@ -507,15 +526,6 @@ and pair annihilation/production
     & $\nu + \bar{\nu} \leftrightarrow \gamma$                     \\
     \hline \hline
   \end{tabularx}
-  \caption{
-    We analyze neutrino interaction processes in terms of these categories.
-    $\nu$ without a label represents a neutrino or antineutrino of any flavor,
-    $N$ represents a nucleon $n$ or $p$,
-    ${}^ZA$ represents a nucleus with mass number $A$ and charge $Z$, and
-    $\gamma$ represents a high-energy photon.
-    A prime indicates a change in that particle's energy.
-  }
-  \label{tab:neutrino_processes}
 \end{table}
 
 % ******************************************************************************
