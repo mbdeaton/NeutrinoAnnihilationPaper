@@ -9,12 +9,14 @@
 \usepackage[mathscr]{euscript}    % for \mathscr
 \usepackage{graphicx}             % for \includegraphics
 \usepackage{hyperref}             % for \url and \href
+\usepackage{listings}             % for typesetting code with \lstinline
 \usepackage{tabularx}             % for tabularx
 
 % commands/initialization
 \hyphenation{ALPGEN} % avoid incorrect hyphenation
 \hyphenation{EVTGEN} % ''
 \hyphenation{PYTHIA} % ''
+\lstset{basicstyle=\ttfamily} % define \lstinline for inline code snippet
 
 \newcommand{\todo}[1]{\marginpar{\tiny{\textcolor{red}{#1}}}}
 %\renewcommand\todo[1]{} % if you wish to hide all todo notes
@@ -255,25 +257,47 @@ We use naturalized units in which $\hbar=c=1$.
 \section{Ray tracing formulation}
 \label{sec:formulation}
 The neutrino distribution function, $f(x^\alpha; p_\beta)$ is an invariant
-quantity counting the number of neutrinos in a given momentum volume centered on
-$p_\beta$ and spatial volume centered on $x^\alpha$.
-We may decompose the neutrino momentum
+quantity counting the number of neutrinos in a given six-volume of phase
+space centered on $(x^\alpha,p_\beta)$.
+The phase space volume elements are defined with respect to a fiducial
+observer passing through event $x^\alpha$ with velocity $u^\alpha$:
+\begin{align}
+  \label{eqn:dV}
+  dV & \equiv \sqrt{-\psi} \, dx \, dy \, dz \, u^t \\
+  \label{eqn:dP}
+  dP & \equiv \frac{1}{\sqrt{-\psi}} \, dp_x \, dp_y \, dp_z \,
+  \frac{1}{p^t}(-p_\mu u^\mu),
+\end{align}
+where $\psi$ represents the determinant of the spacetime metric,
+the index $t$ indicates the time-component of the given four-vector, and
+\begin{equation}
+  \label{eqn:varepsilon}
+  \varepsilon \equiv -p_\mu u^\mu
+\end{equation}
+is the neutrino energy measured by our observer.
+The number of particles in a given six-volume is
+$dN=g\,f\,dV\,dP/(2\pi)^3$,
+where $g$ counts the number of spin states accessible to the
+particles ($g=1$ for neutrinos), and $f$ is the distribution function.
+Each of $dN$, $dV$, $dP$, and $f$ are spacetime invariants
+\citep{debb2009-gr_boltzmann_1, debb2009-gr_boltzmann_2, lind1966-gr_boltzmann}.
+
+We may decompose the neutrino momentum like
 \begin{equation}
   \label{eqn:def_momentum}
   p_\beta = \varepsilon (u_\beta + \ell_\beta),
 \end{equation}
-with $u^\beta$ some fiducial observer's velocity,
-$\varepsilon=-p_\mu u^\mu$ the energy measured by that observer,
-and $\ell_\beta$ the direction normal subject to the constraints
+with $\ell_\beta$ the direction normal subject to the constraints
 $u^\alpha \ell_\alpha = 0$ and $\ell^\alpha \ell_\alpha=1$.
 With this decompositon we can write the arguments to the distribution function
 $f(x^\alpha;\varepsilon,\ell_\beta)$.
+
 Because $\ell_\beta$ is subject to two constraints
 (normalization and orthogonality to the observer's velocity)
 it has two degrees of freedom; we this make explicit by defining its
 spatial components with respect to spherical polar angles
 \begin{equation}
-  \label{eq:def_direction}
+  \label{eqn:def_direction}
   \ell_\alpha :=
   q (s,\sin\upsilon_1\cos\upsilon_2,\sin\upsilon_1\sin\upsilon_2,\cos\upsilon_1),
 \end{equation}
@@ -282,6 +306,8 @@ Now our symbol for the distribution function,
 $f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2)$,
 makes manifest its seven independent arguments.
 
+\subsection{Boltzmann Equation}
+\label{ssec:boltzmann}
 Neutrino radiation obeys the relativistic Boltzmann Equation
 \todo{point out limit of QKEs}
 \begin{equation}
@@ -401,56 +427,66 @@ constant.
 
 \subsection{Moments of the Distribution Function}
 \label{ssec:moments}
-\todo{clarify integral differentials}
 We may take angular moments of the distribution function:
 \begin{align}
+  \label{eqn:J}
   J(\varepsilon) &=
   \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \\
+  \label{eqn:Ha}
   H^\mu(\varepsilon) &=
   \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \\
+  \label{eqn:Sab}
   S^{\mu\gamma}(\varepsilon) &=
   \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \ell^\gamma,
 \end{align}
-which represent energy density, energy flux, and momentum flux, respectively.
-\todo{clarify moment frame and relate to other frames}
+representing specific energy density, specific energy flux, and
+specific momentum flux, respectively.
+Here ``specific'' refers to the quantity being integrable over neutrino energy.
+\todo{relate moments to other frames?}
+Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
+momentum space while holding $\varepsilon$ constant:
+$d\Omega \equiv d(\cos\upsilon_1)\,d\upsilon_2$.
+\todo{consistent with Eqn.~\ref{eqn:def_direction}?}
 
 \subsection{Numerical Implementation}
 \label{ssec:numerical}
 Much of our numerical implementation is borrowed from the geodesic evolution
 system described in~\cite{bohn2016-code}.
+We integrate Eqns.~\ref{eqn:geodesic_x} and~\ref{eqn:geodesic_p} in the form given by
+\citep{hugh1994-eh_finding}.
 \todo{describe eqns for $f_{\rm integ}$ and $\tau$}
 \todo{describe $\nu$-specific numerics}
 
-\section{Fundamental Tests}
+\section{Code Tests}
 \label{sec:tests}
 
 \subsection{Dummy Tests}
-Maybe we don't need to present these tests, but make sure to establish
+[Maybe we don't need to present these tests, but make sure to establish
 confidence in the basics:
-gravitational redshift, Doppler shift, thermodynamic equilibrium.
+gravitational redshift, Doppler shift, thermodynamic equilibrium.]
 \todo{setup and run dummy tests}
 
 \subsection{Homogenous Absorbing Star}
-Test described in~\cite[Sec.~3.2]{smit1997-two_moment}
+[Test described in~\cite[Sec.~3.2]{smit1997-two_moment}.]
 \todo{Jerred: run test}
 
 \subsection{Homogenous Scattering Star}
-Test presented in~\cite{humm1971-grey_transfer}
-and described in~\cite[Sec.~9.1.1]{abdi2012-monte_carlo}.
+[Test presented in~\cite{humm1971-grey_transfer}
+and described in~\cite[Sec.~9.1.1]{abdi2012-monte_carlo}.]
 \todo{formulate analytic $J$ and $F^\mu$}
 \todo{Jerred: setup and run test}
 
 \subsection{Post-Bounce Neutron Core}
-Standard radiation transport test described in~\cite{ocon2015-gr1d_with_nu},
+[Standard radiation transport test described in~\cite{ocon2015-gr1d_with_nu},
 and in \cite[App.~E.6]{fouc2015-m1_nsbh},
-and in~\cite{abdi2012-monte_carlo}.
+and in~\cite{abdi2012-monte_carlo}.]
 \todo{Evan: provide initial data and $H^r(\varepsilon)$}
 \todo{Jerred: setup and run test}
 
 \subsection{Disk Comparison to M1}
-Compute total and relative number and energy luminosities for a disk evolved
+[Compute total and relative number and energy luminosities for a disk evolved
 in one of~\cite{fouc2015-m1_nsbh, fouc2016-m1_nsns, fouc2016-m1_evolve_n}.
-Expect agreement within factors of a few (?).
+Expect agreement within factors of a few (?).]
 \todo{code up moment integrals}
 \todo{compute luminosities from M1}
 \todo{compute luminosities from ray tracing}
@@ -461,8 +497,8 @@ Expect agreement within factors of a few (?).
 \subsection{Emission Spectra}
 \label{ssec:spectra}
 The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
-Something like this is presented in~\cite[Fig.~10-11]{pere2014-nu_wind};
-compare.
+[Something like this is presented in~\cite[Fig.~10-11]{pere2014-nu_wind};
+compare.]
 \todo{code up moment integrals}
 \todo{compute $H^r(\theta;\varepsilon)$ in nsns and nsbh}
 \todo{maybe compute at several times}
@@ -470,15 +506,15 @@ compare.
 \subsection{Closure Relation}
 \label{ssec:closure}
 \todo{figure out your approach}
-This is a little tricky. Unless we can come up with a new improved analytic
+[This is a little tricky. Unless we can come up with a new improved analytic
 closure relation and use ray tracing to evaluate its trustworthiness,
 it's going to be hard to get anything useful from computing
-$S^{\alpha\beta}$.
+$S^{\alpha\beta}$.]
 
-Maybe the variable Eddington closure is more suitable to this application.
+[Maybe the variable Eddington closure is more suitable to this application.
 If I understand it right, applying ray tracing to that method would require
 computing $S^{\alpha\beta}$ on the fly throughout the spatial volume.
-That would certainly be doable for a quasi-stationary disk configuration.
+That would certainly be doable for a quasi-stationary disk configuration.]
 \todo{compute $S^{\alpha\beta}$ and evaluate its effect on evolution}
 
 % ******************************************************************************
@@ -486,13 +522,39 @@ That would certainly be doable for a quasi-stationary disk configuration.
 
 \section{Source Terms}
 \label{sec:source_terms}
-\todo{derive and type up sources in terms of $J$ and $H^\alpha$
-  following \cite[Sec.~4]{shib2011-truncated_moment}}
 Here we present the sources comprising the right hand side of the
-Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) in terms of the microphysical
-processes of absorption/emission, elastic scattering, inellastic scattering,
-and pair annihilation/production
-(detailed in Tab.~\ref{tab:neutrino_processes}).
+Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}). The sources for the neutrino
+distribution function $f(x^\alpha;p_\beta)$ arise from collision processes
+producing, removing, or scattering to/from that point in phase space.
+The weak interaction rates for each process involve integrals of
+the neutrino distribution function $f(x^\alpha;p'_\beta)$ and that of the
+antineutrino $\bar{f}(x^\alpha;p'_\beta)$ over a momentum volume
+$dP'$ (Eqn.~\ref{eqn:dP}).
+
+We follow
+\cite{brue1985-core_collapse} and \cite[Sec.~4]{shib2011-truncated_moment}
+by separating these processes into four categories:
+\begin{equation}
+  \label{eqn:four_sources}
+  C[f] \equiv C_{\rm AE} + C_{\rm ES} + C_{\rm IS} + C_{\rm PP},
+\end{equation}
+representing charged-current absorption and emission, elastic scattering,
+inelastic scattering, and thermal pair annihilation and production. Each term
+is computed by summing the weak interaction rates of the processes from the
+relevant category given in Tab.~\ref{tab:neutrino_processes}.
+These rates are computed most easily in the fluid frame of reference;
+but since we use them in the form of an invariant emissivity and opacity
+(Eqn.~\ref{eqn:boltzmann_linear}) they take the same numerical value in any
+frame of reference and for any choice of fiducial observer $u^\alpha$.
+\todo{confirm}
+
+In practice we compute our rates using the open source neutrino interaction
+library \lstinline{NuLib}~\footnote{\url{http://www.nulib.org}}.
+We compile a table of sources defined over the four dimensions of
+density, temperature, electron-fraction, and neutrino energy, and
+interpolate quad-linearly to the points sampled along each ray.
+\todo{derive and type up all sources in terms of $J$ and $H^\alpha$
+  following \cite[Sec.~4]{shib2011-truncated_moment}}
 
 \begin{table}[h]
   \caption{
@@ -520,13 +582,74 @@ and pair annihilation/production
     & $\nu + e^- \leftrightarrow \nu' + e^{-'}$                    \\
     & $\nu + e^+ \leftrightarrow \nu' + e^{+'}$                    \\
     \hline
-    pair processes
+    thermal pair processes
     & $\nu + \bar{\nu} \leftrightarrow e^{-} + e^{+}$              \\
     & $\nu + \bar{\nu} + N + N \leftrightarrow N' + N'$            \\
     & $\nu + \bar{\nu} \leftrightarrow \gamma$                     \\
     \hline \hline
   \end{tabularx}
 \end{table}
+
+\subsection{Absorption and emission via charged current}
+\label{ssec:sources_ae}
+At neutrino and thermal energies well below $m_{\mu}\sim100\,{\rm MeV}$
+only charged current processes involving $\nu_e$ and $\bar{\nu}_e$ are allowed.
+For each of these processes, $i$, we may write an emission and absorption
+coefficient as a function of the interaction cross-section
+(e.g. \cite[Eqn.~A5]{brue1985-core_collapse}):
+\todo{explain Fermi-blocking}
+\begin{align}
+  \label{eqn:sources_ae_1}
+  C_{{\rm AE},i}
+  &= \mathscr{E}_{{\rm AE},i} (1-f) - \mathscr{K}_{{\rm AE},i} f \\
+  \label{eqn:sources_ae_2}
+  &= \mathscr{E}_{{\rm AE},i} - (\mathscr{E}_{{\rm AE},i} + \mathscr{K}_{{\rm AE},i}) f,
+\end{align}
+with
+\begin{equation}
+  \label{eqn:inv_emissivity}
+  \mathscr{E}_{{\rm AE},i} = \frac{(2\pi)^3}{\varepsilon^2}\eta_{i},
+\end{equation}
+where $\eta$ is the traditional emissivity with dimension
+$[\eta]={\rm energy}\,{\rm length}^{-3}\,{\rm time}^{-1}\,{\rm energy}^{-1}\,{\rm steradian}^{-1}$,
+and
+\begin{equation}
+  \label{eqn:inv_emissivity}
+  \mathscr{K}_{{\rm AE},i} = \varepsilon \chi_i,
+\end{equation}
+where $\chi$ is the traditional opacity with dimension
+$[\chi]={\rm length}^{-1}$.
+
+\subsection{Elastic scattering}
+\label{ssec:sources_es}
+Neutrino scattering on particles of mass much greater than $\varepsilon$
+is essentially iso-energetic
+(e.g. \cite[Eqn.~A8]{brue1985-core_collapse}).
+\begin{equation}
+  \label{eqn:sources_es}
+  C_{{\rm ES},i}
+  = \mathscr{K}_{{\rm ES},i} \Phi_{{\rm ES},i} - \mathscr{K}_{{\rm ES},i} f,
+\end{equation}
+with
+\begin{align}
+  \label{eqn:es_factor}
+  \Phi_{{\rm ES},i} &\equiv \frac{\varepsilon^3}{\mathscr{K}_{{\rm ES},i}}
+  \oint d\Omega' R(\ell_\alpha,\ell'_\beta)f(\ell'_\beta) \\
+  \label{eqn:es_opacity}
+  \mathscr{K}_{{\rm ES},i} &\equiv \varepsilon^3
+  \oint d\Omega' R(\ell_\alpha,\ell'_\beta),
+\end{align}
+where $R(\ell_\alpha,\ell'_\beta)$ is the scattering kernel from direction
+$\ell'_\beta$ to direction $\ell_\alpha$
+having dimension $[R]={\rm energy}^{-1}$.
+
+\subsection{Inelastic scattering}
+\label{ssec:sources_is}
+(e.g. \cite[Eqn.~A6]{brue1985-core_collapse}).
+
+\subsection{Thermal pair annihilation and production}
+\label{ssec:sources_pp}
+(e.g. \cite[Eqn.~A9]{brue1985-core_collapse}).
 
 % ******************************************************************************
 \bibliography{references}
