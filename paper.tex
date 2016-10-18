@@ -143,21 +143,24 @@ and easily extends to high resolution in energy and angle.
 
 With a ray tracing method we approach radiation transport from the perspective
 of a single observer at a spacetime event $x_o^\alpha$.
-Our goal is to compute the distribution function $f(x_o^\alpha;p_\beta)$,
-or the amount of radiation with momentum $p_\beta$ impinging on $x_o^\alpha$.
+Our goal is to compute the distribution function
+$f^{\nu_\sigma}(x_o^\alpha;p_\beta)$, or the amount of neutrino radiation
+with momentum $p_\beta$ impinging on $x_o^\alpha$;
+$\nu_\sigma$ labels this distribution function as describing one of the
+six species of neutrinos or antineutrinos.
 To do so we trace a geodesic trajectory in the backwards direction
 $-p_\beta$ to sample the incoming radiation along that line of sight.
 By tracing a family of rays intersecting $x_o^\alpha$ we build up a
 picture of the distribution function there.
 And by sampling many observation points we construct a global picture
-of $f(x^\alpha;p_\beta)$.
+of $f^{\nu_\sigma}(x^\alpha;p_\beta)$.
 
 The ray tracing framework
 is conceptually simple because it interprets the equation of radiation
 transport (Eqn.~\ref{eqn:boltzmann})
 as a one-dimensional ordinary differential equation,
 it is numerically cheap because it confines computations of
-$f(x_o^\alpha;p_\beta)$ to the past light-cone of $x_o^\alpha$,
+$f^{\nu_\sigma}(x_o^\alpha;p_\beta)$ to the past light-cone of $x_o^\alpha$,
 and it easily extends to high resolution in energy and angle by simply
 increasing the number of rays sampled.
 
@@ -253,6 +256,8 @@ of a neutron star--neutron star and a black hole--neutron star binary.
 Greek tensor indices ($\alpha, \beta, ...$) range over all four coordinates,
 whereas Latin indices ($i, j, ...$) range over the spatial coordinates 1--3.
 We use naturalized units in which $\hbar=c=1$.
+And for the remainder of this article we suppress the neutrino species label
+$\nu_\sigma$ since the formulation is general to any species.
 
 \section{Ray tracing formulation}
 \label{sec:formulation}
@@ -294,7 +299,7 @@ $f(x^\alpha;\varepsilon,\ell_\beta)$.
 
 Because $\ell_\beta$ is subject to two constraints
 (normalization and orthogonality to the observer's velocity)
-it has two degrees of freedom; we this make explicit by defining its
+it has two degrees of freedom; we make this explicit by defining its
 spatial components with respect to spherical polar angles
 \begin{equation}
   \label{eqn:def_direction}
@@ -318,9 +323,7 @@ where $\frac{d}{d\lambda}$ denotes a derivative with respect to the affine
 parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x})
 and $C[f]$ is the source term arising from interactions with the medium.
 The source term varies over phase space $(x^\alpha,p_\beta)$,
-and depends locally on the distribution function
-$f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2)$,
-positon $x^\alpha$, and momentum $p_\beta$ of the neutrinos in question,
+and depends locally on the distribution function $f$
 and nonlocally on the distribution function of this neutrino and its
 antiparticle at different momenta, $f'$ and $\bar{f}'$.
 For clarity we symbolize all of these dependencies with the shorthand $C[f]$.
@@ -421,7 +424,7 @@ rendering equation reduces to
 \end{equation}
 where $\tau(\lambda,\lambda_e)=2/3$.
 At an optical depth of $2/3$, the energy flux is equivalent to the
-the blackbody value $\sigma T^4$, with $\sigma$, the Stefan-Boltzmann radiation
+blackbody value $\sigma T^4$, with $\sigma$, the Stefan-Boltzmann radiation
 constant.
 \todo{verify}
 
@@ -536,19 +539,32 @@ We follow
 by separating these processes into four categories:
 \begin{equation}
   \label{eqn:four_sources}
-  C[f] \equiv C_{\rm AE} + C_{\rm ES} + C_{\rm IS} + C_{\rm PP},
+  C[f] \equiv C_{\rm AE} + C_{\rm SE} + C_{\rm SI} + C_{\rm TP},
 \end{equation}
 representing charged-current absorption and emission, elastic scattering,
 inelastic scattering, and thermal pair annihilation and production. Each term
 is computed by summing the weak interaction rates of the processes from the
 relevant category given in Tab.~\ref{tab:neutrino_processes}.
-These rates are computed most easily in the fluid frame of reference;
+These rates are computed most easily as traditional emissivities and opacities
+in the fluid frame of reference;
 but since we use them in the form of an invariant emissivity and opacity
-(Eqn.~\ref{eqn:boltzmann_linear}) they take the same numerical value in any
-frame of reference and for any choice of fiducial observer $u^\alpha$.
+(defined e.g. in \ref{eqn:inv_emissivity} and \ref{eqn:inv_opacity},
+and obeying Eqn.~\ref{eqn:boltzmann_linear})
+they take the same numerical value in any frame of reference
+and are completely independent of our choice of fiducial observer $u^\alpha$.
 \todo{confirm}
 
-In practice we compute our rates using the open source neutrino interaction
+Each source term is unique to the neutrino or antineutrino species modeled,
+and consists of a sum over all of the processes contributing to that
+category of interaction. For example:
+$C^{\nu_e}_{{\rm AE}} = \sum_i\,C^{\nu_e}_{{\rm AE},i}$,
+where $i$ labels the absorption/emission processes involving $\nu_e$
+in Tab.~\ref{tab:neutrino_processes}.
+By contrast $C^{\nu_x}_{{\rm AE}} = 0$,
+where $\nu_x$ stands for any of the four heavy-lepton neutrinos and
+antineutrinos.
+
+We compute our rates using the open source neutrino interaction
 library \lstinline{NuLib}~\footnote{\url{http://www.nulib.org}}.
 We compile a table of sources defined over the four dimensions of
 density, temperature, electron-fraction, and neutrino energy, and
@@ -556,7 +572,7 @@ interpolate quad-linearly to the points sampled along each ray.
 \todo{derive and type up all sources in terms of $J$ and $H^\alpha$
   following \cite[Sec.~4]{shib2011-truncated_moment}}
 
-\begin{table}[h]
+\begin{table}%[h]
   \caption{
     We analyze neutrino interaction processes in terms of these categories.
     $\nu$ without a label represents a neutrino or antineutrino of any flavor,
@@ -614,7 +630,7 @@ where $\eta$ is the traditional emissivity with dimension
 $[\eta]={\rm energy}\,{\rm length}^{-3}\,{\rm time}^{-1}\,{\rm energy}^{-1}\,{\rm steradian}^{-1}$,
 and
 \begin{equation}
-  \label{eqn:inv_emissivity}
+  \label{eqn:inv_opacity}
   \mathscr{K}_{{\rm AE},i} = \varepsilon \chi_i,
 \end{equation}
 where $\chi$ is the traditional opacity with dimension
@@ -627,16 +643,16 @@ is essentially iso-energetic
 (e.g. \cite[Eqn.~A8]{brue1985-core_collapse}).
 \begin{equation}
   \label{eqn:sources_es}
-  C_{{\rm ES},i}
-  = \mathscr{K}_{{\rm ES},i} \Phi_{{\rm ES},i} - \mathscr{K}_{{\rm ES},i} f,
+  C_{{\rm SE},i}
+  = \mathscr{K}_{{\rm SE},i} \Phi_{{\rm SE},i} - \mathscr{K}_{{\rm SE},i} f,
 \end{equation}
 with
 \begin{align}
   \label{eqn:es_factor}
-  \Phi_{{\rm ES},i} &\equiv \frac{\varepsilon^3}{\mathscr{K}_{{\rm ES},i}}
+  \Phi_{{\rm SE},i} &\equiv \frac{\varepsilon^3}{\mathscr{K}_{{\rm SE},i}}
   \oint d\Omega' R(\ell_\alpha,\ell'_\beta)f(\ell'_\beta) \\
   \label{eqn:es_opacity}
-  \mathscr{K}_{{\rm ES},i} &\equiv \varepsilon^3
+  \mathscr{K}_{{\rm SE},i} &\equiv \varepsilon^3
   \oint d\Omega' R(\ell_\alpha,\ell'_\beta),
 \end{align}
 where $R(\ell_\alpha,\ell'_\beta)$ is the scattering kernel from direction
