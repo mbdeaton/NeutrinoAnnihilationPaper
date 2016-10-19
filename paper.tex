@@ -28,8 +28,7 @@
 \leftline{Compiled \today}
 \leftline{To be submitted to PRD}
 
-\title{Scattering and Pair Processes in General Relativistic Ray Tracing for Neutrinos}
-\todo{you sure about including all processes?}
+\title{Elastic Scattering in General Relativistic Ray Tracing for Neutrinos}
 
 \author{M.\ Brett Deaton}
 \affiliation{Joint Institute for Nuclear Astrophysics,
@@ -68,8 +67,9 @@
   We present a covariant ray tracing algorithm for computing high-resolution
   neutrino distributions in general numerical spacetimes with hydrodynamical
   sources.
-  Our formulation treats scattering and pair processes
-  by incorporating estimates of the background neutrino fields.
+  Our formulation treats elastic scattering of neutrinos (changing direction
+  but not energy) off of nuclei and
+  nucleons by incorporating estimates of the background neutrino fields.
   These background fields may be taken from a low-order moment simulation,
   be supplied analytically in simple cases,
   or be ignored entirely, in which case the method
@@ -94,7 +94,7 @@ interactions.
 Because neutrinos scatter over length scales both large and small with
 respect to fluid scales, accurate models require a neutrino treatment that
 respects the freedom of neutrino distribution functions to vary
-drastically from thermodynamic equilibrium.
+drastically from simple geometric distributions in thermodynamic equilibrium.
 
 This is a challenging task in the environment of a merger,
 which generally lacks any spatial symmetries so that fully general
@@ -179,18 +179,18 @@ processes outlined in Tab.~\ref{tab:neutrino_processes}.
 
 We build upon existing ray tracing formulations
 by eschewing any assumptions about the spacetime geometry
-and by including scattering and pair processes in the integration along each
+and by including elastic scattering in the integration along each
 geodesic.
-To incorporate these neutrino processes in our method, we employ
-estimates of the first two angular moments of the distribution function
+To incorporate scattering processes in our method, we employ estimates of the
+lowest-order moment of the neutrino distribution function
 computed in a truncated moment scheme (formulated by
 \cite{thor1981-truncated_moment, shib2011-truncated_moment}
 and applied e.g. in \cite{ramp2002-truncated_moment,
   card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}).
-If the first two angular moments are not available either from
+If moments are not available either from
 a truncated moment evolution or a trustworthy analytical estimate,
 our method reduces to the current state-of-the-art ray tracing method,
-neglecting scattering and pair processes.
+neglecting scattering.
 
 \subsubsection*{Why does a covariant formulation matter?}
 We formulate our ray tracing equations covariantly---free from
@@ -207,19 +207,21 @@ time-dependent guage conditions
 \citep{lind2007-gen_harmonic, fouc2013-compactness_and_spin}.
 
 \subsubsection*{Why do scattering and pair processes matter?}
-Inelastic scattering and pair processes introduce significant changes to
-a spectrum,
-\todo{clarify these terms}
-\todo{justify these statements}
-and elastic scattering can signicantly modify neutrino
-distributions in angle, and dilute the emitted spectrum over a larger emitting
-surface \citep{pere2016-asl}, especially for heavy-lepton neutrinos.
+Elastic scattering (see Tab.~\ref{tab:neutrino_processes}) can signicantly
+modify neutrino distributions in angle and dilute the emitted spectrum over a
+larger emitting surface \citep{pere2016-asl}.
+This is especially pronounced in the case of heavy-lepton neutrinos.
+\todo{cite}
+Inelastic scattering and pair processes can introduce further modifications.
 Any phenomena that involve neutrino-neutrino interactions (neutrino oscillations,
 and neutrino-antineutrino annihilation) can depend sensitively on the angular
 distribution.
 And spectral changes can strongly affect the nucleosynthesis
 occuring in the ejected and irradiated material.
 \todo{justify these statements}
+The ray tracing method we present in this paper captures the dominant effects
+of elastic scattering, while leaving the physics of inelastic scattering and
+pair processes for later work.
 
 \subsubsection*{In what ways is this method limited?}
 Ray tracing is ideally suited to problems requiring detailed knowledge of
@@ -233,8 +235,15 @@ More fundamentally, though, ray tracing is limited by its naive
 treatment of the Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}),
 a treatment which essentially decouples different neutrino momenta and species.
 \todo{clarify how momenta are decoupled}
-In this paper we outwit this limitation by incorporating coupling
-terms that depend on either previously-evolved or analytical
+When we're solving for $f^{\nu_\sigma}(x^\alpha;p_\beta)$, we have no
+information about $f^{\nu_\sigma}(x^\alpha;p'_\beta)$, and
+$f^{\bar{\nu}_\sigma}(x^\alpha;p'_\beta)$, which are essential ingredients
+for the source terms of the Boltzmann Equation describing the creation and
+destruction of neutrinos due to the interaction processes described in
+Tab.~\ref{tab:neutrino_processes}.
+
+In this paper we outwit this limitation by incorporating coupled source terms
+that depend on either previously-evolved or analytical
 estimates of the neutrino fields.
 We also retain the freedom to drop the coupling terms, in which case our method
 becomes similar to existing state-of-the-art ray tracing methods.
@@ -546,7 +555,10 @@ by separating these processes into four categories:
   C[f] \equiv C_{\rm AE} + C_{\rm SE} + C_{\rm SI} + C_{\rm TP},
 \end{equation}
 representing charged-current absorption and emission, elastic scattering,
-inelastic scattering, and thermal pair annihilation and production. Each term
+inelastic scattering, and thermal pair annihilation and production.
+We present formulae for all of these processes, though in this work, we only
+treat absorption/emission and elastic scattering.
+Each term
 is computed by summing the weak interaction rates of the processes from the
 relevant category given in Tab.~\ref{tab:neutrino_processes}.
 These rates are computed most easily as traditional emissivities and opacities
