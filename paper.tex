@@ -448,10 +448,10 @@ We may take angular moments of the distribution function:
   \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \\
   \label{eqn:Ha}
   H^\mu(\varepsilon) &=
-  \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \\
+  \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell'^\mu \\
   \label{eqn:Sab}
   S^{\mu\gamma}(\varepsilon) &=
-  \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \ell^\gamma,
+  \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell'^\mu \ell'^\gamma,
 \end{align}
 representing specific energy density, specific energy flux, and
 specific momentum flux, respectively.
@@ -628,6 +628,7 @@ interpolate quad-linearly to the points sampled along each ray.
     & $\nu + \bar{\nu} \leftrightarrow e^{-} + e^{+}$              \\
     & $\nu + \bar{\nu} + N + N \leftrightarrow N' + N'$            \\
     & $\nu + \bar{\nu} \leftrightarrow \gamma$                     \\
+    % & $\nu_\alpha + \bar{\nu}_\alpha \leftrightarrow \nu_\beta + \bar{\nu}_\beta $ \\
     \hline \hline
   \end{tabularx}
 \end{table}
@@ -679,7 +680,7 @@ $i$-th process takes the form
 where $R(\omega')$ is the scattering kernel from direction $\ell'_\beta$
 to direction $\ell_\alpha$ having dimension $[R]={\rm energy}^{-1}$,
 and the cosine of the scattering angle is
-$\omega' \equiv 1-\ell'_\alpha \ell^\alpha$.
+$\omega' \equiv \ell'_\alpha \ell^\alpha$.
 We write this in the form
 \begin{equation}
   \label{eqn:sources_se}
@@ -703,18 +704,25 @@ It is customary to approximate the scattering kernel to linear order in
 $\omega$ (as in~\cite[Eqn.~4.21]{shib2011-truncated_moment}):
 \begin{equation}
   \label{eqn:se_kernel_expansion}
-  R(\varepsilon,\omega) \approx R_0(\varepsilon) + \omega R_1(\varepsilon),
+  R_{{\rm SE},i}(\varepsilon,\omega) \approx
+  R_{{\rm SE},i}^0(\varepsilon) + \omega \, R_{{\rm SE},i}^1(\varepsilon),
 \end{equation}
 which allows us to write Eqns.~\ref{eqn:se_factor} and \ref{eqn:se_opacity} as
 \begin{align}
   \label{eqn:se_factor_expansion}
-  \Phi_{{\rm SE},i} &=  \frac{(2\pi)^3}{\varepsilon^3}\frac{1}{4\pi}
-  J(\varepsilon) -
-  \frac{1}{\mathscr{K}_{{\rm SE},i}} \ell^\alpha H_\alpha(\varepsilon)\\
+  \Phi_{{\rm SE},i}(\varepsilon) &= \frac{1}{\mathscr{K}_{{\rm SE},i}}
+  \big(R_{{\rm SE},i}^0(\varepsilon) J(\varepsilon) +
+   R_{{\rm SE},i}^1(\varepsilon) \ell_\alpha H^\alpha(\varepsilon) \big) \\
   \label{eqn:se_opacity_expansion}
-  \mathscr{K}_{{\rm SE},i} &= 4\pi \frac{\varepsilon^3}{(2\pi)^3}
-  \big(R_0(\varepsilon)+R_1(\varepsilon)\big).
+  \mathscr{K}_{{\rm SE},i}(\varepsilon) &=
+  4\pi \frac{\varepsilon^3}{(2\pi)^3} R_{{\rm SE},i}^0(\varepsilon),
 \end{align}
+where we have made the energy-dependence explicit.
+
+However, we don't know the energy dependence of $J(\varepsilon)$ and
+$H^\alpha(\varepsilon)$,
+since the the truncated moment simulations usually evolve only the integrated
+moments, $J$ and $H^\alpha$.
 
 \subsection{Inelastic scattering}
 \label{ssec:sources_si}
