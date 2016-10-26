@@ -330,7 +330,8 @@ Neutrino radiation obeys the relativistic Boltzmann Equation
 \end{equation}
 where $\frac{d}{d\lambda}$ denotes a derivative with respect to the affine
 parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x})
-and $C[f]$ is the source term arising from interactions with the medium.
+and $C[f]$ is the source term arising from interactions with the medium,
+having dimension ${\rm energy}\,{\rm length}^{-1}$.
 The source term varies over phase space $(x^\alpha,p_\beta)$,
 and depends locally on the distribution function $f$
 and nonlocally on the distribution function of this neutrino and its
@@ -444,13 +445,13 @@ We may take angular moments of the distribution function:
 \begin{align}
   \label{eqn:J}
   J(\varepsilon) &=
-  \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \\
+  \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \\
   \label{eqn:Ha}
   H^\mu(\varepsilon) &=
-  \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \\
+  \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \\
   \label{eqn:Sab}
   S^{\mu\gamma}(\varepsilon) &=
-  \varepsilon^3 \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \ell^\gamma,
+  \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell^\mu \ell^\gamma,
 \end{align}
 representing specific energy density, specific energy flux, and
 specific momentum flux, respectively.
@@ -460,6 +461,14 @@ Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
 momentum space while holding $\varepsilon$ constant:
 $d\Omega \equiv d(\cos\upsilon_1)\,d\upsilon_2$.
 \todo{consistent with Eqn.~\ref{eqn:def_direction}?}
+
+The energy-integrated moments are
+\begin{equation}
+  \label{eqn:J_H_S_eps_integrated}
+  \big\{ J,H^\mu,S^{\mu\nu} \big\} = \int_0^\infty d\varepsilon \,
+  \big\{ J(\varepsilon),H^\mu(\varepsilon),S^{\mu\nu}(\varepsilon) \big\},
+\end{equation}
+having dimension ${\rm energy}\,{\rm length}^{-3}$.
 
 \subsection{Numerical Implementation}
 \label{ssec:numerical}
@@ -552,10 +561,11 @@ We follow
 by separating these processes into four categories:
 \begin{equation}
   \label{eqn:four_sources}
-  C[f] \equiv C_{\rm AE} + C_{\rm SE} + C_{\rm SI} + C_{\rm TP},
+  C[f] \equiv C_{\rm AE} + C_{\rm SE} + C_{\rm SI} + C_{\rm PP},
 \end{equation}
 representing charged-current absorption and emission, elastic scattering,
-inelastic scattering, and thermal pair annihilation and production.
+inelastic scattering, and the thermal pair processes of annihilation and
+production.
 We present formulae for all of these processes, though in this work, we only
 treat absorption/emission and elastic scattering.
 Each term
@@ -653,30 +663,61 @@ where $\chi$ is the traditional opacity with dimension
 $[\chi]={\rm length}^{-1}$.
 
 \subsection{Elastic scattering}
-\label{ssec:sources_es}
+\label{ssec:sources_se}
 Neutrino scattering on particles of mass much greater than $\varepsilon$
-is essentially iso-energetic
-(e.g. \cite[Eqn.~A8]{brue1985-core_collapse}).
+is essentially iso-energetic. Following 
+\cite[Eqn.~A8]{brue1985-core_collapse} or
+\cite[Eqn.~4.20]{shib2011-truncated_moment} the collision term for the
+$i$-th process takes the form
 \begin{equation}
-  \label{eqn:sources_es}
+  \label{eqn:integral_se}
+  C_{{\rm SE},i}
+  = \frac{\varepsilon^3}{(2\pi)^3}
+  \oint d\Omega' R_{{\rm SE},i}(\omega')
+  \big(f(\ell'_\beta) - f(\ell_\alpha)\big)
+\end{equation}
+where $R(\omega')$ is the scattering kernel from direction $\ell'_\beta$
+to direction $\ell_\alpha$ having dimension $[R]={\rm energy}^{-1}$,
+and the cosine of the scattering angle is
+$\omega' \equiv 1-\ell'_\alpha \ell^\alpha$.
+We write this in the form
+\begin{equation}
+  \label{eqn:sources_se}
   C_{{\rm SE},i}
   = \mathscr{K}_{{\rm SE},i} \Phi_{{\rm SE},i} - \mathscr{K}_{{\rm SE},i} f,
 \end{equation}
 with
 \begin{align}
-  \label{eqn:es_factor}
-  \Phi_{{\rm SE},i} &\equiv \frac{\varepsilon^3}{\mathscr{K}_{{\rm SE},i}}
-  \oint d\Omega' R(\ell_\alpha,\ell'_\beta)f(\ell'_\beta) \\
-  \label{eqn:es_opacity}
-  \mathscr{K}_{{\rm SE},i} &\equiv \varepsilon^3
-  \oint d\Omega' R(\ell_\alpha,\ell'_\beta),
+  \label{eqn:se_factor}
+  \Phi_{{\rm SE},i} &\equiv
+  \frac{1}{\mathscr{K}_{{\rm SE},i}}
+  \frac{\varepsilon^3}{(2\pi)^3}
+  \oint d\Omega' R_{{\rm SE},i}(\omega')f(\ell'_\beta) \\
+  \label{eqn:se_opacity}
+  \mathscr{K}_{{\rm SE},i} &\equiv
+  \frac{\varepsilon^3}{(2\pi)^3}
+  \oint d\Omega' R_{{\rm SE},i}(\omega').
 \end{align}
-where $R(\ell_\alpha,\ell'_\beta)$ is the scattering kernel from direction
-$\ell'_\beta$ to direction $\ell_\alpha$
-having dimension $[R]={\rm energy}^{-1}$.
+
+It is customary to approximate the scattering kernel to linear order in
+$\omega$ (as in~\cite[Eqn.~4.21]{shib2011-truncated_moment}):
+\begin{equation}
+  \label{eqn:se_kernel_expansion}
+  R(\varepsilon,\omega) \approx R_0(\varepsilon) + \omega R_1(\varepsilon),
+\end{equation}
+which allows us to write Eqns.~\ref{eqn:se_factor} and \ref{eqn:se_opacity} as
+\begin{align}
+  \label{eqn:se_factor_expansion}
+  \Phi_{{\rm SE},i} &=  \frac{(2\pi)^3}{\varepsilon^3}\frac{1}{4\pi}
+  J(\varepsilon) -
+  \frac{1}{\mathscr{K}_{{\rm SE},i}} \ell^\alpha H_\alpha(\varepsilon)\\
+  \label{eqn:se_opacity_expansion}
+  \mathscr{K}_{{\rm SE},i} &= 4\pi \frac{\varepsilon^3}{(2\pi)^3}
+  \big(R_0(\varepsilon)+R_1(\varepsilon)\big).
+\end{align}
 
 \subsection{Inelastic scattering}
-\label{ssec:sources_is}
+\label{ssec:sources_si}
 (e.g. \cite[Eqn.~A6]{brue1985-core_collapse}).
 
 \subsection{Thermal pair annihilation and production}
