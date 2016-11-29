@@ -1,4 +1,4 @@
-\documentclass[aps,prd,twocolumn,superscriptaddress]{revtex4-1}
+\documentclass[aps,floatfix,prd,superscriptaddress,twocolumn]{revtex4-1}
 % Intended to be built with pdflatex, using the REVTEX 4.1 package.
 % Template taken from FermiLab APS Jouranl template.
 
@@ -483,16 +483,20 @@ We integrate Eqns.~\ref{eqn:geodesic_x} and~\ref{eqn:geodesic_p} in the form giv
 \label{sec:tests}
 
 \subsection{Dummy Tests}
+\label{ssec:tests_basic}
 [Maybe we don't need to present these tests, but make sure to establish
 confidence in the basics:
-gravitational redshift, Doppler shift, thermodynamic equilibrium.]
+gravitational redshift, Doppler shift,
+geoesic curvature, thermodynamic equilibrium.]
 \todo{setup and run dummy tests}
 
 \subsection{Homogenous Absorbing Star}
+\label{ssec:test_ab_star}
 [Test described in~\cite[Sec.~3.2]{smit1997-two_moment}.]
 \todo{Jerred: run test}
 
 \subsection{Homogenous Scattering Star}
+\label{ssec:test_sc_star}
 \todo{maybe drop this test}
 [Test presented in~\cite{humm1971-grey_transfer}
 and described in~\cite[Sec.~9.1.1]{abdi2012-monte_carlo}.
@@ -502,6 +506,7 @@ of $J$.]
 \todo{formulate analytic $J$.}
 
 \subsection{Post-Bounce Neutron Core}
+\label{ssec:test_bounce_core}
 [Standard radiation transport test described in~\cite{ocon2015-gr1d_with_nu},
 and in \cite[App.~E.6]{fouc2015-m1_nsbh},
 and in~\cite{abdi2012-monte_carlo}.]
@@ -509,6 +514,7 @@ and in~\cite{abdi2012-monte_carlo}.]
 \todo{Jerred: setup and run test}
 
 \subsection{Disk Comparison to M1}
+\label{ssec:test_disk_comparison}
 [Compute total and relative number and energy luminosities for a disk evolved
 in one of~\cite{fouc2015-m1_nsbh, fouc2016-m1_nsns, fouc2016-m1_evolve_n}.
 Expect agreement within factors of a few (?).]
