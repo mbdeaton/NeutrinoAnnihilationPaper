@@ -407,13 +407,21 @@ neutrino as measured by our fiducial obsever $u^\alpha$.
 Defining the source function
 $\mathscr{S}^*\equiv\mathscr{E}^*/\mathscr{K}^*$,
 we can integrate Eqn.~\ref{eqn:boltzmann_linear} directly,
-\begin{equation}
+\begin{align}
   \label{eqn:rendering}
-  f(\lambda) = f(\lambda_e) e^{-\tau(\lambda,\lambda_e)} +
+  f(\lambda,\lambda_e) &=
+  f_{\rm bound}(\lambda,\lambda_e) + f_{\rm integ}(\lambda,\lambda_e), \\
+  \label{eqn:rendering_fbound}
+  f_{\rm bound}(\lambda,\lambda_e) &=
+  f(\lambda_e) e^{-\tau(\lambda,\lambda_e)}, \\
+  \label{eqn:rendering_finteg}
+  f_{\rm integ}(\lambda,\lambda_e) &=
   \int_{\lambda_e}^\lambda d\lambda'\,e^{-\tau(\lambda,\lambda')}
   \mathscr{K}^*(\lambda') \mathscr{S}^*(\lambda'),
-\end{equation}
+\end{align}
 where the optical depth is defined,
+\todo{rewrite this section simpler; don't give integral solution
+  since we don't use}
 \begin{equation}
   \label{eqn:optical_depth}
   \tau(\lambda,\lambda') \equiv -\int_{\lambda'}^\lambda
@@ -474,10 +482,86 @@ having dimension ${\rm energy}\,{\rm length}^{-3}$.
 \label{ssec:numerical}
 Much of our numerical implementation is borrowed from the geodesic evolution
 system described in~\cite{bohn2016-code}.
-We integrate Eqns.~\ref{eqn:geodesic_x} and~\ref{eqn:geodesic_p} in the form given by
-\citep{hugh1994-eh_finding}.
-\todo{describe eqns for $f_{\rm integ}$ and $\tau$}
-\todo{describe $\nu$-specific numerics}
+We integrate Eqns.~\ref{eqn:geodesic_x} and~\ref{eqn:geodesic_p} in the form
+given by \citep{hugh1994-eh_finding},
+and Eqns.~\ref{eqn:rendering} and~\ref{eqn:optical_depth}
+in the form given below.
+By using the time-component of Eqn.~\ref{eqn:geodesic_x} ($dt=d\lambda \, p^t$)
+we may transform our integrations to coordinate time.
+The equations are
+\begin{align}
+  \label{eqn:num_x}
+  \frac{dx^i}{dt} &=
+  g^{ij} \frac{p_j}{p^t} - \beta^{i}\\
+  \label{eqn:num_p}
+  \frac{dp_i}{dt} &=
+  -\alpha \alpha_{,i} p^t
+  + \beta^k_{,i} p_k
+  - \frac{1}{2} g^{jk}_{,i}\frac{p_j p_k}{p^t}\\
+  \label{eqn:num_finteg}
+  \frac{df_{\rm integ}}{dt} &=
+  e^{-\tau} \mathscr{K}^* \mathscr{S}^*\\
+  \label{eqn:num_tau}
+  \frac{d\tau}{dt} &=
+  -\mathscr{K}^*
+\end{align}
+where the comma denotes a partial derivative
+and we have used the standard 3+1 decomposition of the metric
+\begin{equation}
+  \label{eqn:adm_metric}
+  \psi_{\mu\gamma} :=
+  \left(
+  \begin{matrix}
+    -\alpha^2 + \beta^i \beta_i  & \beta_i \\
+    \beta_j                      & g_{ij}
+  \end{matrix}
+  \right).
+\end{equation}
+
+We integrate each ray until we reach a terminal optical depth of
+$\tau_{\rm term}$ at event $x_e^\alpha$.
+We choose $\tau_{\rm term}$ large so that
+$f_{\rm bound}$ is negligible
+(in practice $e^{-\tau_{\rm term}}=0.001$)
+and compute $f_{\rm bound}$ assuming radiative equilibrium with the matter,
+i.e. $f_{\rm bound}=(1+\exp((\varepsilon-\mu_\nu)/T)$,
+and $\mu_{\nu_e}=-\mu_{\bar{\nu}_e}=\mu_{e^{-}}+\mu_p-\mu_n$ and
+$\mu_{\nu_x}=0$.
+If the ray terminates off the numerical domain
+we set $f_{\rm bound}=0$.
+
+Since we don't know the emission event a priori,
+\todo{make clear ``emission event'' doesn't involve physical assumption}
+we follow the integration backwards in time,
+from $t_o$ to $t_e$.
+We begin each integration by setting initial values for the variables at $t_o$.
+The observer specifies $x^i_o$ and $p_{i,o}$,
+and we set $f_{{\rm integ},o}=0$ and $\tau_o=0$.
+
+We integrate Eqns.~\ref{eqn:num_x}-\ref{eqn:num_tau} with adaptive step sizes,
+using the 5th-order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed}.
+After a step is taken, the error is estimated for each variable.
+If the maximum of these errors exceeds some absolute or relative threshold
+the step size is decreased and the step recomputed,
+if it is below some threshold the next step size is increased.
+% see OdeIntegrators::AdaptiveDense
+% and OdeSteppers::DormandPrince5
+% and OdeControllers::ProportionalIntegral_Base::StepSizeToAttempt
+% and OdeErrorMeasures::ScaledAbsRel
+\todo{specify}
+
+The volume data are components of the metric $\psi_{\alpha\beta}$,
+its derivatives $\psi_{\alpha\beta,\gamma}$,
+and the hydrodynamical data $W$, $u_i$, $\varrho$, $T$, and $Y_e$.
+These fields are stored in spectral representation.
+If they are computed via hydrodynamical simulation, they are saved to disk
+at specified coordinate times and interpolated
+with spectral interpolation in space,
+and 1st-order polynomial interpolation in time
+(as described in \cite[App.~B]{bohn2016-code}).
+If computed from a stationary solution to the
+general relativistic hydrodynamics equations,
+a single time is stored to disk, and no time interpolation is needed.
 
 \section{Code Tests}
 \label{sec:tests}
