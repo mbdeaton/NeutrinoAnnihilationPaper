@@ -483,11 +483,12 @@ The energy-integrated moments are
 having dimension ${\rm energy}\,{\rm length}^{-3}$.
 
 In practice we use two possible fiducial observers to define the momentum
-decomposition via Eqn.~\ref{eqn:def_momentum}: the fluid, or comoving, observer,
-$u^\alpha=dx^\alpha/ds$, and the Eulerian, or normal, observer,
-$n_\alpha=-\alpha \,\partial_\alpha t$.
-Here $ds$ is a differential of proper time, $t$ is coordinate time,
-and $\alpha$ is lapse.
+decomposition via Eqn.~\ref{eqn:def_momentum}: the Eulerian,
+or normal, observer, $n_\alpha=-\alpha \,\partial_\alpha t$,
+and the fluid, or comoving, observer,
+$u^\alpha=W(n^\alpha+v^\alpha)$.
+Here $t$ is coordinate time, $\alpha$ is lapse,
+$W$ is fluid Lorentz factor, and $v^\alpha$ is fluid coordinate velocity.
 We distinguish moments computed assuming an Eulerian observer with a tilde,
 e.g. $\tilde{J}$, $\tilde{H}^\mu$, $\tilde{S}^{\mu\nu}$.
 Note that these three Eulerian moments are identical to the lab-frame moments
@@ -869,7 +870,7 @@ We use the following procedure:
   Compute the neutrino spectral temperature
   \begin{equation}
     T_\nu = \langle \varepsilon \rangle
-    \frac{\mathscr{F}_3(\mu_\nu/T)}{\mathscr{F}_2(\mu_\nu/T)},
+    \frac{\mathscr{F}_2(\mu_\nu/T)}{\mathscr{F}_3(\mu_\nu/T)},
   \end{equation}
   where $\mathscr{F}_j$ is the Fermi integral
   \begin{equation}
@@ -880,10 +881,10 @@ We use the following procedure:
   as the evolved moments
   \begin{align}
     J(\varepsilon) &=
-    \frac{J}{\mathscr{F}_3(\mu_\nu/T)}
+    J \frac{\varepsilon^3}{T_\nu^4 \,\mathscr{F}_3(\mu_\nu/T)}
     (1+\exp(\varepsilon/T_\nu-\mu_\nu/T)^{-1}, \\
     H^\mu(\varepsilon) &=
-    \frac{H^\mu}{\mathscr{F}_3(\mu_\nu/T)}
+    H^\mu \frac{\varepsilon^3}{T_\nu^4\, \mathscr{F}_3(\mu_\nu/T)}
     (1+\exp(\varepsilon/T_\nu-\mu_\nu/T)^{-1}.
   \end{align}
 \end{enumerate}
