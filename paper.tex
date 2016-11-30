@@ -469,6 +469,10 @@ Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
 momentum space while holding $\varepsilon$ constant:
 $d\Omega \equiv d(\cos\upsilon_1)\,d\upsilon_2$.
 \todo{consistent with Eqn.~\ref{eqn:def_direction}?}
+We will also make use of the number density and flux defined as
+$G(\varepsilon)=J(\varepsilon)/\varepsilon$
+and $K^\mu(\varepsilon)=H^\mu(\varepsilon)/\varepsilon$
+respectively.
 
 The energy-integrated moments are
 \begin{equation}
@@ -477,6 +481,19 @@ The energy-integrated moments are
   \big\{ J(\varepsilon),H^\mu(\varepsilon),S^{\mu\nu}(\varepsilon) \big\},
 \end{equation}
 having dimension ${\rm energy}\,{\rm length}^{-3}$.
+
+In practice we use two possible fiducial observers to define the momentum
+decomposition via Eqn.~\ref{eqn:def_momentum}: the fluid, or comoving, observer,
+$u^\alpha=dx^\alpha/ds$, and the Eulerian, or normal, observer,
+$n_\alpha=-\alpha \,\partial_\alpha t$.
+Here $ds$ is a differential of proper time, $t$ is coordinate time,
+and $\alpha$ is lapse.
+We distinguish moments computed assuming an Eulerian observer with a tilde,
+e.g. $\tilde{J}$, $\tilde{H}^\mu$, $\tilde{S}^{\mu\nu}$.
+Note that these three Eulerian moments are identical to the lab-frame moments
+$E$, $F^\mu$, and $P^{\mu\nu}$
+defined in
+\cite{shib2011-truncated_moment, ocon2015-gr1d_with_nu, fouc2015-m1_nsbh}.
 
 \subsection{Numerical Implementation}
 \label{ssec:numerical}
