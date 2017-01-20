@@ -860,11 +860,12 @@ from the gray moments by assuming a diluted Fermi-Dirac spectrum.
 We use the following procedure:
 \begin{enumerate}
 \item
-  Interpolate the equilibrium neutrino chemical potential, $\mu_\nu$,
-  from the simulation grid.
+  Interpolate the fluid temperature, $T$,
+  equilibrium neutrino chemical potential, $\mu_\nu$,
+  and evolved neutrino energy and number densities in the fluid frame,
+  $J$ and $G$, from the simulation grid.
 \item
-  Interpolate $J$ and $G$ from the simulation grid and
-  compute the average neutrino energy in the fluid frame
+  Compute the average neutrino energy in the fluid frame
   $\langle \varepsilon \rangle \equiv J/G$.
 \item
   Compute the neutrino spectral temperature, assuming equilibrium with the
