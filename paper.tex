@@ -866,7 +866,9 @@ We use the following procedure:
   $J$ and $G$, from the simulation grid.
 \item
   Compute the average neutrino energy in the fluid frame
-  $\langle \varepsilon \rangle \equiv J/G$.
+  \begin{equation}
+    \langle \varepsilon \rangle \equiv J/G.
+  \end{equation}
 \item
   Compute the neutrino spectral temperature, assuming equilibrium with the
   fluid
@@ -907,6 +909,8 @@ We thank Sherwood Richers for providing his neutrino transport code
 \lstinline{Sedonu}~\footnote{\url{https://bitbucket.org/srichers/sedonu}}
 for comparisons.
 We thank Luke Roberts and Yonglin Zhu for helpful discussions.
+We are indebted to Fran\c{c}ois H\'{e}bert for his timely help in finding and
+correcting a bug in the time-interpolation algorithm.
 
 % ******************************************************************************
 \bibliography{references}
