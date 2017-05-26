@@ -14,8 +14,8 @@ The principle statements of the paper are:
 
 1. Here's a new raytracing code for neutrino emission; here's where it's valid,
    here's where it sucks.
-2. One application (presented here) is to estimate the power from neutrino
-   annihilation around a post-merger accretion disk.
+2. One application (presented here) is to measure neutrino fluxes and spectra
+   around a post-merger accretion disk.
 
 ### Build Instructions
 Compile the paper with the usual pdflatex sequence:
@@ -54,3 +54,12 @@ the raw LaTeX in paper.tex.
   `<date>` is the four-digit year of publication, and
   `<unique>` is a unique specifier from the title journal or whatever.
   Example: `deat2013-leakage`.
+
+### PRD Guidelines
+These guidelines help us conform to the Physical Review D editorial rules.
+
+* __Figures__.
+  Provide figures in ps and pdf form, since PRD prefers ps which pdflatex
+  can't easily handle. Convert with ps2pdf.
+
+
