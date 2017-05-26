@@ -1,6 +1,6 @@
 \documentclass[aps,floatfix,prd,superscriptaddress,twocolumn]{revtex4-1}
 % Intended to be built with pdflatex, using the REVTEX 4.1 package.
-% Template taken from FermiLab APS Jouranl template.
+% Template taken from FermiLab APS Journal template.
 
 % packages
 \usepackage{amssymb}              % for \gtrsim ...
@@ -70,17 +70,13 @@
   Our formulation treats elastic scattering of neutrinos (changing direction
   but not energy) off of nuclei and
   nucleons by incorporating estimates of the background neutrino fields.
-  These background fields may be taken from a low-order moment simulation,
-  be supplied analytically in simple cases,
+  These background fields may be taken from a low-order moment simulation
   or be ignored entirely, in which case the method
   reduces to a standard state-of-the-art ray tracing formulation.
   It handles radiation in regimes spanning optically thick to optically thin.
   We test the new code, highlight its strengths and weaknesses, and
   apply it to simulations of neutron star mergers to
-  1) compute neutrino fluxes as a function of energy and emission angle, and
-  2) compute the radiation pressure tensor in the funnel of the disk,
-  demonstrating a way to improve the closure relations used in the truncated
-  moment formalism.
+  compute neutrino fluxes as a function of energy and emission angle.
 \end{abstract}
 
 \maketitle
@@ -256,11 +252,9 @@ post-processing step.
 In Sec.~\ref{sec:formulation} we derive the ray tracing equations from the
 Boltzmann Equation and describe our numerical scheme.
 In Sec.~\ref{sec:tests} we present some tests of the code.
-In Sec.~\ref{sec:applications} we present two applications:
-neutrino spectra as a function of observer's angle, and
-a variable closure relation for a truncated moment formalism.
-We present both applications in the dynamical environments following the merger
-of a neutron star--neutron star and a black hole--neutron star binary.
+In Sec.~\ref{sec:applications} we present an application:
+computing neutrino spectra as a function of observer's angle
+in the dynamical environment following the merger of two neutron stars.
 
 Greek tensor indices ($\alpha, \beta, ...$) range over all four coordinates,
 whereas Latin indices ($i, j, ...$) range over the spatial coordinates 1--3.
@@ -584,50 +578,48 @@ a single time is stored to disk, and no time interpolation is needed.
 \section{Code Tests}
 \label{sec:tests}
 
-\subsection{Dummy Tests}
-\label{ssec:tests_basic}
-[Maybe we don't need to present these tests, but make sure to establish
-confidence in the basics:
-gravitational redshift, Doppler shift,
-geoesic curvature, thermodynamic equilibrium.]
-\todo{setup and run dummy tests}
+\subsection{Homogeneous Equilibrium}
+\label{ssec:test_equilibrium}
+Homogeneous matter, optically thick. Plot in Fig.~\ref{fig:homogeneous_isotropic}.
+\todo{describe test}
+
+\subsection{Doppler Shift}
+\label{ssec:test_doppler}
+Homogeneous matter moving with v in +z direction. Stationary observer.
+\todo{add plot of $\varepsilon(\mu)$}
+
+\subsection{Gravitational Redshift and Geodesic Curvature}
+\label{ssec:test_gravity}
+Optically thick star in Schwarszchild.
+todo{describe $L(r)$, as a function of lapse}
+optically thick disk in Kerr (Fishbone-Moncrief disk):
+set up to give two different surfaces for nue vs nua, but same temp (?).
+\todo{plot of analytic and numerical geodesics}
+\todo{plot of $G$ nue vs nua}
 
 \subsection{Homogenous Absorbing Star}
 \label{ssec:test_ab_star}
 [Test described in~\cite[Sec.~3.2]{smit1997-two_moment}.]
-\todo{Jerred: run test}
+\todo{run test for optically thick and thin}
 
-\subsection{Homogenous Scattering Star}
-\label{ssec:test_sc_star}
-\todo{maybe drop this test}
-[Test presented in~\cite{humm1971-grey_transfer}
-and described in~\cite[Sec.~9.1.1]{abdi2012-monte_carlo}.
-Our version would be a point source embedded in a spherical distribution
-of purely elastic-scattering material. It requires an analytical estimate
-of $J$.]
-\todo{formulate analytic $J$.}
-
-\subsection{Post-Bounce Neutron Core}
-\label{ssec:test_bounce_core}
+\subsection{Massive Collapsed Star with Scattering Envelope}
+\label{ssec:test_scat_envelope}
 [Standard radiation transport test described in~\cite{ocon2015-gr1d_with_nu},
 and in \cite[App.~E.6]{fouc2015-m1_nsbh},
 and in~\cite{abdi2012-monte_carlo}.]
-\todo{Evan: provide initial data and $H^r(\varepsilon)$}
-\todo{Jerred: setup and run test}
+\todo{add plots of $\langle \varepsilon \rangle(\mu)$}
 
 \subsection{Disk Comparison to M1}
 \label{ssec:test_disk_comparison}
 [Compute total and relative number and energy luminosities for a disk evolved
-in one of~\cite{fouc2015-m1_nsbh, fouc2016-m1_nsns, fouc2016-m1_evolve_n}.
+in one of \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns, fouc2016-m1_evolve_n}.
 Expect agreement within factors of a few (?).]
-\todo{code up moment integrals}
-\todo{compute luminosities from M1}
-\todo{compute luminosities from ray tracing}
+\todo{compute luminosities from M1 and RT, present table}
+
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-homogeneous_isotropic}
-  \caption{
-    Equilibrium distribution functions in a homogeneous background at
+  \caption{Equilibrium distribution functions in a homogeneous background at
     $\varrho=6.22 \times 10^{12}\,{\rm g}\,{\rm cm}^{-3}$,
     $T=5$~MeV,
     $Y_e=0.3$,
@@ -636,7 +628,8 @@ Expect agreement within factors of a few (?).]
     $\mu_{\nu_e}=-\mu_{\bar{\nu}_e}=62.04$~MeV, and 
     $\mu_{\nu_x}=0$.
     The solid lines give the analytic Fermi-Dirac distribution,
-    and the points are computed via ray tracing.}
+    and the points are computed via ray tracing.
+    Described in Sec.~\ref{ssec:test_equilibrium}}
   \label{fig:homogeneous_isotropic}
 \end{figure}
 
@@ -646,25 +639,10 @@ Expect agreement within factors of a few (?).]
 \subsection{Emission Spectra}
 \label{ssec:spectra}
 The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
-[Something like this is presented in~\cite[Fig.~10-11]{pere2014-nu_wind};
+Something like this is presented in \cite[Figs.~10-11]{pere2014-nu_wind};
 compare.]
-\todo{code up moment integrals}
-\todo{compute $H^r(\theta;\varepsilon)$ in nsns and nsbh}
-\todo{maybe compute at several times}
-
-\subsection{Closure Relation}
-\label{ssec:closure}
-\todo{figure out your approach}
-[This is a little tricky. Unless we can come up with a new improved analytic
-closure relation and use ray tracing to evaluate its trustworthiness,
-it's going to be hard to get anything useful from computing
-$S^{\alpha\beta}$.]
-
-[Maybe the variable Eddington closure is more suitable to this application.
-If I understand it right, applying ray tracing to that method would require
-computing $S^{\alpha\beta}$ on the fly throughout the spatial volume.
-That would certainly be doable for a quasi-stationary disk configuration.]
-\todo{compute $S^{\alpha\beta}$ and evaluate its effect on evolution}
+\todo{compute $H^r(\mu;\varepsilon)$ in nsns and nsbh}
+\todo{compute $\langle \varepsilon \rangle(\mu)$}
 
 % ******************************************************************************
 \appendix
@@ -910,7 +888,7 @@ We thank Sherwood Richers for providing his neutrino transport code
 for comparisons.
 We thank Luke Roberts and Yonglin Zhu for helpful discussions.
 We are indebted to Fran\c{c}ois H\'{e}bert for his timely help in finding and
-correcting a bug in the time-interpolation algorithm.
+correcting bugs in the time-interpolation algorithm.
 
 % ******************************************************************************
 \bibliography{references}
