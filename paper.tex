@@ -330,7 +330,7 @@ The source term varies over phase space $(x^\alpha,p_\beta)$,
 and depends locally on the distribution function $f$
 and nonlocally on the distribution function of this neutrino and its
 antiparticle at different momenta, $f'$ and $\bar{f}'$.
-For clarity we symbolize all of these dependencies with the shorthand $C[f]$.
+For simplicity we symbolize all of these dependencies with the shorthand $C[f]$.
 The various neutrino interactions contributing to $C[f]$ are detailed in
 App.~\ref{sec:source_terms}.
 
@@ -345,10 +345,59 @@ where we have introduced
 $\mathscr{E}^*$, the invariant total emissivity, and
 $\mathscr{K}^*$, the invariant total opacity,
 and for simplicity we have suppressed the arguments of $f$.
-These coefficients are derived by considering Fermi-blocking and
+These coefficients are computed by considering Fermi-blocking and
 dependencies on neutrino and antineutrino distribution functions at other
 momenta.
-They are derived in App.~\ref{sec:source_terms}.
+We provide a detailed derivation for these terms in App.~\ref{sec:source_terms},
+for the two classes of interactions we consider in this work,
+absorption/emission and elastic scattering
+(Tab.~\ref{tab:neutrino_processes}). Within the scope of this work, we have
+\begin{align}
+  \label{eqn:inv_emissivity_components}
+  \mathscr{E}^* &= \mathscr{E}_{\rm AE} + \mathscr{E}_{\rm SE},\\
+  \label{eqn:inv_opacity_components}
+  \mathscr{K}^* &= \mathscr{K}_{\rm AE} + \mathscr{K}_{\rm SE}.
+\end{align}
+
+For absorption/emission interactions (App.~\ref{ssec:sources_ae}) these are
+simply the sums over the emissivities and absorptive opacities for each
+reaction $i$:
+\begin{align}
+  \label{eqn:ae_emissivity_summed}
+  \mathscr{E}_{\rm AE}(\varepsilon)
+  &= \frac{(2\pi)^3}{\varepsilon^2} \sum_{i\,{\rm reactions}} \eta_i(\varepsilon), \\
+  \label{eqn:ae_opacity_summed}
+  \mathscr{K}_{\rm AE}(\varepsilon)
+  &= \varepsilon \sum_{i\,{\rm reactions}} \chi_{{\rm a},i}(\varepsilon).
+\end{align}
+
+For elastic scattering interactions (App.~\ref{ssec:sources_se}) these are
+the background fields and the sum over the scattering opacities for each
+reaction $i$:
+\begin{align}
+  \label{eqn:se_emissivity_summed}
+  \mathscr{E}_{\rm SE}(\varepsilon)
+  &= \mathscr{K}_{\rm SE}(\varepsilon) \, \Phi_{\rm SE}(\varepsilon) \, \\
+  \label{eqn:se_opacity_summed}
+  \mathscr{K}_{\rm SE}(\varepsilon)
+  &= \varepsilon \sum_{i\,{\rm reactions}} \chi_{{\rm s},i}(\varepsilon).
+\end{align}
+
+This paper introduces the use of neutrino densities and fluxes evolved in a
+truncated moment simulation to estimate the background field, $\Phi_{\rm SE}$.
+App.~\ref{ssec:sources_se} details a method to calculate
+$\Phi_{\rm SE}(\varepsilon)$ in two different ways:
+\begin{itemize}
+\item
+  the \emph{spectral} method using densities and fluxes
+  extracted from a simulation evolved over multiple energy groups
+  to compute the background field with Eqn.~\ref{eqn:se_factor_expansion},
+\item
+  the \emph{gray} method using energy-integrated densities and fluxes
+  extracted from a gray simulation and approximating the
+  energy dependence with Eqns.~\ref{eqn:J_from_gray} and
+  \ref{eqn:H_from_gray}.
+\end{itemize}
 
 \subsection{Trajectories}
 \label{ssec:trajectories}
@@ -810,13 +859,14 @@ which allows us to write Eqns.~\ref{eqn:se_factor} and \ref{eqn:se_opacity} as
   4\pi \frac{\varepsilon^3}{(2\pi)^3} R_{{\rm SE},i}^0(\varepsilon),
 \end{align}
 where we have made the energy-dependence explicit.
+When we get $J(\varepsilon)$ and $H^\alpha(\varepsilon)$ from a multi-group
+moment evolution, we call this the ``spectral'' method.
 
-However, we don't know the energy dependence of $J(\varepsilon)$ and
-$H^\alpha(\varepsilon)$ in general,
-since simulations usually employ a gray moment scheme,
+However moment evolutions with multiple energy groups are still rare.
+Most simulations employ a gray moment scheme,
 evolving only the energy-integrated moments, $J$ and $H^\alpha$
-and sometimes $G$.
-Nevertheless, we may reconstruct these energy-dependent source terms
+and sometimes the number density $G$.
+We may reconstruct the energy-dependent source terms
 from the gray moments by assuming a diluted Fermi-Dirac spectrum.
 
 We use the following procedure:
@@ -846,14 +896,18 @@ We use the following procedure:
   Assume the background neutrino fields have the same total density
   as the evolved moments
   \begin{align}
+    \label{eqn:J_from_gray}
     J(\varepsilon) &=
     J \frac{\varepsilon^3}{T_\nu^4 \,\mathscr{F}_3(\mu_\nu/T)}
     (1+\exp(\varepsilon/T_\nu-\mu_\nu/T)^{-1}, \\
+    \label{eqn:H_from_gray}
     H^\mu(\varepsilon) &=
     H^\mu \frac{\varepsilon^3}{T_\nu^4\, \mathscr{F}_3(\mu_\nu/T)}
     (1+\exp(\varepsilon/T_\nu-\mu_\nu/T)^{-1}.
   \end{align}
 \end{enumerate}
+When we use these moments in Eqn.~\ref{eqn:se_factor_expansion},
+we call this the ``gray'' method.
 
 \subsection{Inelastic scattering}
 \label{ssec:sources_si}
