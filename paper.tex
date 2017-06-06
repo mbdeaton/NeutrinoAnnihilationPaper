@@ -583,7 +583,7 @@ We begin each integration by setting initial values for the variables at $t_o$.
 The observer specifies $x^i_o$ and $p_{i,o}$,
 and we set $f_{{\rm integ},o}=0$ and $\tau_o=0$.
 
-We integrate Eqns.~\ref{eqn:num_x}-\ref{eqn:num_tau} with adaptive step sizes,
+We integrate Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} with adaptive step sizes,
 using the 5th-order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed}.
 After a step is taken, the error is estimated for each variable.
 If the maximum of these errors exceeds some absolute or relative threshold
@@ -611,14 +611,32 @@ a single time is stored to disk, and no time interpolation is needed.
 \section{Code Tests}
 \label{sec:tests}
 
+To test our algorithm, we integrate the ray tracing equations
+(Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau}) in the following configurations,
+and compare $f$ or moments of $f$ to known analytic solutions, or in some
+cases to fiducial numerical calculations.
+
 \subsection{Homogeneous Equilibrium}
 \label{ssec:test_equilibrium}
-Homogeneous matter, optically thick. Plot in Fig.~\ref{fig:homogeneous_isotropic}.
-\todo{describe test}
+In an optically thick region the radiation field is in thermodynamic equilibrium
+with the matter.
+We set up a large slab of matter in two homogeneous configurations
+representative of the fluid in the Massive Collapsed Star test
+(Sec.~\ref{ssec:test_collapse}) at two different radii:
+at 50~km
+For comparision with Collapsed Star test, we use the LS180 equation of state,
+in which the equilibrium
+neutrino chemical potentials are
+$\mu_{\nu_e}=-0.639$~MeV, and 
+$\mu_{\nu_e}=5.771$~MeV respectively
+($\mu_{\bar{\nu}_e}=-\mu_{\nu_e}$ and $\mu_{\nu_x}=0$).
+Plot in Fig.~\ref{fig:homogeneous_isotropic}.
+\todo{run test at this thermodynamic point}
 
 \subsection{Doppler Shift}
 \label{ssec:test_doppler}
-Homogeneous matter moving with v in +z direction. Stationary observer.
+We reproduce the test above, but with the matter moving in
+in the $+z$ direction, with the observer stationary.
 Plot in Fig.~\ref{fig:avg_eps_doppler}.
 \todo{describe test}
 
@@ -651,17 +669,16 @@ Expect agreement within factors of a few (?).]
 \todo{compute luminosities from M1 and RT, present table}
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{fig-homogeneous_isotropic}
-  \caption{Equilibrium distribution functions in a homogeneous background at
-    $\varrho=6.22 \times 10^{12}\,{\rm g}\,{\rm cm}^{-3}$,
-    $T=5$~MeV,
-    $Y_e=0.3$,
-    using the LS220 equation of state, in which the equilibrium
-    neutrino chemical potentials are
-    $\mu_{\nu_e}=-\mu_{\bar{\nu}_e}=62.04$~MeV, and 
-    $\mu_{\nu_x}=0$.
-    The solid lines give the analytic Fermi-Dirac distribution,
-    and the points are computed via ray tracing.
+  \includegraphics[width=\columnwidth]{fig-homogeneous_equilibrium}
+  \caption{Equilibrium distribution functions in a homogeneous background
+    at two thermodynamic points,
+    representative of the collapse profile at
+    50~km ($\varrho=1.235 \times 10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
+    $T=4$~MeV,
+    $Y_e=0.12$) and
+    200~km ($\varrho=3.026\times 10^{7}\,{\rm g}\,{\rm cm}^{-3}$,
+    $T=0.5$~MeV,
+    $Y_e=0.5$).
     Described in Sec.~\ref{ssec:test_equilibrium}}
   \label{fig:homogeneous_isotropic}
 \end{figure}
