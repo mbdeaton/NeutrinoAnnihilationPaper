@@ -102,12 +102,14 @@ produce limited information about the neutrino field itself.
 Monte Carlo methods \citep{abdi2012-monte_carlo, rich2015-monte_carlo}
 suffer from noise.
 \todo{discuss mc more clearly}
-The state of the art today employs a truncated moment formalism
+The state of the art today couples radiation and matter with a truncated
+moment formalism
 \citep{shib2011-truncated_moment, fouc2015-m1_nsbh, fouc2016-m1_nsns,
   just2015-m1_code, ?},
 evolving the zeroth- and first-angular moments of the distribution function
 (the energy density and flux respectively) representing the zeroth-energy moment
 of the radiation field (the total energy).
+We refer to this as M1 transport.
 Recently, \cite{fouc2016-m1_evolve_n} have expanded their code to also evolve
 the number densities of neutrinos, providing an estimate of the average neutrino
 energies in addition to their totals.
@@ -123,7 +125,7 @@ With a model of the neutrino emission from a merger we can
 2) explore the rich flavor oscillation physics likely to occur
 \citep{malk2012-mnr_1, malk2015-mnr_2, malk2016-mnr_3, zhu2016-mnr_nsns_remnant,
   vaan2016-uncovering_mnr},
-3) improve closure relations used in truncated moment schemes
+3) improve closure relations used in M1 transport schemes
 \citep{ramp2002-truncated_moment, shib2011-truncated_moment,
   card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}, and
 4) study possible jet formation due to neutrino annihilation
@@ -179,12 +181,12 @@ and by including elastic scattering in the integration along each
 geodesic.
 To incorporate scattering processes in our method, we employ estimates of the
 lowest-order moment of the neutrino distribution function
-computed in a truncated moment scheme (formulated by
+computed in an M1 transport simulation (formulated by
 \cite{thor1981-truncated_moment, shib2011-truncated_moment}
 and applied e.g. in \cite{ramp2002-truncated_moment,
   card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}).
 If moments are not available either from
-a truncated moment evolution or a trustworthy analytical estimate,
+an M1 transport evolution or a trustworthy analytical estimate,
 our method reduces to the current state-of-the-art ray tracing method,
 neglecting scattering.
 
@@ -383,8 +385,8 @@ reaction $i$:
   &= \varepsilon \sum_{i\,{\rm reactions}} \chi_{{\rm s},i}(\varepsilon).
 \end{align}
 
-This paper introduces the use of neutrino densities and fluxes evolved in a
-truncated moment simulation to estimate the background field, $\Phi_{\rm SE}$.
+This paper introduces the use of neutrino densities and fluxes evolved in an
+M1 transport simulation to estimate the background field, $\Phi_{\rm SE}$.
 App.~\ref{ssec:sources_se} details a method to calculate
 $\Phi_{\rm SE}(\varepsilon)$ in two different ways:
 \begin{itemize}
@@ -612,11 +614,21 @@ a single time is stored to disk, and no time interpolation is needed.
 \label{sec:tests}
 
 To test our algorithm, we integrate the ray tracing equations
-(Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau}) in the following configurations,
-and compare $f$ or moments of $f$ to known analytic solutions, or in some
-cases to fiducial numerical calculations.
+(Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau}) at one observation position
+in the following configurations. This suite of configurations
+may be understood as a hierarchy of models of increasing
+physical realism: beginning with a homogeneous medium of effectively
+infinite extent (i.e.\ optically thick) and progressing to a model of a
+1D pre-supernova, post-bounce collapse profile
+evolved using an M1 transport hydrodynamical simulation.
+\todo{also nsns merger?}
 
-\subsection{Homogeneous Equilibrium}
+We compare to analytic solutions in the simple configurations, and
+numerical solutions from alternative radiation transport algorithms
+(i.e.\ monte carlo or M1 transport) where they are not.
+
+\subsection{Infinite Homogeneous Slab:
+  Testing Thermodynamic Equilibrium}
 \label{ssec:test_equilibrium}
 In an optically thick region the radiation field is in thermodynamic equilibrium
 with the matter.
@@ -633,14 +645,22 @@ $\mu_{\nu_e}=5.771$~MeV respectively
 Plot in Fig.~\ref{fig:homogeneous_isotropic}.
 \todo{run test at this thermodynamic point}
 
-\subsection{Doppler Shift}
+\subsection{Infinite Homogeneous Moving Slab:
+  Testing Doppler Shift}
 \label{ssec:test_doppler}
 We reproduce the test above, but with the matter moving in
 in the $+z$ direction, with the observer stationary.
 Plot in Fig.~\ref{fig:avg_eps_doppler}.
 \todo{describe test}
 
-\subsection{Gravitational Redshift and Geodesic Curvature}
+\subsection{Idealized Star:
+  Testing the Decoupling Regime}
+\label{ssec:test_ab_star}
+[Test described in~\cite[Sec.~3.2]{smit1997-two_moment}.]
+Plot in Fig.~\ref{fig:f_absorption_sphere}.
+
+\subsection{Idealized Compact Star:
+  Testing Gravitational Redshift and Geodesic Curvature}
 \label{ssec:test_gravity}
 Optically thick star in Schwarszchild.
 \todo{describe $L(r)$, as a function of lapse}
@@ -649,19 +669,16 @@ set up to give two different surfaces for nue vs nua, but same temp (?).
 \todo{plot of analytic and numerical geodesics}
 \todo{plot of $G$ nue vs nua}
 
-\subsection{Homogenous Absorbing Star}
-\label{ssec:test_ab_star}
-[Test described in~\cite[Sec.~3.2]{smit1997-two_moment}.]
-Plot in Fig.~\ref{fig:f_absorption_sphere}.
-
-\subsection{Massive Collapsed Star with Scattering Envelope}
+\subsection{Post-Bounce Collapse Profile:
+  Testing Scattering}
 \label{ssec:test_collapse}
 [Standard radiation transport test described in~\cite{ocon2015-gr1d_with_nu},
 and in \cite[App.~E.6]{fouc2015-m1_nsbh},
 and in~\cite{abdi2012-monte_carlo}.]
 Plot in Fig.~\ref{fig:avg_eps_collapse}.
 
-\subsection{Disk Comparison to M1}
+\subsection{Hypermassive Neutron Star Remnant:
+  Testing Everything}
 \label{ssec:test_disk_comparison}
 [Compute total and relative number and energy luminosities for a disk evolved
 in one of \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns, fouc2016-m1_evolve_n}.
