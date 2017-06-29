@@ -67,9 +67,10 @@
   We present a covariant ray tracing algorithm for computing high-resolution
   neutrino distributions in general numerical spacetimes with hydrodynamical
   sources.
-  Our formulation treats elastic scattering of neutrinos (changing direction
-  but not energy) off of nuclei and
-  nucleons by incorporating estimates of the background neutrino fields.
+  Our formulation treats the very important effect of
+  elastic scattering of neutrinos off of nuclei and nucleons
+  (changing the neutrino's direction but not energy)
+  by incorporating estimates of the background neutrino fields.
   These background fields may be taken from a low-order moment simulation
   or be ignored entirely, in which case the method
   reduces to a standard state-of-the-art ray tracing formulation.
@@ -96,25 +97,34 @@ This is a challenging task in the environment of a merger,
 which generally lacks any spatial symmetries so that fully general
 seven-dimensional solutions to the Boltzmann Equation are not feasible.
 Leakage approximations
-\citep{deat2013-leakage, pere2016-asl, radi2016-dynamical, ?}
+\citep{deat2013-leakage, pere2016-asl, radi2016-dynamical}
+\todo{cite others}
 capture the qualitative effects of neutrinos on the matter, but
-produce limited information about the neutrino field itself.
-Monte Carlo methods \citep{abdi2012-monte_carlo, rich2015-monte_carlo}
-suffer from noise.
+provide extremely limited information about the neutrino field itself.
 \todo{discuss mc more clearly}
+Monte Carlo methods \citep{abdi2012-monte_carlo, rich2015-monte_carlo}
+are an excellent tool require large computational resources because of
+their global treatment of the problem.
+
 The state of the art today couples radiation and matter with a truncated
 moment formalism
 \citep{shib2011-truncated_moment, fouc2015-m1_nsbh, fouc2016-m1_nsns,
-  just2015-m1_code, ?},
+  just2015-m1_code},
+\todo{cite others}
 evolving the zeroth- and first-angular moments of the distribution function
 (the energy density and flux respectively) representing the zeroth-energy moment
 of the radiation field (the total energy).
-We refer to this as M1 transport.
-Recently, \cite{fouc2016-m1_evolve_n} have expanded their code to also evolve
-the number densities of neutrinos, providing an estimate of the average neutrino
-energies in addition to their totals.
-But with only two angular moments and one energy moment, the distribution
-function has very limited angular and spectral information.
+This method, commonly called M1 transport, was formulated by
+\cite{thor1981-truncated_moment, shib2011-truncated_moment}
+and has been applied for example in \cite{ramp2002-truncated_moment,
+  card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}.
+Recently, \cite{fouc2016-m1_evolve_n} have expanded their M1 transport code
+to also evolve the number densities of neutrinos,
+providing total and average energies throughout the simulated volume.
+Even so, with M1 transport codes only evolving two angular moments
+and one or two energy moments,
+we can extract only limited angular and spectral information
+from the neutrino fields.
 
 \subsubsection*{What physics problems do we want to address?}
 But many interesting unsolved problems require an accurate model of the neutrino
@@ -134,7 +144,7 @@ With a model of the neutrino emission from a merger we can
 
 \subsubsection*{Why ray tracing?}
 In this work we present a ray tracing method to compute neutrino distribution
-functions from state-of-the-art general relativistic radiation
+functions from state-of-the-art general relativistic M1 transport
 hydrodynamics simulations.
 We choose ray tracing because it is conceptually simple, numerically cheap,
 and easily extends to high resolution in energy and angle.
@@ -143,23 +153,24 @@ With a ray tracing method we approach radiation transport from the perspective
 of a single observer at a spacetime event $x_o^\alpha$.
 Our goal is to compute the distribution function
 $f^{\nu_\sigma}(x_o^\alpha;p_\beta)$, or the amount of neutrino radiation
-with momentum $p_\beta$ impinging on $x_o^\alpha$;
-$\nu_\sigma$ labels this distribution function as describing one of the
-six species of neutrinos or antineutrinos.
-To do so we trace a geodesic trajectory in the backwards direction
-$-p_\beta$ to sample the incoming radiation along that line of sight.
+of species $\nu_\sigma\in\{\nu_{\{e,\mu,\tau\}},\bar{\nu}_{\{e,\mu,\tau\}}\}$
+with momentum $p_\beta$ impinging on $x_o^\alpha$.
+To do so we trace a geodesic trajectory from $x_o^\alpha$ in the backwards
+direction $-p_\beta$ to sample the incoming radiation along that line of sight.
 By tracing a family of rays intersecting $x_o^\alpha$ we build up a
 picture of the distribution function there.
 And by sampling many observation points we construct a global picture
 of $f^{\nu_\sigma}(x^\alpha;p_\beta)$.
 
 The ray tracing framework
-is conceptually simple because it interprets the equation of radiation
-transport (Eqn.~\ref{eqn:boltzmann})
-as a one-dimensional ordinary differential equation,
-it is numerically cheap because it confines computations of
+is conceptually simple because it solves the equation of radiation
+transport (Eqn.~\ref{eqn:boltzmann}) along characteristics,
+reducing it to a one-dimensional ordinary differential equation.
+It is numerically cheap because it confines computations of
 $f^{\nu_\sigma}(x_o^\alpha;p_\beta)$ to the past light-cone of $x_o^\alpha$,
-and it easily extends to high resolution in energy and angle by simply
+with the history of that light-cone truncated at large optical depth.
+\todo{state scaling $\mathscr{O}(n)$?}
+And it easily extends to high resolution in energy and angle by simply
 increasing the number of rays sampled.
 
 \subsubsection*{What is new and better about this ray tracing formulation?}
@@ -167,7 +178,8 @@ Several ray tracing formulations for radiation transport already exist.
 Most formulations assume an analytic spacetime metric
 \citep{birk2007-nunubar, hari2010-gr_nunubar_collapsar, kova2011-gr_ray_tracing}.
 And many make the simplifying assumption of blackbody emission from a
-neutrinosurface \citep{birk2007-nunubar, kova2011-gr_ray_tracing}.
+neutrinosurface \citep{birk2007-nunubar, kova2011-gr_ray_tracing},
+limiting them to equilibrium, optically thick configurations.
 Current state-of-the-art ray tracing formulations avoid the assumption of
 blackbody spectra by integrating a local emissivity along each geodesic
 (e.g. \cite{hari2010-gr_nunubar_collapsar} for neutrinos and
@@ -176,15 +188,12 @@ But no formulations to date account for the important scattering and pair
 processes outlined in Tab.~\ref{tab:neutrino_processes}.
 
 We build upon existing ray tracing formulations
-by eschewing any assumptions about the spacetime geometry
-and by including elastic scattering in the integration along each
-geodesic.
+by eschewing any assumptions about the spacetime geometry,
+integrating local emissivities,
+and including elastic scattering in the integration along each geodesic.
 To incorporate scattering processes in our method, we employ estimates of the
 lowest-order moment of the neutrino distribution function
-computed in an M1 transport simulation (formulated by
-\cite{thor1981-truncated_moment, shib2011-truncated_moment}
-and applied e.g. in \cite{ramp2002-truncated_moment,
-  card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}).
+computed in an M1 transport simulation.
 If moments are not available either from
 an M1 transport evolution or a trustworthy analytical estimate,
 our method reduces to the current state-of-the-art ray tracing method,
@@ -211,9 +220,10 @@ larger emitting surface \citep{pere2016-asl}.
 This is especially pronounced in the case of heavy-lepton neutrinos.
 \todo{cite}
 Inelastic scattering and pair processes can introduce further modifications.
-Any phenomena that involve neutrino-neutrino interactions (neutrino oscillations,
-and neutrino-antineutrino annihilation) can depend sensitively on the angular
-distribution.
+Any phenomena that involve neutrino-neutrino interactions,
+for example neutrino oscillations and neutrino-antineutrino annihilation,
+\todo{cite}
+depend sensitively on the angular distribution.
 And spectral changes can strongly affect the nucleosynthesis
 occuring in the ejected and irradiated material.
 \todo{justify these statements}
@@ -250,13 +260,17 @@ but serves as the final component of a hybrid scheme,
 piggy-backing on a lower-order radiation transport method as a
 post-processing step.
 
-\subsection{Outline}
+\subsubsection*{Outline}
 In Sec.~\ref{sec:formulation} we derive the ray tracing equations from the
 Boltzmann Equation and describe our numerical scheme.
-In Sec.~\ref{sec:tests} we present some tests of the code.
-In Sec.~\ref{sec:applications} we present an application:
-computing neutrino spectra as a function of observer's angle
-in the dynamical environment following the merger of two neutron stars.
+In Sec.~\ref{sec:tests} we present tests of the code.
+In Sec.~\ref{sec:applications} we present several applications
+in the dynamical environment following the merger of two neutron stars:
+computing neutrino spectra as a function of observer's angle,
+computing the self-interaction potential descriptive of flavor evolution
+in high-neutrino-density environments,
+and computing the energy dumped into jet-forming electron-positron
+pairs via neutrino-antineutrino annihilation.
 
 Greek tensor indices ($\alpha, \beta, ...$) range over all four coordinates,
 whereas Latin indices ($i, j, ...$) range over the spatial coordinates 1--3.
@@ -276,7 +290,7 @@ observer passing through event $x^\alpha$ with velocity $u^\alpha$:
   dV & \equiv \sqrt{-\psi} \, dx \, dy \, dz \, u^t \\
   \label{eqn:dP}
   dP & \equiv \frac{1}{\sqrt{-\psi}} \, dp_x \, dp_y \, dp_z \,
-  \frac{1}{p^t}(-p_\mu u^\mu),
+  \frac{\varepsilon}{p^t},
 \end{align}
 where $\psi$ represents the determinant of the spacetime metric,
 the index $t$ indicates the time-component of the given four-vector, and
@@ -286,10 +300,12 @@ the index $t$ indicates the time-component of the given four-vector, and
 \end{equation}
 is the neutrino energy measured by our observer.
 The number of particles in a given six-volume is
-$dN=g\,f\,dV\,dP/(2\pi)^3$,
+\begin{equation}
+  dN=\frac{g}{(2\pi)^3}\,f\,dV\,dP,
+\end{equation}
 where $g$ counts the number of spin states accessible to the
 particles ($g=1$ for neutrinos), and $f$ is the distribution function.
-Each of $dN$, $dV$, $dP$, and $f$ are spacetime invariants
+Each of $dV$, $dP$, $dN$, and $f$ are spacetime invariants
 \citep{debb2009-gr_boltzmann_1, debb2009-gr_boltzmann_2, lind1966-gr_boltzmann}.
 
 We may decompose the neutrino momentum like
@@ -315,21 +331,24 @@ with $q$ and $s$ functions of $\upsilon_1$ and $\upsilon_2$.
 Now our symbol for the distribution function,
 $f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2)$,
 makes manifest its seven independent arguments.
+\todo{also decompose wrt $p_t$}
 
 \subsection{Boltzmann Equation}
 \label{ssec:boltzmann}
-Neutrino radiation obeys the relativistic Boltzmann Equation
+Neutrino radiation obeys the relativistic Boltzmann Equation,
+which, suppressing the arguments of $f$ for simplicity, is written,
 \todo{point out limit of QKEs}
 \begin{equation}
   \label{eqn:boltzmann}
-  \frac{d}{d\lambda}f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2) = C[f],
+  \frac{d}{d\lambda}f = C[f],
 \end{equation}
-where $\frac{d}{d\lambda}$ denotes a derivative with respect to the affine
+where $d/d\lambda$ denotes a derivative with respect to the affine
 parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x})
 and $C[f]$ is the source term arising from interactions with the medium,
 having dimension ${\rm energy}\,{\rm length}^{-1}$.
+\todo{describe $C[f]$ in physical terms}
 The source term varies over phase space $(x^\alpha,p_\beta)$,
-and depends locally on the distribution function $f$
+and due to Fermi blocking depends locally on the distribution function $f$
 and nonlocally on the distribution function of this neutrino and its
 antiparticle at different momenta, $f'$ and $\bar{f}'$.
 For simplicity we symbolize all of these dependencies with the shorthand $C[f]$.
@@ -341,41 +360,54 @@ the source term linear in $f$:
 \begin{equation}
   \label{eqn:boltzmann_linear}
   \frac{d}{d\lambda}f =
-  \mathscr{E}^* - \mathscr{K}^* f,
+  \mathscr{E} - \mathscr{K} f,
 \end{equation}
 where we have introduced
-$\mathscr{E}^*$, the invariant total emissivity, and
-$\mathscr{K}^*$, the invariant total opacity,
-and for simplicity we have suppressed the arguments of $f$.
-These coefficients are computed by considering Fermi-blocking and
-dependencies on neutrino and antineutrino distribution functions at other
-momenta.
-We provide a detailed derivation for these terms in App.~\ref{sec:source_terms},
-for the two classes of interactions we consider in this work,
-absorption/emission and elastic scattering
-(Tab.~\ref{tab:neutrino_processes}). Within the scope of this work, we have
+\todo{describe $\mathscr{E}$ and $\mathscr{K}$ in physical terms}
+$\mathscr{E}$, the invariant total emissivity, and
+$\mathscr{K}$, the invariant total opacity.
+These coefficients are computed by considering their dependence
+on neutrino and antineutrino distribution functions at other momenta
+(i.e.\ Fermi-blocking).
+
+We consider two classes of interactions in this work:
+the absorption/emission (AE) and elastic scattering (SE) processes
+listed in Tab.~\ref{tab:neutrino_processes}.
+Thus we separate these coefficients:
 \begin{align}
   \label{eqn:inv_emissivity_components}
-  \mathscr{E}^* &= \mathscr{E}_{\rm AE} + \mathscr{E}_{\rm SE},\\
+  \mathscr{E} &= \mathscr{E}_{\rm AE} + \mathscr{E}_{\rm SE},\\
   \label{eqn:inv_opacity_components}
-  \mathscr{K}^* &= \mathscr{K}_{\rm AE} + \mathscr{K}_{\rm SE}.
+  \mathscr{K} &= \mathscr{K}_{\rm AE} + \mathscr{K}_{\rm SE}.
 \end{align}
 
-For absorption/emission interactions (App.~\ref{ssec:sources_ae}) these are
-simply the sums over the emissivities and absorptive opacities for each
-reaction $i$:
+The absorption/emission coefficients are computed from sums
+over the relevant emissivities and opacities
+in Tab.~\ref{tab:neutrino_processes}:
+\todo{define $j$ and $\chi$}
 \begin{align}
   \label{eqn:ae_emissivity_summed}
   \mathscr{E}_{\rm AE}(\varepsilon)
-  &= \frac{(2\pi)^3}{\varepsilon^2} \sum_{i\,{\rm reactions}} \eta_i(\varepsilon), \\
+  &= \varepsilon \sum_{i\,{\rm reactions}} j_i(\varepsilon), \\
   \label{eqn:ae_opacity_summed}
   \mathscr{K}_{\rm AE}(\varepsilon)
-  &= \varepsilon \sum_{i\,{\rm reactions}} \chi_{{\rm a},i}(\varepsilon).
+  &= \frac{1}{1-f^{\rm eq}(\varepsilon)} \,
+  \varepsilon \sum_{i\,{\rm reactions}} \chi_{{\rm a},i}(\varepsilon),
 \end{align}
+where $f^{\rm eq}$ is the Fermi-Dirac distribution function with the chemical
+potential dependent on the local density, temperature, and composition of the
+fluid.
+The appearance of $f^{\rm eq}$ in Eqn.~\ref{eqn:ae_opacity_summed} is due to
+the Fermionic nature of the neutrinos, causing $\mathscr{K}_{\rm AE}$ to be
+different than the simple absorption opacity,
+a phenomenon called stimulated absorption.
+See App.~\ref{ssec:sources_ae} for details.
+\todo{identify $\mathscr{K}_{\rm AE}$ and $\kappa^*$,
+  in e.g.\ \cite{hari2010-gr_nunubar_collapsar}}
 
-For elastic scattering interactions (App.~\ref{ssec:sources_se}) these are
-the background fields and the sum over the scattering opacities for each
-reaction $i$:
+The elastic scattering coefficients are computed from
+a background field, and a sum over opacities for
+the relevant reactions in Tab.~\ref{tab:neutrino_processes}:
 \begin{align}
   \label{eqn:se_emissivity_summed}
   \mathscr{E}_{\rm SE}(\varepsilon)
@@ -384,6 +416,7 @@ reaction $i$:
   \mathscr{K}_{\rm SE}(\varepsilon)
   &= \varepsilon \sum_{i\,{\rm reactions}} \chi_{{\rm s},i}(\varepsilon).
 \end{align}
+See App.~\ref{ssec:sources_se} for details.
 
 This paper introduces the use of neutrino densities and fluxes evolved in an
 M1 transport simulation to estimate the background field, $\Phi_{\rm SE}$.
@@ -397,13 +430,13 @@ $\Phi_{\rm SE}(\varepsilon)$ in two different ways:
 \item
   the \emph{gray} method using energy-integrated densities and fluxes
   extracted from a gray simulation and approximating the
-  energy dependence with Eqns.~\ref{eqn:J_from_gray} and
+  energy distribution with Eqns.~\ref{eqn:J_from_gray} and
   \ref{eqn:H_from_gray}.
 \end{itemize}
 
 \subsection{Trajectories}
 \label{ssec:trajectories}
-Each trajectory is labeled by a pair of vectors
+Each trajectory is uniquely labeled by a pair of vectors
 giving some event on the trajectory, $x^\alpha$,
 and the momentum at that event, $p_\beta$.
 A family of trajectories shares the same $x^\alpha$; for example,
@@ -419,16 +452,19 @@ the coupled first-order equations
 and
 \begin{equation}
 \label{eqn:geodesic_p}
-  \frac{d p_\beta}{d\lambda} = -\Gamma^\alpha_{\mu\beta} p^\mu p_\alpha,
+  \frac{d p_\beta}{d\lambda} = -\Gamma^\alpha_{\beta\gamma} p^\gamma p_\alpha,
 \end{equation}
-where $\Gamma^\alpha_{\mu\gamma}$ are the standard connection coefficients,
+where $p^\alpha=\psi^{\alpha\beta}p_\beta$,
+$\psi^{\alpha\beta}$ is the inverse of the spacetime metric $\psi_{\alpha\beta}$,
+and $\Gamma^\alpha_{\beta\gamma}$ are the standard connection coefficients,
 \begin{equation}
   \label{eqn:christoffel}
-  \Gamma^\beta_{\alpha\gamma} =
-  \frac{1}{2} \psi^{\beta\mu}
-  (\psi_{\mu\alpha,\gamma} + \psi_{\mu\gamma,\alpha} - \psi_{\alpha\gamma,\mu}),
+  \Gamma^\alpha_{\beta\gamma} =
+  \frac{1}{2} \psi^{\alpha\mu}
+  (\psi_{\mu\beta,\gamma} + \psi_{\mu\gamma,\beta} - \psi_{\beta\gamma,\mu}),
 \end{equation}
-and $\psi_{\alpha\beta}$ is the spacetime metric.
+with the comma denoting a partial derivative
+$\psi_{\mu\beta,\gamma}=\partial_\gamma\,\psi_{\mu\beta}$.
 
 Each trajectory is parameterized by affine parameter, $\lambda$, increasing in
 the direction of $\ell_\beta$. We label $\lambda=\lambda_e$ at $x^\alpha_e$,
@@ -449,9 +485,7 @@ neutrino as measured by our fiducial obsever $u^\alpha$.
 
 \subsection{The Rendering Equation}
 \label{ssec:rendering_eqn}
-Defining the source function
-$\mathscr{S}^*\equiv\mathscr{E}^*/\mathscr{K}^*$,
-we can integrate Eqn.~\ref{eqn:boltzmann_linear} directly,
+We can integrate Eqn.~\ref{eqn:boltzmann_linear} directly,
 \begin{align}
   \label{eqn:rendering}
   f(\lambda,\lambda_e) &=
@@ -462,7 +496,7 @@ we can integrate Eqn.~\ref{eqn:boltzmann_linear} directly,
   \label{eqn:rendering_finteg}
   f_{\rm integ}(\lambda,\lambda_e) &=
   \int_{\lambda_e}^\lambda d\lambda'\,e^{-\tau(\lambda,\lambda')}
-  \mathscr{K}^*(\lambda') \mathscr{S}^*(\lambda'),
+  \mathscr{E}(\lambda'),
 \end{align}
 where the optical depth is defined,
 \todo{rewrite this section simpler; don't give integral solution
@@ -470,10 +504,26 @@ where the optical depth is defined,
 \begin{equation}
   \label{eqn:optical_depth}
   \tau(\lambda,\lambda') \equiv -\int_{\lambda'}^\lambda
-  d\lambda'' \, \mathscr{K}^*(\lambda''),
+  d\lambda'' \, \mathscr{K}(\lambda''),
 \end{equation}
 and the parameterization conventions are depicted in
 Fig.~\ref{fig:affine_param}.
+
+We further separate the integrated distribution function into
+its absorption/emission and elastic scattering components,
+$f_{\rm integ} = f_{\rm AE} + f_{\rm SE}$:
+\begin{align}
+  \label{eqn:rendering_fae}
+  f_{\rm AE}(\lambda,\lambda_e)
+  &= \int_{\lambda_e}^\lambda d\lambda'\,e^{-\tau(\lambda,\lambda')}
+  \mathscr{E_{\rm AE}}(\lambda'), \\
+  \label{eqn:rendering_fse}
+  f_{\rm SE}(\lambda,\lambda_e)
+  &= \int_{\lambda_e}^\lambda d\lambda'\,e^{-\tau(\lambda,\lambda')}
+  \mathscr{E_{\rm SE}}(\lambda').
+\end{align}
+Note that the optical depth used in both of these integrands is the total
+optical depth.
 
 \subsection{Moments of the Distribution Function}
 \label{ssec:moments}
@@ -513,11 +563,29 @@ having dimension ${\rm energy}\,{\rm length}^{-3}$.
 
 In practice we use two possible fiducial observers to define the momentum
 decomposition via Eqn.~\ref{eqn:def_momentum}: the Eulerian,
-or normal, observer, $n_\alpha=-\alpha \,\partial_\alpha t$,
-and the fluid, or comoving, observer,
-$u^\alpha=W(n^\alpha+v^\alpha)$.
-Here $t$ is coordinate time, $\alpha$ is lapse,
-$W$ is fluid Lorentz factor, and $v^\alpha$ is fluid coordinate velocity.
+or normal observer $n_\mu=-\alpha \,\partial_\mu t$,
+and the fluid, or comoving observer
+$u^\mu=Wn^\mu+v_{\rm E}^\mu$.
+Here $t$ is coordinate time and $\alpha$ is lapse
+in the standard 3+1 decomposition of the metric
+\begin{equation}
+  \label{eqn:adm_metric}
+  \psi_{\mu\gamma} :=
+  \left(
+  \begin{matrix}
+    -\alpha^2 + \beta^i \beta_i  & \beta_i \\
+    \beta_j                      & g_{ij}
+  \end{matrix}
+  \right).
+\end{equation}
+We have also introduced
+the fluid Lorentz factor $W=-n_\mu u^\mu=\alpha u^t$,
+its Eulerian velocity $v_{\rm E}^\mu=g^\mu_\lambda u^\lambda$
+(distinct from its coordinate velocity $v^\mu=u^\mu/u^t$),
+and the projection tensor orthogonal to the normal observer
+$g^\mu_\lambda=\psi^\mu_\lambda+u^\mu u_\lambda$,
+whose spatial part is the 3-metric, $g_{ij}$.
+
 We distinguish moments computed assuming an Eulerian observer with a tilde,
 e.g. $\tilde{J}$, $\tilde{H}^\mu$, $\tilde{S}^{\mu\nu}$.
 Note that these three Eulerian moments are identical to the lab-frame moments
@@ -535,7 +603,7 @@ and Eqns.~\ref{eqn:rendering} and~\ref{eqn:optical_depth}
 in the form given below.
 By using the time-component of Eqn.~\ref{eqn:geodesic_x} ($dt=d\lambda \, p^t$)
 we may transform our integrations to coordinate time.
-The equations are
+The coupled system of ordinary differential equations is
 \begin{align}
   \label{eqn:num_x}
   \frac{dx^i}{dt} &=
@@ -545,28 +613,23 @@ The equations are
   -\alpha \alpha_{,i} p^t
   + \beta^k_{,i} p_k
   - \frac{1}{2} g^{jk}_{,i}\frac{p_j p_k}{p^t}\\
-  \label{eqn:num_finteg}
-  \frac{df_{\rm integ}}{dt} &=
-  e^{-\tau} \mathscr{K}^* \mathscr{S}^*\\
+  \label{eqn:num_fae}
+  \frac{df_{\rm AE}}{dt} &=
+  e^{-\tau} \frac{\mathscr{E_{\rm AE}}}{p^t}\\
+  \label{eqn:num_fse}
+  \frac{df_{\rm SE}}{dt} &=
+  e^{-\tau} \frac{\mathscr{E_{\rm SE}}}{p^t}\\
   \label{eqn:num_tau}
   \frac{d\tau}{dt} &=
-  -\mathscr{K}^*
+  - \frac{\mathscr{K}}{p^t}.
 \end{align}
-where the comma denotes a partial derivative
-and we have used the standard 3+1 decomposition of the metric
-\begin{equation}
-  \label{eqn:adm_metric}
-  \psi_{\mu\gamma} :=
-  \left(
-  \begin{matrix}
-    -\alpha^2 + \beta^i \beta_i  & \beta_i \\
-    \beta_j                      & g_{ij}
-  \end{matrix}
-  \right).
-\end{equation}
 
 We integrate each ray until we reach a terminal optical depth of
-$\tau_{\rm term}$ at event $x_e^\alpha$.
+$\tau_{\rm term}$ at the earliest emission event $x_e^\alpha$.
+The concept of earliest emission event is a facetious construct we use
+to allow us to truncate our integration at a location along the ray where any
+further additions to the field are negligible due to the large optical depth
+between $x_e^\alpha$ and $x_o^\alpha$.
 We choose $\tau_{\rm term}$ large so that
 $f_{\rm bound}$ is negligible
 (in practice $e^{-\tau_{\rm term}}=0.001$)
@@ -574,8 +637,8 @@ and compute $f_{\rm bound}$ assuming radiative equilibrium with the matter,
 i.e. $f_{\rm bound}=(1+\exp((\varepsilon-\mu_\nu)/T)$,
 and $\mu_{\nu_e}=-\mu_{\bar{\nu}_e}=\mu_{e^{-}}+\mu_p-\mu_n$ and
 $\mu_{\nu_x}=0$.
-If the ray terminates off the numerical domain
-we set $f_{\rm bound}=0$.
+If the ray terminates off the numerical domain before the terminal optical
+depth accumulates, we set $f_{\rm bound}=0$.
 
 Since we don't know the emission event a priori,
 \todo{make clear ``emission event'' doesn't involve physical assumption}
@@ -583,12 +646,16 @@ we follow the integration backwards in time,
 from $t_o$ to $t_e$.
 We begin each integration by setting initial values for the variables at $t_o$.
 The observer specifies $x^i_o$ and $p_{i,o}$,
-and we set $f_{{\rm integ},o}=0$ and $\tau_o=0$.
+and we set $f_{{\rm AE},o}=f_{{\rm SE},o}=0$ and $\tau_o=0$.
 
 We integrate Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} with adaptive step sizes,
-using the 5th-order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed}.
-After a step is taken, the error is estimated for each variable.
+using the 5th-order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed},
+which produces an error estimate by comparing the 4th and 5th order solutions.
+\todo{confirm}
+After each step is taken, the errors for each of the 9 variables of
+Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} are compared.
 If the maximum of these errors exceeds some absolute or relative threshold
+\todo{specify ScaledAbsRel algorithm}
 the step size is decreased and the step recomputed,
 if it is below some threshold the next step size is increased.
 % see OdeIntegrators::AdaptiveDense
@@ -606,7 +673,8 @@ at specified coordinate times and interpolated
 with spectral interpolation in space,
 and 1st-order polynomial interpolation in time
 (as described in \cite[App.~B]{bohn2016-code}).
-If computed from a stationary solution to the
+If computed from a quasi-stationary solution to the
+\todo{clarify quasistationary timescale}
 general relativistic hydrodynamics equations,
 a single time is stored to disk, and no time interpolation is needed.
 
@@ -616,16 +684,17 @@ a single time is stored to disk, and no time interpolation is needed.
 To test our algorithm, we integrate the ray tracing equations
 (Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau}) at one observation position
 in the following configurations. This suite of configurations
-may be understood as a hierarchy of models of increasing
-physical realism: beginning with a homogeneous medium of effectively
+may be understood as a hierarchy of increasing physical realism:
+beginning with a homogeneous medium of effectively
 infinite extent (i.e.\ optically thick) and progressing to a model of a
 1D pre-supernova, post-bounce collapse profile
 evolved using an M1 transport hydrodynamical simulation.
-\todo{also nsns merger?}
-
-We compare to analytic solutions in the simple configurations, and
-numerical solutions from alternative radiation transport algorithms
-(i.e.\ monte carlo or M1 transport) where they are not.
+In the pre-supernova model, we ray tracing distributions to those calculated
+in a Monte Carlo transport simulation.
+Finally, we calculate global measures of the neutrino fields outside of the
+hypermassive neutron star and disk formed in a binary neutron star
+merger simulated by \cite{fouc2016-m1_nsns, fouc2016-m1_evolve_n},
+and compare ray tracing results to those from the M1 transport simulation.
 
 \subsection{Infinite Homogeneous Slab:
   Testing Thermodynamic Equilibrium}
