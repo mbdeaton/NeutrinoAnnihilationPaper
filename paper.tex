@@ -7,6 +7,7 @@
 \usepackage{amsmath}              % for \text, align, split ...
 \usepackage{color}                % for colorful margin notes
 \usepackage[mathscr]{euscript}    % for \mathscr
+\usepackage{float}                % for better control of figure placement
 \usepackage{graphicx}             % for \includegraphics
 \usepackage{hyperref}             % for \url and \href
 \usepackage{listings}             % for typesetting code with \lstinline
@@ -20,6 +21,9 @@
 
 \newcommand{\todo}[1]{\marginpar{\tiny{\textcolor{red}{#1}}}}
 %\renewcommand\todo[1]{} % if you wish to hide all todo notes
+
+% force all figures to be placed right where they are in the text
+\floatplacement{figure}{H}
 
 % *******************************************************************************
 \begin{document}
@@ -749,10 +753,38 @@ Plot in Fig.~\ref{fig:avg_eps_collapse}.
 \subsection{Hypermassive Neutron Star Remnant:
   Testing Everything}
 \label{ssec:test_disk_comparison}
-[Compute total and relative number and energy luminosities for a disk evolved
-in one of \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns, fouc2016-m1_evolve_n}.
-Expect agreement within factors of a few (?).]
-\todo{compute luminosities from M1 and RT, present table}
+Total and relative number and energy luminosities for the disk evolved
+in \cite{fouc2016-m1_evolve_n}.
+Agreement better than 10\%.
+\todo{put in table comparison M1 and RT}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{production-colormap-merid-rho}
+  \caption{A meridional slice of density in the hypermassive neutron
+    star and disk configuration.}
+  \label{fig:nsns_rho_merid}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{production-colormap-equat-rho}
+  \caption{An equatorial slice of density in the hypermassive neutron
+    star and disk configuration.}
+  \label{fig:nsns_rho_equat}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{production-colormap-merid-temp}
+  \caption{A meridional slice of temperature in the hypermassive neutron
+    star and disk configuration.}
+  \label{fig:nsns_temp_merid}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{production-colormap-equat-temp}
+  \caption{A meridional slice of temperature in the hypermassive neutron
+    star and disk configuration.}
+  \label{fig:nsns_temp_equat}
+\end{figure}
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-homogeneous_equilibrium}
@@ -815,15 +847,39 @@ presented in the code tests.
 
 The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
 Something like this is presented in \cite[Figs.~10-11]{pere2014-nu_wind};
-compare.]
-\todo{compute $H^r(\mu;\varepsilon)$ in nsns and nsbh}
-\todo{compute $\langle \varepsilon \rangle(\mu)$}
+compare.
 
 \subsection{Neutrino Self-Interaction Potential}
 \label{ssec:V_nunu}
 In this section we present $V_{\nu\nu,0}$ along one test trajectory in the NSNS
 model, and show that including elastic scattering makes a qualitative
 difference in the character of the flavor evolution.
+See Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}.
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{20170619-potentials-Vnue_Vnua_Vnu-000Mo-022deg-noscat}
+  \caption{Neutrino self-interaction potential along a test trajectory
+    originating at the surface of the hypermassive neutron star, and
+    proceeding outward along a radial coordinate ray with angle
+    $\psi=22^{\circ}$ with respect to the polar axis.
+    The trajectory is parameterized by the coordinate length $s$.
+    This calculation was done with scattering turned off.
+    Outside of the symmetric point at $s\sim4km$, the potential is
+    positive, i.e.\ $\nu_e$-dominated.
+    Compare to Fig.~\ref{fig:V_nunu-scat}.
+    }
+  \label{fig:V_nunu-noscat}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{20170619-potentials-Vnue_Vnua_Vnu-000Mo-022deg-scat}
+  \caption{Same as Fig.~\ref{fig:V_nunu-noscat},
+    but with scattering turned on.
+    Unlike the case with scattering turned off, here the potential is
+    everywhere negative, i.e.\ $\bar{\nu}_e$-dominated.
+    }
+  \label{fig:V_nunu-scat}
+\end{figure}
 
 \subsection{Neutrino Annihilation Integral}
 \label{ssec:q_nunu}
