@@ -718,6 +718,21 @@ $\mu_{\nu_e}=5.771$~MeV respectively
 Plot in Fig.~\ref{fig:homogeneous_isotropic}.
 \todo{run test at this thermodynamic point}
 
+\begin{figure}
+  \includegraphics[width=\columnwidth]{fig-homogeneous_equilibrium}
+  \caption{Equilibrium distribution functions in a homogeneous background
+    at two thermodynamic points,
+    representative of the collapse profile at
+    50~km ($\varrho=1.235 \times 10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
+    $T=4$~MeV,
+    $Y_e=0.12$) and
+    200~km ($\varrho=3.026\times 10^{7}\,{\rm g}\,{\rm cm}^{-3}$,
+    $T=0.5$~MeV,
+    $Y_e=0.5$).
+    Described in Sec.~\ref{ssec:test_equilibrium}}
+  \label{fig:homogeneous_isotropic}
+\end{figure}
+
 \subsection{Infinite Homogeneous Moving Slab:
   Testing Doppler Shift}
 \label{ssec:test_doppler}
@@ -726,21 +741,44 @@ in the $+z$ direction, with the observer stationary.
 Plot in Fig.~\ref{fig:avg_eps_doppler}.
 \todo{describe test}
 
+\begin{figure}
+  \includegraphics[width=\columnwidth]{fig-moving_fluid-avg_eps_vs_cosA}
+  \caption{Average energy $\langle\varepsilon\rangle=J/G$
+    of neutrino fields for fluid moving in the $+z$ direction,
+    with $A$ the angle between the neutrino momentum and the $+z$ direction.
+    Test described in Sec.~\ref{ssec:test_doppler}}
+  \label{fig:avg_eps_doppler}
+\end{figure}
+
 \subsection{Idealized Star:
   Testing the Decoupling Regime}
 \label{ssec:test_ab_star}
 [Test described in~\cite[Sec.~3.2]{smit1997-two_moment}.]
 Plot in Fig.~\ref{fig:f_absorption_sphere}.
 
+\begin{figure}
+  \includegraphics[width=\columnwidth]{fig-absorption_sphere}
+  \caption{Distribution function outside a constant-density star
+    with radius $R=15$~km, and observer at $r=22.5$~km.
+    $A$ is the angle between the neutrino momentum and the $\hat{r}$ direction.
+    The sample grid uses 30 points in energy and angle spanning the ranges
+    $\varepsilon\in(0,100)$~MeV and $\cos A\in(0.6454,1)$,
+    with sample points at bin centers.
+    The line depicts the analytic result for one energy: $\varepsilon=15$~MeV.
+    Test described in Sec.~\ref{ssec:test_ab_star}}
+  \label{fig:f_absorption_sphere}
+\end{figure}
+
 \subsection{Idealized Compact Star:
   Testing Gravitational Redshift and Geodesic Curvature}
 \label{ssec:test_gravity}
 Optically thick star in Schwarszchild.
-\todo{describe $L(r)$, as a function of lapse}
-optically thick disk in Kerr (Fishbone-Moncrief disk):
-set up to give two different surfaces for nue vs nua, but same temp (?).
-\todo{plot of analytic and numerical geodesics}
-\todo{plot of $G$ nue vs nua}
+Total luminosity at infinite separation may be computed by
+computing the radial energy flux at a finite separation from the star, $r$,
+and using $p_t$ for the energy. We compute this asymptotic luminosity
+at several radii, $r$, and show that the luminosity is independent of
+the observer's radius.
+\todo{compute $L$, put in figure}
 
 \subsection{Post-Bounce Collapse Profile:
   Testing Scattering}
@@ -749,6 +787,19 @@ set up to give two different surfaces for nue vs nua, but same temp (?).
 and in \cite[App.~E.6]{fouc2015-m1_nsbh},
 and in~\cite{abdi2012-monte_carlo}.]
 Plot in Fig.~\ref{fig:avg_eps_collapse}.
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{fig-collapse_profile-avg_eps_vs_cosA}
+  \caption{Average energy $\langle\varepsilon\rangle=J/G$
+    in the collapse profile test.
+    The observer is at 500~km, and the shock at 150~km,
+    so that the half-opening angle of the shock is $\cos A=0.954$.
+    The four methods depicted are 1) a fiducial Monte Carlo calculation,
+    ray tracing using the 2) spectral and 3) gray methods to estimate background
+    fields for scattering, and 4) ray tracing neglecting scattering.
+    Test described in Sec.~\ref{ssec:test_collapse}}
+  \label{fig:avg_eps_collapse}
+\end{figure}
 
 \subsection{Hypermassive Neutron Star Remnant:
   Testing Everything}
@@ -786,58 +837,8 @@ Agreement better than 10\%.
   \label{fig:nsns_temp_equat}
 \end{figure}
 
-\begin{figure}
-  \includegraphics[width=\columnwidth]{fig-homogeneous_equilibrium}
-  \caption{Equilibrium distribution functions in a homogeneous background
-    at two thermodynamic points,
-    representative of the collapse profile at
-    50~km ($\varrho=1.235 \times 10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
-    $T=4$~MeV,
-    $Y_e=0.12$) and
-    200~km ($\varrho=3.026\times 10^{7}\,{\rm g}\,{\rm cm}^{-3}$,
-    $T=0.5$~MeV,
-    $Y_e=0.5$).
-    Described in Sec.~\ref{ssec:test_equilibrium}}
-  \label{fig:homogeneous_isotropic}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{fig-moving_fluid-avg_eps_vs_cosA}
-  \caption{Average energy $\langle\varepsilon\rangle=J/G$
-    of neutrino fields for fluid moving in the $+z$ direction,
-    with $A$ the angle between the neutrino momentum and the $+z$ direction.
-    Test described in Sec.~\ref{ssec:test_doppler}}
-  \label{fig:avg_eps_doppler}
-\end{figure}
-
 \section{Applications}
 \label{sec:applications}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{fig-absorption_sphere}
-  \caption{Distribution function outside a constant-density star
-    with radius $R=15$~km, and observer at $r=22.5$~km.
-    $A$ is the angle between the neutrino momentum and the $\hat{r}$ direction.
-    The sample grid uses 30 points in energy and angle spanning the ranges
-    $\varepsilon\in(0,100)$~MeV and $\cos A\in(0.6454,1)$,
-    with sample points at bin centers.
-    The line depicts the analytic result for one energy: $\varepsilon=15$~MeV.
-    Test described in Sec.~\ref{ssec:test_ab_star}}
-  \label{fig:f_absorption_sphere}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{fig-collapse_profile-avg_eps_vs_cosA}
-  \caption{Average energy $\langle\varepsilon\rangle=J/G$
-    in the collapse profile test.
-    The observer is at 500~km, and the shock at 150~km,
-    so that the half-opening angle of the shock is $\cos A=0.954$.
-    The four methods depicted are 1) a fiducial Monte Carlo calculation,
-    ray tracing using the 2) spectral and 3) gray methods to estimate background
-    fields for scattering, and 4) ray tracing neglecting scattering.
-    Test described in Sec.~\ref{ssec:test_collapse}}
-  \label{fig:avg_eps_collapse}
-\end{figure}
 
 \subsection{Understanding Emission Spectra}
 \label{ssec:spectra}
