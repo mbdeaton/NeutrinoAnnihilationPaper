@@ -1062,7 +1062,7 @@ Here $t$ is coordinate time and $\alpha$ is lapse
 in the standard 3+1 decomposition of the metric
 \begin{equation}
   \label{eqn:adm_metric}
-  \psi_{\mu\gamma} :=
+  \psi_{\mu\gamma} \rightarrow
   \left(
   \begin{matrix}
     -\alpha^2 + \beta^i \beta_i  & \beta_i \\
@@ -1080,24 +1080,53 @@ whose spatial part is the 3-metric, $g_{ij}$.
 
 We specify the neutrino direction in the observer's frame
 with two spherical polar angles
+($a$,$b$) with respect to the simulation cartesian coordinates
 \begin{align}
-  \ell_i &= q\Omega_i, \\
-  \Omega_i &:= (\sin a \cos b,\sin a\sin b,\cos a).
+  \ell_\alpha &\rightarrow q(s,\Omega_i), \\
+  \Omega_i &\rightarrow (\sin a \cos b,\sin a\sin b,\cos a),
 \end{align}
-with q and s given by
-\begin{align}
-  q &= W
-\end{align}
-And we further specify a rotated frame using two new spherical polar angles
+or alternatively the two spherical polar angles
+($A$,$B$) with respect to rotated coordinates
 \begin{equation}
   \label{eqn:def_direction_primed_2}
-  \Omega_{i'} :=  (\sin A \cos B,\sin A\sin B,\cos A).
+  \Omega_{i'} \rightarrow  (\sin A \cos B,\sin A\sin B,\cos A).
 \end{equation}
-The two frames are related by a standard Euler rotation matrix
-\begin{equation}
+The two coordinate systems are related by a standard Euler rotation of first
+$\phi$ about the $z$-axis, then $\theta$ about the rotated $y$-axis,
+with $\phi$ and $\theta$ the azimuthal and polar position of the observer.
+Expressed algebraically:
+\begin{align}
   \label{eqn:rotation_connection}
-  \Omega_i=R^{i'}_i(\theta,\phi)\, \ell_{i'}.
-\end{equation}
+  \Omega_x &= \Omega_{x'}\cos\theta\cos\phi-\Omega_{y'}\sin\phi+\Omega_{z'}\sin\theta\cos\phi,\nonumber\\
+  \Omega_y &= \Omega_{x'}\cos\theta\sin\phi+\Omega_{y'}\cos\phi+\Omega_{z'}\sin\theta\sin\phi,\nonumber\\
+  \Omega_z &= \Omega_{x'}\sin\theta+\Omega_{z'}\cos\theta.
+\end{align}
+
+The scale factors $q$ and $s$ are functions of the neutrino
+direction $\Omega_i$, the observer's velocity $u_\alpha$,
+and the spacetime metric.
+In the case of a fluid observer, specified by an arbitrary $W$ and $u_i$,
+$q$ and $s$ are given by
+\begin{align}
+  \label{eqn:q_general}
+  q
+  &= W\alpha\Bigg(2\beta^i\Omega_i W^2(\beta^i\Omega_i-1) \nonumber\\
+  &\qquad\qquad - 2\Omega_i u_j g^{ij} W \alpha(\beta^i\Omega_i-1)\nonumber\\
+  &\qquad\qquad + \alpha^2\left((\Omega_i u_j g^{ij})^2+\Omega_i\Omega_j g^{ij}W^2\right)\Bigg)^{-1/2}\\
+  \label{eqn:s_general}
+  s
+  &= \beta^i\Omega_i -\Omega_i u_j g^{ij}.
+\end{align}
+In the case of an Eulerian observer, $W=1$ and $u_i=0$,
+and these expressions simplify considerably:
+\begin{align}
+  \label{eqn:q_eulerian}
+  \tilde{q}
+  &= \alpha\left(2\beta^i\Omega_i(\beta^i\Omega_i-1)+\alpha^2\Omega_i\Omega_j g^{ij}\right)^{-1/2}\\
+  \label{eqn:s_eulerian}
+  \tilde{s}
+  &= \beta^i\Omega_i.
+\end{align}
 
 \section{Source Terms}
 \label{sec:source_terms}
