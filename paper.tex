@@ -328,17 +328,39 @@ $f(x^\alpha;\varepsilon,\ell_\beta)$.
 Because $\ell_\beta$ is subject to two constraints
 (normalization and orthogonality to the observer's velocity)
 it has two degrees of freedom; we make this explicit by defining its
-spatial components with respect to spherical polar angles
+spatial cartesian components with respect to spherical polar angles
 \begin{equation}
   \label{eqn:def_direction}
-  \ell_\alpha :=
-  q (s,\sin\upsilon_1\cos\upsilon_2,\sin\upsilon_1\sin\upsilon_2,\cos\upsilon_1),
+  \ell_\alpha \rightarrow
+  q (s,\sin a \cos b,\sin a\sin b,\cos a),
 \end{equation}
-with $q$ and $s$ functions of $\upsilon_1$ and $\upsilon_2$.
+with $q$ and $s$ functions of $a$ and $b$.
 Now our symbol for the distribution function,
-$f(x^\alpha;\varepsilon,\upsilon_1,\upsilon_2)$,
+$f(x^\alpha;\varepsilon,a,b)$,
 makes manifest its seven independent arguments.
-\todo{also decompose wrt $p_t$}
+
+We also define a rotated frame
+\begin{equation}
+  \ell_{\alpha'}=\frac{\partial x^\alpha}{\partial x^{\alpha'}}\,\ell_\alpha \nonumber
+\end{equation}
+in which the cartesian components of the direction 1-form are defined
+\begin{equation}
+  \label{eqn:def_direction_primed}
+  \ell_{\alpha'} \rightarrow
+  q (s,\sin A \cos B,\sin A\sin B,\cos A),
+\end{equation}
+so that momenta with vanishing polar angle $A$ move outward along coordinate
+radial rays.
+This transformation is chosen so that for an observer far from the source,
+incoming radiation will be concentrated into a narrow beam around $\cos A\approx1$,
+independent of that observer's position in coordinate space.
+For explicit definitions see App.~\ref{sec:def_momentum}.
+
+In Minkowski spacetime, and for a stationary observer
+$u_\beta\rightarrow(-1,0,0,0)$, we would have $s=0$, $q=1$,
+and $\varepsilon=-p_t$. In that case $\cos A$ may be identified
+\todo{cite someone that uses $\mu$}
+with the familiar forward direction cosine $\mu$.
 
 \subsection{Boltzmann Equation}
 \label{ssec:boltzmann}
@@ -353,7 +375,6 @@ where $d/d\lambda$ denotes a derivative with respect to the affine
 parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x})
 and $C[f]$ is the source term arising from interactions with the medium,
 having dimension ${\rm energy}\,{\rm length}^{-1}$.
-\todo{describe $C[f]$ in physical terms}
 The source term varies over phase space $(x^\alpha,p_\beta)$,
 and due to Fermi blocking depends locally on the distribution function $f$
 and nonlocally on the distribution function of this neutrino and its
@@ -608,7 +629,7 @@ Here ``specific'' refers to the quantity being integrable over neutrino energy.
 \todo{relate moments to other frames?}
 Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
 momentum space while holding $\varepsilon$ constant:
-$d\Omega \equiv d(\cos\upsilon_1)\,d\upsilon_2$.
+$d\Omega \equiv d(\cos a)\,db$.
 \todo{consistent with Eqn.~\ref{eqn:def_direction}?}
 We will also make use of the number density and flux defined as
 $G(\varepsilon)=J(\varepsilon)/\varepsilon$
@@ -623,31 +644,12 @@ The energy-integrated moments are
 \end{equation}
 having dimension ${\rm energy}\,{\rm length}^{-3}$.
 
-In practice we use two possible fiducial observers to define the momentum
-decomposition via Eqn.~\ref{eqn:def_momentum}: the Eulerian,
-or normal observer $n_\mu=-\alpha \,\partial_\mu t$,
-and the fluid, or comoving observer
-$u^\mu=Wn^\mu+v_{\rm E}^\mu$.
-Here $t$ is coordinate time and $\alpha$ is lapse
-in the standard 3+1 decomposition of the metric
-\begin{equation}
-  \label{eqn:adm_metric}
-  \psi_{\mu\gamma} :=
-  \left(
-  \begin{matrix}
-    -\alpha^2 + \beta^i \beta_i  & \beta_i \\
-    \beta_j                      & g_{ij}
-  \end{matrix}
-  \right).
-\end{equation}
-We have also introduced
-the fluid Lorentz factor $W=-n_\mu u^\mu=\alpha u^t$,
-its Eulerian velocity $v_{\rm E}^\mu=g^\mu_\lambda u^\lambda$
-(distinct from its coordinate velocity $v^\mu=u^\mu/u^t$),
-and the projection tensor orthogonal to the normal observer
-$g^\mu_\lambda=\psi^\mu_\lambda+u^\mu u_\lambda$,
-whose spatial part is the 3-metric, $g_{ij}$.
-
+There are two sensible observers to use to define the frame in which these
+moments are computed, that is defining the four-velocity of
+Eqn.~\ref{eqn:def_momentum}:
+a stationary (also called an Eulerian) observer,
+and a fluid (also called a comoving) observer \cite{smar1980-gr_hydro}.
+Definitions are given in App.~\ref{sec:def_momentum}.
 We distinguish moments computed assuming an Eulerian observer with a tilde,
 e.g. $\tilde{J}$, $\tilde{H}^\mu$, $\tilde{S}^{\mu\nu}$.
 Note that these three Eulerian moments are identical to the lab-frame moments
@@ -1039,6 +1041,63 @@ a difference (or not) in our estimate of the power available to drive a jet.
 
 % ******************************************************************************
 \appendix
+
+\section{Momentum Definitions}
+\label{sec:def_momentum}
+Here we describe our conventions defining the four-momentum of a neutrino.
+We decompose the neutrino momentum into components parallel and orthogonal to
+an observer's velocity $u_\beta$:
+\begin{equation}
+  \label{eqn:def_momentum_2}
+  p_\beta = \varepsilon (u_\beta + \ell_\beta),
+\end{equation}
+with $u_\alpha\ell^\alpha=0$ and $\ell_\alpha\ell^\alpha=1$.
+
+In practice we use two possible fiducial observers to define the momentum
+decomposition via Eqn.~\ref{eqn:def_momentum}: the Eulerian,
+or normal observer $n_\mu=-\alpha \,\partial_\mu t$,
+and the fluid, or comoving observer
+$u^\mu=Wn^\mu+v_{\rm E}^\mu$.
+Here $t$ is coordinate time and $\alpha$ is lapse
+in the standard 3+1 decomposition of the metric
+\begin{equation}
+  \label{eqn:adm_metric}
+  \psi_{\mu\gamma} :=
+  \left(
+  \begin{matrix}
+    -\alpha^2 + \beta^i \beta_i  & \beta_i \\
+    \beta_j                      & g_{ij}
+  \end{matrix}
+  \right).
+\end{equation}
+We have also introduced
+the fluid Lorentz factor $W=-n_\mu u^\mu=\alpha u^t$,
+its Eulerian velocity $v_{\rm E}^\mu=g^\mu_\lambda u^\lambda$
+(distinct from its coordinate velocity $v^\mu=u^\mu/u^t$),
+and the projection tensor orthogonal to the normal observer
+$g^\mu_\lambda=\psi^\mu_\lambda+u^\mu u_\lambda$,
+whose spatial part is the 3-metric, $g_{ij}$.
+
+We specify the neutrino direction in the observer's frame
+with two spherical polar angles
+\begin{align}
+  \ell_i &= q\Omega_i, \\
+  \Omega_i &:= (\sin a \cos b,\sin a\sin b,\cos a).
+\end{align}
+with q and s given by
+\begin{align}
+  q &= W
+\end{align}
+And we further specify a rotated frame using two new spherical polar angles
+\begin{equation}
+  \label{eqn:def_direction_primed_2}
+  \Omega_{i'} :=  (\sin A \cos B,\sin A\sin B,\cos A).
+\end{equation}
+The two frames are related by a standard Euler rotation matrix
+\begin{equation}
+  \label{eqn:rotation_connection}
+  \Omega_i=R^{i'}_i(\theta,\phi)\, \ell_{i'}.
+\end{equation}
 
 \section{Source Terms}
 \label{sec:source_terms}
