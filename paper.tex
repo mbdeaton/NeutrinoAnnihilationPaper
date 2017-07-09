@@ -465,7 +465,7 @@ the relevant reactions in Tab.~\ref{tab:neutrino_processes}:
 \begin{align}
   \label{eqn:se_emissivity}
   \mathscr{E}_{\rm SE}(\varepsilon)
-  &= \mathscr{K}_{\rm SE}(\varepsilon) \, \Phi_{\rm SE}(\varepsilon) \, \\
+  &= \mathscr{K}_{\rm SE}(\varepsilon) \, \Phi(\varepsilon) \, \\
   \label{eqn:se_opacity_summed}
   \mathscr{K}_{\rm SE}(\varepsilon)
   &= \varepsilon \sum_{i\,{\rm reactions}} \chi_{{\rm s},i}(\varepsilon).
@@ -481,7 +481,7 @@ $\mathscr{S}=\mathscr{S}_{\rm AE}+\mathscr{S}_{\rm SE}$, with
   &= \frac{\mathscr{K}_{\rm AE}}{\mathscr{K}} f^{\rm eq}, \\
   \label{eqn:source_se}
   \mathscr{S}_{\rm SE}
-  &= \frac{\mathscr{K}_{\rm SE}}{\mathscr{K}} \Phi_{\rm SE}.
+  &= \frac{\mathscr{K}_{\rm SE}}{\mathscr{K}} \Phi.
 \end{align}
 With these definitions we write a separated form of
 Eqn.~\ref{eqn:boltzmann_linear_s}:
@@ -489,18 +489,18 @@ Eqn.~\ref{eqn:boltzmann_linear_s}:
   \label{eqn:boltzmann_split}
   \frac{d}{d\lambda}f =
   \mathscr{K}_{\rm AE}(f^{\rm eq}-f)
-  + \mathscr{K}_{\rm SE}(\Phi_{\rm SE}-f)
+  + \mathscr{K}_{\rm SE}(\Phi-f)
 \end{equation}
 From Eqn.~\ref{eqn:boltzmann_split} we see that
 absorption/emission interactions drive the distribution function
 toward $f^{\rm eq}$ over an affine lengthscale $\mathscr{K}_{\rm AE}^{-1}$,
 and elastic scattering interactions drive it
-toward $\Phi_{\rm SE}$ over an affine lengthscale $\mathscr{K}_{\rm SE}^{-1}$.
+toward $\Phi$ over an affine lengthscale $\mathscr{K}_{\rm SE}^{-1}$.
 
 This paper introduces the use of neutrino densities and fluxes evolved in an
-M1 transport simulation to estimate the background field, $\Phi_{\rm SE}$.
+M1 transport simulation to estimate the background field, $\Phi$.
 App.~\ref{ssec:sources_se} details a method to calculate
-$\Phi_{\rm SE}(\varepsilon)$ in two different ways:
+$\Phi(\varepsilon)$ in two different ways:
 \begin{itemize}
 \item
   the \emph{spectral} method using densities and fluxes
@@ -582,7 +582,7 @@ a scattering term, $f=f_{\rm bdry}+f_{\rm AE}+f_{\rm SE}$:
   \label{eqn:rendering_fse}
   f_{\rm SE}(\lambda,\lambda_e)
   &= \int_{\lambda_e}^\lambda d\lambda'\,e^{-\tau(\lambda,\lambda')}
-  \mathscr{K}_{\rm SE}(\lambda')\Phi_{\rm SE}(\lambda'),
+  \mathscr{K}_{\rm SE}(\lambda')\Phi(\lambda'),
 \end{align}
 where the optical depth is defined,
 \begin{equation}
@@ -603,7 +603,7 @@ is the total optical depth.
 %  \mathscr{K}_{\rm AE} \, f^{\rm eq}
 %  &= \mathscr{K}\, \mathscr{S}_{\rm AE}
 %  = \mathscr{E}_{\rm AE},\nonumber \\
-%  \mathscr{K}_{\rm SE} \, \Phi_{\rm SE}
+%  \mathscr{K}_{\rm SE} \, \Phi
 %  &= \mathscr{K} \, \mathscr{S}_{\rm SE}
 %  = \mathscr{E}_{\rm SE}.\nonumber
 %\end{align}
@@ -685,7 +685,7 @@ The coupled system of ordinary differential equations is
   \frac{1}{p^t}e^{-\tau}\mathscr{K_{\rm AE}} \,f^{\rm eq},\\
   \label{eqn:num_fse}
   \frac{df_{\rm SE}}{dt} &=
-  \frac{1}{p^t}e^{-\tau}\mathscr{K_{\rm SE}} \,\Phi_{\rm SE}.
+  \frac{1}{p^t}e^{-\tau}\mathscr{K_{\rm SE}} \,\Phi.
 \end{align}
 
 We integrate each ray until we reach a terminal optical depth of
@@ -1312,16 +1312,16 @@ and \ref{eqn:Ha} we may write Eqn.~\ref{eqn:sources_se_1}:
 \begin{equation}
   \label{eqn:sources_se_2}
   C_{{\rm SE},i}
-  = \varepsilon \chi_{s,i} \Phi_{{\rm SE},i} - \varepsilon \chi_{s,i} f,
+  = \varepsilon \chi_{s,i} \Phi_i - \varepsilon \chi_{s,i} f,
 \end{equation}
 where we have introduced the scattering opacity $\chi_{s,i}$
-and the background scattering field $\Phi_{\rm SE}$:
+and the background scattering field $\Phi$:
 \begin{align}
   \label{eqn:opacity_s}
   \chi_{s,i}(\varepsilon)
   &= \frac{4\pi\varepsilon^3}{(2\pi)^3}R_{{\rm SE},i}^0(\varepsilon), \\
   \label{eqn:background_phi}
-  \Phi_{\rm SE,i}(\varepsilon,\ell_\alpha)
+  \Phi_i(\varepsilon,\ell_\alpha)
   &= \frac{(2\pi)^3}{\varepsilon^3}\frac{1}{4\pi}
   \left(J(\varepsilon)+
   \frac{\chi^{\rm tr}_{s,i}(\varepsilon)}{\chi_{s,i}(\varepsilon)}
@@ -1342,7 +1342,7 @@ the invariant emissivity and opacity for elastic scattering are
 \begin{align}
   \label{eqn:se_emissivity_summed}
   \mathscr{E}_{\rm SE}
-  &= \varepsilon \, \chi_s \, \Phi_{\rm SE}, \\
+  &= \varepsilon \, \chi_s \, \Phi, \\
   \label{eqn:se_opacity_summed}
   \mathscr{K}_{\rm SE}
   &= \varepsilon \, \chi_s.
@@ -1350,7 +1350,7 @@ the invariant emissivity and opacity for elastic scattering are
 
 We have made the energy-dependence of the background scattering field
 explicit in Eqn.~\ref{eqn:background_phi}.
-When we compute $\Phi_{\rm SE}(\varepsilon)$ using $J(\varepsilon)$ and
+When we compute $\Phi(\varepsilon)$ using $J(\varepsilon)$ and
 $H^\alpha(\varepsilon)$ from a multi-group
 M1 transport evolution, we call this the \emph{spectral} method.
 
