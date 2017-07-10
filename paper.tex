@@ -1277,6 +1277,16 @@ the invariant emissivity and opacity for absorption/emission are
 These expressions are equivalent to those in
 Eqns.~\ref{eqn:ae_emissivity_summed} and \ref{eqn:ae_opacity_summed}.
 
+We use the above treatment for $\nu_e$ and $\bar{\nu}_e$ only;
+the $\mu$ and $\tau$ neutrinos and antineutrinos do not participate in
+charged current absorption/emission interactions at these temperatures
+and energies.
+However we do use an effective stimulated absorption opacity $\chi^*_a$
+for the heavy-lepton neutrinos, computed by \lstinline{NuLib} as
+described in \cite{ocon2015-gr1d_with_nu} which follows
+\cite{brue1985-core_collapse,burr2006-neutrino_opacities}.
+This is described in App.~\ref{ssec:sources_pp}.
+
 \subsection{Elastic scattering}
 \label{ssec:sources_se}
 Neutrino scattering on particles of mass much greater than $\varepsilon$
@@ -1403,11 +1413,29 @@ we call this the \emph{gray} method.
 
 \subsection{Inelastic scattering}
 \label{ssec:sources_si}
-(e.g. \cite[Eqn.~A6]{brue1985-core_collapse}).
+Neutrino scattering off of electrons is inelastic, changing the
+magnitude and direction of the species' momenta.
+A similar formalism to the above could be used to derive source terms
+for inelastic scattering.
+\todo{compare relative amounts of inelastic to elastic scattering}
+We save that for future work, pointing out here that inelastic scattering
+treated this way is very sensitive to the energy-dependence of
+the background field.
 
 \subsection{Thermal pair annihilation and production}
 \label{ssec:sources_pp}
-(e.g. \cite[Eqn.~A9]{brue1985-core_collapse}).
+We do not include thermal pair processes within the above formalism,
+but as mentioned in App.~\ref{ssec:sources_ae}, we do include
+these processes in an effective absorption opacity for $\mu$ and $\tau$
+neutrinos and antineutrinos. \lstinline{NuLib} follows
+\cite{brue1985-core_collapse,burr2006-neutrino_opacities}
+by computing the emissivity of the pair processes in
+\todo{describe better}
+Tab.~\ref{tab:neutrino_processes}, and applying Kirchoff's law,
+Eqn.~\ref{eqn:kirchoffs_law}, to convert this to an opacity.
+We only use this effective opacity for heavy-lepton neutrinos because
+it is subdominant to the true absorption opacity for
+$\nu_e$ and $\bar{\nu}_e$.
 
 \subsubsection*{Acknowledgements}
 This research is supported in part by the Joint Institute for Nuclear
