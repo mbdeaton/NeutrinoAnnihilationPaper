@@ -760,29 +760,41 @@ In an optically thick region the radiation field is in thermodynamic equilibrium
 with the matter.
 We set up a large slab of matter in two homogeneous configurations
 representative of the fluid in the Massive Collapsed Star test
-(Sec.~\ref{ssec:test_collapse}) at two different radii:
-at 50~km
+(Sec.~\ref{ssec:test_collapse}) at the radius 50~km.
 For comparision with Collapsed Star test, we use the LS180 equation of state,
-in which the equilibrium
-neutrino chemical potentials are
-$\mu_{\nu_e}=-0.639$~MeV, and 
-$\mu_{\nu_e}=5.771$~MeV respectively
+in which the equilibrium $\nu_e$ neutrino chemical potential is
+$\mu_{\nu_e}=-0.575$~MeV
 ($\mu_{\bar{\nu}_e}=-\mu_{\nu_e}$ and $\mu_{\nu_x}=0$).
 Plot in Fig.~\ref{fig:homogeneous_isotropic}.
-\todo{run test at this thermodynamic point}
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{fig-homogeneous_equilibrium}
-  \caption{Equilibrium distribution functions in a homogeneous background
-    at two thermodynamic points,
+  \includegraphics[width=\columnwidth]{figure-mfps-50km}
+  \caption{Mean free paths
     representative of the collapse profile at
-    50~km ($\varrho=1.235 \times 10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
-    $T=4$~MeV,
-    $Y_e=0.12$) and
-    200~km ($\varrho=3.026\times 10^{7}\,{\rm g}\,{\rm cm}^{-3}$,
-    $T=0.5$~MeV,
-    $Y_e=0.5$).
-    Described in Sec.~\ref{ssec:test_equilibrium}}
+    50~km ($\varrho=10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
+    $T=3.7$~MeV, $Y_e=0.12$).
+    In the fluid rest frame these are given by
+    $(\chi^*_a)^{-1}$ for the absorption
+    and $(\chi_s)^{-1}$ for elastic scattering interactions.
+  }
+  \label{fig:mfps-50km}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{figure-ferr-50km}
+  \caption{Relative error in integrated equilibrium distribution functions
+    in a homogeneous background at the thermodynamic point
+    representative of the collapse profile at
+    50~km ($\varrho=10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
+    $T=3.7$~MeV, $Y_e=0.12$),
+    as described in Sec.~\ref{ssec:test_equilibrium}.
+    As can be seen in Fig.~\ref{fig:mfps-50km} these three species
+    over the given energies
+    probe our numerical solution over length scales from
+    100~m to $10^{5}\,{\rm km}$.
+    The source of this error is the discarded boundary term
+    $f_{\rm bdry}\sim10^{-6}$, described in Sec.~\ref{ssec:numerical}.
+  }
   \label{fig:homogeneous_isotropic}
 \end{figure}
 
@@ -792,6 +804,7 @@ Plot in Fig.~\ref{fig:homogeneous_isotropic}.
 We reproduce the test above, but with the matter moving in
 in the $+z$ direction, with the observer stationary.
 Plot in Fig.~\ref{fig:avg_eps_doppler}.
+\todo{redo test at same thermo point}
 \todo{describe test}
 
 \begin{figure}
