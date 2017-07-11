@@ -689,20 +689,16 @@ The coupled system of ordinary differential equations is
 \end{align}
 
 We integrate each ray until we reach a terminal optical depth of
-$\tau_{\rm term}$ at the earliest emission event $x_e^\alpha$.
+$\tau_{\rm term}$ at the earliest effective emission event $x_e^\alpha$.
 The concept of earliest emission event is a facetious construct we use
-to allow us to truncate our integration at a location along the ray where any
+to allow us to truncate our integration at an event along the ray where any
 further additions to the field are negligible due to the large optical depth
 between $x_e^\alpha$ and $x_o^\alpha$.
-We choose $\tau_{\rm term}$ large so that
-$f_{\rm bdry}$ is negligible (in practice $e^{-\tau_{\rm term}}=0.001$)
-and compute it assuming radiative equilibrium with the matter at $x_e^\alpha$
-using Eqn.~\ref{eqn:feq}: $f_{\rm bdry}=f^{\rm eq}\,e^{-\tau_{\rm term}}$.
-If the ray terminates off the numerical domain before the terminal optical
-depth accumulates, we set $f_{\rm bdry}=0$.
+We choose $\tau_{\rm term}=14$ so that $e^{-\tau_{\rm term}}<10^{-6}$,
+and we then discard the contribution of $f_{\rm bdry}$
+(Eqn.~\ref{eqn:rendering_fbdry}).
 
 Since we don't know the emission event a priori,
-\todo{make clear ``emission event'' doesn't involve physical assumption}
 we follow the integration backwards in time,
 from $t_o$ to $t_e$.
 We begin each integration by setting initial values for the variables at $t_o$.
@@ -712,7 +708,7 @@ and we set $f_{{\rm AE},o}=f_{{\rm SE},o}=0$ and $\tau_o=0$.
 We integrate Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} with adaptive step sizes,
 using the 5th-order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed},
 which produces an error estimate by comparing the 4th and 5th order solutions.
-\todo{confirm}
+\todo{update to 3rd order Runge-Kutta}
 After each step is taken, the errors for each of the 9 variables of
 Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} are compared.
 If the maximum of these errors exceeds some absolute or relative threshold
