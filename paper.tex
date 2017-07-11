@@ -826,16 +826,32 @@ Plot in Fig.~\ref{fig:avg_eps_doppler}.
 Plot in Fig.~\ref{fig:f_absorption_sphere}.
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{fig-absorption_sphere}
-  \caption{Distribution function outside a constant-density star
-    with radius $R=15$~km, and observer at $r=22.5$~km.
+  \includegraphics[width=\columnwidth]{fig-f-absorption_star-11MeV}
+  \caption{Distribution functions outside an idealized homogeneous star
+    with radius $R=50$~km, and observer at $r=75$~km.
     $A$ is the angle between the neutrino momentum and the $\hat{r}$ direction.
-    The sample grid uses 30 points in energy and angle spanning the ranges
-    $\varepsilon\in(0,100)$~MeV and $\cos A\in(0.6454,1)$,
-    with sample points at bin centers.
-    The line depicts the analytic result for one energy: $\varepsilon=15$~MeV.
-    Test described in Sec.~\ref{ssec:test_ab_star}}
+    The sample grid uses 40 points in energy linearly spaced across
+    $\varepsilon\in(0,100)$~MeV,
+    and 30 points in cosine of the polar angle linearly spaced across
+    $\cos A\in(0.7377,1)$.
+    To simplify this plot a single energy group only is displayed:
+    $\varepsilon=11.25\,{\rm MeV}$.
+    The points are computed from ray tracing; the lines from the analytic
+    solution.
+    Test described in Sec.~\ref{ssec:test_ab_star}.
+  }
   \label{fig:f_absorption_sphere}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{fig-G_spectra-absorption_star}
+  \caption{Number density spectra for an idealized homogeneous star.
+    Test described in Sec.~\ref{ssec:test_ab_star}.
+    The lines with points are the ray tracing spectra for this configuration;
+    the solid lines are the ray tracincg spectra for an otherwise identical star
+    of infinite extent (i.e. the spectra from Sec.~\ref{ssec:test_equilibrium}).
+  }
+  \label{fig:G_absorption_sphere}
 \end{figure}
 
 \subsection{Idealized Compact Star:
