@@ -753,6 +753,24 @@ hypermassive neutron star and disk formed in a binary neutron star
 merger simulated by \cite{fouc2016-m1_nsns, fouc2016-m1_evolve_n},
 and compare ray tracing results to those from the M1 transport simulation.
 
+In the following we present two forms of the integrated distribution functions,
+Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse}:
+1) the full form  by which the solution is $f_{\rm scat}=f_{\rm AE}+f_{\rm SE}$
+(labeled `scat' since we include elastic scattering), and
+2) the form treating only absorption/emission interactions
+in which we set $\mathscr{K}_{\rm SE}=0$ so that $f_{\rm noscat}=f_{\rm AE}$
+(labeled `no scat' since we ignore elastic scattering).
+There is no simple relation between the two forms for a given ray; that is
+$f_{\rm scat} \neq f_{\rm noscat}+f_{\rm SE}$.
+This is because $f_{\rm AE}$ is integrated using solely the absorption optical
+depth in the first form,
+and the absorption plus scattering optical depth in the second form.
+Before this work, the noscat form of the equations has been the standard for
+ray tracing, though many authors include the scattering optical depth in
+the integration of Eqn.~\ref{eqn:num_fae}
+(see for example \cite{hari2010-gr_nunubar_collapsar}).
+\todo{explain why; cite others}
+
 \subsection{Infinite Homogeneous Slab:
   Testing Thermodynamic Equilibrium}
 \label{ssec:test_equilibrium}
@@ -776,6 +794,7 @@ Plot in Fig.~\ref{fig:homogeneous_isotropic}.
     In the fluid rest frame these are given by
     $(\chi^*_a)^{-1}$ for the absorption
     and $(\chi_s)^{-1}$ for elastic scattering interactions.
+    Computed using \lstinline{NuLib}, as in the ray tracing code.
   }
   \label{fig:mfps-50km}
 \end{figure}
