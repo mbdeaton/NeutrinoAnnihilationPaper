@@ -765,6 +765,8 @@ $f_{\rm scat} \neq f_{\rm noscat}+f_{\rm SE}$.
 This is because $f_{\rm AE}$ is integrated using solely the absorption optical
 depth in the first form,
 and the absorption plus scattering optical depth in the second form.
+The differences between these two methods is apparent
+in Fig.~\ref{fig:cumulative_f_homogeneous}.
 Before this work, the noscat form of the equations has been the standard for
 ray tracing, though many authors include the scattering optical depth in
 the integration of Eqn.~\ref{eqn:num_fae}
@@ -784,6 +786,7 @@ in which the equilibrium $\nu_e$ neutrino chemical potential is
 $\mu_{\nu_e}=-0.575$~MeV
 ($\mu_{\bar{\nu}_e}=-\mu_{\nu_e}$ and $\mu_{\nu_x}=0$).
 Plot in Fig.~\ref{fig:homogeneous_isotropic}.
+\todo{also describe this test with scat}
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{figure-mfps-50km}
@@ -800,13 +803,34 @@ Plot in Fig.~\ref{fig:homogeneous_isotropic}.
 \end{figure}
 
 \begin{figure}
+  \includegraphics[width=\columnwidth]{fig-cumulative_f-homogeneous}
+  \caption{Cumulative distribution functions at $\varepsilon=11.25$~MeV
+    in homogeneous infinite slab of Sec.~\ref{ssec:test_equilibrium}.
+    The integration proceeds from left to right (backwards in time $t$).
+    The two components of the scat solutions ($f_{\rm AE}$ in points,
+    and $f_{\rm SE}$ in dashed lines) sum to equal the single component
+    of the noscat solution ($f_{\rm AE}$ in points connected by lines).
+    All solutions terminate when they achieve a total optical depth
+    greater than $\tau_term=14$; in the scat cases this occurs at an
+    earlier time since the total mean free paths are less than the
+    absorption mean free paths (much less in the case of $\nu_x$).
+    The positions of the points (only plotted for the $f_{\rm AE}$ components)
+    are the time steps chosen by the adaptive time-stepping algorithm
+    described in Sec.~\ref{ssec:numerical}.
+  }
+  \label{fig:cumulative_f_homogeneous}
+\end{figure}
+
+\begin{figure}
   \includegraphics[width=\columnwidth]{figure-ferr-50km}
   \caption{Relative error in integrated equilibrium distribution functions
-    in a homogeneous background at the thermodynamic point
-    representative of the collapse profile at
-    50~km ($\varrho=10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
-    $T=3.7$~MeV, $Y_e=0.12$),
-    as described in Sec.~\ref{ssec:test_equilibrium}.
+    in the infinite homogeneous slab  described in
+    Sec.~\ref{ssec:test_equilibrium}.
+    Presented here are the relative differences between the final
+    $f_{\rm AE}$ in the noscat case
+    (see Fig.~\ref{fig:cumulative_f_homogeneous})
+    and the equilibrium distribution functions given by
+    Eqn.~\ref{eqn:feq}.
     As can be seen in Fig.~\ref{fig:mfps-50km} these three species
     over the given energies
     probe our numerical solution over length scales from
