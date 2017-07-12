@@ -781,15 +781,27 @@ the integration of Eqn.~\ref{eqn:num_fae}
 \label{ssec:test_equilibrium}
 In an optically thick region the radiation field is in thermodynamic equilibrium
 with the matter.
-We set up a large slab of matter in two homogeneous configurations
+We set up a large slab of matter
 representative of the fluid in the Massive Collapsed Star test
 (Sec.~\ref{ssec:test_collapse}) at the radius 50~km.
-For comparision with Collapsed Star test, we use the LS180 equation of state,
+For comparision with that test we use the LS180 equation of state
+\cite{latt1991-nuc_eos}
+\footnote{available at \lstinline{stellarcollapse.org}}
 in which the equilibrium $\nu_e$ neutrino chemical potential is
 $\mu_{\nu_e}=-0.575$~MeV
-($\mu_{\bar{\nu}_e}=-\mu_{\nu_e}$ and $\mu_{\nu_x}=0$).
-Plot in Fig.~\ref{fig:homogeneous_isotropic}.
-\todo{also describe this test with scat}
+(with $\mu_{\bar{\nu}_e}=-\mu_{\nu_e}$ and $\mu_{\nu_x}=0$).
+Fig.~\ref{fig:mfps-50km} presents the neutrino mean free paths
+at this thermodynamic point over two energy decades.
+For this test we set up our slab large enough for neutrinos of all
+energies to be trapped. 
+Since our ray tracing algorithm integrates rays to terminal optical
+depths of $\tau_{\rm term}>14$, our domain must extend to $r=10^7\,{\rm km}$.
+
+Fig.~\ref{fig:cumulative_f_homogeneous} displays the integrated $f$ as a
+function of path length along the ray.
+
+Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results.
+\todo{describe with scat on}
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{figure-mfps-50km}
