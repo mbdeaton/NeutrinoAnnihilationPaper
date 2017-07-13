@@ -709,17 +709,18 @@ The observer specifies $x^i_o$ and $p_{i,o}$,
 and we set $f_{{\rm AE},o}=f_{{\rm SE},o}=0$ and $\tau_o=0$.
 
 We integrate Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} with adaptive step sizes,
-using the 5th-order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed},
-which produces an error estimate by comparing the 4th and 5th order solutions.
-\todo{update to 3rd order Runge-Kutta}
-After each step is taken, the errors for each of the 9 variables of
+using the 3rd order Runge-Kutta algorithm
+which produces an error estimate by comparing the 3rd and 2nd order solutions.
+After each step is taken, the errors for each of the nine variables of
 Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} are compared.
 If the maximum of these errors exceeds some absolute or relative threshold
 \todo{specify ScaledAbsRel algorithm}
 the step size is decreased and the step recomputed,
 if it is below some threshold the next step size is increased.
 % see OdeIntegrators::AdaptiveDense
+% and OdeSteppers::RungeKutta3
 % and OdeSteppers::DormandPrince5
+% and OdeController
 % and OdeControllers::ProportionalIntegral_Base::StepSizeToAttempt
 % and OdeErrorMeasures::ScaledAbsRel
 \todo{specify}
@@ -759,10 +760,10 @@ and compare ray tracing results to those from the M1 transport simulation.
 In the following we present two forms of the integrated distribution functions,
 Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse}:
 1) the full form  by which the solution is $f_{\rm scat}=f_{\rm AE}+f_{\rm SE}$
-(labeled `scat' since we include elastic scattering), and
+(labeled \emph{scat} since we include elastic scattering), and
 2) the form treating only absorption/emission interactions
 in which we set $\mathscr{K}_{\rm SE}=0$ so that $f_{\rm noscat}=f_{\rm AE}$
-(labeled `no scat' since we ignore elastic scattering).
+(labeled \emph{noscat} since we ignore elastic scattering).
 There is no simple relation between the two forms for a given ray; that is
 $f_{\rm scat} \neq f_{\rm noscat}+f_{\rm SE}$.
 This is because $f_{\rm AE}$ is integrated using solely the absorption optical
@@ -770,11 +771,11 @@ depth in the first form,
 and the absorption plus scattering optical depth in the second form.
 The differences between these two methods is apparent
 in Fig.~\ref{fig:cumulative_f_homogeneous}.
-Before this work, the noscat form of the equations has been the standard for
+Before this work, the \emph{noscat} form of the equations has been the standard for
+\todo{explain why; cite others}
 ray tracing, though many authors include the scattering optical depth in
 the integration of Eqn.~\ref{eqn:num_fae}
 (see for example \cite{hari2010-gr_nunubar_collapsar}).
-\todo{explain why; cite others}
 
 \subsection{Infinite Homogeneous Slab:
   Testing Thermodynamic Equilibrium}
@@ -797,8 +798,26 @@ energies to be trapped.
 Since our ray tracing algorithm integrates rays to terminal optical
 depths of $\tau_{\rm term}>14$, our domain must extend to $r=10^7\,{\rm km}$.
 
-Fig.~\ref{fig:cumulative_f_homogeneous} displays the integrated $f$ as a
-function of path length along the ray.
+Fig.~\ref{fig:cumulative_f_homogeneous} displays the cumulative distribution
+function integrated along the ray, for each of the three species and using
+both methods, \emph{noscat} and \emph{scat}. We display
+Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse} in their integral form:
+\begin{equation}
+  \label{eqn:cumulative_f}
+  f(t)
+  = - \int_{0}^t dt'\,\frac{1}{p^t}e^{-\tau(0,t')}
+  \mathscr{K}(t')f^{\rm eq}(t'),
+\end{equation}
+and the integration proceeds backwards in time, from $t=0$
+\todo{could write more simply because Minkowski}
+to some terminal $t<0$.
+The figure shows this backwards-in-time integration proceeding left to right.
+
+In this test and only this test, we used a higher-order integrator, a 5th
+order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed}. This is because
+\todo{discuss with Matt}
+our default 3rd order Runge-Kutta algorithm estimates a vanishing error
+in this configuration.
 
 Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results.
 \todo{describe with scat on}
@@ -822,11 +841,11 @@ Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results.
   \caption{Cumulative distribution functions at $\varepsilon=11.25$~MeV
     in homogeneous infinite slab of Sec.~\ref{ssec:test_equilibrium}.
     The integration proceeds from left to right (backwards in time $t$).
-    The two components of the scat solutions ($f_{\rm AE}$ in points,
+    The two components of the \emph{scat} solutions ($f_{\rm AE}$ in points,
     and $f_{\rm SE}$ in dashed lines) sum to equal the single component
-    of the noscat solution ($f_{\rm AE}$ in points connected by lines).
+    of the \emph{noscat} solution ($f_{\rm AE}$ in points connected by lines).
     All solutions terminate when they achieve a total optical depth
-    greater than $\tau_term=14$; in the scat cases this occurs at an
+    greater than $\tau_term=14$; in the \emph{scat} cases this occurs at an
     earlier time since the total mean free paths are less than the
     absorption mean free paths (much less in the case of $\nu_x$).
     The positions of the points (only plotted for the $f_{\rm AE}$ components)
@@ -842,7 +861,7 @@ Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results.
     in the infinite homogeneous slab  described in
     Sec.~\ref{ssec:test_equilibrium}.
     Presented here are the relative differences between the final
-    $f_{\rm AE}$ in the noscat case
+    $f_{\rm AE}$ in the \emph{noscat} case
     (see Fig.~\ref{fig:cumulative_f_homogeneous})
     and the equilibrium distribution functions given by
     Eqn.~\ref{eqn:feq}.
