@@ -98,7 +98,7 @@ respects the freedom of neutrino distribution functions to vary
 drastically from simple geometric distributions in thermodynamic equilibrium.
 
 This is a challenging task in the environment of a merger,
-which generally lacks any spatial symmetries so that fully general
+which generally lacks any spatial symmetries, so that fully general
 seven-dimensional solutions to the Boltzmann Equation are not feasible.
 Leakage approximations
 \citep{deat2013-leakage, pere2016-asl, radi2016-dynamical}
@@ -107,27 +107,27 @@ capture the qualitative effects of neutrinos on the matter, but
 provide extremely limited information about the neutrino field itself.
 \todo{discuss mc more clearly}
 Monte Carlo methods \citep{abdi2012-monte_carlo, rich2015-monte_carlo}
-are an excellent tool require large computational resources because of
+are an excellent tool but require large computational resources because of
 their global treatment of the problem.
 
-The state of the art today couples radiation and matter with a truncated
+The state of the art today couples radiation and matter using a truncated
 moment formalism
 \citep{shib2011-truncated_moment, fouc2015-m1_nsbh, fouc2016-m1_nsns,
   just2015-m1_code},
 \todo{cite others}
-evolving the zeroth- and first-angular moments of the distribution function
-(the energy density and flux respectively) representing the zeroth-energy moment
-of the radiation field (the total energy).
+evolving the zeroth- and first-angular moments of the energy density,
+that is the total energy density and flux.
 This method, commonly called M1 transport, was formulated by
 \cite{thor1981-truncated_moment, shib2011-truncated_moment}
 and has been applied for example in \cite{ramp2002-truncated_moment,
   card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}.
 Recently, \cite{fouc2016-m1_evolve_n} have expanded their M1 transport code
-to also evolve the number densities of neutrinos,
-providing total and average energies throughout the simulated volume.
+to also evolve the zeroth-angular moment of the number density,
+providing total energy densities and average energies throughout the
+simulated volume.
 Even so, with M1 transport codes only evolving two angular moments
 and one or two energy moments,
-we can extract only limited angular and spectral information
+they can extract only limited angular and spectral information
 from the neutrino fields.
 
 %\subsubsection*{What physics problems do we want to address?}
@@ -831,7 +831,12 @@ Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results.
     In the fluid rest frame these are given by
     $(\chi^*_a)^{-1}$ for the absorption
     and $(\chi_s)^{-1}$ for elastic scattering interactions.
-    Computed using \lstinline{NuLib}, as in the ray tracing code.
+    Note that elastic scattering opacities are identical across species
+    below energies at which weak magnetism plays a role.
+    In this data they are exactly identical
+    because we have turned off weak magnetism in our opacity calculations
+    in order to compare our results with the historical literature.
+    Computed using \lstinline{NuLib}.
   }
   \label{fig:mfps-50km}
 \end{figure}
@@ -972,21 +977,26 @@ postmerger configuration composed of a single neutron star surrounded by a disk.
 Because of the strong differential rotation of the remnant it temporarily avoids
 collapse to a black hole, even if its mass exceeds the threshold of dynamical
 instability for a rigidly rotating neutron star \cite{duez2009-review}.
-These objects are called hypermassive neutron stars.
+These objects, called hypermassive neutron stars,
+may avoid collapse for $X\textrm{--}Y$~s,
+\todo{cite $X$, $Y$}
+depending upon a number of physical factors including thermal pressure,
+magnetic fields, and the microphysics of the fluid.
 
-Such a configuration was modeled by \cite{fouc2016-m1_nsns} by
+Such a configuration was modeled in \cite{fouc2016-m1_nsns} by
 evolving the final inspiral and merger of two identical neutron stars of
 isolated gravitational mass 1.2~$M_{\odot}$. The postmerger configuration
-was evolved using an M1 transport scheme for the neutrinos, evolving the
+was simulated using an M1 transport scheme for the neutrinos, evolving the
 energy density, number density, and energy flux \cite{fouc2016-m1_evolve_n}
-for $\sim10\,{\rm ms}$ following merger, defined as the time of the peak of the
-gravitational wave strain.
+for $\sim10\,{\rm ms}$ following merger.
+The fluid was modeled using the LS220 equation of state \cite{latt1991-nuc_eos}.
 
-We used a single time snapshot of the volume data from that configuration
+We use a single time snapshot of the volume data from that configuration
 at $t=11\,{\rm ms}$ after merger (see
 Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat})
 sampling the neutrino fields with ray tracing to compare to some
 measures of the field computed from the M1 transport simulation.
+\todo{here focus on plots as functions of $\theta$}
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{production-colormap-merid-rho}
@@ -1065,6 +1075,7 @@ presented in the code tests.
 The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
 Something like this is presented in \cite[Figs.~10-11]{pere2014-nu_wind};
 compare.
+\todo{here focus on plots of $J(\cos A)$, $H^r(\cos A)$, and $J(\varepsilon)$}
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{theta_distrib-250km-luminosity_R}
@@ -1157,8 +1168,8 @@ an observer's velocity $u_\beta$:
 \end{equation}
 with $u_\alpha\ell^\alpha=0$ and $\ell_\alpha\ell^\alpha=1$.
 
-In practice we use two possible fiducial observers to define the momentum
-decomposition via Eqn.~\ref{eqn:def_momentum}: the Eulerian,
+We use two possible fiducial observers to define the momentum
+decomposition via Eqn.~\ref{eqn:def_momentum_2}: the Eulerian,
 or normal observer $n_\mu=-\alpha \,\partial_\mu t$,
 and the fluid, or comoving observer
 $u^\mu=Wn^\mu+v_{\rm E}^\mu$.
