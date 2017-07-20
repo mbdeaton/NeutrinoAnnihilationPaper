@@ -278,7 +278,7 @@ pairs via neutrino-antineutrino annihilation.
 
 Greek tensor indices ($\alpha, \beta, ...$) range over all four coordinates,
 whereas Latin indices ($i, j, ...$) range over the spatial coordinates 1--3.
-We use naturalized units in which $\hbar=c=1$.
+We use naturalized units in which $\{\hbar,c,k_{\rm B}\}=1$.
 And for most of the remainder of this article we suppress neutrino species label
 $\nu_\sigma$ since the formulation is general to any species.
 Where we do reference particular species we use the three categories
@@ -759,17 +759,16 @@ and compare ray tracing results to those from the M1 transport simulation.
 
 In the following we present two forms of the integrated distribution functions,
 Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse}:
-1) the full form  by which the solution is $f_{\rm scat}=f_{\rm AE}+f_{\rm SE}$
+1) the full form  by which the solution is $f_{\rm scat}=f_{\rm AE,scat}+f_{\rm SE,scat}$
 (labeled \emph{scat} since we include elastic scattering), and
 2) the form treating only absorption/emission interactions
-in which we set $\mathscr{K}_{\rm SE}=0$ so that $f_{\rm noscat}=f_{\rm AE}$
+in which we set $\mathscr{K}_{\rm SE}=0$ so that $f_{\rm noscat}=f_{\rm AE,noscat}$
 (labeled \emph{noscat} since we ignore elastic scattering).
-There is no simple relation between the two forms for a given ray; that is
-$f_{\rm scat} \neq f_{\rm noscat}+f_{\rm SE}$.
-This is because $f_{\rm AE}$ is integrated using solely the absorption optical
-depth in the first form,
-and the absorption plus scattering optical depth in the second form.
-The differences between these two methods is apparent
+There is no simple relation between these forms
+(i.e.\ $f_{\rm AE,scat} \neq f_{\rm AE,noscat}$)
+because $f_{\rm AE}$ is integrated using the absorption plus scattering optical depth
+in the first form and solely the absorption optical depth in the second form.
+The differences between the two methods is apparent
 in Fig.~\ref{fig:cumulative_f_homogeneous}.
 Before this work, the \emph{noscat} form of the equations has been the standard for
 \todo{explain why; cite others}
@@ -789,38 +788,26 @@ For comparision with that test we use the LS180 equation of state
 \cite{latt1991-nuc_eos}
 \footnote{available at \lstinline{stellarcollapse.org}}
 in which the equilibrium $\nu_e$ neutrino chemical potential is
-$\mu_{\nu_e}=-0.575$~MeV
-(with $\mu_{\bar{\nu}_e}=-\mu_{\nu_e}$ and $\mu_{\nu_x}=0$).
+$\eta_{\nu_e}=-0.1555$
+(with $\eta_{\bar{\nu}_e}=-\eta_{\nu_e}$ and $\eta_{\nu_x}=0$).
+
+We use the equilibrium distribution functions to define background
+fields for the \emph{scat} case:
+in the \emph{spectral} method we use
+$J(\varepsilon)=\varepsilon^3 f^{\rm eq}(\eta_\nu,T;\varepsilon)/(2\pi^2)$,
+and in the \emph{gray} method we use
+$J=c T^4 \mathscr{F}_3(\eta_\nu)/(2\pi^2)$ and
+$G=c T^3 \mathscr{F}_2(\eta_\nu)/(2\pi^2)$,
+using the Fermi integrals defined in Eqn.~\ref{eqn:fermi_integral},
+and with $c$ the conversion constant from ${\rm energy}^3$ to ${\rm length}^{-3}$.
+
 Fig.~\ref{fig:mfps-50km} presents the neutrino mean free paths
 at this thermodynamic point over two energy decades.
 For this test we set up our slab large enough for neutrinos of all
-energies to be trapped. 
-Since our ray tracing algorithm integrates rays to terminal optical
-depths of $\tau_{\rm term}>14$, our domain must extend to $r=10^7\,{\rm km}$.
-
-Fig.~\ref{fig:cumulative_f_homogeneous} displays the cumulative distribution
-function integrated along the ray, for each of the three species and using
-both methods, \emph{noscat} and \emph{scat}. We display
-Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse} in their integral form:
-\begin{equation}
-  \label{eqn:cumulative_f}
-  f(t)
-  = - \int_{0}^t dt'\,\frac{1}{p^t}e^{-\tau(0,t')}
-  \mathscr{K}(t')f^{\rm eq}(t'),
-\end{equation}
-and the integration proceeds backwards in time, from $t=0$
-\todo{could write more simply because Minkowski}
-to some terminal $t<0$.
-The figure shows this backwards-in-time integration proceeding left to right.
-
-In this test and only this test, we used a higher-order integrator, a 5th
-order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed}. This is because
-\todo{discuss with Matt}
-our default 3rd order Runge-Kutta algorithm estimates a vanishing error
-in this configuration.
-
-Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results.
-\todo{describe with scat on}
+energies to be trapped.
+Our domain extends to $\tau_{\rm term}\,L_{\rm mfp,max}\approx10^7\,{\rm km}$,
+since our ray tracing algorithm integrates rays to terminal optical
+depths of $\tau_{\rm term}\geq14$.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{figure-mfps-50km}
@@ -842,24 +829,62 @@ Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results.
   \label{fig:mfps-50km}
 \end{figure}
 
+Fig.~\ref{fig:cumulative_f_homogeneous} displays the cumulative distribution
+function integrated along the ray, for each of the three species and using
+both methods, \emph{noscat} and \emph{scat}. We display
+Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse} in their integral form:
+\begin{equation}
+  \label{eqn:cumulative_f}
+  f(t)
+  = - \int_{0}^t \frac{dt'}{p^t}e^{-\tau(0,t')}
+  \mathscr{K}(t')f^{\rm eq}(t'),
+\end{equation}
+and the integration proceeds backwards in time, from $t=0$
+\todo{could write more simply because Minkowski}
+to some terminal $t<0$.
+The figure shows this backwards-in-time integration proceeding left to right.
+
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-cumulative_f-homogeneous}
   \caption{Cumulative distribution functions at $\varepsilon=11.25$~MeV
     in homogeneous infinite slab of Sec.~\ref{ssec:test_equilibrium}.
-    The integration proceeds from left to right (backwards in time $t$).
-    The two components of the \emph{scat} solutions ($f_{\rm AE}$ in points,
-    and $f_{\rm SE}$ in dashed lines) sum to equal the single component
-    of the \emph{noscat} solution ($f_{\rm AE}$ in points connected by lines).
-    All solutions terminate when they achieve a total optical depth
-    greater than $\tau_term=14$; in the \emph{scat} cases this occurs at an
-    earlier time since the total mean free paths are less than the
-    absorption mean free paths (much less in the case of $\nu_x$).
+    The integration proceeds from left to right, or backwards in time $t$.
+    Each ray terminates when it achieves a total optical depth
+    greater than $\tau_{\rm term}=14$.
     The positions of the points (only plotted for the $f_{\rm AE}$ components)
     are the time steps chosen by the adaptive time-stepping algorithm
     described in Sec.~\ref{ssec:numerical}.
   }
   \label{fig:cumulative_f_homogeneous}
 \end{figure}
+
+In Fig.~\ref{fig:cumulative_f_homogeneous} we see some expected features.
+The final distribution functions asymptote to their equilibrium Fermi-Dirac
+levels $f^{\rm eq}_{\{\nu_e,\bar{\nu}_e,\nu_x\}}=\{0.039, 0.053, 0.046\}$
+within a few mean free paths;
+in the \emph{scat} cases it is the sums $f_{\rm AE}+f_{\rm SE}$ that
+achieve these values.
+And the lengths of the rays are proportional to the mean free paths:
+$L_{\nu_x}>L_{\bar{\nu}_e}>L_{\nu_e}$;
+in the \emph{scat} cases these lengths are less than in the \emph{noscat} cases,
+since the total mean free paths are less than the absorption mean free paths
+(significantly so for $\nu_x$, negligibly so for $\nu_e$).
+
+As Fig.~\ref{fig:mfps-50km} shows, integrating the distribution functions
+over the energies $\varepsilon\in[0,100]$~MeV
+probes our numerical solution over length scales from
+0.1~km to $10^{5}\,{\rm km}$.
+Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results for
+the \emph{noscat} case.
+In this simple case, the dominant source of error is the neglected
+boundary term with a relative scale of $e^{-\tau_{\rm term}}\approx10^{-6}$.
+In the following inhomogeneous configurations,
+errors from the integration dominate over the boundary term.
+In this test and only this test, we used a higher-order integrator, a 5th
+order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed}. This is because
+\todo{discuss with Matt}
+our default 3rd order Runge-Kutta algorithm estimates a vanishing error
+in this configuration.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{figure-ferr-50km}
@@ -871,10 +896,6 @@ Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results.
     (see Fig.~\ref{fig:cumulative_f_homogeneous})
     and the equilibrium distribution functions given by
     Eqn.~\ref{eqn:feq}.
-    As can be seen in Fig.~\ref{fig:mfps-50km} these three species
-    over the given energies
-    probe our numerical solution over length scales from
-    100~m to $10^{5}\,{\rm km}$.
     The source of this error is the discarded boundary term
     $f_{\rm bdry}\sim10^{-6}$, described in Sec.~\ref{ssec:numerical}.
   }
@@ -951,6 +972,8 @@ the observer's radius.
 \subsection{Post-Bounce Collapse Profile:
   Testing Scattering}
 \label{ssec:test_collapse}
+We use a single time snapshot of a supernova model in its accretion phase,
+100ms after core bounce.
 [Standard radiation transport test described in~\cite{ocon2015-gr1d_with_nu},
 and in \cite[App.~E.6]{fouc2015-m1_nsbh},
 and in~\cite{abdi2012-monte_carlo}.]
@@ -1494,7 +1517,7 @@ We use the following procedure:
 \begin{enumerate}
 \item
   Interpolate the fluid temperature, $T$,
-  equilibrium neutrino chemical potential, $\mu_\nu$,
+  equilibrium neutrino chemical potential, $\eta_\nu$,
   and evolved neutrino energy and number densities in the fluid frame,
   $J$ and $G$, from the simulation grid.
 \item
@@ -1507,10 +1530,11 @@ We use the following procedure:
   fluid
   \begin{equation}
     T_\nu = \langle \varepsilon \rangle
-    \frac{\mathscr{F}_2(\mu_\nu/T)}{\mathscr{F}_3(\mu_\nu/T)},
+    \frac{\mathscr{F}_2(\eta_\nu)}{\mathscr{F}_3(\eta_\nu)},
   \end{equation}
   where $\mathscr{F}_b$ is the Fermi integral
   \begin{equation}
+    \label{eqn:fermi_integral}
     \mathscr{F}_b(\eta) = \int_0^\infty dx \, x^b (1+e^{x-\eta})^{-1}.
   \end{equation}
 \item
@@ -1519,12 +1543,12 @@ We use the following procedure:
   \begin{align}
     \label{eqn:J_from_gray}
     J(\varepsilon) &=
-    J \frac{\varepsilon^3}{T_\nu^4 \,\mathscr{F}_3(\mu_\nu/T)}
-    (1+\exp(\varepsilon/T_\nu-\mu_\nu/T)^{-1}, \\
+    J \frac{\varepsilon^3}{T_\nu^4 \,\mathscr{F}_3(\eta_\nu)}
+    (1+\exp(\varepsilon/T_\nu-\eta_\nu)^{-1}, \\
     \label{eqn:H_from_gray}
     H^\mu(\varepsilon) &=
-    H^\mu \frac{\varepsilon^3}{T_\nu^4\, \mathscr{F}_3(\mu_\nu/T)}
-    (1+\exp(\varepsilon/T_\nu-\mu_\nu/T)^{-1}.
+    H^\mu \frac{\varepsilon^3}{T_\nu^4\, \mathscr{F}_3(\eta_\nu)}
+    (1+\exp(\varepsilon/T_\nu-\eta_\nu)^{-1}.
   \end{align}
 \end{enumerate}
 When we use these moments in Eqn.~\ref{eqn:background_phi},
