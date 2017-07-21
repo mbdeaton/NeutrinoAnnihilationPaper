@@ -110,7 +110,7 @@ Leakage approximations
 capture the qualitative effects of neutrinos on the matter, but
 provide extremely limited information about the neutrino field itself.
 \todo{discuss mc more clearly}
-Monte Carlo methods \citep{abdi2012-monte_carlo, rich2015-monte_carlo}
+Monte Carlo methods \citep{abdi2012-monte_carlo,rich2015-monte_carlo}
 are an excellent tool but require large computational resources because of
 their global treatment of the problem.
 
@@ -993,8 +993,63 @@ observer ($\cos A=0$).
 \subsection{Idealized Star:
   Testing the Decoupling Regime}
 \label{ssec:test_ab_star}
-[Test described in~\cite[Sec.~3.2]{smit1997-two_moment}.]
-Plot in Fig.~\ref{fig:f_absorption_sphere}.
+The homogeneous configurations of the previous sections may be extended to
+probe the solution outside the optically thick regime
+by setting up an idealized homogeneous star, with the thermodynamic variables
+constant inside radius $R$ and vanishing outside.
+We choose $R=50$~km and place our observer at $r=75$~km,
+at which position there is a radiation cone of half-opening angle
+$\cos A_{\rm max}\approx0.75$.
+
+The formal solutions of
+Eqns.~\ref{eqn:rendering_fae} and \ref{eqn:rendering_fse}
+may be directly integrated in this scenario. Assuming Minkowski spacetime
+and stationary fluid we have
+\begin{align}
+  \label{eqn:fae_homogeneous_general}
+  f_{\rm AE} &=
+  \frac{\chi_a^{*}}{\chi} f^{\rm eq} \left(1-e^{-\chi s}\right) \\
+  \label{eqn:fse_homogeneous_general}
+  f_{\rm SE} &=
+  \frac{\chi_s}{\chi} \Phi \left(1-e^{-\chi s}\right) \\
+  \label{eqn:geometric_s}
+  s &= 2 R \left(1-\frac{r^2}{R^2}(1-\cos^2 A)\right)^{1/2},
+\end{align}
+where $s$ is the path length traversed by the ray through the star.
+
+Since no analytic form is known for the background field $\Phi$,
+we examine only the \emph{noscat} case,
+with $\chi_s=0$ and $\chi=\chi_a^{*}$.
+This scenario has been widely used in the literature as a test for
+radiation codes
+\cite{smit1997-two_moment,abdi2012-monte_carlo,fouc2015-m1_nsbh}.
+We sample the distribution function over a uniform grid of
+30 points in angle $\cos A \in [0.734,1]$ and
+40 points in energy $\varepsilon \in [0,100]$~MeV.
+Because of the step function in fluid variables at radius $R$,
+we throttle the maximum step size at 1.25~km.
+
+In Fig.~\ref{fig:f_absorption_sphere} we display the samples at
+$\varepsilon=11.25$~MeV, along with the analytic functions
+specific to each species' equilibrium distribution function and opacity.
+As expected only $\nu_e$ saturates at $f^{\rm eq}$, remaining almost
+constant across $\cos A$ until we get to rays that pass through a length
+of the star comparable to or less than the mean free path at this energy,
+16~km. We also see that $\bar{\nu}_e$ comes close to saturating with
+a mean free path just over 100~km; and $\nu_x$ is well into the optically
+thin regime.
+
+Expanding the exponential in Eqn.~\ref{eqn:fae_homogeneous_general},
+we see the distribution function takes the limiting values:
+\begin{equation}
+  f_{\rm AE}(\cos A) = f^{\rm eq}
+  \begin{cases}
+    \chi s(\cos A) & s \ll \chi^{-1}\,\textrm{optically thin}\\
+    1                  & s \gg \chi^{-1}\,\textrm{optically thick}.
+  \end{cases}
+\end{equation}
+This agrees with Fig.~\ref{fig:f_absorption_sphere}, with $\nu_x$
+in the optically thin limit and $\nu_e$ in the optically thick limit.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-f-absorption_star-11MeV}
@@ -1002,20 +1057,24 @@ Plot in Fig.~\ref{fig:f_absorption_sphere}.
   % Script: $DIR/Lev1-01/Lev1/plot_f_monochromes-11.25MeV.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousAbsorptionSphere
   \caption{Distribution functions outside an idealized homogeneous star
-    with radius $R=50$~km, and observer at $r=75$~km.
+    with radius $R=50$~km, and observer at $r=75$~km,
+    described in Sec.~\ref{ssec:test_ab_star}.
     $A$ is the angle between the neutrino momentum and the $\hat{r}$ direction.
-    The sample grid uses 40 points in energy linearly spaced across
-    $\varepsilon\in(0,100)$~MeV,
-    and 30 points in cosine of the polar angle linearly spaced across
-    $\cos A\in(0.7377,1)$.
-    To simplify this plot a single energy group only is displayed:
+    In this plot we display only the samples at energy
     $\varepsilon=11.25\,{\rm MeV}$.
     The points are computed from ray tracing; the lines from the analytic
-    solution.
-    Test described in Sec.~\ref{ssec:test_ab_star}.
+    solution, Eqn.~\ref{eqn:fae_homogeneous_general}.
   }
   \label{fig:f_absorption_sphere}
 \end{figure}
+
+Though we do not display it here,
+we also examine $\langle \varepsilon \rangle(\cos A)$
+as in Eqn.~\ref{eqn:avg_eps_per_cosA}, and robustly reproduce the
+common feature of increasing average energies at the limb of the star
+for $\nu_e$ and $\bar{\nu}_e$. In contrast $\langle \varepsilon \rangle$
+for $\nu_x$ is constant across angles, as expected when the star
+is optically thin at even the highest energies $\varepsilon\sim100$~MeV.
 
 \subsection{Idealized Compact Star:
   Testing Gravitational Redshift and Geodesic Curvature}
