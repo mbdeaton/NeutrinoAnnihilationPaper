@@ -909,23 +909,73 @@ in this configuration.
 \subsection{Infinite Homogeneous Moving Slab:
   Testing Doppler Shift}
 \label{ssec:test_doppler}
-We reproduce the test above, but with the matter moving in
-in the $+z$ direction, with the observer stationary.
-Plot in Fig.~\ref{fig:avg_eps_doppler}.
-\todo{redo test at same thermo point}
-\todo{describe test}
+We reproduce the test above, but with the matter and observer in relative
+motion.
+We use a stationary (i.e.\ Eulerian) observer
+and a fluid velocity $u^\alpha \rightarrow W(1,0,0,v)$ with $W=(1-v^2)^{-1/2}$.
+All other thermodynamic variables and background fields are unchanged
+since our ray integration uses these quantities in the fluid frame.
+
+A stationary observer sees a neutrino with momentum
+$p_\alpha \rightarrow \tilde{\varepsilon}(-1,\Omega_i)$,
+with direction $\Omega_i \rightarrow (\sin A, 0, \cos A)$,
+and observed energy $\tilde{\varepsilon}$.
+In the fluid frame this neutrino has energy $\varepsilon=-u^\alpha p_\alpha$;
+therefore the average energy varies with observing angle:
+\begin{equation}
+  \label{eqn:doppler_avg_eps}
+  \langle \tilde{\varepsilon} \rangle =
+  \langle \varepsilon \rangle^{\rm eq} \frac{1}{W(1-v \cos A)}.
+\end{equation}
+The equilibrium average energy $\langle \varepsilon \rangle^{\rm eq}$
+is given by $T \mathscr{F}_3(\eta_\nu)/\mathscr{F}_2(\eta_\nu)\approx 3T$,
+with the Fermi integrals given in Eqn.~\ref{eqn:fermi_integral}.
+Eqn.~\ref{eqn:doppler_avg_eps} describes the well-known Doppler effect.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-moving_fluid_avg_eps}
-  \caption{Average energy $\langle\varepsilon\rangle(\cos A)=J(\cos A)/G(\cos A)$
-    of $\bar{\nu}_e$ neutrino fields for fluid moving in the $+z$ direction,
-    with $A$ the angle between the neutrino momentum and the $+z$ direction.
+  \caption{Average energy of $\bar{\nu}_e$ neutrino fields
+    measured by a stationary observer,
+    $\langle\tilde{\varepsilon}\rangle(\cos A)$.
+    The observer sees neutrinos moving with the fluid for angles $\cos A<0$.
     Test described in Sec.~\ref{ssec:test_doppler}.
     The points are computed from ray tracing spectra; the lines are the
-    analytic formula.
+    analytic formula Eqn.~\ref{eqn:avg_eps_per_cosA}.
   }
   \label{fig:avg_eps_doppler}
 \end{figure}
+
+We sample the distribution function $f(\tilde{\varepsilon},\cos A,B)$
+with ray tracing
+over a uniform grid of 40 points in energy $\tilde{\varepsilon}\in[0,100]$
+and 30 points in angle $\cos A\in[-1,1]$, holding fixed $B=\pi$.
+Results are shown in Fig.~\ref{fig:avg_eps_doppler} for
+the velocities $v=\{0,0.1,0.8\}$.
+The ray tracing results are computed from total densities in each angular bin,
+that is
+\begin{equation}
+  \label{eqn:avg_eps_per_cosA}
+  \langle \tilde{\varepsilon} \rangle (\cos A) =
+  \frac{\tilde{J}(\cos A)}{\tilde{G}(\cos A)},
+\end{equation}
+with the Eulerian energy density per angular bin given by
+\begin{equation}
+  \label{eqn:J_per_cosA}
+  \tilde{J}(\cos A) =
+  \frac{1}{(2\pi)^3} \int_0^{\infty} d\tilde{\varepsilon} \, \tilde{\varepsilon}^3
+  \int_0^{2\pi} dB \, f(\tilde{\varepsilon},\cos A,B),
+\end{equation}
+and $\tilde{G}(\cos A)$ defined analogously.
+\todo{add metric terms for these integrals}
+Results are identical for all \emph{scat} and \emph{noscat} methods.
+In Fig.~\ref{fig:avg_eps_doppler}
+we see the common features of a red-shifted spectrum for receding fluid
+($\cos A\ll0$),
+a blue-shifted spectrum for approaching fluid
+($\cos A\gg0$),
+and a slightly red-shifted spectrum for fluid moving transverse to the
+observer ($\cos A=0$).
+\todo{wait, what? I thought transverse was blue-shifted}
 
 \subsection{Idealized Star:
   Testing the Decoupling Regime}
