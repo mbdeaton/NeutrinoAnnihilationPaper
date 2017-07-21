@@ -565,6 +565,8 @@ neutrino as measured by our fiducial obsever $u^\alpha$ is
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-affine_parameter_label}
+  % Script: $DIR/figures-radiation_transport_schematics.nb
+  % w/ DIR=/Users/mbdeaton/Dropbox/Research/NuclearAstrophysics/NotesAndReference
   \caption{Affine parameterization of a neutrino trajectory of momentum
     $p_\alpha$.
     The fiducial observer with velocity $u^\alpha$ sits at $x^\alpha_o$,
@@ -815,6 +817,9 @@ depths of $\tau_{\rm term}\geq14$.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{figure-mfps-50km}
+  % Data:   $DIR/table-50km-nu?.dat
+  % Script: $DIR/GnuplotScripts/plot-mfp-50km.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousIsotropic
   \caption{Mean free paths
     representative of the collapse profile at
     50~km ($\varrho=10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
@@ -850,6 +855,9 @@ The figure shows this backwards-in-time integration proceeding left to right.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-cumulative_f-homogeneous}
+  % Data:   $DIR/Lev1-v0-ShootANeutrino-01/Lev1
+  % Script: $DIR/GnuplotScripts/plot_f-integral_over_t.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousIsotropic
   \caption{Cumulative distribution functions at $\varepsilon=11.25$~MeV
     in homogeneous infinite slab of Sec.~\ref{ssec:test_equilibrium}.
     The integration proceeds from left to right, or backwards in time $t$.
@@ -892,6 +900,9 @@ in this configuration.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{figure-ferr-50km}
+  % Data:   $DIR/Lev1-v0-noscat-01/Lev1
+  % Script: $DIR/GnuplotScripts/plot_ferr.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousIsotropic
   \caption{Relative error in integrated equilibrium distribution functions
     in the infinite homogeneous slab  described in
     Sec.~\ref{ssec:test_equilibrium}.
@@ -934,6 +945,9 @@ Eqn.~\ref{eqn:doppler_avg_eps} describes the well-known Doppler effect.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-moving_fluid_avg_eps}
+  % Data:   $DIR/Lev1-v*-noscat-01
+  % Script: $DIR/plot-avg_eps_vs_cosA.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/MovingFluid
   \caption{Average energy of $\bar{\nu}_e$ neutrino fields
     measured by a stationary observer,
     $\langle\tilde{\varepsilon}\rangle(\cos A)$.
@@ -975,7 +989,6 @@ a blue-shifted spectrum for approaching fluid
 ($\cos A\gg0$),
 and a slightly red-shifted spectrum for fluid moving transverse to the
 observer ($\cos A=0$).
-\todo{wait, what? I thought transverse was blue-shifted}
 
 \subsection{Idealized Star:
   Testing the Decoupling Regime}
@@ -985,6 +998,9 @@ Plot in Fig.~\ref{fig:f_absorption_sphere}.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-f-absorption_star-11MeV}
+  % Data:   $DIR/Lev1-01/Lev1
+  % Script: $DIR/Lev1-01/Lev1/plot_f_monochromes-11.25MeV.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousAbsorptionSphere
   \caption{Distribution functions outside an idealized homogeneous star
     with radius $R=50$~km, and observer at $r=75$~km.
     $A$ is the angle between the neutrino momentum and the $\hat{r}$ direction.
@@ -1003,6 +1019,9 @@ Plot in Fig.~\ref{fig:f_absorption_sphere}.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-G_spectra-absorption_star}
+  % Data:   $DIR/Lev1-01/Lev1
+  % Script: $DIR/Lev1-01/Lev1/plot-G_spectra.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousAbsorptionSphere
   \caption{Number density spectra for an idealized homogeneous star.
     Test described in Sec.~\ref{ssec:test_ab_star}.
     The lines with points are the ray tracing spectra for this configuration;
@@ -1036,6 +1055,13 @@ Plot in Fig.~\ref{fig:avg_eps_collapse}.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-collapse_profile_avg_eps_vs_cosA}
+  % Data:   $DIR/
+  % Script: $DIR/plot-compare_spectral_vs_gray-angular_distribution_avg_eps-production.gnu
+  % w/  DIR_MC     =$DIR/ResultsSherwood-03/Spectra
+  %     DIR_SPEC_SC=$DIR/ResultsBrett-A-03/Test-scat-01
+  %     DIR_GRAY_SC=$DIR/ResultsBrett-B-03/Test-scat-01
+  %     DIR_GRAY_AB=$DIR/ResultsBrett-B-03/Test-noscat-01
+  % and DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/CollapseProfile/
   \caption{Average energies $\langle\varepsilon\rangle(\cos A)=J(\cos A)/G(\cos A)$
     in the collapse profile test described in Sec.~\ref{ssec:test_collapse}.
     The observer is at 500~km, and the shock at 150~km,
@@ -1078,6 +1104,9 @@ measures of the field computed from the M1 transport simulation.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{production-colormap-merid-rho}
+  % VTK Data: zosima:/home/mbdeaton/Research/20170602-nsns_vol_data
+  % Plots:    $DIR/production-colormap-{merid,equat}-{rho,temp}.png
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170420-nsns_volume_data/02-two_domains_avg_eps/PlotsEtc
   \caption{A meridional slice of density in the hypermassive neutron
     star and disk configuration.
     The distorted rectangular boundaries are the boundaries of the grid
@@ -1088,6 +1117,7 @@ measures of the field computed from the M1 transport simulation.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{production-colormap-equat-rho}
+  % see notes from production-colormap-merid-rho
   \caption{An equatorial slice of density in the hypermassive neutron
     star and disk configuration.}
   \label{fig:nsns_rho_equat}
@@ -1095,6 +1125,7 @@ measures of the field computed from the M1 transport simulation.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{production-colormap-merid-temp}
+  % see notes from production-colormap-merid-rho
   \caption{A meridional slice of temperature in the hypermassive neutron
     star and disk configuration.}
   \label{fig:nsns_temp_merid}
@@ -1102,6 +1133,7 @@ measures of the field computed from the M1 transport simulation.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{production-colormap-equat-temp}
+  % see notes from production-colormap-merid-rho
   \caption{An equatorial slice of temperature in the hypermassive neutron
     star and disk configuration.}
   \label{fig:nsns_temp_equat}
@@ -1157,6 +1189,10 @@ compare.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{theta_distrib-250km-luminosity_R}
+  % Data:   $DIR/PositionDistributions
+  % Data gathered using: $DIR/CollectPositionDistributions.sh
+  % Script: $DIR/GnuScripts/plot-theta_distributions-R-fixed_r.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03
   \caption{Radial number fluxes, $K_r$, as functions of colatitude $\theta$.
     Sampled for observers at fixed coordinate distances from the center
     of the star, with $r=250\,{\rm km}$.
@@ -1168,6 +1204,8 @@ compare.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{theta_distrib-250km-luminosity_L}
+  % see notes from theta_distrib-250km-luminosity_R
+  % Script: $DIR/GnuScripts/plot-theta_distributions-L-fixed_r.gnu
   \caption{Same as Fig.~\ref{fig:nsns_theta_distrib_R} but radial energy
     fluxes, $H_r$.}
   \label{fig:nsns_theta_distrib_L}
@@ -1175,6 +1213,8 @@ compare.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{theta_distrib-250km-avg_eps}
+  % see notes from theta_distrib-250km-luminosity_R
+  % Script: $DIR/GnuScripts/plot-theta_distributions-avg_eps-fixed_r.gnu
   \caption{Same as Fig.~\ref{fig:nsns_theta_distrib_R} but
     average energies $\langle \varepsilon \rangle = J/G$.}
   \label{fig:nsns_theta_distrib_avg_eps}
@@ -1182,6 +1222,9 @@ compare.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{cosA_distrib-intensity-250km-00deg}
+  % Data:   $DIR/Lev1-e30a60b10-{,no}scat-00
+  % Script: $DIR/plot-angular_distribution-intensity-compare.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03/000Mo-000.0deg-250km
   \caption{Angular distributions of fluxes for an observer on the rotation axis
     in the hypermassive neutron star configuration.}
   \label{fig:nsns_cosA_distrib_I_00deg}
@@ -1189,6 +1232,9 @@ compare.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{cosA_distrib-intensity-250km-90deg}
+  % Data:   $DIR/Lev1-e30a60b10-{,no}scat-00
+  % Script: $DIR/plot-angular_distribution-intensity-compare.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03/000Mo-090.0deg-250km
   \caption{Angular distributions of fluxes for an observer in the equatorial
     plane in the hypermassive neutron star configuration.}
   \label{fig:nsns_cosA_distrib_I_90deg}
@@ -1203,6 +1249,10 @@ See Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{20170619-potentials-Vnue_Vnua_Vnu-000Mo-022deg-noscat}
+  % Data:   $DIR/000Mo-022deg-*km/Lev1-e30a60b10-noscat-00
+  % Script: $DIR/nu_potentials.nb
+  % Config: $DIR/RunAB/RunAB-noscat/nu_potentials-config-000Mo-02deg.nb
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/
   \caption{Neutrino self-interaction potential along a test trajectory
     originating at the surface of the hypermassive neutron star, and
     proceeding outward along a radial coordinate ray with angle
@@ -1218,6 +1268,10 @@ See Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{20170619-potentials-Vnue_Vnua_Vnu-000Mo-022deg-scat}
+  % Data:   $DIR/000Mo-022deg-*km/Lev1-e30a60b10-scat-00
+  % Script: $DIR/nu_potentials.nb
+  % Config: $DIR/RunAB/RunAB-scat/nu_potentials-config-000Mo-02deg.nb
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/
   \caption{Same as Fig.~\ref{fig:V_nunu-noscat},
     but with scattering turned on.
     Unlike the case with scattering turned off, here the potential is
@@ -1228,6 +1282,9 @@ See Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-survival_prob-noscat_nh}
+  % Flavor evolution by Yonglin, see emails 7.19.17-7.20.17
+  % Plot: $DIR/31-900kmNHnoScatterPot.eps
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunAB/probabilityPotential
   \caption{Neutrino survival probabilties for the \emph{noscat} case.
     In the lower panel we reproduce the unoscillated self-interaction potential
     $V_{\nu\nu,0}$ from Fig.~\ref{fig:V_nunu-noscat} and a matter potential
@@ -1243,6 +1300,8 @@ See Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-survival_prob-scat_nh}
+  % see notes from fig-survival_prob-noscat_nh
+  % Plot: $DIR/130-800kmNHScatterPot.eps (normal hierarchy)
   \caption{Same as Fig.~\ref{fig:survival-noscat},
     but with scattering turned on.
     In this case the neutrinos undergo a standard MNR transition

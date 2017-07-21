@@ -62,4 +62,6 @@ These guidelines help us conform to the Physical Review D editorial rules.
   Provide figures in ps and pdf form, since PRD prefers ps which pdflatex
   can't easily handle. Convert with ps2pdf.
 
-
+* __Figures__.
+  Describe the location of the data and the plotting scripts for each figure
+  in nearby latex comments.
