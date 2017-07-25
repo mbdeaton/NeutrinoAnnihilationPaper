@@ -1106,6 +1106,7 @@ collapsed 15~${\rm M}_\odot$ star, 100~ms after core bounce,
 comparing ray tracing fields to those from a Monte Carlo transport calculation.
 Elastic scattering interior to the shock at $r\approx150$~km
 significantly modifies the neutrinos' spectra,
+\todo{demonstrate}
 and the extended envelope outside the shock becomes a source of
 higher-than-average-energy neutrinos.
 
@@ -1131,10 +1132,11 @@ The background scattering field $\Phi(\varepsilon)$ is supplied by
 with $\varepsilon_i$ representing 18 energy groups
 identical to those in the \lstinline{NuLib} table described in
 Sec.~\ref{ssec:test_equilibrium}.
-For the \emph{spectral} method we use $J(\varepsilon)$ directly,
+For the \emph{spectral} method we use $J(\varepsilon_i)$ directly,
 using zeroth-order interpolation between energy groups;
 for the \emph{gray} method we use $J=\sum J(\varepsilon_i) \Delta\varepsilon_i$,
-and $G=\sum J(\varepsilon_i) \Delta\varepsilon_i/\varepsilon_i$ instead.
+and $G=\sum J(\varepsilon_i) \Delta\varepsilon_i/\varepsilon_i$ instead,
+with $\Delta\varepsilon_i$ the bin-width of the $i$th energy group.
 
 For fiducial neutrino distributions we use the matter profile
 as input into a Monte Carlo radiation transport calculation using
@@ -1185,7 +1187,8 @@ Against the fiducial Monte Carlo distribution, we show the
 As expected the average energies from both
 the scattering envelope ($\cos A \lesssim 0.95$) and
 the bright core ($\cos A\gtrsim 0.995 $)
-are badly characterized by the \emph{noscat} treatment.
+are well characterized by the \emph{scat} treatments
+and badly characterized by the \emph{noscat} treatment.
 In this case for $\nu_x$ the major effect of elastic scattering
 is to decrease the average energy of neutrinos coming from the core
 and increase the average energy of neutrinos coming from the envelope.
@@ -1244,35 +1247,39 @@ presented in Tab.~\ref{tab:collapse_rt_vs_mc}.
 \end{table}
 
 We can make some quantitative sense of the scattered energies in
-Fig.~\ref{fig:avg_eps_collapse} from the formal solution explored in the
-simple configurations above.
+Fig.~\ref{fig:avg_eps_collapse} and Tab.~\ref{tab:collapse_rt_vs_mc}
+using the solutions explored in the simple configurations above.
 In particular, the average energy in the scattering envelope
 ($\cos A\lesssim 0.95$) is related to the spectrum in the direction
 of the interior ($\cos A \sim 1$).
-The relation is quite simple if we simplify our realistic model
-to that of a homogeneous matter profile and
-background scattering field.
+The relation may be derived by simplifying our realistic model
+to that of a homogeneous matter profile and background scattering field.
 
-In the envelope the local temperature is low
-and the ratio $\chi^*_a/\chi_s$ small,
-so $f_{\rm SE}$ strongly dominates over $f_{\rm AE}$.
 By expanding the exponential of
-Eqn.~\ref{eqn:fse_homogeneous_general} as we did for
-Eqn.~\ref{eqn:fae_homogeneous_limits},
-and furthermore factoring out the dominant ${\rm energy}^2$ dependence from the
-scattering opacity $\chi_s\equiv\varepsilon^2 \zeta_s$, we have
-\begin{equation}
+Eqns.~\ref{eqn:fse_homogeneous_general} and \ref{eqn:fae_homogeneous_general}
+as we did for Eqn.~\ref{eqn:fae_homogeneous_limits},
+and furthermore factoring out the dominant energy dependence from the
+cross-sections (i.e.\ $\chi\equiv\varepsilon^2 \zeta$
+with $\zeta$ approximately constant), we have
+\begin{align}
+  \label{eqn:fae_homogeneous_thin_limit}
+  f_{\rm AE}(\varepsilon)
+  &= \varepsilon^2 \zeta_a \,f^{\rm eq}(\varepsilon)\,s, \\
   \label{eqn:fse_homogeneous_thin_limit}
   f_{\rm SE}(\varepsilon)
-  = \varepsilon^2 \zeta_s \,\Phi(\varepsilon)\,s,
-\end{equation}
+  &= \varepsilon^2 \zeta_s \,\Phi(\varepsilon)\,s,
+\end{align}
 where $s$ is the length of scattering envelope passed through by the ray.
-The average energy of the scattered field is
+\todo{should be $\chi_a^*=\varepsilon\zeta_a$ for $\nu_x$}
+In the envelope the local temperature is low so $f^{\rm eq}/\Phi\ll 1$,
+and also $\zeta_a/\zeta_s\ll 1$,
+so $f_{\rm SE}$ strongly dominates over $f_{\rm AE}$.
+The average energy of the scattered field is therefore
 \begin{equation}
   \label{eqn:avg_eps_sc}
   \langle \varepsilon \rangle^{\rm sc}
   = \frac{\int d\varepsilon\,\varepsilon^3 f}{\int d\varepsilon\,\varepsilon^2 f}
-  = \frac{\int d\varepsilon\,\varepsilon^5 \Phi}{\int d\varepsilon\,\varepsilon^4 \Phi}.
+  \approx \frac{\int d\varepsilon\,\varepsilon^5 \Phi}{\int d\varepsilon\,\varepsilon^4 \Phi}.
 \end{equation}
 
 The spectrum of the background field $\Phi(\varepsilon)$ is well-approximated
@@ -1281,6 +1288,7 @@ source direction for neutrinos.
 And because the scattering envelope is optically thin at all energies,
 we can assume the neutrino spectrum is essentially unchanged in its passage
 through the envelope.
+
 In order to estimate $\langle \varepsilon \rangle^{\rm sc}$ analytically, we may
 approximate the background field $\Phi(\varepsilon)$ analytically.
 Direct Fermi-Dirac fits using a temperature and chemical potential
@@ -1299,10 +1307,10 @@ but so do pinched spectral fits which are much simpler \cite{miri????}:
 $\varepsilon^2$, since we define our distribution function to be dimensionless
 in natural units $\{\hbar,c\}=1$).
 
-Pinching parameters (calculated by eye) for the species
-$\{\nu_e,\bar{\nu}_e,\nu_x\}$ are $\alpha\approx\{3.6,5.1,2.3\}$,
-when we use the average energies from the \emph{spectral}
-\emph{scat} method in Tab.~\ref{tab:nsns_rt_vs_m1}.
+Pinching parameters
+(calculated by eye from the \emph{spectral} \emph{scat} method)
+for the species
+$\{\nu_e,\bar{\nu}_e,\nu_x\}$ are $\alpha\approx\{3.6,5.1,2.3\}$.
 Energy moments of pinched spectra like those in Eqn.~\ref{eqn:avg_eps_sc}
 have a simple analytic form so that Eqn.~\ref{eqn:avg_eps_sc} becomes
 \begin{align}
@@ -1316,14 +1324,28 @@ have a simple analytic form so that Eqn.~\ref{eqn:avg_eps_sc} becomes
 \end{align}
 again for $\{\nu_e,\bar{\nu}_e,\nu_x\}$ respectively.
 These analytic predictions agree with the average energies of the scattering
-envelope to within 20\%
+envelope to approximately 10\%
 % From by-eye examinations of <eps>(cosA) plot using data from
 % MCDATA=$DIR/ResultsSherwood-02
 % RTDATA_GR=$DIR/ResultsBrett-B-03/Test-scat-01/
 % RTDATA_SP=$DIR/ResultsBrett-A-03/Test-scat-01/
 %          nue     nua     nux
-of the Monte Carlo and the \emph{scat} ray tracing calculations,
-even though we have made some drastic simplifications to our model.
+of all of the treatments including elastic scattering presented
+in Tab.~\ref{tab:collapse_rt_vs_mc}, except for
+$\bar{\nu}_e$ in the \emph{gray} \emph{scat} treatment,
+which deviates from our prediction by 30\%.
+This agreement is excellent despite the drastic
+simplifications used in our toy model.
+
+The $\langle\varepsilon_{\bar{\nu}_e}\rangle^{\rm sc}$ prediction
+in the \emph{gray} \emph{scat} treatment is approximately 30\%
+larger than the the fiducial Monte Carlo estimate. This is
+due to the large negative local chemical potential
+$\eta_{\bar{\nu}_e}\sim-10$ in the scattering envelope.
+As described in Sec.~\ref{ssec:sources_se},
+we use $\eta_\nu$ in the \emph{gray} treatment to construct our
+synthetic spectrum from total neutrino densities $J$ and $G$.
+This error points the way to future improvements to the \emph{gray} method.
 
 \subsection{Hypermassive Neutron Star Remnant:
   Testing Everything}
@@ -1928,6 +1950,7 @@ We use the following procedure:
   Compute the neutrino spectral temperature, assuming equilibrium with the
   fluid
   \begin{equation}
+    \label{eqn:spectral_temp}
     T_\nu = \langle \varepsilon \rangle
     \frac{\mathscr{F}_2(\eta_\nu)}{\mathscr{F}_3(\eta_\nu)},
   \end{equation}
