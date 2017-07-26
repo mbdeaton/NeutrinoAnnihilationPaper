@@ -1554,13 +1554,18 @@ the only \emph{scat} method we can use in our ray tracing is the
 \emph{gray} method.
 As in the post-bounce configuration in Sec.~\ref{ssec:test_collapse},
 the \emph{scat} treatment is more faithful than the \emph{noscat} treatment,
-significantly so for the heavy-lepton neutrinos which are most affected.
-With scattering turned off ray tracing overestimates $L_{\nu_x}$ by 250\%;
+significantly so for the heavy-lepton neutrinos.
+(Though, we note the energy luminosity for $\nu_e$ is overestimated
+20\% by both \emph{noscat} and \emph{scat} treatments,
+and the overestimate is slightly worse for the \emph{scat} treatment.)
+\todo{explain}
+With scattering turned off ray tracing overestimates $L_{\nu_x}$ by 200\%;
 but with scattering turned on agreement in all measures
-is better than 20\%, and in most cases much better.
-Note that $R_{\bar{\nu}_e}$ dominates over $R_{\nu_e}$
+is better than 10\%, except for $L_{\nu_e}$ which is overestimated by 20\%.
+As the M1 transport evolution also demonstrates,
+$R_{\bar{\nu}_e}$ dominates over $R_{\nu_e}$
 \todo{Need $R$ magnitude not just difference}
-because the disrupted neutron star material is releptonizing
+because the disrupted neutron star material is releptonizing.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{theta_distrib-250km-Kr}
