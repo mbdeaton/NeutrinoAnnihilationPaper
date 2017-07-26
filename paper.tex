@@ -733,6 +733,7 @@ if it is below some threshold the next step size is increased.
 
 The volume data are components of the metric $\psi_{\alpha\beta}$,
 its derivatives $\psi_{\alpha\beta,\gamma}$,
+\todo{state num independent components}
 and the hydrodynamical data $W$, $u_i$, $\varrho$, $T$, and $Y_e$.
 These fields are stored in spectral representation.
 If they are computed via hydrodynamical simulation, they are saved to disk
@@ -801,7 +802,7 @@ neglecting weak magnetism
 \todo{anything else?}
 and is stored on a grid covering energy, density, temperature, and composition
 ranges spanning $\varepsilon_i\in[1,280.5]$~MeV logarithmically,
-$\varrho\in[10^6,6.3\times10^15]\,{\rm g}\,{\rm cm}^{-3}$ logarithmically,
+$\varrho\in[10^6,6.3\times10^{15}]\,{\rm g}\,{\rm cm}^{-3}$ logarithmically,
 $T\in[0.05,200]$~MeV logarithmically, and 
 $Y_e\in[0.035,0.55]$ linearly,
 with grid extents$\{18,82,65,51\}$ respectively.
@@ -1362,19 +1363,35 @@ depending upon a number of physical factors including thermal pressure,
 magnetic fields, and the microphysics of the fluid.
 
 Such a configuration was modeled in \cite{fouc2016-m1_nsns} by
-evolving the final inspiral and merger of two identical neutron stars of
+evolving fluid and spacetime through the
+final inspiral and merger of two identical neutron stars of
 isolated gravitational mass 1.2~$M_{\odot}$. The postmerger configuration
 was simulated using a gray M1 transport scheme for the neutrinos, evolving the
 energy density, number density, and energy flux \cite{fouc2016-m1_evolve_n}
 for $\sim10\,{\rm ms}$ following merger.
 The fluid was modeled using the LS220 equation of state \cite{latt1991-nuc_eos}.
 
-We use a single time snapshot of the volume data from that configuration
-at $t=11\,{\rm ms}$ after merger (see
-Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat})
-sampling the neutrino fields with ray tracing to compare to some
-measures of the field computed from the M1 transport simulation.
-\todo{here focus on plots as functions of $\theta$}
+We use a single time snapshot from that configuration
+at $t=11\,{\rm ms}$ after merger.
+The volume data are represented on a pseudospectral domain of a
+sphere with concentric shells extending to $r\approx1400$~km.
+Radial grid spacings are $\Delta r \approx 0.15$~km in the star
+and $\Delta r \approx 2.5$~km in the disk,
+with 12 cells spanning polar angles $\theta\in[0,\pi]$
+and 24 cells spanning azimuthal angles $\phi\in[0,2\pi]$.
+\todo{way too-low angular resolution}
+Though a pseudospectral representation of non-smooth hydrodynamic data
+introduces some Gibbs-like oscillations in the variables,
+we choose to use this representation instead of the mesh-refined
+finite difference grid of the evolution because the pseudospectral
+representation uses much less memory:
+95~MB in pseuspectral vs.\ 3~GB in finite difference representation.
+Obviously, memory loads of this order are not insurmountable;
+but they would require some modifications to our
+volume data interpolation infrastructure.
+For the purposes of this analysis the pseudospectral representation is adequate.
+Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat}
+show slices of density and temperature from the finite difference volume data.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{production-colormap-merid-rho}
@@ -1413,25 +1430,95 @@ measures of the field computed from the M1 transport simulation.
   \label{fig:nsns_temp_equat}
 \end{figure}
 
-In Tab.~\ref{tab:nsns_rt_vs_m1} we present total and relative number and
-energy luminosities for this configuration.
-With scattering turned off, ray tracing errors are as large as 250\%
-(for heavy lepton energy luminosities).
-But with scattering turned on, agreement is better than 20\%, and
-in most cases much better.
-\todo{get accurage M1 numbers from Francois}
+Opacities are computed from the LS220 equation of state using
+\lstinline{NuLib} and are stored as a table covering
+energy, density, temperature, and composition ranges
+spanning $\varepsilon\in[1,280.5]$~MeV logarithmically,
+$\varrho\in[10^6,3.2\times10^{15}]\,{\rm g}\,{\rm cm}^{-3}$ logarithmically,
+$T\in[0.05,150]$~MeV logarithmically, and 
+$Y_e\in[0.035,0.55]$ linearly,
+with grid extents$\{18,82,65,51\}$ respectively.
+
+We place stationary (i.e.\ Eulerian) observers at fixed coordinate radius
+$r=250$~km in the $y$-$z$ plane along an arc at $N_\theta$ positions
+distributed linearly in $\cos\theta$ over the northern hemisphere
+using $\theta_i=\cos^{-1}\left(1-i/(N_\theta-1)\right)$
+for $i=0,1,2,\ldots N_\theta-1$.
+We choose $N_\theta=30$.
+
+Though the ray tracing sampling of $f$ is done in full general relativity,
+in our calculation of moments at the observer positions,
+we make the simplifying assumption of Minkowski spacetime.
+This assumption introduces errors in our moments of order
+$GM/r=4\,{\rm km}/250\,{\rm km}$
+\todo{too simplistic}
+(with $G$ the gravitational constant and $M$ the central mass),
+or $\sim 1\%$.
+
+Each observer samples the distribution function over a uniform grid
+in energy, cosine of polar angle, and azimuthal angle with extents
+$\{N_{\tilde{\varepsilon}},N_A, N_B\}$ spanning the ranges
+$\tilde{\varepsilon}\in(0,100)$~MeV,
+$\cos A\in\left((\cos A)_{\rm min}, 1\right)$, and
+$B\in[0,2\pi)$.
+Using the midpoint rule,
+the radial fluxes of number and energy from Eqns.~\ref{eqn:Ha}
+and \ref{eqn:J_H_S_eps_integrated} become sums:
+\begin{align}
+  \label{eqn:Kr_minkowski}
+  \tilde{K}^r &= \Delta
+  \sum\limits_{m=0}^{N-1}
+  \tilde{\varepsilon}_m^2 f_m,\\
+  \label{eqn:Hr_minkowski}
+  \tilde{H}^r &= \Delta
+  \sum\limits_{m=0}^{N-1}
+  \tilde{\varepsilon}_m^3 f_m,
+\end{align}
+with $f_m \equiv f(\tilde{\varepsilon}_m,\cos A_m, B_m)$,
+$\Delta \equiv \Delta\tilde{\varepsilon}\, \Delta(\cos A)\, \Delta B$, and
+$N \equiv N_{\tilde{\varepsilon}}\, N_A\, N_B$.
+Average energies are given by
+$\langle\tilde{\varepsilon}\rangle(\theta)=H^r(\theta)/K^r(\theta)$.
+We choose $N_{\tilde{\varepsilon}}=30$, $N_A=120$, and $N_B=20$.
+For the \emph{scat} case we choose $(\cos A)_{\rm min}=0.81$;
+For the \emph{noscat} case, presenting a smaller emitting region,
+we choose $(\cos A)_{\rm min}=0.91$.
+
+We also combine measurements from all observers to estimate
+total luminosities and averages over the sky.
+We assume the disk is azimuthally symmetric and
+symmetric with respect to reflection across the equatorial plane.
+Figs.~\ref{fig:nsns_rho_merid} and \ref{fig:nsns_rho_equat} show how these
+assumptions are approximately valid at 11~ms after merger.
+Total luminosities are then computed as integrals of the radial fluxes
+over $\cos\theta$.
+Using the trapezoid rule the number and energy luminosities become sums:
+\begin{align}
+  \label{eqn:luminosity_R}
+  R &= C
+  \left(\frac{1}{2}(\tilde{K}^r_0+\tilde{K}^r_{N_\theta-1})
+  +\sum\limits_{m=1}^{N_\theta-2}\tilde{K}^r_m\right),\\
+  \label{eqn:luminosity_L}
+  L &= C
+  \left(\frac{1}{2}(\tilde{H}^r_0+\tilde{H}^r_{N_\theta-1})
+  +\sum\limits_{m=1}^{N_\theta-2}\tilde{H}^r_m\right),
+\end{align}
+with $C \equiv 4\pi r^2\, \Delta(\cos \theta)$,
+\todo{source of GR error in coordinate $r$}
+$\tilde{K}^r_m \equiv \tilde{K}^r(\theta_m)$, and
+$\tilde{H}^r_m \equiv \tilde{H}^r(\theta_m)$.
+Average energies over the whole sky are then
+$\langle\tilde{\varepsilon}\rangle=L/R$.
 
 \begin{table}%[h]
   \caption{
-    Comparison of total luminosities and average energies between
-    ray tracing using the \emph{noscat} method `RT noscat',
+    Comparison of total luminosities and average energies
+    of the hypermassive neutron star configuration.
+    The methods are ray tracing using the \emph{noscat} method `RT noscat',
     ray tracing using the \emph{gray} \emph{scat} method `RT scat',
     and the M1 transport simulation `M1'.
     The ray tracing totals were computed from sums over
-    observers placed in the $y$-$z$ plane along an arc at coordinate distance
-    $r=250\,{\rm km}$ from the center of the star, at 30 positions
-    distributed evenly in $\cos\theta$ over the colatitude range
-    $\theta\in[0,90^{\circ}]$.
+    observers placed in the $y$-$z$ plane.
     M1 values are taken from \cite[Figs. 7, 9, 10]{fouc2016-m1_evolve_n}.
     Energy luminosities have units $10^{52}\,{\rm erg}\,{\rm s}^{-1}$,
     number luminosities $10^{57}\,{\rm s}^{-1}$, and
@@ -1454,19 +1541,23 @@ in most cases much better.
   \end{tabularx}
 \end{table}
 
-\section{Applications}
-\label{sec:applications}
-
-\subsection{Understanding Emission Spectra}
-\label{ssec:spectra}
-In this section, we use ray tracing's ability to track ``where the neutrinos
-are coming from'' to understand the features in the emission distributions
-presented in the code tests.
-
-The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
-Something like this is presented in \cite[Figs.~10-11]{pere2014-nu_wind};
-compare.
-\todo{here focus on plots of $J(\cos A)$, $H^r(\cos A)$, and $J(\varepsilon)$}
+Tab.~\ref{tab:nsns_rt_vs_m1} compares the all-sky
+\todo{get accurate M1 numbers from Francois}
+luminosities and average energies from ray tracing and from
+the M1 transport simulation,
+which serves as our fiducial calculation.
+Because the model was evolved with a gray M1 transport scheme,
+the only \emph{scat} method we can use in our ray tracing is the
+\emph{gray} method.
+As in the post-bounce configuration in Sec.~\ref{ssec:test_collapse},
+the \emph{scat} treatment is more faithful than the \emph{noscat} treatment,
+significantly so for the heavy-lepton neutrinos which are most affected.
+With scattering turned off ray tracing overestimates $L_{\nu_x}$ by 250\%;
+but with scattering turned on agreement in all measures
+is better than 20\%, and in most cases much better.
+Note that $R_{\bar{\nu}_e}$ dominates over $R_{\nu_e}$
+\todo{Need $R$ magnitude not just difference}
+because the disrupted neutron star material is releptonizing
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{theta_distrib-250km-luminosity_R}
@@ -1492,6 +1583,34 @@ compare.
   \label{fig:nsns_theta_distrib_L}
 \end{figure}
 
+The distributions of radial fluxes over observer position are shown
+in Figs.~\ref{fig:nsns_theta_distrib_R} and \ref{fig:nsns_theta_distrib_L}.
+With the \emph{noscat} treatment the $\nu_x$ luminosities are relatively
+constant in $\theta$, because the disk is optically thin to $\nu_x$,
+and most of the neutrinos come from the hypermassive neutron star,
+which is roughly spherical.
+The slight upward trend in $\nu_x$ luminosities with $\theta$ may be due to
+asymmetries in the configuration.
+It is not due to the Doppler shift from the rapid rotation of the star
+(a hypothesis we tested by setting $u_i=0$ and $W=1$ in the ray
+tracing equations).
+Because of their larger absorption cross section,
+the disk is not optically thin to $\nu_e$ and $\bar{\nu}_e$,
+and observers within view of the hot hypermassive neutron star measure
+the largest radial fluxes.
+
+When we turn on scattering, the disk is no longer transparent to $\nu_x$,
+and $\nu_x$ luminosities present the same qualitative $\theta$-dependence
+as that of the other species.
+In general, scattering increases luminosities for polar observers
+($\theta \sim 0^\circ$) because additional high energy neutrinos
+from the hypermassive neutron star are scattered by the disk back up to
+the observer.
+For observers in the equatorial plane ($\theta \sim 90^\circ$)
+the effect of scattering is a decrease in energy luminosities,
+since some of the highest energy neutrinos from deep in the interior
+are scattered away from the line of sight by the disk.
+
 \begin{figure}
   \includegraphics[width=\columnwidth]{theta_distrib-250km-avg_eps}
   % see notes from theta_distrib-250km-luminosity_R
@@ -1500,6 +1619,40 @@ compare.
     average energies $\langle \varepsilon \rangle = J/G$.}
   \label{fig:nsns_theta_distrib_avg_eps}
 \end{figure}
+
+Fig.~\ref{fig:nsns_theta_distrib_avg_eps} shows the distribution of
+average energies of radial fluxes over observer positions.
+With and without scattering, the average energies are highest
+for observers near the polar axis, since polar observers get a
+direct view of the hot hypermassive neutron star.
+Scattering decreases average energies across all observer positions,
+as it did in the post-bounce configuration, or any configuration of
+a hot interior surrounded by a scattering envelope.
+The strength of the effect of scattering on the average energies of
+the different species is seen to follow the ranking
+$\nu_x>\bar{\nu}_e>\nu_e$ due to two factors:
+the average energies of the spectra obey the same ranking,
+and the thicknesses of the different species' scattering envelopes
+also obey the same ranking.
+As we showed in the optically thin limit of
+Eqn.~\ref{eqn:fse_homogeneous_thin_limit},
+\todo{too simplistic}
+the scattering contribution $f_{\rm SE}$ is
+proportional to energy $\varepsilon^2$ and path length $s$.
+
+\section{Applications}
+\label{sec:applications}
+
+\subsection{Understanding Emission Spectra}
+\label{ssec:spectra}
+In this section, we use ray tracing's ability to track ``where the neutrinos
+are coming from'' to understand the features in the emission distributions
+presented in the code tests.
+
+The merger models are described in \cite{fouc2015-m1_nsbh, fouc2016-m1_nsns}.
+Something like this is presented in \cite[Figs.~10-11]{pere2014-nu_wind};
+compare.
+\todo{here focus on plots of $J(\cos A)$, $H^r(\cos A)$, and $J(\varepsilon)$}
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{cosA_distrib-intensity-250km-00deg}
