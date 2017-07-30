@@ -3,8 +3,9 @@
 % Template taken from FermiLab APS Journal template.
 
 % packages
-\usepackage{amssymb}              % for \gtrsim ...
 \usepackage{amsmath}              % for \text, align, split ...
+\usepackage{amssymb}              % for \gtrsim ...
+\usepackage{braket}               % for \bra \ket
 \usepackage{color}                % for colorful margin notes
 \usepackage[mathscr]{euscript}    % for \mathscr
 \usepackage{graphicx}             % for \includegraphics
@@ -399,7 +400,7 @@ which take identical values for all observers.
 In the second form we have introduced the source function
 $\mathscr{S}\equiv\mathscr{E}/\mathscr{K}$, which makes manifest the
 behavior of the right hand side, driving $f$ toward $\mathscr{S}$
-over a lengthscale $\mathscr{K}$ in our affine parameter;
+over a lengthscale $\mathscr{K}^{-1}$ in our affine parameter;
 or from Eqn.~\ref{eqn:proper_length}, over a proper lengthscale
 $\varepsilon/\mathscr{K}$ measured by our fiducial observer.
 
@@ -744,7 +745,7 @@ a single time is stored to disk, and no time interpolation is needed.
 \label{sec:tests}
 
 To test our algorithm, we integrate the ray tracing equations
-(Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau}) at one observation position
+(Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau}) for various observers
 in the following configurations. This suite of configurations
 may be understood as a hierarchy of increasing physical realism:
 beginning with a homogeneous medium of effectively
@@ -1687,10 +1688,133 @@ is to spread the distribution out to larger angles.
 
 \subsection{Neutrino Oscillations at High Neutrino Densities}
 \label{ssec:V_nunu}
-In this section we present $V_{\nu\nu,0}$ along one test trajectory in the NSNS
-model, and show that including elastic scattering makes a qualitative
-difference in the character of the flavor evolution.
-See Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}.
+The Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) is one limiting
+form of the quantum kinetic equations \cite{vlas2014-neutrino_qkes},
+the limit where collisional mean free paths are much shorter
+than oscillation lengths (i.e.\ $\varepsilon/\mathscr{K} \ll |H|^{-1}$
+with $H$ the Hamiltonian describing coherent forward scattering interactions).
+In this limit the neutrino density matrix,
+\begin{equation}
+  \label{eqn:density_rho_0}
+  \rho_0(\varepsilon,\ell_\mu) =
+  \sum\limits_{\alpha}f^{\nu_\alpha}(\varepsilon,\ell_\mu)
+  \ket{\nu_\alpha} \bra{\nu_\alpha},
+\end{equation}
+with $\ket{\nu_\alpha}$ the neutrino flavor eigenstates,
+remains in a pure state, or diagonal in the flavor basis.
+
+But at the opposite limit, in the free-streaming regime,
+coherence effects become important,
+and the quantum kinetic equations take a Schr\"{o}dinger-like form:
+\begin{equation}
+  \label{eqn:schroedinger}
+  i \frac{d}{ds} S = H S,
+\end{equation}
+where $ds$ is an interval of proper length, and
+\todo{mention $\bar{\nu}$ eqn}
+$S$ is the flavor evolution matrix describing a mixed state
+\begin{equation}
+  \label{eq:density_evolution}
+  \rho = S \, \rho_0 \, S^\dagger.
+\end{equation}
+In this limit, we may decompose the Hamiltonian into vacuum,
+matter, and neutrino contributions:
+\begin{equation}
+  \label{eqn:decompose_H}
+  H = H_{\rm V} + H_e + H_{\nu\nu}.
+\end{equation}
+Explicit formulas for these terms may be found in the oscillation literature,
+e.g.\ \cite{duan2009-review},
+but for simplicity we give their respective scales:
+\begin{align}
+  \label{eqn:scale_H_V}
+  |H_{\rm V}| &\sim \frac{\Delta m^2}{\varepsilon}, \\
+  \label{eqn:scale_H_e}
+  |H_e|       &\sim G_{\rm F}\left|n_{e^-}-n_{e^+}\right|, \\
+  \label{eqn:scale_H_nunu}
+  |H_{\nu\nu}(\ell_\mu)|&\sim G_{\rm F} \left|
+  (G_{\nu_e}-G_{\bar{\nu}_e}) - \ell_\mu(K_{\nu_e}^\mu-K_{\bar{\nu}_e}^\mu)
+  \right|,
+\end{align}
+where $\Delta m$ is the mass difference between neutrino mass eigenstates,
+$G_{\rm F}$ is the Fermi coupling constant,
+$n_{e^-}$ and $n_{e^+}$ are the electron and positron number densities,
+and $\ell_\mu$ is the propagation direction of the
+coherent beam of neutrinos in question.
+
+In regimes in which $|H_{\nu\nu}|\ll|H_{\rm V},H_e|$,
+the flavor evolution along the ray is soluble, and reveals a rich
+and physically important phenonenology including
+vacuum, solar, atmospheric, and terrestrial oscillations,
+as well as oscillations in supernova envelopes.
+Where neutrino densities are relatively high, however,
+as in neutron star mergers, the problem must be solved globally.
+\todo{be clearer}
+To date, no method has been devised to handle this problem.
+
+However, we can solve a similar, but tractable problem along a single ray.
+Assume all the neutrino rays intersecting an event along a given test ray
+have undergone the same flavor evolution history as that of the test ray,
+i.e.\ $S$ is the same for all rays sharing that event.
+This is the so-called single-angle approximation.
+\todo{cite someone}
+\todo{say something about its validity}
+
+Solving for the flavor evolution history along this test ray
+requires knowledge of the unoscillated neutrino contribution to the Hamiltonian.
+This is a function of the unoscillation neutrino self-interaction potentials,
+which for the $\alpha$-th flavor is:
+\begin{equation}
+  \label{eqn:V_nu_alpha}
+  V_{\nu_\alpha,0}(\varepsilon,\ell_\mu) =
+  \frac{\sqrt{2}G_{\rm F}}{(2\pi)^3} \varepsilon^2
+  \oint d\Omega'(1-\varpi')f^{\nu_\alpha}(\varepsilon,\ell'_\gamma),
+\end{equation}
+with the cosine of the angle between the test ray and ambient rays
+given by $\varpi'=\psi^{\mu\gamma} \ell_\mu \ell'_\gamma$.
+
+If conditions are right, a resonant flavor transition
+introducing significant mixing may occur very near
+the point where neutrinos begin free-streaming.
+The matter-neutrino resonance \cite{malk2012-mnr_1,malk2015-mnr_2,malk2016-mnr_3},
+may occur along a given ray wherever the matter and neutrino self-interaction
+potentials cancel, or $V_e \sim V_{\nu\nu,0}$, with
+\begin{align}
+  \label{eqn:V_e}
+  V_e &= \sqrt{2} G_{\rm F} \frac{\varrho}{m_N} Y_e, \\
+  \label{eqn:V_nunu0}
+  V_{\nu\nu} &= \int d\varepsilon
+  \big(V_{\nu_e,0}(\varepsilon)-V_{\bar{\nu}_e,0}(\varepsilon)\big),
+\end{align}
+with $\varrho$ the rest density and $m_{N}$ the nucleon mass.
+
+We calculate the self-interaction potential at $N_s=5$ points between
+$r\in[30,135]$~km,
+by sampling distribution functions over a grid with extents
+$N_\varepsilon=30$, $N_A=30$, $N_B=10$,
+over all angles and an energy range of $\varepsilon\in(0,100)$~MeV.
+\todo{improve resolution and update}
+We interpolate the logarithm of the self-interaction potentials
+in path length $\log s$ along the ray,
+by fitting a 3rd order spline with continuous derivative,
+across the $N_s$ observation points.
+The matter potential along this test ray is from an analytic wind
+model qualitatively consistent with the densities in the
+simulated volume (i.e.\ inside $r\sim70$~km).
+
+In Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}
+we show the self-interaction potential and its contributions from
+$\nu_e$ and $\bar{\nu}_e$
+for a test neutrino ray moving out along a coordinate radial trajectory
+from the hypermassive neutron star used in Sec.~\ref{ssec:test_disk_comparison},
+along an angle of $\theta=22^\circ$ with respect to the polar axis.
+\todo{note coordinate ray}
+Fig.~\ref{fig:V_nunu-noscat} shows these terms for the \emph{noscat} treatment,
+and Fig.~\ref{fig:V_nunu-scat} for the \emph{scat} treatment.
+Obviously including the effects of elastic scattering
+tends to increase the $\bar{\nu}_e$ contribution relative to the $\nu_e$
+contribution, causing the self-interaction potential to stay negative
+along the entire trajectory.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{20170619-potentials-Vnue_Vnua_Vnu-000Mo-022deg-noscat}
@@ -1724,6 +1848,27 @@ See Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}.
     }
   \label{fig:V_nunu-scat}
 \end{figure}
+
+Evolving the flavor content of this system using the formalism described in
+\cite{zhu2016-mnr_nsns_remnant}
+we see that the matter-neutrino resonance occurs in both,
+but with the very different behaviors of symmetric and asymmetric
+resonances respectively for the \emph{noscat} and \emph{scat} cases,
+as seen in Figs.~\ref{fig:survival-noscat} and \ref{fig:survival-scat}.
+These two classes of matter-neutrino resonance
+are described e.g.\ in \cite{malk2016-mnr_3,vaan2016-uncovering_mnr}.
+The survival probabilities shown in these figures are the terms of
+the flavor evolution matrix $S$ that describe how much of the original flux
+of a given flavor survives a flavor transition.
+Where $P_{\nu_e\rightarrow\nu_e}$ vanishes, for example in
+Fig.~\ref{fig:survival-noscat}, all the original $\nu_e$ content of the beam
+is oscillated into $\nu_\mu$ and $\nu_\tau$; but the $\nu_e$ density doesn't
+vanish altogether,
+since some $\nu_\mu$ and $\nu_\tau$ oscillates into $\nu_e$.
+This dramatic difference in survival probabilities between the \emph{noscat}
+and \emph{scat} cases along this test ray emphasizes the importance of
+scattering physics in the problem of neutrino oscillations in
+neutron star mergers.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-survival_prob-noscat_nh}
