@@ -971,10 +971,10 @@ and a fluid velocity $u^\alpha \rightarrow W(1,0,0,v)$ with $W=(1-v^2)^{-1/2}$.
 All other thermodynamic variables and background fields are unchanged
 since our ray integration uses these quantities in the fluid frame.
 
-A stationary observer sees a neutrino with momentum
-$p_\alpha \rightarrow \tilde{\varepsilon}(-1,\Omega_i)$,
-with direction $\Omega_i \rightarrow (\sin A, 0, \cos A)$,
-and observed energy $\tilde{\varepsilon}$.
+A stationary observer measures an energy of $\tilde{\varepsilon}$
+for a neutrino with momentum
+$p_\alpha \rightarrow \tilde{\varepsilon}(-1,\Omega_i)$
+and direction $\Omega_i \rightarrow (\sin A, 0, \cos A)$.
 In the fluid frame this neutrino has energy $\varepsilon=-u^\alpha p_\alpha$;
 therefore the average energy varies with observing angle:
 \begin{equation}
@@ -1061,15 +1061,15 @@ and stationary fluid we have
 \end{align}
 where $s$ is the path length traversed by the ray through the star.
 
-Since no analytic form is known for the background field $\Phi$,
-we examine only the \emph{noscat} case,
+Since no analytic form is known for the background field $\Phi$
+interior to the star, we examine only the \emph{noscat} case,
 with $\chi_s=0$ and $\chi=\chi_a^{*}$.
 This scenario has been widely used in the literature as a test for
 radiation codes
 \cite{smit1997-two_moment,abdi2012-monte_carlo,fouc2015-m1_nsbh}.
 We sample the distribution function over a uniform grid of
 30 points in angle $\cos A \in [0.734,1]$ and
-40 points in energy $\varepsilon \in [0,100]$~MeV.
+40 points in energy $\tilde{\varepsilon} \in [0,100]$~MeV.
 Because of the step function in fluid variables at radius $R$,
 we throttle the maximum step size at 1.25~km.
 
@@ -1114,16 +1114,17 @@ in the optically thin limit and $\nu_e$ in the optically thick limit.
 \end{figure}
 
 Though we do not display it here,
-we also examine $\langle \varepsilon \rangle(\cos A)$
+we also examine $\langle \tilde{\varepsilon} \rangle(\cos A)$
 as in Eqn.~\ref{eqn:avg_eps_per_cosA}, and robustly reproduce the
 common feature of increasing average energies at the limb of the star
-for $\nu_e$ and $\bar{\nu}_e$. In contrast $\langle \varepsilon \rangle$
+for $\nu_e$ and $\bar{\nu}_e$. In contrast $\langle \tilde{\varepsilon} \rangle$
 for $\nu_x$ is constant across angles, as expected when the star
-is optically thin at even the highest energies $\varepsilon\sim100$~MeV.
+is optically thin at even the highest energies $\tilde{\varepsilon}\sim100$~MeV.
 
 \subsection{Idealized Compact Star:
   Testing Gravitational Redshift and Geodesic Curvature}
 \label{ssec:test_gravity}
+Unfinished.
 Optically thick star in Schwarszchild.
 Total luminosity at infinite separation may be computed by
 computing the radial energy flux at a finite separation from the star, $r$,
@@ -1131,6 +1132,7 @@ and using $p_t$ for the energy. We compute this asymptotic luminosity
 at several radii, $r$, and show that the luminosity is independent of
 the observer's radius.
 \footnote{TODO: compute $L$, put in figure}
+Also compare a few geodesics in Kerr to analytic.
 
 \subsection{Post-Bounce Collapse Profile:
   Testing Scattering}
@@ -1242,6 +1244,7 @@ $R_\nu\approx\{50,45,35\}$~km.
 Total luminosities and average energies from the different treatments are
 \footnote{TODO: update MC results 02->03}
 presented in Tab.~\ref{tab:collapse_rt_vs_mc}.
+\footnote{TODO: give equation for L}
 As expected, $\nu_e$ is least affected by scattering, and $\nu_x$ most.
 In fact, without scattering, $\nu_x$ luminosities are overestimated by more than
 two orders of magnitude, due to the steep increase in temperature with depth
@@ -1269,7 +1272,7 @@ faithfully describe the high scattered energies from the envelope.
     ray tracing with the spectral scattering treatment `RT scat sp', and
     a fiducial Monte Carlo transport evolution `MC'.
     We also show average energies of the scattering envelope
-    $\langle\varepsilon\rangle^{\rm sc}$, which are estimated by eye
+    $\langle\tilde{\varepsilon}\rangle^{\rm sc}$, which are estimated by eye
     from plots like Fig.~\ref{fig:avg_eps_collapse} at $\cos A < 0.95$.
     Luminosities have units $10^{52}\,{\rm erg}\,{\rm s}^{-1}$ and
     average energies have units MeV.
@@ -1283,12 +1286,12 @@ faithfully describe the high scattered energies from the envelope.
     $L_{\nu_e}$                                         &  3.53 & 3.14 & 3.04 & 3.48 \\
     $L_{\bar{\nu}_e}$                                   & 5.19 & 3.05 & 3.03 & 3.01 \\
     $L_{\nu_x}$                                         & 222.0  & 1.88 & 1.76 & 1.70 \\
-    $\langle \varepsilon_{\nu_e} \rangle$               &  10.6 & 10.6 & 10.9 & 11.0 \\
-    $\langle \varepsilon_{\bar{\nu}_e} \rangle$         & 14.2 & 13.0 & 13.8 & 13.7 \\
-    $\langle \varepsilon_{\nu_x} \rangle$               & 47.8 & 16.0 & 17.3 & 16.2 \\
-    $\langle \varepsilon_{\nu_e} \rangle^{\rm sc}$      & 4    & 14   & 17   & 16 \\
-    $\langle \varepsilon_{\bar{\nu}_e} \rangle^{\rm sc}$& 4    & 24   & 20   & 18 \\
-    $\langle \varepsilon_{\nu_x} \rangle^{\rm sc}$      & 2    & 28   & 31   & 27 \\
+    $\langle \tilde{\varepsilon}_{\nu_e} \rangle$               &  10.6 & 10.6 & 10.9 & 11.0 \\
+    $\langle \tilde{\varepsilon}_{\bar{\nu}_e} \rangle$         & 14.2 & 13.0 & 13.8 & 13.7 \\
+    $\langle \tilde{\varepsilon}_{\nu_x} \rangle$               & 47.8 & 16.0 & 17.3 & 16.2 \\
+    $\langle \tilde{\varepsilon}_{\nu_e} \rangle^{\rm sc}$      & 4    & 14   & 17   & 16 \\
+    $\langle \tilde{\varepsilon}_{\bar{\nu}_e} \rangle^{\rm sc}$& 4    & 24   & 20   & 18 \\
+    $\langle \tilde{\varepsilon}_{\nu_x} \rangle^{\rm sc}$      & 2    & 28   & 31   & 27 \\
     \hline
   \end{tabularx}
 \end{table}
@@ -1321,13 +1324,20 @@ where $s$ is the length of scattering envelope passed through by the ray.
 In the envelope the local temperature is low so $f^{\rm eq}/\Phi\ll 1$,
 and also $\zeta_a/\zeta_s\ll 1$,
 so $f_{\rm SE}$ strongly dominates over $f_{\rm AE}$.
-The average energy of the scattered field is therefore
+The average energy of the scattered field measured by our observer
+is therefore
 \begin{equation}
   \label{eqn:avg_eps_sc}
-  \langle \varepsilon \rangle^{\rm sc}
+  \langle \tilde{\varepsilon} \rangle^{\rm sc}
   = \frac{\int d\varepsilon\,\varepsilon^3 f}{\int d\varepsilon\,\varepsilon^2 f}
   \approx \frac{\int d\varepsilon\,\varepsilon^5 \Phi}{\int d\varepsilon\,\varepsilon^4 \Phi}.
 \end{equation}
+Note that we have taken the liberty here of identifying the fluid-frame energy
+$\varepsilon$ with the Eulerian energy $\tilde{\varepsilon}$,
+since infall velocities in the envelope are $\sim0.1c$,
+and as Fig.~\ref{fig:avg_eps_doppler} indicates,
+the Doppler shift will therefore introduce an error into our analysis of
+$\sim10\%$.
 
 The spectrum of the background field $\Phi(\varepsilon)$ is well-approximated
 as the \emph{scat} solution for $\cos A\sim 1$, since that is the dominant
@@ -1336,7 +1346,7 @@ And because the scattering envelope is optically thin at all energies,
 we can assume the neutrino spectrum is essentially unchanged in its passage
 through the envelope.
 
-In order to estimate $\langle \varepsilon \rangle^{\rm sc}$ analytically,
+In order to estimate $\langle \tilde{\varepsilon} \rangle^{\rm sc}$ analytically,
 we must write the background field $\Phi(\varepsilon)$ analytically.
 Direct Fermi-Dirac fits using a temperature and chemical potential
 representative of a physical neutrinosurface fair poorly since neutrinos of
@@ -1364,7 +1374,7 @@ Energy moments of pinched spectra like those in Eqn.~\ref{eqn:avg_eps_sc}
 have a simple analytic form so that Eqn.~\ref{eqn:avg_eps_sc} becomes
 \begin{align}
   \label{eqn:pinched_avg_eps_sc_1}
-  \langle\varepsilon\rangle^{\rm sc}
+  \langle\tilde{\varepsilon}\rangle^{\rm sc}
   &\approx \frac{\alpha+3}{\alpha+1} \langle\varepsilon\rangle, \\
   %\label{eqn:pinched_avg_eps_sc_2}
   %&= \{1.4,1.3,1.6\} \langle\varepsilon\rangle, \\
@@ -1386,7 +1396,7 @@ which deviates from our prediction by 30\%.
 This agreement is excellent despite the drastic
 simplifications used in our toy model.
 
-The $\langle\varepsilon_{\bar{\nu}_e}\rangle^{\rm sc}$ prediction
+The $\langle\tilde{\varepsilon}_{\bar{\nu}_e}\rangle^{\rm sc}$ prediction
 in the \emph{gray} \emph{scat} treatment is approximately 30\%
 larger than the the fiducial Monte Carlo estimate. This is
 due to the large negative local chemical potential
