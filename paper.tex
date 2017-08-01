@@ -242,8 +242,6 @@ Ray tracing is ideally suited to problems requiring detailed knowledge of
 radiation distribution functions over small regions of spacetime:
 for example along a matter or radiation trajectory,
 or over a small volume outside a source.
-But the method becomes computationally burdensome when the inquiry extends
-to large volumes of spacetime.
 
 More fundamentally, though, ray tracing is limited by its naive
 treatment of the Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}),
@@ -266,7 +264,6 @@ but serves as the final component of a hybrid scheme,
 piggy-backing on a lower-order radiation transport method as a
 post-processing step.
 
-\subsubsection*{Outline}
 In Sec.~\ref{sec:formulation} we derive the ray tracing equations from the
 Boltzmann Equation and describe our numerical scheme.
 In Sec.~\ref{sec:tests} we present tests of the code.
@@ -372,10 +369,12 @@ which, suppressing the arguments of $f$ for simplicity, is written,
 \end{equation}
 where $d/d\lambda$ denotes a derivative with respect to the affine
 parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x})
-and $C[f]$ is the source term arising from interactions with the medium,
-having dimension ${\rm energy}\,{\rm length}^{-1}$.
+and $C[f]$ is the source term arising from interactions with the medium.
+By Eqn.~\ref{eqn:geodesic_x},
+the affine parameter has dimension ${\rm length}\,{\rm energy}^{-1}$,
+so the source term has dimension ${\rm energy}\,{\rm length}^{-1}$.
 The source term varies over phase space $(x^\alpha,p_\beta)$,
-and due to Fermi blocking depends locally on the distribution function $f$
+and depends locally on the distribution function $f$
 and nonlocally on the distribution function of this neutrino and its
 antiparticle at different momenta, $f'$ and $\bar{f}'$.
 For simplicity we symbolize all of these dependencies with the shorthand $C[f]$.
@@ -407,7 +406,7 @@ $\varepsilon/\mathscr{K}$ measured by our fiducial observer.
 These coefficients are computed by considering their dependence
 on neutrino and antineutrino distribution functions at other momenta
 (i.e.\ Fermi-blocking).
-We consider two classes of interactions in this work:
+We consider the two dominant classes of interactions in this work:
 the absorption/emission (AE) and elastic scattering (SE) processes
 listed in Tab.~\ref{tab:neutrino_processes}.
 Thus we separate these coefficients:
@@ -420,8 +419,19 @@ Thus we separate these coefficients:
 
 The absorption/emission coefficients are computed from sums
 over the relevant emissivities and opacities
-in Tab.~\ref{tab:neutrino_processes}:
-\todo{define $j$ and $\chi$}
+for the reactions
+\begin{align}
+  \nu_e + n            &\leftrightarrow e^- + p,\nonumber\\
+  \bar{\nu}_e + p      &\leftrightarrow e^+ + n,\nonumber\\
+  \nu_e + {}^AZ        &\leftrightarrow e^- + {}^A(Z+1),\nonumber\\
+  \bar{\nu}_e + {}^AZ  &\leftrightarrow e^+ + {}^A(Z-1),\nonumber
+\end{align}
+with ${}^ZA$ representing a nucleus of mass number $A$ and charge $Z$.
+In terms of the emissivity $j(\varepsilon)$ describing number of neutrinos
+of energy $\varepsilon$ emitted per length,
+and the absorption opacity $\chi_a(\varepsilon)$
+describing the number absorbed per length,
+the coefficients are
 \begin{align}
   \label{eqn:ae_emissivity_summed}
   \mathscr{E}_{\rm AE}(\varepsilon)
@@ -460,7 +470,17 @@ See App.~\ref{ssec:sources_ae} for details.
 
 The elastic scattering coefficients are computed from
 a background field, and a sum over opacities for
-the relevant reactions in Tab.~\ref{tab:neutrino_processes}:
+the reactions
+\begin{align}
+  \nu + N     &\leftrightarrow \nu + N,\nonumber\\
+  \nu + {}^AZ &\leftrightarrow \nu + {}^AZ,\nonumber
+\end{align}
+with $N$ standing in for either $n$ or $p$.
+In terms of a background field $\Phi(\varepsilon)$ describing
+the number of neutrinos of energy $\varepsilon$ present at this event,
+and the scattering opacity $\chi(\varepsilon)$ describing the
+number scattered to other directions per length,
+the coefficients are
 \begin{align}
   \label{eqn:se_emissivity}
   \mathscr{E}_{\rm SE}(\varepsilon)
@@ -469,6 +489,10 @@ the relevant reactions in Tab.~\ref{tab:neutrino_processes}:
   \mathscr{K}_{\rm SE}(\varepsilon)
   &= \varepsilon \sum_{i\,{\rm reactions}} \chi_{{\rm s},i}(\varepsilon).
 \end{align}
+In the isotropic limit of trapped radiation,
+$\Phi$ is equivalent to $f^{\rm eq}$;
+in the free-streaming limit at a distance $r$ from a source,
+$\Phi$ attenuates as $r^{-2}$.
 See App.~\ref{ssec:sources_se} for details.
 
 We may use Eqns.~\ref{eqn:ae_emissivity_feq} and \ref{eqn:se_emissivity}
