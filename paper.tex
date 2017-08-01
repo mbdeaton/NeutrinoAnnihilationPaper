@@ -635,18 +635,25 @@ Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
 momentum space while holding $\varepsilon$ constant:
 $d\Omega \equiv d(\cos a)\,db$.
 \todo{consistent with Eqn.~\ref{eqn:def_direction}?}
-We will also make use of the number density and flux defined as
-$G(\varepsilon)=J(\varepsilon)/\varepsilon$
-and $K^\mu(\varepsilon)=H^\mu(\varepsilon)/\varepsilon$
-respectively.
+We also make use of the number density and flux defined
+\begin{align}
+  \label{eqn:G}
+  G(\varepsilon) &=
+  \frac{\varepsilon^2}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \\
+  \label{eqn:Ka}
+  K^\mu(\varepsilon) &=
+  \frac{\varepsilon^2}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell'^\mu.
+\end{align}
 
-The energy-integrated moments are
+The energy-integrated moments take the form
 \begin{equation}
   \label{eqn:J_H_S_eps_integrated}
-  \big\{ J,H^\mu,S^{\mu\nu} \big\} = \int_0^\infty d\varepsilon \,
-  \big\{ J(\varepsilon),H^\mu(\varepsilon),S^{\mu\nu}(\varepsilon) \big\},
+  X = \int_0^\infty d\varepsilon \, X(\varepsilon),
 \end{equation}
-having dimension ${\rm energy}\,{\rm length}^{-3}$.
+with $X$ standing in for any of $\{J,H^\mu,S^{\mu\gamma}\}$ or
+$\{G,K^\mu\}$,
+the first having dimension ${\rm energy}\,{\rm length}^{-3}$,
+and the second ${\rm length}^{-3}$.
 
 There are two sensible observers to use to define the frame in which these
 moments are computed, that is defining the four-velocity of
@@ -941,7 +948,7 @@ In the fluid frame this neutrino has energy $\varepsilon=-u^\alpha p_\alpha$;
 therefore the average energy varies with observing angle:
 \begin{equation}
   \label{eqn:doppler_avg_eps}
-  \langle \tilde{\varepsilon} \rangle =
+  \langle \tilde{\varepsilon} \rangle(\cos A) =
   \langle \varepsilon \rangle^{\rm eq} \frac{1}{W(1-v \cos A)}.
 \end{equation}
 The equilibrium average energy $\langle \varepsilon \rangle^{\rm eq}$
@@ -960,7 +967,7 @@ Eqn.~\ref{eqn:doppler_avg_eps} describes the well-known Doppler effect.
     The observer sees neutrinos moving with the fluid for angles $\cos A<0$.
     Test described in Sec.~\ref{ssec:test_doppler}.
     The points are computed from ray tracing spectra; the lines are the
-    analytic formula Eqn.~\ref{eqn:avg_eps_per_cosA}.
+    analytic formula Eqn.~\ref{eqn:doppler_avg_eps}.
   }
   \label{fig:avg_eps_doppler}
 \end{figure}
@@ -1151,7 +1158,7 @@ since the Monte Carlo code assumes Minkowski spacetime.
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-collapse_profile_avg_eps_vs_cosA}
   % Data:   $DIR/
-  % Script: $DIR/plot-compare_spectral_vs_gray-angular_distribution_avg_eps-production.gnu
+  % Script: $DIR_GRAY_SC/../plot-compare_spectral_vs_gray-angular_distribution_avg_eps-production.gnu
   % w/  DIR_MC     =$DIR/ResultsSherwood-03/Spectra
   %     DIR_SPEC_SC=$DIR/ResultsBrett-A-03/Test-scat-01
   %     DIR_GRAY_SC=$DIR/ResultsBrett-B-03/Test-scat-01
@@ -1190,6 +1197,7 @@ is to decrease the average energy of neutrinos coming from the core
 and increase the average energy of neutrinos coming from the envelope.
 
 We don't show it here, but the angular distribution contributing to the
+\todo{do show it}
 total number density is also strongly affected by elastic scattering.
 Without elastic scattering, the central regions emitting 60\%
 of the neutrinos for the species $\{\nu_e,\bar{\nu}_e,\nu_x\}$
@@ -1199,9 +1207,20 @@ $R_\nu\approx\{50,45,35\}$~km.
 % From by-hand summation over histogram G(cosA_i)*dcosA
 % Script: $DIR/plot-compare_scat_vs_noscat-G_angular_distribution-all.gnu
 % DIR=.../20161007-ray_tracing_tests/CollapseProfile/ResultsBrett-B-03
+
 Total luminosities and average energies from the different treatments are
 \todo{update MC results 02->03}
 presented in Tab.~\ref{tab:collapse_rt_vs_mc}.
+As expected, $\nu_e$ is least affected by scattering, and $\nu_x$ most.
+In fact, without scattering, $\nu_x$ luminosities are overestimated by more than
+two orders of magnitude, due to the steep increase in temperature with depth
+in the inner core.
+Though contributing only a fraction of the total luminosity,
+the average energy of neutrinos scattered to the observer from the envelope
+outside the shock, $\langle\varepsilon\rangle^{\rm sc}$,
+is poorly characterized by the \emph{noscat} treatment for all species.
+By contrast, both the \emph{gray} and \emph{spectral} \emph{scat} treatments
+faithfully describe the high scattered energies from the envelope.
 
 \begin{table}%[h]
   % to get mc luminosities: tail $MCDATA/Spectra/luminosities_and_avg_eps-501km-nu?.dat
@@ -1344,7 +1363,10 @@ $\eta_{\bar{\nu}_e}\sim-10$ in the scattering envelope.
 As described in Sec.~\ref{ssec:sources_se},
 we use $\eta_\nu$ in the \emph{gray} treatment to construct our
 synthetic spectrum from total neutrino densities $J$ and $G$.
-This error points the way to future improvements to the \emph{gray} method.
+This error and our successful analysis using pinched spectra above,
+points the way to future improvements to the \emph{gray} method:
+making better assumptions about the spectra which don't depend upon
+local fluid quantities.
 
 \subsection{Hypermassive Neutron Star Remnant:
   Testing Everything}
@@ -1459,22 +1481,25 @@ $\{N_{\tilde{\varepsilon}},N_A, N_B\}$ spanning the ranges
 $\tilde{\varepsilon}\in(0,100)$~MeV,
 $\cos A\in\left((\cos A)_{\rm min}, 1\right)$, and
 $B\in[0,2\pi)$.
-Using the midpoint rule,
-the radial fluxes of number and energy from Eqns.~\ref{eqn:Ha}
-and \ref{eqn:J_H_S_eps_integrated} become sums:
+The integrals for fluxes of number and energy
+(Eqns.~\ref{eqn:Ha}, \ref{eqn:Ka}, and \ref{eqn:J_H_S_eps_integrated})
+become sums over all rays.
+Taking these fluxes in the radial direction,
+and using the midpoint rule to convert the integral to a sum, we have
 \begin{align}
   \label{eqn:Kr_minkowski}
   \tilde{K}^r &= \Delta
   \sum\limits_{m=0}^{N-1}
-  \tilde{\varepsilon}_m^2 f_m,\\
+  \tilde{\varepsilon}_m^2 \cos A_m f_m,\\
   \label{eqn:Hr_minkowski}
   \tilde{H}^r &= \Delta
   \sum\limits_{m=0}^{N-1}
-  \tilde{\varepsilon}_m^3 f_m,
+  \tilde{\varepsilon}_m^3 \cos A_m f_m,
 \end{align}
 with $f_m \equiv f(\tilde{\varepsilon}_m,\cos A_m, B_m)$,
-$\Delta \equiv \Delta\tilde{\varepsilon}\, \Delta(\cos A)\, \Delta B$, and
-$N \equiv N_{\tilde{\varepsilon}}\, N_A\, N_B$.
+$\Delta \equiv \Delta\tilde{\varepsilon}\, \Delta(\cos A)\, \Delta B$,
+$N \equiv N_{\tilde{\varepsilon}}\, N_A\, N_B$,
+and $m$ the index labeling each ray.
 Average energies are given by
 $\langle\tilde{\varepsilon}\rangle(\theta)=H^r(\theta)/K^r(\theta)$.
 We choose $N_{\tilde{\varepsilon}}=30$, $N_A=120$, and $N_B=20$.
@@ -1548,6 +1573,9 @@ Tab.~\ref{tab:nsns_rt_vs_m1} compares the all-sky
 luminosities and average energies from ray tracing and from
 the M1 transport simulation,
 which serves as our fiducial calculation.
+Uncertainties are around 15\% for energy luminosities and
+10\% for average energies from the M1 simulation
+\cite[Sec.~A.6]{fouc2016-m1_evolve_n}.
 Because the model was evolved with a gray M1 transport scheme,
 the only \emph{scat} method we can use in our ray tracing is the
 \emph{gray} method.
