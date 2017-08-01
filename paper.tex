@@ -103,27 +103,33 @@ This is a challenging task in the environment of a merger,
 which generally lacks any spatial symmetries, so that fully general
 seven-dimensional solutions to the Boltzmann Equation are not feasible.
 Leakage approximations
-\citep{deat2013-leakage, pere2016-asl, radi2016-dynamical}
+\citep{ruff1996-leakage_part1,ross2003-leakage_part2,
+  deat2013-leakage, pere2016-asl, radi2016-dynamical}
 \todo{cite others}
 capture the qualitative effects of neutrinos on the matter, but
 provide extremely limited information about the neutrino field itself.
 \todo{discuss mc more clearly}
-Monte Carlo methods \citep{abdi2012-monte_carlo,rich2015-monte_carlo}
-are an excellent tool but require large computational resources because of
-their global treatment of the problem.
+Monte Carlo methods like those
+used in supernova simulations \cite{abdi2012-monte_carlo}
+and stationary models of accretion disks \cite{rich2015-monte_carlo}
+are an excellent tool but require large computational resources
+because of their global treatment of the problem.
 
 The state of the art today couples radiation and matter using a truncated
 moment formalism
-\citep{shib2011-truncated_moment, fouc2015-m1_nsbh, fouc2016-m1_nsns,
-  just2015-m1_code},
-\todo{cite others}
+\citep{fouc2015-m1_nsbh, fouc2016-m1_nsns},
 evolving the zeroth- and first-angular moments of the energy density,
-that is the total energy density and flux.
+that is the total energy- and momentum-densities.
 This method, commonly called M1 transport, was formulated by
-\cite{thor1981-truncated_moment, shib2011-truncated_moment}
-and has been applied for example in \cite{ramp2002-truncated_moment,
-  card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}.
-Recently, \cite{fouc2016-m1_evolve_n} have expanded their M1 transport code
+\cite{thor1981-truncated_moment} and modernized by
+\cite{shib2011-truncated_moment}.
+M1 transport has recently become popular in the core-collapse supernova
+community as well
+\cite{kuro2012-m1_ccsne,just2015-m1_code,ocon2015-gr1d_with_nu,
+  skin2016-ray_vs_m1,robe2016-gr_m1_ccsne}.
+
+For merger simulations \cite{fouc2016-m1_evolve_n} have recently
+expanded their M1 transport code
 to also evolve the zeroth-angular moment of the number density,
 providing total energy densities and average energies throughout the
 simulated volume.
@@ -152,8 +158,11 @@ With a model of the neutrino emission from a merger we can
 In this work we present a ray tracing method to compute neutrino distribution
 functions from state-of-the-art general relativistic M1 transport
 hydrodynamics simulations.
-We choose ray tracing because it is conceptually simple, numerically cheap,
-and easily extends to high resolution in energy and angle.
+We choose ray tracing because it is conceptually simple,
+numerically inexpensive,
+and extends to high resolution in energy and angle
+by simply increasing the number of rays sampled.
+Furthermore, the computational implementation parallellizes trivially.
 
 With a ray tracing method we approach radiation transport from the perspective
 of a single observer at a spacetime event $x_o^\alpha$.
@@ -182,9 +191,11 @@ increasing the number of rays sampled.
 %\subsubsection*{What is new and better about this ray tracing formulation?}
 Several ray tracing formulations for radiation transport already exist.
 Most formulations assume an analytic spacetime metric
-\citep{birk2007-nunubar, hari2010-gr_nunubar_collapsar, kova2011-gr_ray_tracing}.
+\citep{birk2007-nunubar, caba2009-detecting_grb_nu,
+  hari2010-gr_nunubar_collapsar, kova2011-gr_ray_tracing}.
 And many make the simplifying assumption of blackbody emission from a
-neutrinosurface \citep{birk2007-nunubar, kova2011-gr_ray_tracing},
+neutrinosurface
+\citep{birk2007-nunubar, caba2009-detecting_grb_nu, kova2011-gr_ray_tracing},
 limiting them to equilibrium, optically thick configurations.
 Current state-of-the-art ray tracing formulations avoid the assumption of
 blackbody spectra by integrating a local emissivity along each geodesic
@@ -651,8 +662,9 @@ We may take angular moments of the distribution function:
   S^{\mu\gamma}(\varepsilon) &=
   \frac{\varepsilon^3}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell'^\mu \ell'^\gamma,
 \end{align}
-representing specific energy density, specific energy flux, and
-specific momentum flux, respectively.
+defining the specific energy density,
+specific momentum density, and
+specific radiation pressure tensor, respectively.
 Here ``specific'' refers to the quantity being integrable over neutrino energy.
 \todo{relate moments to other frames?}
 Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
@@ -663,7 +675,7 @@ We also make use of the number density and flux defined
 \begin{align}
   \label{eqn:G}
   G(\varepsilon) &=
-  \frac{\varepsilon^2}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \\
+  \frac{\varepsilon^2}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta), \\
   \label{eqn:Ka}
   K^\mu(\varepsilon) &=
   \frac{\varepsilon^2}{(2\pi)^3} \oint d\Omega' f(\varepsilon, \ell'_\beta) \ell'^\mu.
@@ -684,10 +696,10 @@ moments are computed, that is defining the four-velocity of
 Eqn.~\ref{eqn:def_momentum}:
 a stationary (also called an Eulerian) observer,
 and a fluid (also called a comoving) observer \cite{smar1980-gr_hydro}.
-Definitions are given in App.~\ref{sec:def_momentum}.
+Explicit definitions are given in App.~\ref{sec:def_momentum}.
 We distinguish moments computed assuming an Eulerian observer with a tilde,
-e.g. $\tilde{J}$, $\tilde{H}^\mu$, $\tilde{S}^{\mu\nu}$.
-Note that these three Eulerian moments are identical to the lab-frame moments
+e.g. $\tilde{J}$, $\tilde{H}^\mu$, $\tilde{S}^{\mu\nu}$;
+note that these three Eulerian moments are identical to the lab-frame moments
 $E$, $F^\mu$, and $P^{\mu\nu}$
 defined in
 \cite{shib2011-truncated_moment, ocon2015-gr1d_with_nu, fouc2015-m1_nsbh}.
@@ -736,8 +748,8 @@ and we then discard the contribution of $f_{\rm bdry}$
 Since we don't know the emission event a priori,
 we follow the integration backwards in time,
 from $t_o$ to $t_e$.
-We begin each integration by setting initial values for the variables at $t_o$.
-The observer specifies $x^i_o$ and $p_{i,o}$,
+We begin each integration by setting initial values for the variables at $t_o$:
+the observer specifies $x^i_o$ and $p_{i,o}$,
 and we set $f_{{\rm AE},o}=f_{{\rm SE},o}=0$ and $\tau_o=0$.
 
 We integrate Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} with adaptive step sizes,
@@ -865,8 +877,7 @@ depths of $\tau_{\rm term}\geq14$.
     $(\chi^*_a)^{-1}$ for the absorption
     and $(\chi_s)^{-1}$ for elastic scattering interactions.
     Note that elastic scattering opacities are identical across species
-    below energies at which weak magnetism plays a role \cite{horo2002-weak_mag}
-    (?).
+    below energies at which weak magnetism plays a role \cite{horo2002-weak_mag}.
     In this data they are exactly identical
     because we have turned off weak magnetism in our opacity calculations
     in order to compare our results with the historical literature.
