@@ -65,3 +65,6 @@ These guidelines help us conform to the Physical Review D editorial rules.
 * __Figures__.
   Describe the location of the data and the plotting scripts for each figure
   in nearby latex comments.
+
+### Reviews
+There are some internal and external reviews of the paper in ../PaperReviews.
