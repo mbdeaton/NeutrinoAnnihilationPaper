@@ -86,14 +86,14 @@
 
 \section{Introduction}
 Neutrinos are one of the dominant energy transport phenomena at play in
-neutron star mergers, heating, cooling, and pushing the disrupted nuclear
+neutron star mergers: heating, cooling, and pushing the disrupted nuclear
 matter.
 In addition, they change the composition of the matter via charged current
 interactions.
 Because neutrinos scatter over length scales both large and small with
 respect to fluid scales, accurate models require a neutrino treatment that
 respects the freedom of neutrino distribution functions to vary
-drastically from simple geometric distributions in thermodynamic equilibrium.
+drastically from geometrically simple distributions in thermodynamic equilibrium.
 
 This is a challenging task in the environment of a merger,
 which generally lacks any spatial symmetries, so that fully general
@@ -102,7 +102,7 @@ Leakage approximations
 \citep{ruff1996-leakage_part1,ross2003-leakage_part2,
   deat2013-leakage, pere2016-asl, radi2016-dynamical}
 \footnote{TODO: cite others}
-capture the qualitative effects of neutrinos on the matter, but
+capture some of the qualitative effects of neutrinos on the matter, but
 provide extremely limited information about the neutrino field itself.
 \footnote{TODO: discuss mc more clearly}
 Monte Carlo methods like those
@@ -111,8 +111,8 @@ and stationary models of accretion disks \cite{rich2015-monte_carlo}
 are an excellent tool but require large computational resources
 because of their global treatment of the problem.
 
-The state of the art today couples radiation and matter using a truncated
-moment formalism
+The state of the art today for neutron star merger calculations
+couples radiation and matter using a truncated moment formalism
 \citep{fouc2015-m1_nsbh, fouc2016-m1_nsns},
 evolving the zeroth- and first-angular moments of the energy density,
 that is the total energy- and momentum-densities.
@@ -148,7 +148,8 @@ With a model of the neutrino emission from a merger we can
   card2013-truncated_moment, fouc2015-m1_nsbh, ocon2015-gr1d_with_nu}, and
 4) study possible jet formation due to neutrino annihilation
 \citep{ruff1999-nunubar_nsns, asan2000-nunubar, birk2007-nunubar,
-  hari2010-gr_nunubar_collapsar, zala2011-nunubar, leng2014-nunubar}.
+  hari2010-gr_nunubar_collapsar, zala2011-nunubar, leng2014-nunubar,
+  just2016-nsns_ejecta_obstacles}.
 
 %\subsubsection*{Why ray tracing?}
 Angular and spectral neutrino distributions in neutron star merger simulations may
@@ -257,7 +258,7 @@ More fundamentally, though, ray tracing is limited by its naive
 treatment of the Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}),
 a treatment which essentially decouples different neutrino momenta and species.
 \footnote{TODO: clarify how momenta are decoupled}
-When we're solving for $f^{\nu_\sigma}(x^\alpha;p_\beta)$, we have no
+When solving for $f^{\nu_\sigma}(x^\alpha;p_\beta)$, we have no
 information about $f^{\nu_\sigma}(x^\alpha;p'_\beta)$, and
 $f^{\bar{\nu}_\sigma}(x^\alpha;p'_\beta)$, which are essential ingredients
 for the source terms of the Boltzmann Equation describing the creation and
@@ -360,7 +361,7 @@ radial rays.
 This transformation is chosen so that for an observer far from the source,
 incoming radiation will be concentrated into a narrow beam around $\cos A\approx1$,
 independent of that observer's position in coordinate space.
-For explicit definitions see App.~\ref{sec:def_momentum}.
+For explicit definitions see App.~\ref{sec:definitions}.
 
 In Minkowski spacetime, and for a stationary observer
 $u_\beta\rightarrow(-1,0,0,0)$, we would have $s=0$, $q=1$,
@@ -378,7 +379,7 @@ which, suppressing the arguments of $f$ for simplicity, is written,
   \frac{d}{d\lambda}f = C[f],
 \end{equation}
 where $d/d\lambda$ denotes a derivative with respect to the affine
-parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x})
+parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x} below)
 and $C[f]$ is the source term arising from interactions with the medium.
 By Eqn.~\ref{eqn:geodesic_x},
 the affine parameter has dimension ${\rm length}\,{\rm energy}^{-1}$,
@@ -410,7 +411,7 @@ In the second form we have introduced the source function
 $\mathscr{S}\equiv\mathscr{E}/\mathscr{K}$, which makes manifest the
 behavior of the right hand side, driving $f$ toward $\mathscr{S}$
 over a lengthscale $\mathscr{K}^{-1}$ in our affine parameter;
-or from Eqn.~\ref{eqn:proper_length}, over a proper lengthscale
+or from Eqn.~\ref{eqn:proper_length} below, over a proper lengthscale
 $\varepsilon/\mathscr{K}$ measured by our fiducial observer.
 
 These coefficients are computed by considering their dependence
@@ -436,7 +437,7 @@ for the reactions
   \nu_e + {}^AZ        &\leftrightarrow e^- + {}^A(Z+1),\nonumber\\
   \bar{\nu}_e + {}^AZ  &\leftrightarrow e^+ + {}^A(Z-1),\nonumber
 \end{align}
-with ${}^ZA$ representing a nucleus of mass number $A$ and charge $Z$.
+with ${}^AZ$ representing a nucleus of mass number $A$ and charge $Z$.
 In terms of the emissivity $j(\varepsilon)$ describing number of neutrinos
 of energy $\varepsilon$ emitted per length,
 and the absorption opacity $\chi_a(\varepsilon)$
@@ -506,7 +507,7 @@ $\Phi$ attenuates as $r^{-2}$.
 See App.~\ref{ssec:sources_se} for details.
 
 We may use Eqns.~\ref{eqn:ae_emissivity_feq} and \ref{eqn:se_emissivity}
-to separate the source function thus
+to separate the source function thus:
 $\mathscr{S}=\mathscr{S}_{\rm AE}+\mathscr{S}_{\rm SE}$, with
 \begin{align}
   \label{eqn:source_ae}
@@ -690,13 +691,14 @@ $\{G,K^\mu\}$,
 the first having dimension ${\rm energy}\,{\rm length}^{-3}$,
 and the second ${\rm length}^{-3}$.
 
-There are two sensible observers to use to define the frame in which these
-moments are computed, that is defining the four-velocity of
-Eqn.~\ref{eqn:def_momentum}:
-a stationary (also called an Eulerian) observer,
-and a fluid (also called a comoving) observer \cite{smar1980-gr_hydro}.
-Explicit definitions are given in App.~\ref{sec:def_momentum}.
-We distinguish moments computed assuming an Eulerian observer with a tilde,
+We compute moments for a particular observer
+by specifying the four-velocity in Eqn.~\ref{eqn:def_momentum}.
+Two choices are particularly useful:
+an observer stationary in the coordinate frame (i.e. Eulerian),
+or one stationary in the fluid frame (i.e. comoving)
+\cite{smar1980-gr_hydro}.
+Explicit definitions are given in App.~\ref{sec:definitions}.
+We distinguish moments computed for an Eulerian observer with a tilde,
 e.g. $\tilde{J}$, $\tilde{H}^\mu$, $\tilde{S}^{\mu\nu}$;
 note that these three Eulerian moments are identical to the lab-frame moments
 $E$, $F^\mu$, and $P^{\mu\nu}$
@@ -768,10 +770,16 @@ if it is below some threshold the next step size is increased.
 % and OdeErrorMeasures::ScaledAbsRel
 \footnote{TODO: specify}
 
-The volume data are components of the metric $\psi_{\alpha\beta}$,
+We integrate these equations through the simulated spacetime
+over which the following volume data are known
+(all defined in App.~\ref{sec:definitions}):
+the spacetime metric $\psi_{\alpha\beta}$,
 its derivatives $\psi_{\alpha\beta,\gamma}$,
-\footnote{TODO: state num independent components}
-and the hydrodynamical data $W$, $u_i$, $\varrho$, $T$, and $Y_e$.
+the fluid velocity $u_i$,
+Lorentz factor $W$,
+density $\varrho$,
+temperature $T$,
+and electron fraction $Y_e$.
 These fields are stored in spectral representation.
 If they are computed via hydrodynamical simulation, they are saved to disk
 at specified coordinate times and interpolated
@@ -825,7 +833,7 @@ the integration of Eqn.~\ref{eqn:num_fae}
 \label{ssec:test_equilibrium}
 In an optically thick region the radiation field is in thermodynamic equilibrium
 with the matter.
-We set up a large slab of matter
+We set up a large slab of matter in a Minkowski spacetime
 representative of the fluid in the Massive Collapsed Star test
 (Sec.~\ref{ssec:test_collapse}) at the radius 50~km.
 For comparision with that test we use the LS180 equation of state
@@ -2005,9 +2013,8 @@ neutron star mergers.
 % ******************************************************************************
 \appendix
 
-\section{Momentum Definitions}
-\label{sec:def_momentum}
-Here we describe our conventions defining the four-momentum of a neutrino.
+\section{Definitions}
+\label{sec:definitions}
 We decompose the neutrino momentum into components parallel and orthogonal to
 an observer's velocity $u_\beta$:
 \begin{equation}
@@ -2093,6 +2100,15 @@ and these expressions simplify considerably:
 In the even simpler case of Minkowski spacetime, these expressions
 reduce to $q=W/(1+s)$, $s=-\Omega_i u^i$,
 $\tilde{q}=1$, $\tilde{s}=0$.
+
+In addition to the fluid velocity and Lorentz factor, described above, the
+other fluid state variables we use from our hydrodynamic simulations
+are rest density $\varrho=m_b n_b$, temperature $T$, and electron fraction
+\begin{equation}
+  Y_e = \frac{n_{e^-} - n_{e^+}}{n_b},
+\end{equation}
+with $n_{e^-}$, $n_{e^+}$, and $n_b$, the number densities of electrons
+positrons, and baryons, and $m_b$ is the average baryon mass.
 
 \section{Source Terms}
 \label{sec:source_terms}
