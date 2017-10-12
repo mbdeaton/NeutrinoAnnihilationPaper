@@ -880,9 +880,10 @@ depths of $\tau_{\rm term}\geq14$.
     representative of the collapse profile at
     50~km ($\varrho=10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
     $T=3.7$~MeV, $Y_e=0.12$).
-    In the fluid rest frame these are given by
-    $(\chi^*_a)^{-1}$ for the absorption
-    and $(\chi_s)^{-1}$ for elastic scattering interactions.
+    In the fluid rest frame these are given by the inverses of the opacities,
+    $\chi^*_a=\mathscr{K}_{\rm AE}/\varepsilon$ for absorption and
+    $\chi_s=\mathscr{K}_{\rm SE}/\varepsilon$ for elastic scattering interactions;
+    see App.~\ref{sec:source_terms} for definitions.
     Note that elastic scattering opacities are identical across species
     below energies at which weak magnetism plays a role \cite{horo2002-weak_mag}.
     In this data they are exactly identical
@@ -975,9 +976,9 @@ in this configuration.
 \subsection{Infinite Homogeneous Moving Slab:
   Testing Doppler Shift}
 \label{ssec:test_doppler}
-We reproduce the test above, but with the matter and observer in relative
-motion.
-We use a stationary (i.e.\ Eulerian) observer
+We reproduce the test above (again in Minkowski spacetime),
+but with the matter and observer in relative motion.
+We use a stationary observer
 and a fluid velocity $u^\alpha \rightarrow W(1,0,0,v)$ with $W=(1-v^2)^{-1/2}$.
 All other thermodynamic variables and background fields are unchanged
 since our ray integration uses these quantities in the fluid frame.
@@ -987,12 +988,14 @@ for a neutrino with momentum
 $p_\alpha \rightarrow \tilde{\varepsilon}(-1,\Omega_i)$
 and direction $\Omega_i \rightarrow (\sin A, 0, \cos A)$.
 In the fluid frame this neutrino has energy $\varepsilon=-u^\alpha p_\alpha$;
-therefore the average energy varies with observing angle:
+therefore the average energy varies with observing angle like
 \begin{equation}
   \label{eqn:doppler_avg_eps}
   \langle \tilde{\varepsilon} \rangle(\cos A) =
-  \langle \varepsilon \rangle^{\rm eq} \frac{1}{W(1-v \cos A)}.
+  \langle \varepsilon \rangle^{\rm eq} \frac{1}{W(1-v \cos A)},
 \end{equation}
+where our symbol $\langle \tilde{\varepsilon} \rangle(\cos A)$ expresses
+a functional dependence on $\cos A$.
 The equilibrium average energy $\langle \varepsilon \rangle^{\rm eq}$
 is given by $T \mathscr{F}_3(\eta_\nu)/\mathscr{F}_2(\eta_\nu)\approx 3T$,
 with the Fermi integrals given in Eqn.~\ref{eqn:fermi_integral}.
@@ -1070,7 +1073,10 @@ and stationary fluid we have
   \label{eqn:geometric_s}
   s &= 2 R \left(1-\frac{r^2}{R^2}(1-\cos^2 A)\right)^{1/2},
 \end{align}
-where $s$ is the path length traversed by the ray through the star.
+where $s$ is the path length traversed by the ray through the star,
+the total opacity is $\chi=\chi_a^*+\chi_s$, and the stimulated absorption
+opacity $\chi_a^*$ and elastic scattering opacity $\chi_s$
+are defined in App.~\ref{sec:source_terms}.
 
 Since no analytic form is known for the background field $\Phi$
 interior to the star, we examine only the \emph{noscat} case,
@@ -1504,7 +1510,7 @@ spanning $\varepsilon\in[1,280.5]$~MeV logarithmically,
 $\varrho\in[10^6,3.2\times10^{15}]\,{\rm g}\,{\rm cm}^{-3}$ logarithmically,
 $T\in[0.05,150]$~MeV logarithmically, and 
 $Y_e\in[0.035,0.55]$ linearly,
-with grid extents$\{18,82,65,51\}$ respectively.
+with grid extents $\{18,82,65,51\}$ respectively.
 
 We place stationary (i.e.\ Eulerian) observers at fixed coordinate radius
 $r=250$~km in the $y$-$z$ plane along an arc at $N_\theta$ positions
