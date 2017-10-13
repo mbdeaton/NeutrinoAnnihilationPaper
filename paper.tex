@@ -217,7 +217,7 @@ our method reduces to the current state-of-the-art ray tracing method,
 neglecting scattering.
 
 %\subsubsection*{Why does a covariant formulation matter?}
-We formulate our ray tracing equations covariantly---free from
+We formulate the ray tracing equations covariantly---free from
 assumptions about the spacetime geometry or coordinates. This is essential
 because we want to apply the method as a postprocessing step using
 time snapshots of data computed from general relativistic evolutions.
@@ -410,9 +410,9 @@ which take identical values for all observers.
 In the second form we have introduced the source function
 $\mathscr{S}\equiv\mathscr{E}/\mathscr{K}$, which makes manifest the
 behavior of the right hand side, driving $f$ toward $\mathscr{S}$
-over a lengthscale $\mathscr{K}^{-1}$ in our affine parameter;
+over a lengthscale $\mathscr{K}^{-1}$ in the affine parameter;
 or from Eqn.~\ref{eqn:proper_length} below, over a proper lengthscale
-$\varepsilon/\mathscr{K}$ measured by our fiducial observer.
+$\varepsilon/\mathscr{K}$ measured by the fiducial observer.
 
 These coefficients are computed by considering their dependence
 on neutrino and antineutrino distribution functions at other momenta
@@ -587,7 +587,7 @@ the direction of $\ell_\beta$. We label $\lambda=\lambda_e$ at $x^\alpha_e$,
 as in Fig.~\ref{fig:affine_param}.
 If we multiply Eqn.~\ref{eqn:geodesic_x} by $u_\alpha \equiv dx_\alpha/ds$,
 we find the element of proper distance traversed by the
-neutrino as measured by our fiducial obsever $u^\alpha$ is
+neutrino as measured by the fiducial observer $u^\alpha$ is
 \begin{equation}
   \label{eqn:proper_length}
   ds=\varepsilon \,d\lambda.
@@ -608,7 +608,7 @@ neutrino as measured by our fiducial obsever $u^\alpha$ is
 \subsection{The Formal Solution}
 \label{ssec:rendering_eqn}
 We can integrate Eqn.~\ref{eqn:boltzmann_split} directly, 
-with our solution split into a boundary, absorption/emission, and
+with the solution split into a boundary, absorption/emission, and
 a scattering term, $f=f_{\rm bdry}+f_{\rm AE}+f_{\rm SE}$:
 \begin{align}
   \label{eqn:rendering_fbdry}
@@ -714,7 +714,7 @@ given by \citep{hugh1994-eh_finding},
 and Eqns.~\ref{eqn:rendering_fae}, \ref{eqn:rendering_fse},
 and \ref{eqn:optical_depth} in the form given below.
 By using the time-component of Eqn.~\ref{eqn:geodesic_x} ($dt=d\lambda \, p^t$)
-we may transform our integrations to coordinate time.
+we may transform the integrations to coordinate time.
 The coupled system of ordinary differential equations is
 \begin{align}
   \label{eqn:num_x}
@@ -739,7 +739,7 @@ The coupled system of ordinary differential equations is
 We integrate each ray until we reach a terminal optical depth of
 $\tau_{\rm term}$ at the earliest effective emission event $x_e^\alpha$.
 The concept of earliest emission event is a fictitious construct we use
-to allow us to truncate our integration at an event along the ray where any
+to allow us to truncate the integration at an event along the ray where any
 further additions to the field are negligible due to the large optical depth
 between $x_e^\alpha$ and $x_o^\alpha$.
 We choose $\tau_{\rm term}=14$ so that $e^{-\tau_{\rm term}}<10^{-6}$,
@@ -865,9 +865,11 @@ and with $C$ the conversion constant from ${\rm energy}^3$ to ${\rm length}^{-3}
 
 Fig.~\ref{fig:mfps-50km} presents the neutrino mean free paths
 at this thermodynamic point over two energy decades.
-For this test we set up our slab large enough for neutrinos of all
+For this test we choose a slab large enough for neutrinos of all
 energies to be trapped.
-Our domain extends to $\tau_{\rm term}\,L_{\rm mfp,max}\approx10^7\,{\rm km}$,
+We sample the distribution function with ray tracing over a uniform grid
+of 40 points in energy $\varepsilon \in [0,100]$~MeV.
+The domain extends to $\tau_{\rm term}\,L_{\rm mfp,max}\approx10^7\,{\rm km}$,
 since our ray tracing algorithm integrates rays to terminal optical
 depths of $\tau_{\rm term}\geq14$.
 
@@ -896,7 +898,8 @@ depths of $\tau_{\rm term}\geq14$.
 
 Fig.~\ref{fig:cumulative_f_homogeneous} displays the cumulative distribution
 function integrated along the ray, for each of the three species and using
-both methods, \emph{noscat} and \emph{scat}. We display
+both methods, \emph{noscat} and \emph{scat}, at the single energy
+$\varepsilon=11.25$~MeV. We display
 Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse} in their integral form:
 \begin{equation}
   \label{eqn:cumulative_f}
@@ -940,7 +943,7 @@ since the total mean free paths are less than the absorption mean free paths
 
 As Fig.~\ref{fig:mfps-50km} shows, integrating the distribution functions
 over the energies $\varepsilon\in[0,100]$~MeV
-probes our numerical solution over length scales from
+probes the numerical solution over length scales from
 0.1~km to $10^{5}\,{\rm km}$.
 Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results for
 the \emph{noscat} case.
@@ -994,7 +997,7 @@ therefore the average energy varies with observing angle like
   \langle \tilde{\varepsilon} \rangle(\cos A) =
   \langle \varepsilon \rangle^{\rm eq} \frac{1}{W(1-v \cos A)},
 \end{equation}
-where our symbol $\langle \tilde{\varepsilon} \rangle(\cos A)$ expresses
+where the symbol $\langle \tilde{\varepsilon} \rangle(\cos A)$ expresses
 a functional dependence on $\cos A$.
 The equilibrium average energy $\langle \varepsilon \rangle^{\rm eq}$
 is given by $T \mathscr{F}_3(\eta_\nu)/\mathscr{F}_2(\eta_\nu)\approx 3T$,
@@ -1055,7 +1058,7 @@ The homogeneous configurations of the previous sections may be extended to
 probe the solution outside the optically thick regime
 by setting up an idealized homogeneous star, with the thermodynamic variables
 constant inside radius $R$ and vanishing outside.
-We choose $R=50$~km and place our observer at $r=75$~km,
+We choose $R=50$~km and place the observer at $r=75$~km,
 at which position there is a radiation cone of half-opening angle
 $\cos A_{\rm max}\approx0.75$.
 
@@ -1066,15 +1069,17 @@ and stationary fluid we have
 \begin{align}
   \label{eqn:fae_homogeneous_general}
   f_{\rm AE} &=
-  \frac{\chi_a^{*}}{\chi} f^{\rm eq} \left(1-e^{-\chi s}\right) \\
+  \frac{\chi_a^{*}}{\chi} f^{\rm eq} \left(1-e^{-\chi s}\right), \\
   \label{eqn:fse_homogeneous_general}
   f_{\rm SE} &=
-  \frac{\chi_s}{\chi} \Phi \left(1-e^{-\chi s}\right) \\
-  \label{eqn:geometric_s}
-  s &= 2 R \left(1-\frac{r^2}{R^2}(1-\cos^2 A)\right)^{1/2},
+  \frac{\chi_s}{\chi} \Phi \left(1-e^{-\chi s}\right),
 \end{align}
 where $s$ is the path length traversed by the ray through the star,
-the total opacity is $\chi=\chi_a^*+\chi_s$, and the stimulated absorption
+\begin{equation}
+  \label{eqn:geometric_s}
+  s = 2 R \left(1-\frac{r^2}{R^2}(1-\cos^2 A)\right)^{1/2}.
+\end{equation}
+The total opacity is $\chi=\chi_a^*+\chi_s$, and the stimulated absorption
 opacity $\chi_a^*$ and elastic scattering opacity $\chi_s$
 are defined in App.~\ref{sec:source_terms}.
 
@@ -1100,18 +1105,21 @@ of the star comparable to or less than the mean free path at this energy,
 a mean free path just over 100~km; and $\nu_x$ is well into the optically
 thin regime.
 
-Expanding the exponential in Eqn.~\ref{eqn:fae_homogeneous_general},
-we see the distribution function takes the limiting values:
+We can explain these features quantitatively by examining the limits
+of Eqn.~\ref{eqn:fae_homogeneous_general}, expanding the exponential function
+in powers of $\chi s$; the distribution function takes the limiting values
 \begin{equation}
   \label{eqn:fae_homogeneous_limits}
   f_{\rm AE}(\cos A) = f^{\rm eq}
   \begin{cases}
-    \chi s(\cos A) & s \ll \chi^{-1}\,\textrm{optically thin}\\
-    1                  & s \gg \chi^{-1}\,\textrm{optically thick}.
+    \chi s(\cos A) & s \ll \chi^{-1}\,\textrm{(thin)}\\
+    1                  & s \gg \chi^{-1}\,\textrm{(thick)}.
   \end{cases}
 \end{equation}
-This agrees with Fig.~\ref{fig:f_absorption_sphere}, with $\nu_x$
-in the optically thin limit and $\nu_e$ in the optically thick limit.
+These limits are represented in Fig.~\ref{fig:f_absorption_sphere}:
+with $\nu_x$ in the optically thin limit at all viewing angles,
+and $\nu_e$ in the optically thick limit at viewing angles
+$\cos A \gtrsim 0.8$.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-f-absorption_star-11MeV}
@@ -1131,12 +1139,22 @@ in the optically thin limit and $\nu_e$ in the optically thick limit.
 \end{figure}
 
 Though we do not display it here,
-we also examine $\langle \tilde{\varepsilon} \rangle(\cos A)$
-as in Eqn.~\ref{eqn:avg_eps_per_cosA}, and robustly reproduce the
-common feature of increasing average energies at the limb of the star
-for $\nu_e$ and $\bar{\nu}_e$. In contrast $\langle \tilde{\varepsilon} \rangle$
+we also examine $\langle \tilde{\varepsilon}\rangle$ as a function of
+viewing angle (via Eqn.~\ref{eqn:avg_eps_per_cosA}).
+In the interior of the star
+$\langle \tilde{\varepsilon_{\nu_x}}\rangle$ is constant across viewing angle,
+\footnote{TODO: need to finish cleaning up this description}
+and find the counterintuitive
+feature of increasing average energies at the limb of the star
+for $\nu_e$ and $\bar{\nu}_e$.
+In contrast $\langle \tilde{\varepsilon} \rangle$
 for $\nu_x$ is constant across angles, as expected when the star
 is optically thin at even the highest energies $\tilde{\varepsilon}\sim100$~MeV.
+
+For viewing angles $\cos A \sim 0.75$, at the limb of the star,
+rays pass through significantly less material, i.e.\ $s \ll R$.
+Because of the opacity's approximate $\varepsilon^2$ dependence,
+the highest-energy rays saturate to $f^{\rm eq}$, increasing the average spectral energy.
 
 \subsection{Idealized Compact Star:
   Testing Gravitational Redshift and Geodesic Curvature}
