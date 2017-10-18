@@ -834,8 +834,9 @@ the integration of Eqn.~\ref{eqn:num_fae}
 In an optically thick region the radiation field is in thermodynamic equilibrium
 with the matter.
 We set up a large slab of matter in a Minkowski spacetime
-representative of the fluid in the Massive Collapsed Star test
-(Sec.~\ref{ssec:test_collapse}) at the radius 50~km.
+representative of the fluid thermodynamic state at a radius of 50~km
+in the test presented in Sec.~\ref{ssec:test_collapse}
+(a massive collapsed star following core bounce).
 For comparision with that test we use the LS180 equation of state
 \cite{latt1991-nuc_eos}
 \footnote{available at \lstinline{stellarcollapse.org}}
@@ -931,7 +932,8 @@ The figure shows this backwards-in-time integration proceeding left to right.
 
 In Fig.~\ref{fig:cumulative_f_homogeneous} we see some expected features.
 The final distribution functions asymptote to their equilibrium Fermi-Dirac
-levels $f^{\rm eq}_{\{\nu_e,\bar{\nu}_e,\nu_x\}}=\{0.039, 0.053, 0.046\}$
+levels at this energy
+$f^{\rm eq}_{\{\nu_e,\bar{\nu}_e,\nu_x\}}=\{0.039, 0.053, 0.046\}$
 within a few mean free paths;
 in the \emph{scat} cases it is the sums $f_{\rm AE}+f_{\rm SE}$ that
 achieve these values.
@@ -941,7 +943,7 @@ in the \emph{scat} cases these lengths are less than in the \emph{noscat} cases,
 since the total mean free paths are less than the absorption mean free paths
 (significantly so for $\nu_x$, negligibly so for $\nu_e$).
 
-As Fig.~\ref{fig:mfps-50km} shows, integrating the distribution functions
+As Fig.~\ref{fig:mfps-50km} reveals, integrating the distribution functions
 over the energies $\varepsilon\in[0,100]$~MeV
 probes the numerical solution over length scales from
 0.1~km to $10^{5}\,{\rm km}$.
@@ -982,7 +984,8 @@ in this configuration.
 We reproduce the test above (again in Minkowski spacetime),
 but with the matter and observer in relative motion.
 We use a stationary observer
-and a fluid velocity $u^\alpha \rightarrow W(1,0,0,v)$ with $W=(1-v^2)^{-1/2}$.
+and fluid moving in the positive $z$-direction:
+with $u^\alpha \rightarrow W(1,0,0,v)$ and $W=(1-v^2)^{-1/2}$.
 All other thermodynamic variables and background fields are unchanged
 since our ray integration uses these quantities in the fluid frame.
 
@@ -997,8 +1000,8 @@ therefore the average energy varies with observing angle like
   \langle \tilde{\varepsilon} \rangle(\cos A) =
   \langle \varepsilon \rangle^{\rm eq} \frac{1}{W(1-v \cos A)},
 \end{equation}
-where the symbol $\langle \tilde{\varepsilon} \rangle(\cos A)$ expresses
-a functional dependence on $\cos A$.
+where the symbol $\langle \tilde{\varepsilon} \rangle(\cos A)$ emphasizes
+the functional dependence on $\cos A$.
 The equilibrium average energy $\langle \varepsilon \rangle^{\rm eq}$
 is given by $T \mathscr{F}_3(\eta_\nu)/\mathscr{F}_2(\eta_\nu)\approx 3T$,
 with the Fermi integrals given in Eqn.~\ref{eqn:fermi_integral}.
@@ -1012,8 +1015,8 @@ Eqn.~\ref{eqn:doppler_avg_eps} describes the well-known Doppler effect.
   \caption{Average energy of $\bar{\nu}_e$ neutrino fields
     measured by a stationary observer,
     $\langle\tilde{\varepsilon}\rangle(\cos A)$.
-    The observer sees neutrinos moving with the fluid for angles $\cos A<0$.
-    Test described in Sec.~\ref{ssec:test_doppler}.
+    The observer sees neutrinos with $\cos A>0$ to be moving primarily with
+    the fluid.
     The points are computed from ray tracing spectra; the lines are the
     analytic formula Eqn.~\ref{eqn:doppler_avg_eps}.
   }
