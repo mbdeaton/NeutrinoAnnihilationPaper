@@ -59,8 +59,32 @@ the raw LaTeX in paper.tex.
 These guidelines help us conform to the Physical Review D editorial rules.
 
 * __Figures__.
-  Provide figures in ps and pdf form, since PRD prefers ps which pdflatex
-  can't easily handle. Convert with ps2pdf.
+  Provide figures in eps and pdf form, since PRD prefers ps which pdflatex
+  can't easily handle. Convert with epstopdf.
+
+* __Figures__.
+  For Latex typesetting in gnuplot, use the following sequence of commands
+  ```
+  gnuplot> set term epslatex color size 4in,2.8in;
+  gnuplot> set output 'fig.tex';
+  ```
+  generating two files `fig.eps` and `fig.tex`; convert to pdf using
+  `epstopdf fig.eps`. Then insert into paper using
+  ```
+  \begin{figure}
+    \resizebox{\columnwidth}{!}{\input{fig.tex}}
+    \caption{This is a figure about things.}
+  \end{figure}
+  ```
+
+* __Figures__.
+  Get a good font size in gnuplot terminal epslatex by setting the plot size as
+  above, and using the default 11pt. You'll also shift labels in gnuplot:
+  ```
+  gnuplot> set xlabel 'x' offset 0,0.5
+  gnuplot> set ylabel 'y' offset 1.5,0
+  ```
+  A good example is in plot-avg_eps_vs_cosA.gnu.
 
 * __Figures__.
   Describe the location of the data and the plotting scripts for each figure
