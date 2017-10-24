@@ -2414,6 +2414,8 @@ We use the following procedure:
     \label{eqn:fermi_integral}
     \mathscr{F}_b(\eta) = \int_0^\infty dx \, x^b (1+e^{x-\eta})^{-1}.
   \end{equation}
+  We implement the Fermi integrals using the analytical approximants from
+  \cite{taka1978-beta_rates}.
 \item
   Assume the background neutrino fields have the same total density
   as the evolved moments
@@ -2428,7 +2430,25 @@ We use the following procedure:
     (1+\exp(\varepsilon/T_\nu-\eta_\nu)^{-1}.
   \end{align}
 \end{enumerate}
-When we use these moments in Eqn.~\ref{eqn:background_phi},
+
+Note that to avoid floating point errors for very large negative $\eta$,
+we employ the asymptotic form of Eqn.~\ref{eqn:fermi_integral}:
+$\lim_{\eta\ll-1}\mathscr{F}_b(\eta) = b!\,e^\eta$.
+Thus, for $\eta<-10$, we use the limiting forms of
+Eqns.~\ref{eqn:spectral_temp},
+\ref{eqn:J_from_gray},
+and \ref{eqn:H_from_gray}:
+\begin{align}
+    T_\nu &= 
+    \frac{\langle \varepsilon \rangle}{3}, \\
+    J(\varepsilon) &=
+    J \frac{\varepsilon^3}{6 T_\nu^4} e^{-\varepsilon/T_\nu}, \\
+    H^\mu(\varepsilon) &=
+    H^\mu \frac{\varepsilon^3}{6 T_\nu^4} e^{-\varepsilon/T_\nu}.
+\end{align}
+
+When we use the moments from Eqns.~\ref{eqn:J_from_gray} and
+\ref{eqn:H_from_gray} in Eqn.~\ref{eqn:background_phi},
 we call this the \emph{gray} method.
 
 \subsection{Inelastic scattering}
