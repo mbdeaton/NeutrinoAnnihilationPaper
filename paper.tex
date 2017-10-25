@@ -771,25 +771,27 @@ if it is below some threshold the next step size is increased.
 \footnote{TODO: specify}
 
 We integrate these equations through the simulated spacetime
-over which the following volume data are known
-(all defined in App.~\ref{sec:definitions}):
+over which the following volume data are known:
 the spacetime metric $\psi_{\alpha\beta}$,
 its derivatives $\psi_{\alpha\beta,\gamma}$,
 the fluid velocity $u_i$,
 Lorentz factor $W$,
 density $\varrho$,
 temperature $T$,
-and electron fraction $Y_e$.
+and electron fraction $Y_e$,
+all defined in App.~\ref{sec:definitions}.
 These fields are stored in spectral representation.
-If they are computed via hydrodynamical simulation, they are saved to disk
+If they are computed via hydrodynamical simulation, they may be saved to disk
 at specified coordinate times and interpolated
 with spectral interpolation in space,
 and 1st-order polynomial interpolation in time
 (as described in \cite[App.~B]{bohn2016-code}).
 If computed from a quasi-stationary solution to the
-\footnote{TODO: clarify quasistationary timescale}
 general relativistic hydrodynamics equations,
 a single time is stored to disk, and no time interpolation is needed.
+In this paper for simplicity and to limit computational memory loads,
+we limit ourselves to quasistationary configurations
+and use single time slices in every test case.
 
 \section{Code Tests}
 \label{sec:tests}
@@ -981,11 +983,12 @@ in this configuration.
 \subsection{Infinite Homogeneous Moving Slab:
   Testing Doppler Shift}
 \label{ssec:test_doppler}
-We reproduce the test above (again in Minkowski spacetime),
+We reproduce the test above, again in Minkowski spacetime,
 but with the matter and observer in relative motion.
 We use a stationary observer
 and fluid moving in the positive $z$-direction:
-with $u^\alpha \rightarrow W(1,0,0,v)$ and $W=(1-v^2)^{-1/2}$.
+with $u^\alpha \rightarrow W(1,0,0,v)$ and $W=(1-v^2)^{-1/2}$,
+where $W$ is the Lorentz factor defined in App.~\ref{sec:definitions}.
 All other thermodynamic variables and background fields are unchanged
 since our ray integration uses these quantities in the fluid frame.
 
@@ -2135,7 +2138,7 @@ are rest density $\varrho=m_b n_b$, temperature $T$, and electron fraction
 \begin{equation}
   Y_e = \frac{n_{e^-} - n_{e^+}}{n_b},
 \end{equation}
-with $n_{e^-}$, $n_{e^+}$, and $n_b$, the number densities of electrons
+where $n_{e^-}$, $n_{e^+}$, and $n_b$ are the number densities of electrons
 positrons, and baryons, and $m_b$ is the average baryon mass.
 
 \section{Source Terms}
