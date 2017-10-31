@@ -66,8 +66,8 @@
 
 \begin{abstract}
   We present a covariant ray tracing algorithm for computing high-resolution
-  neutrino distributions in general numerical spacetimes with hydrodynamical
-  sources.
+  neutrino distributions in general relativistic numerical spacetimes with
+  hydrodynamical sources.
   Our formulation treats the very important effect of
   elastic scattering of neutrinos off of nuclei and nucleons
   (changing the neutrino's direction but not energy)
@@ -601,7 +601,8 @@ neutrino as measured by the fiducial observer $u^\alpha$ is
     $p_\alpha$.
     The fiducial observer with velocity $u^\alpha$ sits at $x^\alpha_o$,
     the neutrino emission event is at $x^\alpha_e$. The affine parameter
-    increases from the emission event: $\lambda_e<\lambda'<\lambda''$.}
+    increases from the emission event: $\lambda_e<\lambda'<\lambda''$.
+    The green slab represents dense matter.}
   \label{fig:affine_param}
 \end{figure}
 
@@ -882,13 +883,16 @@ depths of $\tau_{\rm term}\geq14$.
   % Script: $DIR/GnuplotScripts/plot-mfp-50km.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousIsotropic
   \caption{Mean free paths
-    representative of the collapse profile at
-    50~km ($\varrho=10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
-    $T=3.7$~MeV, $Y_e=0.12$).
-    In the fluid rest frame these are given by the inverses of the opacities,
+    representative of the post-bounce collapse profile (presented in
+    Sec.~\ref{ssec:test_collapse}) at
+    50~km, where $\varrho=10^{11}\,{\rm g}\,{\rm cm}^{-3}$,
+    $T=3.7$~MeV, and $Y_e=0.12$; this thermodynamic state is used in
+    the tests with homogeneous matter distributions
+    (presented in Secs.~\ref{ssec:test_equilibrium}--\ref{ssec:test_ab_star}).
+    In the fluid rest frame the mean free paths are given by the inverses of the opacities
     $\chi^*_a=\mathscr{K}_{\rm AE}/\varepsilon$ for absorption and
-    $\chi_s=\mathscr{K}_{\rm SE}/\varepsilon$ for elastic scattering interactions;
-    see App.~\ref{sec:source_terms} for definitions.
+    $\chi_s=\mathscr{K}_{\rm SE}/\varepsilon$ for elastic scattering interactions
+    (see App.~\ref{sec:source_terms} for definitions).
     Note that elastic scattering opacities are identical across species
     below energies at which weak magnetism plays a role \cite{horo2002-weak_mag}.
     In this data they are exactly identical
@@ -921,7 +925,8 @@ The figure shows this backwards-in-time integration proceeding left to right.
   % Script: $DIR/GnuplotScripts/plot_f-integral_over_t.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousIsotropic
   \caption{Cumulative distribution functions at $\varepsilon=11.25$~MeV
-    in homogeneous infinite slab of Sec.~\ref{ssec:test_equilibrium}.
+    in the homogeneous infinite slab test
+    (presented in Sec.~\ref{ssec:test_equilibrium}).
     The integration proceeds from left to right, or backwards in time $t$.
     Each ray terminates when it achieves a total optical depth
     greater than $\tau_{\rm term}=14$.
@@ -967,9 +972,9 @@ in this configuration.
   % Script: $DIR/GnuplotScripts/plot_ferr.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousIsotropic
   \caption{Relative error in integrated equilibrium distribution functions
-    in the infinite homogeneous slab  described in
-    Sec.~\ref{ssec:test_equilibrium}.
-    Presented here are the relative differences between the final
+    in the infinite homogeneous slab
+    (presented in Sec.~\ref{ssec:test_equilibrium}).
+    Plotted here are the relative differences between the final
     $f_{\rm AE}$ in the \emph{noscat} case
     (see Fig.~\ref{fig:cumulative_f_homogeneous})
     and the equilibrium distribution functions given by
@@ -1018,7 +1023,8 @@ Eqn.~\ref{eqn:doppler_avg_eps} describes the well-known Doppler effect.
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/MovingFluid
   \caption{Average energy of $\bar{\nu}_e$ neutrino fields
     measured by a stationary observer,
-    $\langle\tilde{\varepsilon}\rangle(\cos A)$.
+    $\langle\tilde{\varepsilon}\rangle(\cos A)$,
+    in the moving slab test (presented in Sec.~\ref{ssec:test_doppler}).
     The observer sees neutrinos with $\cos A>0$ to be moving primarily with
     the fluid.
     The points are computed from ray tracing spectra; the lines are the
@@ -1134,8 +1140,8 @@ $\cos A \gtrsim 0.8$.
   % Script: $DIR/Lev1-01/Lev1/plot_f_monochromes-11.25MeV.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousAbsorptionSphere
   \caption{Distribution functions outside an idealized homogeneous star
-    with radius $R=50$~km, and observer at $r=75$~km,
-    described in Sec.~\ref{ssec:test_ab_star}.
+    with radius $R=50$~km, and observer at $r=75$~km
+    (presented in Sec.~\ref{ssec:test_ab_star}).
     $A$ is the angle between the neutrino momentum and the $\hat{r}$ direction.
     In this plot we display only the samples at energy
     $\varepsilon=11.25\,{\rm MeV}$.
@@ -1236,7 +1242,7 @@ since the Monte Carlo code assumes Minkowski spacetime.
   % and DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/CollapseProfile/
   \caption{Angular distribution of $\nu_x$ average energies
     $\langle\varepsilon\rangle(\cos A)$
-    in the collapse profile test described in Sec.~\ref{ssec:test_collapse}.
+    in the collapse profile test (described in Sec.~\ref{ssec:test_collapse}).
     The observer is at 500~km, and the shock at 150~km,
     so that the half-opening angle of the shock is $\cos A\approx0.954$.
     The four methods depicted are 1) a fiducial Monte Carlo calculation,
@@ -1302,7 +1308,8 @@ faithfully describe the high scattered energies from the envelope.
   % RTDATA_SP=$DIR/ResultsBrett-A-03/Test-scat-01/
   % DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/CollapseProfile/
   \caption{
-    Comparison of total luminosities and average energies between
+    From the post-bounce collapse profile test (Sec.~\ref{ssec:test_collapse}),
+    a comparison of total luminosities and average energies between
     the following methods:
     ray tracing ignoring elastic scattering `RT noscat',
     ray tracing with the gray scattering treatment `RT scat gr',
@@ -1497,7 +1504,7 @@ show slices of density and temperature from the finite difference volume data.
   % Plots:    $DIR/production-colormap-{merid,equat}-{rho,temp}.png
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170420-nsns_volume_data/02-two_domains_avg_eps/PlotsEtc
   \caption{A meridional slice of density in the hypermassive neutron
-    star and disk configuration.
+    star and disk configuration (Sec.~\ref{ssec:test_disk_comparison}).
     The distorted rectangular boundaries are the boundaries of the grid
     used in the numerical simulation, which employs a coordinate mapping to
     concentrate points near the central object.}
@@ -1508,7 +1515,7 @@ show slices of density and temperature from the finite difference volume data.
   \includegraphics[width=\columnwidth]{production-colormap-equat-rho}
   % see notes from production-colormap-merid-rho
   \caption{An equatorial slice of density in the hypermassive neutron
-    star and disk configuration.}
+    star and disk configuration (Sec.~\ref{ssec:test_disk_comparison}).}
   \label{fig:nsns_rho_equat}
 \end{figure}
 
@@ -1516,7 +1523,7 @@ show slices of density and temperature from the finite difference volume data.
   \includegraphics[width=\columnwidth]{production-colormap-merid-temp}
   % see notes from production-colormap-merid-rho
   \caption{A meridional slice of temperature in the hypermassive neutron
-    star and disk configuration.}
+    star and disk configuration (Sec.~\ref{ssec:test_disk_comparison}).}
   \label{fig:nsns_temp_merid}
 \end{figure}
 
@@ -1524,7 +1531,7 @@ show slices of density and temperature from the finite difference volume data.
   \includegraphics[width=\columnwidth]{production-colormap-equat-temp}
   % see notes from production-colormap-merid-rho
   \caption{An equatorial slice of temperature in the hypermassive neutron
-    star and disk configuration.}
+    star and disk configuration (Sec.~\ref{ssec:test_disk_comparison}).}
   \label{fig:nsns_temp_equat}
 \end{figure}
 
@@ -1618,7 +1625,8 @@ $\langle\tilde{\varepsilon}\rangle=L/R$.
   % DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03/PositionDistributions
   \caption{
     Comparison of total luminosities and average energies
-    of the hypermassive neutron star configuration.
+    of the hypermassive neutron star configuration
+    (presented in Sec.~\ref{ssec:test_disk_comparison}).
     The methods are ray tracing using the \emph{noscat} method `RT noscat',
     ray tracing using the \emph{gray} \emph{scat} method `RT scat',
     and the M1 transport simulation `M1'.
@@ -1677,11 +1685,12 @@ because the disrupted neutron star material is releptonizing.
   % Data_a:   $DIR/PositionDistributions/*Lev1-e30a120b20-01*
   % Data_s:   $DIR/PositionDistributions/*Lev1-e30a60b10-01*
   % Data gathered using: $DIR/CollectPositionDistributions.sh
-  % Script: $DIR/GnuScripts/plot-theta_distributions-Hr-fixed_r.gnu
+  % Script: $DIR/GnuScripts/plot-theta_distributions-Kr-fixed_r.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03
   \caption{Radial number fluxes, $K^r(\theta)$,
     as defined in Eqn.~\ref{eqn:Kr_minkowski},
-    in the hypermassive neutron star configuration.
+    in the hypermassive neutron star configuration
+    (presented in Sec.~\ref{ssec:test_disk_comparison}).
     Sampled for observers at fixed coordinate distances from the center
     of the star, with $r=250\,{\rm km}$.
   }
@@ -1775,7 +1784,8 @@ is to spread the distribution out to larger angles.
   % Script: $DIR/plot-angular_distribution-intensity-compare.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03/000Mo-000.0deg-250km
   \caption{Angular distributions of fluxes for an observer on the rotation axis
-    in the hypermassive neutron star configuration.}
+    in the hypermassive neutron star configuration
+    (presented in Sec.~\ref{ssec:test_disk_comparison}).}
   \label{fig:nsns_cosA_distrib_I_00deg}
 \end{figure}
 
@@ -1785,7 +1795,8 @@ is to spread the distribution out to larger angles.
   % Script: $DIR/plot-angular_distribution-intensity-compare.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03/000Mo-090.0deg-250km
   \caption{Angular distributions of fluxes for an observer in the equatorial
-    plane in the hypermassive neutron star configuration.}
+    plane in the hypermassive neutron star configuration
+    (presented in Sec.~\ref{ssec:test_disk_comparison}).}
   \label{fig:nsns_cosA_distrib_I_90deg}
 \end{figure}
 
