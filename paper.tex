@@ -1254,8 +1254,7 @@ In this case for $\nu_x$ the major effect of elastic scattering
 is to decrease the average energy of neutrinos coming from the core
 and increase the average energy of neutrinos coming from the envelope.
 
-We don't show it here, but the angular distribution contributing to the
-\footnote{TODO: do show it}
+Although not shown here, the angular distribution contributing to the
 total number density is also strongly affected by elastic scattering.
 Without elastic scattering, the central regions emitting 60\%
 of the neutrinos for the species $\{\nu_e,\bar{\nu}_e,\nu_x\}$
@@ -1440,7 +1439,8 @@ local fluid quantities.
 \label{ssec:test_disk_comparison}
 The merger of two neutron stars by gravitational wave emission produces a
 postmerger configuration composed of a single neutron star surrounded by a disk.
-Because of strong differential rotation, the remnant temporarily avoids
+Because of strong differential rotation and shock heating,
+the remnant temporarily avoids
 collapse to a black hole, even if its mass exceeds the threshold of dynamical
 instability for a rigidly rotating neutron star \cite{duez2009-review}.
 These objects, called hypermassive neutron stars,
@@ -1460,6 +1460,8 @@ The fluid was modeled using the LS220 equation of state \cite{latt1991-nuc_eos}.
 
 We use a single time snapshot from that configuration
 at $t=11\,{\rm ms}$ after merger.
+In this way we approximate the system as stationary over a light-crossing time
+of around 1~ms, which is far below the thermal timescale of the remnant.
 The volume data are represented on a pseudospectral domain of a
 sphere with concentric shells extending to $r\approx1400$~km.
 Radial grid spacings are $\Delta r \approx 0.15$~km in the star
@@ -1697,13 +1699,14 @@ and most of the neutrinos come from the hypermassive neutron star,
 which is roughly spherical.
 The slight upward trend in $\nu_x$ luminosities with $\theta$ may be due to
 asymmetries in the configuration.
-It is not due to the Doppler shift from the rapid rotation of the star
-(a hypothesis we tested by setting $u_i=0$ and $W=1$ in the ray
-tracing equations).
+It is not due to the Doppler shift or relativistic beaming
+from the rapid rotation of the star,
+a hypothesis we tested by setting $u_i=0$ and $W=1$ in the ray
+tracing equations.
 Because of their larger absorption cross section,
 the disk is not optically thin to $\nu_e$ and $\bar{\nu}_e$,
 and observers within view of the hot hypermassive neutron star measure
-the largest radial fluxes.
+the largest radial fluxes of these species.
 
 When we turn on scattering, the disk is no longer transparent to $\nu_x$,
 and $\nu_x$ luminosities present the same qualitative $\theta$-dependence
@@ -1743,11 +1746,10 @@ $\nu_x>\bar{\nu}_e>\nu_e$ due to two factors:
 the average energies of the spectra obey the same ranking,
 and the thicknesses of the different species' scattering envelopes
 also obey the same ranking.
-As we showed in the optically thin limit of
-Eqn.~\ref{eqn:fse_homogeneous_thin_limit},
-\footnote{TODO: too simplistic}
+As we showed in the toy models with a homogeneous background scattering field
 the scattering contribution $f_{\rm SE}$ is
-proportional to energy $\varepsilon^2$ and path length $s$.
+proportional to energy $\varepsilon^2$ and path length $s$
+(Eqn.~\ref{eqn:fse_homogeneous_thin_limit}).
 
 In Figs.~\ref{fig:nsns_cosA_distrib_I_00deg}
 and \ref{fig:nsns_cosA_distrib_I_90deg}, we show the distributions of neutrino
@@ -1788,10 +1790,11 @@ is to spread the distribution out to larger angles.
 \subsection{Neutrino Oscillations at High Neutrino Densities}
 \label{ssec:V_nunu}
 The Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) is one limiting
-form of the quantum kinetic equations \cite{vlas2014-neutrino_qkes},
+form of the quantum kinetic equations for neutrinos
+\cite{vlas2014-neutrino_qkes},
 the limit where collisional mean free paths are much shorter
-than oscillation lengths (i.e.\ $\varepsilon/\mathscr{K} \ll |H|^{-1}$
-with $H$ the Hamiltonian describing coherent forward scattering interactions).
+than oscillation lengths, i.e.\ $\varepsilon/\mathscr{K} \ll |H|^{-1}$
+with $H$ the Hamiltonian describing coherent forward scattering interactions.
 In this limit the neutrino density matrix takes the form
 \begin{equation}
   \label{eqn:density_rho_0}
