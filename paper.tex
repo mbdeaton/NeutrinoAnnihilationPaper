@@ -168,7 +168,8 @@ With a ray tracing method we approach radiation transport from the perspective
 of a single observer at a spacetime event $x_o^\alpha$.
 Our goal is to compute the distribution function
 $f^{\nu_\sigma}(x_o^\alpha;p_\beta)$, or the amount of neutrino radiation
-of species $\nu_\sigma\in\{\nu_{\{e,\mu,\tau\}},\bar{\nu}_{\{e,\mu,\tau\}}\}$
+of species
+$\nu_\sigma\in\{\nu_e,\nu_\mu,\nu_\tau,\bar{\nu}_e,\bar{\nu}_\mu,\bar{\nu}_\tau\}$
 with momentum $p_\beta$ impinging on $x_o^\alpha$.
 To do so we trace a geodesic trajectory from $x_o^\alpha$ in the backwards
 direction $-p_\beta$ to sample the incoming radiation along that line of sight.
@@ -185,8 +186,10 @@ It is numerically cheap because it confines computations of
 $f^{\nu_\sigma}(x_o^\alpha;p_\beta)$ to the past light-cone of $x_o^\alpha$,
 with the history of that light-cone truncated at large optical depth.
 \footnote{TODO: state scaling $\mathscr{O}(n)$?}
-And it easily extends to high resolution in energy and angle by simply
+It easily extends to high resolution in energy and angle by simply
 increasing the number of rays sampled.
+And it parallelizes trivially by ray, since each ray is computed
+independently.
 
 %\subsubsection*{What is new and better about this ray tracing formulation?}
 Several ray tracing formulations for radiation transport already exist.
@@ -196,7 +199,7 @@ Most formulations assume an analytic spacetime metric
 And many make the simplifying assumption of blackbody emission from a
 neutrinosurface
 \citep{birk2007-nunubar, caba2009-detecting_grb_nu, kova2011-gr_ray_tracing},
-limiting them to equilibrium, optically thick configurations.
+limiting them to equilibrium, optically-thick configurations.
 Current state-of-the-art ray tracing formulations avoid the assumption of
 blackbody spectra by integrating a local emissivity along each geodesic
 (e.g. \cite{hari2010-gr_nunubar_collapsar} for neutrinos and
@@ -258,9 +261,12 @@ More fundamentally, though, ray tracing is limited by its naive
 treatment of the Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}),
 a treatment which essentially decouples different neutrino momenta and species.
 \footnote{TODO: clarify how momenta are decoupled}
-When solving for $f^{\nu_\sigma}(x^\alpha;p_\beta)$, we have no
-information about $f^{\nu_\sigma}(x^\alpha;p'_\beta)$, and
-$f^{\bar{\nu}_\sigma}(x^\alpha;p'_\beta)$, which are essential ingredients
+When solving for $f^{\nu_\sigma}(x^\alpha;p_\beta)$,
+we have no information about the distribution at different momenta
+$f^{\nu_\sigma}(x^\alpha;p'_\beta)$,
+or about the distribution of the relevant antineutrino species
+$f^{\bar{\nu}_\sigma}(x^\alpha;p'_\beta)$;
+these missing data are essential ingredients
 for the source terms of the Boltzmann Equation describing the creation and
 destruction of neutrinos due to the interaction processes described in
 Tab.~\ref{tab:neutrino_processes}.
@@ -289,7 +295,7 @@ We use naturalized units in which $\{\hbar,c,k_{\rm B}\}=1$.
 And for most of the remainder of this article we suppress neutrino species label
 $\nu_\sigma$ since the formulation is general to any species.
 Where we do reference particular species we use the three categories
-$\nu_e$, $\bar{\nu}_e$, and
+relevant to the energy scales of mergers, $\nu_e$, $\bar{\nu}_e$, and
 $\nu_x=\left\{\nu_\mu,\bar{\nu}_\mu,\nu_\tau,\bar{\nu}_\tau\right\}$.
 
 \section{Ray tracing formulation}
