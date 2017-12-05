@@ -1022,24 +1022,6 @@ is given by $T \mathscr{F}_3(\eta_\nu)/\mathscr{F}_2(\eta_\nu)\approx 3T$,
 with the Fermi integrals given in Eqn.~\ref{eqn:fermi_integral}.
 Eqn.~\ref{eqn:doppler_avg_eps} describes the well-known Doppler effect.
 
-\begin{figure}
-  %\includegraphics[width=\columnwidth]{fig-moving_fluid_avg_eps}
-  \resizebox{\columnwidth}{!}{\input{fig-moving_fluid_avg_eps.tex}}
-  % Data:   $DIR/Lev1-v*-noscat-01
-  % Script: $DIR/plot-avg_eps_vs_cosA.gnu
-  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/MovingFluid
-  \caption{Average energy of $\bar{\nu}_e$ neutrino fields
-    measured by a stationary observer,
-    $\langle\tilde{\varepsilon}\rangle(\cos A)$,
-    in the moving slab test (presented in Sec.~\ref{ssec:test_doppler}).
-    The observer sees neutrinos with $\cos A>0$ to be moving primarily with
-    the fluid.
-    The points are computed from ray tracing spectra; the lines are the
-    analytic formula Eqn.~\ref{eqn:doppler_avg_eps}.
-  }
-  \label{fig:avg_eps_doppler}
-\end{figure}
-
 We sample the distribution function $f(\tilde{\varepsilon},\cos A,B)$
 with ray tracing
 over a uniform grid of 40 points in energy $\tilde{\varepsilon}\in[0,100]$
@@ -1070,6 +1052,24 @@ a blue-shifted spectrum for approaching fluid
 ($\cos A\gg0$),
 and a slightly red-shifted spectrum for fluid moving transverse to the
 observer ($\cos A=0$).
+
+\begin{figure}
+  %\includegraphics[width=\columnwidth]{fig-moving_fluid_avg_eps}
+  \resizebox{\columnwidth}{!}{\input{fig-moving_fluid_avg_eps.tex}}
+  % Data:   $DIR/Lev1-v*-noscat-01
+  % Script: $DIR/plot-avg_eps_vs_cosA.gnu
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/MovingFluid
+  \caption{Average energy of $\bar{\nu}_e$ neutrino fields
+    measured by a stationary observer,
+    $\langle\tilde{\varepsilon}\rangle(\cos A)$,
+    in the moving slab test (presented in Sec.~\ref{ssec:test_doppler}).
+    The observer sees neutrinos with $\cos A>0$ to be moving primarily with
+    the fluid.
+    The points are computed from ray tracing spectra; the lines are the
+    analytic formula Eqn.~\ref{eqn:doppler_avg_eps}.
+  }
+  \label{fig:avg_eps_doppler}
+\end{figure}
 
 \subsection{Idealized Star:
   Testing the Decoupling Regime}
@@ -1125,22 +1125,6 @@ of the star comparable to or less than the mean free path at this energy,
 a mean free path just over 100~km; and $\nu_x$ is well into the optically
 thin regime.
 
-We can explain these features quantitatively by examining the limits
-of Eqn.~\ref{eqn:fae_homogeneous_general}, expanding the exponential function
-in powers of $\chi s$; the distribution function takes the limiting values
-\begin{equation}
-  \label{eqn:fae_homogeneous_limits}
-  f_{\rm AE}(\cos A) = f^{\rm eq}
-  \begin{cases}
-    \chi s(\cos A) & s \ll \chi^{-1}\,\textrm{(thin)}\\
-    1                  & s \gg \chi^{-1}\,\textrm{(thick)}.
-  \end{cases}
-\end{equation}
-These limits are represented in Fig.~\ref{fig:f_absorption_sphere}:
-with $\nu_x$ in the optically thin limit at all viewing angles,
-and $\nu_e$ in the optically thick limit at viewing angles
-$\cos A \gtrsim 0.8$.
-
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-f-absorption_star-11MeV}
   % Data:   $DIR/Lev1-01/Lev1
@@ -1157,6 +1141,22 @@ $\cos A \gtrsim 0.8$.
   }
   \label{fig:f_absorption_sphere}
 \end{figure}
+
+We can explain these features quantitatively by examining the limits
+of Eqn.~\ref{eqn:fae_homogeneous_general}, expanding the exponential function
+in powers of $\chi s$; the distribution function takes the limiting values
+\begin{equation}
+  \label{eqn:fae_homogeneous_limits}
+  f_{\rm AE}(\cos A) = f^{\rm eq}
+  \begin{cases}
+    \chi s(\cos A) & s \ll \chi^{-1}\,\textrm{(thin)}\\
+    1                  & s \gg \chi^{-1}\,\textrm{(thick)}.
+  \end{cases}
+\end{equation}
+These limits are represented in Fig.~\ref{fig:f_absorption_sphere}:
+with $\nu_x$ in the optically thin limit at all viewing angles,
+and $\nu_e$ in the optically thick limit at viewing angles
+$\cos A \gtrsim 0.8$.
 
 \subsection{Idealized Compact Star:
   Testing Gravitational Redshift and Geodesic Curvature}
@@ -1220,6 +1220,17 @@ since we have not incorporated that physics into this ray tracing code,
 and we turn off general relativistic effects in the ray tracing code,
 since the Monte Carlo code assumes Minkowski spacetime.
 
+We place a stationary observer at $r=500$~km.
+Fig.~\ref{fig:avg_eps_collapse} shows the distribution of average $\nu_x$
+energies across incoming angles to this observer.
+We show $\nu_x$ because they present the largest scattering effects:
+they scatter through a thicker atmosphere outside their deep emission surface,
+and their hotter spectrum experiences stronger modification due to the
+$\varepsilon^2$ dependence of the scattering cross-section.
+Against the fiducial Monte Carlo distribution, we show the
+\emph{noscat} treatment, and the \emph{scat} treatment using both the
+\emph{spectral} method and the \emph{gray} method.
+
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-collapse_profile_avg_eps_vs_cosA}
   % Data:   $DIR/
@@ -1240,17 +1251,6 @@ since the Monte Carlo code assumes Minkowski spacetime.
   }
   \label{fig:avg_eps_collapse}
 \end{figure}
-
-We place a stationary observer at $r=500$~km.
-Fig.~\ref{fig:avg_eps_collapse} shows the distribution of average $\nu_x$
-energies across incoming angles to this observer.
-We show $\nu_x$ because they present the largest scattering effects:
-they scatter through a thicker atmosphere outside their deep emission surface,
-and their hotter spectrum experiences stronger modification due to the
-$\varepsilon^2$ dependence of the scattering cross-section.
-Against the fiducial Monte Carlo distribution, we show the
-\emph{noscat} treatment, and the \emph{scat} treatment using both the
-\emph{spectral} method and the \emph{gray} method.
 
 As expected the average energies from both
 the scattering envelope ($\cos A \lesssim 0.95$) and
@@ -1616,6 +1616,21 @@ $\tilde{H}^r_m \equiv \tilde{H}^r(\theta_m)$.
 Average energies over the whole sky are then
 $\langle\tilde{\varepsilon}\rangle=L/R$.
 
+Tab.~\ref{tab:nsns_rt_vs_m1} compares the all-sky
+luminosities and average energies from ray tracing and from
+the M1 transport simulation,
+which serves for qualitative comparison.
+Even if M1 and ray tracing methods both provide faithful measurements
+of all-sky luminosities, we do not expect perfect agreement since the two
+treatments differ fundamentally. In addition to differences in the physics,
+M1 fluxes are integrated over the outer boundary of the finite-difference grid
+at radii as small as 75~km,
+whereas the ray tracing fluxes are integrated over a sphere at radius 250~km,
+introducing a time lag between the two measurements of under a millisecond.
+Furthermore uncertainties from the M1 simulation are around
+15\% for energy luminosities and
+10\% for average energies \cite[Sec.~A.6]{fouc2016-m1_evolve_n}.
+
 \begin{table}%[h]
   % Total fluxes over the sky integrated in google sheet: 20171031-theta_distribution_integrations
   % RTDATA_NO=$DIR/PositionDistributions-nu?-250km-Lev2-e30a150b20-noscat-04.dat
@@ -1652,21 +1667,6 @@ $\langle\tilde{\varepsilon}\rangle=L/R$.
   \end{tabularx}
 \end{table}
 
-Tab.~\ref{tab:nsns_rt_vs_m1} compares the all-sky
-luminosities and average energies from ray tracing and from
-the M1 transport simulation,
-which serves for qualitative comparison.
-Even if M1 and ray tracing methods both provide faithful measurements
-of all-sky luminosities, we do not expect perfect agreement since the two
-treatments differ fundamentally. In addition to differences in the physics,
-M1 fluxes are integrated over the outer boundary of the finite-difference grid
-at radii as small as 75~km,
-whereas the ray tracing fluxes are integrated over a sphere at radius 250~km,
-introducing a time lag between the two measurements of under a millisecond.
-Furthermore uncertainties from the M1 simulation are around
-15\% for energy luminosities and
-10\% for average energies \cite[Sec.~A.6]{fouc2016-m1_evolve_n}.
-
 Because the model was evolved with a gray M1 transport scheme,
 the only \emph{scat} method we can use in our ray tracing is the
 \emph{gray} method.
@@ -1680,6 +1680,22 @@ And as the ray tracing and M1 measurements both show,
 $R_{\bar{\nu}_e}$ dominates over $R_{\nu_e}$ significantly,
 because the disrupted neutron star material is releptonizing.
 
+The distributions of radial fluxes over observer position are shown
+in Figs.~\ref{fig:nsns_theta_distrib_Kr} and \ref{fig:nsns_theta_distrib_Hr}.
+With the \emph{noscat} treatment the $\nu_x$ luminosities are relatively
+constant in $\theta$, because the disk is optically thin to $\nu_x$,
+and most of the neutrinos come from the hypermassive neutron star,
+which is roughly spherical.
+The slight upward trend in $\nu_x$ luminosities with $\theta$ may be due to
+asymmetries in the configuration.
+It is not due to the Doppler shift or relativistic beaming
+from the rapid rotation of the star,
+a hypothesis we tested by setting $u_i=0$ and $W=1$ in the ray
+tracing equations.
+Because of their larger absorption cross section,
+the disk is not optically thin to $\nu_e$ and $\bar{\nu}_e$,
+and observers within view of the hot hypermassive neutron star measure
+the largest radial fluxes of these species.
 \begin{figure}
   %\includegraphics[width=\columnwidth]{theta_distrib-250km-Kr}
   \resizebox{\columnwidth}{!}{\input{theta_distrib-250km-Kr.tex}}
@@ -1709,23 +1725,6 @@ because the disrupted neutron star material is releptonizing.
   \label{fig:nsns_theta_distrib_Hr}
 \end{figure}
 
-The distributions of radial fluxes over observer position are shown
-in Figs.~\ref{fig:nsns_theta_distrib_Kr} and \ref{fig:nsns_theta_distrib_Hr}.
-With the \emph{noscat} treatment the $\nu_x$ luminosities are relatively
-constant in $\theta$, because the disk is optically thin to $\nu_x$,
-and most of the neutrinos come from the hypermassive neutron star,
-which is roughly spherical.
-The slight upward trend in $\nu_x$ luminosities with $\theta$ may be due to
-asymmetries in the configuration.
-It is not due to the Doppler shift or relativistic beaming
-from the rapid rotation of the star,
-a hypothesis we tested by setting $u_i=0$ and $W=1$ in the ray
-tracing equations.
-Because of their larger absorption cross section,
-the disk is not optically thin to $\nu_e$ and $\bar{\nu}_e$,
-and observers within view of the hot hypermassive neutron star measure
-the largest radial fluxes of these species.
-
 When we turn on scattering, the disk is no longer transparent to $\nu_x$,
 and $\nu_x$ luminosities present the same qualitative $\theta$-dependence
 as that of the other species.
@@ -1737,19 +1736,6 @@ For observers in the equatorial plane ($\theta \sim 90^\circ$)
 the effect of scattering is a decrease in energy luminosities,
 since some of the highest energy neutrinos from deep in the interior
 are scattered away from the line of sight by the disk.
-
-\begin{figure}
-  %\includegraphics[width=\columnwidth]{theta_distrib-250km-avg_eps}
-  \resizebox{\columnwidth}{!}{\input{theta_distrib-250km-avg_eps.tex}}
-  % see notes from theta_distrib-250km-Kr
-  % Script: $DIR/GnuScripts/plot-theta_distributions-avg_eps_from_fluxes-fixed_r.gnu
-  \caption{Same as Fig.~\ref{fig:nsns_theta_distrib_Kr} but
-    average energies of radial fluxes
-    $\langle\tilde{\varepsilon}\rangle(\theta)=\tilde{H}^r(\theta)/\tilde{K}^r(\theta)$,
-    as defined in Eqns.~\ref{eqn:Kr_minkowski} and \ref{eqn:Hr_minkowski}.
-  }
-  \label{fig:nsns_theta_distrib_avg_eps}
-\end{figure}
 
 Fig.~\ref{fig:nsns_theta_distrib_avg_eps} shows the distribution of
 average energies of radial fluxes over observer positions.
@@ -1769,6 +1755,18 @@ As we showed in the toy models with a homogeneous background scattering field
 the scattering contribution $f_{\rm SE}$ is
 proportional to energy $\varepsilon^2$ and path length $s$
 (Eqn.~\ref{eqn:fse_homogeneous_thin_limit}).
+\begin{figure}
+  %\includegraphics[width=\columnwidth]{theta_distrib-250km-avg_eps}
+  \resizebox{\columnwidth}{!}{\input{theta_distrib-250km-avg_eps.tex}}
+  % see notes from theta_distrib-250km-Kr
+  % Script: $DIR/GnuScripts/plot-theta_distributions-avg_eps_from_fluxes-fixed_r.gnu
+  \caption{Same as Fig.~\ref{fig:nsns_theta_distrib_Kr} but
+    average energies of radial fluxes
+    $\langle\tilde{\varepsilon}\rangle(\theta)=\tilde{H}^r(\theta)/\tilde{K}^r(\theta)$,
+    as defined in Eqns.~\ref{eqn:Kr_minkowski} and \ref{eqn:Hr_minkowski}.
+  }
+  \label{fig:nsns_theta_distrib_avg_eps}
+\end{figure}
 
 In Figs.~\ref{fig:nsns_cosA_distrib_I_00deg}
 and \ref{fig:nsns_cosA_distrib_I_90deg}, we show the distributions of neutrino
