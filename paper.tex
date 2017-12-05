@@ -1486,8 +1486,15 @@ Obviously, memory loads of this order are not insurmountable;
 but they would require some modifications to our
 volume data interpolation infrastructure.
 For the purposes of this analysis the pseudospectral representation is adequate.
+
 Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat}
 show slices of density and temperature from the finite difference volume data.
+These data were evolved on a rectilinear grid spanning approximately 400~km in
+both the $x$ and $y$ directions, and 150~km in the $z$ direction in our
+evolution coordinates. We extrapolate the fluid and M1 radiation data from
+this grid to the larger ray tracing grid by setting all variables to their
+floor values. This simple extrapolation is adequate for ray tracing since
+the neutrinos are almost entirely free-streaming outside the smaller domain.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{production-colormap-merid-rho}
@@ -1578,17 +1585,17 @@ $N \equiv N_{\tilde{\varepsilon}}\, N_A\, N_B$,
 and $m$ the index labeling each ray.
 Average energies are given by
 $\langle\tilde{\varepsilon}\rangle(\theta)=H^r(\theta)/K^r(\theta)$.
-We choose $N_{\tilde{\varepsilon}}=30$, $N_A=120$, and $N_B=20$.
-For the \emph{scat} case we choose $(\cos A)_{\rm min}=0.81$;
-For the \emph{noscat} case, presenting a smaller emitting region,
-we choose $(\cos A)_{\rm min}=0.91$.
+We choose $N_{\tilde{\varepsilon}}=30$, $N_A=150$, and $N_B=20$.
+To maintain high angular resolution, we only sample rays that pass within
+approximately 120~km of the star's center by setting $(\cos A)_{\rm min}=0.88$.
 
 We also combine measurements from all observers to estimate
 total luminosities and averages over the sky.
-We assume the disk is azimuthally symmetric and
-symmetric with respect to reflection across the equatorial plane.
-Figs.~\ref{fig:nsns_rho_merid} and \ref{fig:nsns_rho_equat} show how these
-assumptions are approximately valid at 11~ms after merger.
+Since we have chosen an arc of observers isolated to the northern hemisphere and
+the $y$-$z$ plane, we may extend these data to the full sky by assuming that
+emission is azimuthally symmetric and reflection symmetric across the
+equatorial plane. Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat}
+indicate the approximate validity of these assumptions at 11~ms after merger.
 Total luminosities are then computed as integrals of the radial fluxes
 over $\cos\theta$.
 Using the trapezoid rule the number and energy luminosities become sums:
@@ -1646,29 +1653,31 @@ $\langle\tilde{\varepsilon}\rangle=L/R$.
 \end{table}
 
 Tab.~\ref{tab:nsns_rt_vs_m1} compares the all-sky
-\footnote{TODO: get accurate M1 numbers from Francois}
 luminosities and average energies from ray tracing and from
 the M1 transport simulation,
-which serves as our fiducial calculation.
-Uncertainties are around 15\% for energy luminosities and
-10\% for average energies from the M1 simulation
-\cite[Sec.~A.6]{fouc2016-m1_evolve_n}.
+which serves for qualitative comparison.
+Even if M1 and ray tracing methods both provide faithful measurements
+of all-sky luminosities, we do not expect perfect agreement since the two
+treatments differ fundamentally. In addition to differences in the physics,
+M1 fluxes are integrated over the outer boundary of the finite-difference grid
+at radii as small as 75~km,
+whereas the ray tracing fluxes are integrated over a sphere at radius 250~km,
+introducing a time lag between the two measurements of under a millisecond.
+Furthermore uncertainties from the M1 simulation are around
+15\% for energy luminosities and
+10\% for average energies \cite[Sec.~A.6]{fouc2016-m1_evolve_n}.
+
 Because the model was evolved with a gray M1 transport scheme,
 the only \emph{scat} method we can use in our ray tracing is the
 \emph{gray} method.
 As in the post-bounce configuration in Sec.~\ref{ssec:test_collapse},
 the \emph{scat} treatment is more faithful than the \emph{noscat} treatment,
 significantly so for the heavy-lepton neutrinos.
-(Though, we note the energy luminosity for $\nu_e$ is overestimated
-20\% by both \emph{noscat} and \emph{scat} treatments,
-and the overestimate is slightly worse for the \emph{scat} treatment.)
-\footnote{TODO: explain}
-With scattering turned off ray tracing overestimates $L_{\nu_x}$ by 200\%;
-but with scattering turned on agreement in all measures
-is better than 10\%, except for $L_{\nu_e}$ which is overestimated by 20\%.
-As the M1 transport evolution also demonstrates,
-$R_{\bar{\nu}_e}$ dominates over $R_{\nu_e}$
-\footnote{TODO: Need $R$ magnitude not just difference}
+For example, with scattering turned off the ray tracing and M1 measurements
+of $L_{\nu_x}$ disagree by 200\%;
+but with scattering turned on agreement is within 10\%.
+And as the ray tracing and M1 measurements both show,
+$R_{\bar{\nu}_e}$ dominates over $R_{\nu_e}$ significantly,
 because the disrupted neutron star material is releptonizing.
 
 \begin{figure}
