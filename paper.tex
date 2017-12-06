@@ -1770,37 +1770,44 @@ proportional to energy $\varepsilon^2$ and path length $s$
   \label{fig:nsns_theta_distrib_avg_eps}
 \end{figure}
 
-In Figs.~\ref{fig:nsns_cosA_distrib_I_00deg}
-and \ref{fig:nsns_cosA_distrib_I_90deg}, we show the distributions of neutrino
+In Figs.~\ref{fig:nsns_cosA_distrib_G_00deg}
+and \ref{fig:nsns_cosA_distrib_G_90deg}, we show the distributions of neutrino
 number density over incoming angle
 for the observer on the polar axis $\theta=0^\circ$,
 and in the equatorial plane $\theta=90^\circ$,
-as defined in Eqn.~\ref{eqn:J_per_cosA}.
+defined analagously to Eqn.~\ref{eqn:J_per_cosA}.
 As in the case of the collapse profile in Sec.~\ref{ssec:test_collapse},
 the dominant effect of \emph{scat} on $\tilde{G}(\cos A)$
-is to spread the distribution out to larger angles.
+is to spread the distribution out to larger angles, by generally decreasing
+the number of neutrinos coming from the core while increasing the number
+of neutrinos coming from the disk.
 \footnote{TODO: also examine spectra or average energies}
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{cosA_distrib-intensity-250km-00deg}
-  % Data:   $DIR/Lev1-e30a60b10-{,no}scat-00
-  % Script: $DIR/plot-angular_distribution-intensity-compare.gnu
+  %\includegraphics[width=\columnwidth]{cosA_distrib-intensity-250km-00deg}
+  \resizebox{\columnwidth}{!}{\input{cosA_distrib-G-250km-00deg.tex}}
+  % Data:   $DIR/Lev2-e30a150b20-{,no}scat-04
+  % Script: $DIR/plot-angular_distribution-number_density-compare.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03/000Mo-000.0deg-250km
-  \caption{Angular distributions of fluxes for an observer on the rotation axis
-    in the hypermassive neutron star configuration
+  \caption{Distribution of number density $\tilde{G}(\cos A)$ over incoming angle,
+    defined analagously to Eqn.~\ref{eqn:J_per_cosA}.
+    The integral of this quantity over $d\cos A$ gives the total number density
+    measured by this observer on the rotation axis.
+    Volume data from the hypermassive neutron star configuration
     (presented in Sec.~\ref{ssec:test_disk_comparison}).}
-  \label{fig:nsns_cosA_distrib_I_00deg}
+  \label{fig:nsns_cosA_distrib_G_00deg}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{cosA_distrib-intensity-250km-90deg}
-  % Data:   $DIR/Lev1-e30a60b10-{,no}scat-00
-  % Script: $DIR/plot-angular_distribution-intensity-compare.gnu
+  %\includegraphics[width=\columnwidth]{cosA_distrib-intensity-250km-90deg}
+  \resizebox{\columnwidth}{!}{\input{cosA_distrib-G-250km-90deg.tex}}
+  % Data:   $DIR/Lev2-e30a150b20-{,no}scat-04
+  % Script: $DIR/plot-angular_distribution-number_density-compare.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03/000Mo-090.0deg-250km
-  \caption{Angular distributions of fluxes for an observer in the equatorial
-    plane in the hypermassive neutron star configuration
-    (presented in Sec.~\ref{ssec:test_disk_comparison}).}
-  \label{fig:nsns_cosA_distrib_I_90deg}
+  \caption{Distribution of number density $\tilde{G}(\cos A)$ over incoming angle,
+    as in Fig.~\ref{fig:nsns_cosA_distrib_G_00deg},
+    but with the observer in the equatorial plane.}
+  \label{fig:nsns_cosA_distrib_G_90deg}
 \end{figure}
 
 \section{Applications}
