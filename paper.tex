@@ -928,7 +928,8 @@ to some terminal $t<0$.
 The figure shows this backwards-in-time integration proceeding left to right.
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{fig-cumulative_f-homogeneous}
+  %\includegraphics[width=\columnwidth]{fig-cumulative_f-homogeneous}
+  \resizebox{\columnwidth}{!}{\input{fig-cumulative_f-homogeneous.tex}}
   % Data:   $DIR/Lev1-v0-ShootANeutrino-01/Lev1
   % Script: $DIR/GnuplotScripts/plot_f-integral_over_t.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/HomogeneousIsotropic
@@ -938,9 +939,8 @@ The figure shows this backwards-in-time integration proceeding left to right.
     The integration proceeds from left to right, or backwards in time $t$.
     Each ray terminates when it achieves a total optical depth
     greater than $\tau_{\rm term}=14$.
-    The positions of the points (only plotted for the $f_{\rm AE}$ components)
-    are the time steps chosen by the adaptive time-stepping algorithm
-    described in Sec.~\ref{ssec:numerical}.
+    The points plotted correspond to the time steps chosen by the adaptive
+    time-stepping algorithm described in Sec.~\ref{ssec:numerical}.
   }
   \label{fig:cumulative_f_homogeneous}
 \end{figure}
