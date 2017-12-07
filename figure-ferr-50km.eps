@@ -1,11 +1,9 @@
-%!PS-Adobe-2.0
-%%Title: ../../PlotsEtc/figure-ferr-50km.ps
+%!PS-Adobe-2.0 EPSF-2.0
+%%Title: figure-ferr-50km.tex
 %%Creator: gnuplot 5.0 patchlevel 1
-%%CreationDate: Tue Jul 11 00:58:32 2017
-%%DocumentFonts: (atend)
-%%BoundingBox: 50 50 554 770
-%%Orientation: Landscape
-%%Pages: (atend)
+%%CreationDate: Thu Dec  7 12:01:10 2017
+%%DocumentFonts: 
+%%BoundingBox: 50 50 338 251
 %%EndComments
 %%BeginProlog
 /gnudict 256 dict def
@@ -15,10 +13,10 @@ gnudict begin
 % The unit line width and grayscale image gamma correction may also be changed.
 %
 /Color true def
-/Blacktext false def
+/Blacktext true def
 /Solid false def
 /Dashlength 1 def
-/Landscape true def
+/Landscape false def
 /Level1 false def
 /Level3 false def
 /Rounded false def
@@ -30,7 +28,7 @@ gnudict begin
 /Gamma 1.0 def
 /BackgroundColor {-1.000 -1.000 -1.000} def
 %
-/vshift -46 def
+/vshift -73 def
 /dl1 {
   10.0 Dashlength userlinewidth gnulinewidth div mul mul mul
   Rounded { currentlinewidth 0.75 mul sub dup 0 le { pop 0.01 } if } if
@@ -45,7 +43,7 @@ gnudict begin
 /vpt vpt_ def
 /doclip {
   ClipToBoundingBox {
-    newpath 50 50 moveto 554 50 lineto 554 770 lineto 50 770 lineto closepath
+    newpath 50 50 moveto 338 50 lineto 338 251 lineto 50 251 lineto closepath
     clip
   } if
 } def
@@ -430,34 +428,6 @@ Level1 {Level1PatternFill} {Level2PatternFill} ifelse
 dup length dict begin {1 index /FID eq {pop pop} {def} ifelse} forall
 currentdict end definefont pop
 %
-/MFshow {
-   { dup 5 get 3 ge
-     { 5 get 3 eq {gsave} {grestore} ifelse }
-     {dup dup 0 get findfont exch 1 get scalefont setfont
-     [ currentpoint ] exch dup 2 get 0 exch R dup 5 get 2 ne {dup dup 6
-     get exch 4 get {textshow} {stringwidth pop 0 R} ifelse }if dup 5 get 0 eq
-     {dup 3 get {2 get neg 0 exch R pop} {pop aload pop M} ifelse} {dup 5
-     get 1 eq {dup 2 get exch dup 3 get exch 6 get stringwidth pop -2 div
-     dup 0 R} {dup 6 get stringwidth pop -2 div 0 R 6 get
-     textshow 2 index {aload pop M neg 3 -1 roll neg R pop pop} {pop pop pop
-     pop aload pop M} ifelse }ifelse }ifelse }
-     ifelse }
-   forall} def
-/Gswidth {dup type /stringtype eq {stringwidth} {pop (n) stringwidth} ifelse} def
-/MFwidth {0 exch { dup 5 get 3 ge { 5 get 3 eq { 0 } { pop } ifelse }
- {dup 3 get{dup dup 0 get findfont exch 1 get scalefont setfont
-     6 get Gswidth pop add} {pop} ifelse} ifelse} forall} def
-/MLshow { currentpoint stroke M
-  0 exch R
-  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
-/MRshow { currentpoint stroke M
-  exch dup MFwidth neg 3 -1 roll R
-  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
-/MCshow { currentpoint stroke M
-  exch dup MFwidth -2 div 3 -1 roll R
-  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
-/XYsave    { [( ) 1 2 true false 3 ()] } bind def
-/XYrestore { [( ) 1 2 true false 4 ()] } bind def
 Level1 SuppressPDFMark or 
 {} {
 /SDict 10 dict def
@@ -465,13 +435,13 @@ systemdict /pdfmark known not {
   userdict /pdfmark systemdict /cleartomark get put
 } if
 SDict begin [
-  /Title (../../PlotsEtc/figure-ferr-50km.ps)
+  /Title (figure-ferr-50km.tex)
   /Subject (gnuplot plot)
   /Creator (gnuplot 5.0 patchlevel 1)
   /Author (mbdeaton)
 %  /Producer (gnuplot)
 %  /Keywords ()
-  /CreationDate (Tue Jul 11 00:58:32 2017)
+  /CreationDate (Thu Dec  7 12:01:10 2017)
   /DOCINFO pdfmark
 end
 } ifelse
@@ -507,434 +477,264 @@ gnudict begin
 gsave
 doclip
 50 50 translate
-0.100 0.100 scale
-90 rotate
-0 -5040 translate
+0.050 0.050 scale
 0 setgray
 newpath
-(Helvetica) findfont 140 scalefont setfont
-BackgroundColor 0 lt 3 1 roll 0 lt exch 0 lt or or not {gsave BackgroundColor C clippath fill grestore} if
 1.000 UL
 LTb
 LCb setrgbcolor
-854 448 M
+LTb
+1408 594 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 448 M
-[ [(Helvetica) 140.0 0.0 true true 0 (-1e-06)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-854 969 M
+1408 941 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 969 M
-[ [(Helvetica) 140.0 0.0 true true 0 (-8e-07)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-854 1491 M
+1408 1288 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 1491 M
-[ [(Helvetica) 140.0 0.0 true true 0 (-6e-07)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-854 2012 M
+1408 1635 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 2012 M
-[ [(Helvetica) 140.0 0.0 true true 0 (-4e-07)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-854 2534 M
+1408 1982 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 2534 M
-[ [(Helvetica) 140.0 0.0 true true 0 (-2e-07)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-854 3055 M
+1408 2328 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 3055 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 0)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-854 3576 M
+1408 2675 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 3576 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 2e-07)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-854 4098 M
+1408 3022 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 4098 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 4e-07)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-854 4619 M
+1408 3369 M
 63 0 V
-6030 0 R
+3892 0 R
 -63 0 V
-stroke
-770 4619 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 6e-07)]
-] -46.7 MRshow
-1.000 UL
-LTb
-LCb setrgbcolor
-1408 448 M
+1768 594 M
 0 63 V
-0 4108 R
+0 2712 R
+0 -63 V
+2167 594 M
+0 63 V
+0 2712 R
+0 -63 V
+2567 594 M
+0 63 V
+0 2712 R
+0 -63 V
+2966 594 M
+0 63 V
+0 2712 R
+0 -63 V
+3366 594 M
+0 63 V
+0 2712 R
+0 -63 V
+3765 594 M
+0 63 V
+0 2712 R
+0 -63 V
+4165 594 M
+0 63 V
+0 2712 R
+0 -63 V
+4564 594 M
+0 63 V
+0 2712 R
+0 -63 V
+4964 594 M
+0 63 V
+0 2712 R
+0 -63 V
+5363 594 M
+0 63 V
+0 2712 R
 0 -63 V
 stroke
-1408 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 10)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-2023 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-2023 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 20)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-2639 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-2639 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 30)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-3254 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-3254 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 40)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-3870 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-3870 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 50)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-4485 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-4485 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 60)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-5101 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-5101 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 70)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-5716 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-5716 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 80)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-6332 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-6332 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 90)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-6947 448 M
-0 63 V
-0 4108 R
-0 -63 V
-stroke
-6947 308 M
-[ [(Helvetica) 140.0 0.0 true true 0 ( 100)]
-] -46.7 MCshow
-1.000 UL
-LTb
-LCb setrgbcolor
-1.000 UL
-LTb
-LCb setrgbcolor
-854 4619 N
-854 448 L
-6093 0 V
-0 4171 V
--6093 0 V
+1408 3369 N
+0 -2775 V
+3955 0 V
+0 2775 V
+-3955 0 V
 Z stroke
 1.000 UP
 1.000 UL
 LTb
-LCb setrgbcolor
-LCb setrgbcolor
-112 2533 M
-currentpoint gsave translate -270 rotate 0 0 moveto
-[ [(Helvetica) 140.0 0.0 true true 0 (1-f/f)]
-[(Helvetica) 112.0 70.0 true true 0 (eq)]
-] -60.7 MCshow
-grestore
-LTb
-LCb setrgbcolor
-3900 98 M
-[ [(Helvetica) 140.0 0.0 true true 0 (eps [MeV])]
-] -46.7 MCshow
-LTb
-LCb setrgbcolor
-3900 4829 M
-[ [(Helvetica) 140.0 0.0 true true 0 (Error in equilibrium distribution functions)]
-] -46.7 MCshow
-% Begin plot #1
 1.000 UP
 1.000 UL
 LTb
 0.58 0.00 0.83 C LCb setrgbcolor
-1190 4486 M
-[ [(Helvetica) 140.0 0.0 true true 0 (nue)]
-] -46.7 MRshow
 1.000 UP
 1.000 UL
 LTb
-0.58 0.00 0.83 C 869 1990 Pls
-1023 1353 Pls
-1177 1423 Pls
-1331 1351 Pls
-1485 2896 Pls
-1639 1716 Pls
-1793 1386 Pls
-1946 1351 Pls
-2100 1359 Pls
-2254 1344 Pls
-2408 1308 Pls
-2562 1282 Pls
-2716 1263 Pls
-2870 3175 Pls
-3023 2573 Pls
-3177 2198 Pls
-3331 1914 Pls
-3485 1704 Pls
-3639 1561 Pls
-3793 1474 Pls
-3947 1412 Pls
-4101 1370 Pls
-4254 1344 Pls
-4408 1333 Pls
-4562 1332 Pls
-4716 1334 Pls
-4870 1291 Pls
-5024 1252 Pls
-5178 1217 Pls
-5331 1185 Pls
-5485 3818 Pls
-5639 3138 Pls
-5793 2602 Pls
-5947 2184 Pls
-6101 1860 Pls
-6255 1612 Pls
-6408 1424 Pls
-6562 1273 Pls
-6716 1071 Pls
-6870 900 Pls
-1473 4486 Pls
-% End plot #1
-% Begin plot #2
+0.58 0.00 0.83 C 1418 1620 Pls
+1518 1196 Pls
+1618 1242 Pls
+1718 1194 Pls
+1817 2222 Pls
+1917 1437 Pls
+2017 1218 Pls
+2117 1195 Pls
+2217 1200 Pls
+2317 1190 Pls
+2417 1166 Pls
+2517 1149 Pls
+2616 1136 Pls
+2716 2408 Pls
+2816 2008 Pls
+2916 1758 Pls
+3016 1569 Pls
+3116 1430 Pls
+3216 1335 Pls
+3316 1277 Pls
+3415 1235 Pls
+3515 1207 Pls
+3615 1190 Pls
+3715 1183 Pls
+3815 1182 Pls
+3915 1183 Pls
+4015 1155 Pls
+4115 1129 Pls
+4214 1105 Pls
+4314 1084 Pls
+4414 2836 Pls
+4514 2384 Pls
+4614 2027 Pls
+4714 1749 Pls
+4814 1534 Pls
+4914 1369 Pls
+5013 1243 Pls
+5113 1143 Pls
+5213 1009 Pls
+5313 895 Pls
+3583 3196 Pls
 1.000 UP
 1.000 UL
+LTb
+LCb setrgbcolor
 LTb
 0.00 0.62 0.45 C LCb setrgbcolor
-1190 4346 M
-[ [(Helvetica) 140.0 0.0 true true 0 (nua)]
-] -46.7 MRshow
 1.000 UP
 1.000 UL
 LTb
-0.00 0.62 0.45 C 869 2385 Crs
-1023 1853 Crs
-1177 1964 Crs
-1331 1937 Crs
-1485 3112 Crs
-1639 2267 Crs
-1793 2036 Crs
-1946 2022 Crs
-2100 2039 Crs
-2254 1998 Crs
-2408 1965 Crs
-2562 1942 Crs
-2716 3776 Crs
-2870 3119 Crs
-3023 2691 Crs
-3177 2442 Crs
-3331 2266 Crs
-3485 2148 Crs
-3639 2077 Crs
-3793 2043 Crs
-3947 2027 Crs
-4101 2023 Crs
-4254 2023 Crs
-4408 2025 Crs
-4562 2029 Crs
-4716 2034 Crs
-4870 2036 Crs
-5024 2020 Crs
-5178 2005 Crs
-5331 1991 Crs
-5485 1981 Crs
-5639 1972 Crs
-5793 1963 Crs
-5947 1954 Crs
-6101 1946 Crs
-6255 1939 Crs
-6408 4469 Crs
-6562 4162 Crs
-6716 3908 Crs
-6870 3678 Crs
-1473 4346 Crs
-% End plot #2
-% Begin plot #3
+0.00 0.62 0.45 C 1418 1883 Crs
+1518 1529 Crs
+1618 1603 Crs
+1718 1584 Crs
+1817 2366 Crs
+1917 1804 Crs
+2017 1650 Crs
+2117 1641 Crs
+2217 1653 Crs
+2317 1625 Crs
+2417 1603 Crs
+2517 1588 Crs
+2616 2808 Crs
+2716 2371 Crs
+2816 2086 Crs
+2916 1920 Crs
+3016 1803 Crs
+3116 1725 Crs
+3216 1678 Crs
+3316 1655 Crs
+3415 1644 Crs
+3515 1642 Crs
+3615 1642 Crs
+3715 1643 Crs
+3815 1646 Crs
+3915 1649 Crs
+4015 1651 Crs
+4115 1640 Crs
+4214 1630 Crs
+4314 1621 Crs
+4414 1614 Crs
+4514 1608 Crs
+4614 1602 Crs
+4714 1596 Crs
+4814 1591 Crs
+4914 1586 Crs
+5013 3269 Crs
+5113 3065 Crs
+5213 2896 Crs
+5313 2743 Crs
+3583 2976 Crs
 1.000 UP
 1.000 UL
+LTb
+LCb setrgbcolor
 LTb
 0.34 0.71 0.91 C LCb setrgbcolor
-1190 4206 M
-[ [(Helvetica) 140.0 0.0 true true 0 (nux)]
-] -46.7 MRshow
 1.000 UP
 1.000 UL
 LTb
-0.34 0.71 0.91 C 869 3383 Star
-1023 2284 Star
-1177 1783 Star
-1331 1687 Star
-1485 1695 Star
-1639 1683 Star
-1793 1645 Star
-1946 1622 Star
-2100 4255 Star
-2254 3613 Star
-2408 3102 Star
-2562 2735 Star
-2716 2471 Star
-2870 2259 Star
-3023 2104 Star
-3177 2007 Star
-3331 1927 Star
-3485 1861 Star
-3639 1811 Star
-3793 1776 Star
-3947 1748 Star
-4101 1726 Star
-4254 1709 Star
-4408 1698 Star
-4562 1692 Star
-4716 1688 Star
-4870 1687 Star
-5024 1687 Star
-5178 1687 Star
-5331 1687 Star
-5485 1688 Star
-5639 1689 Star
-5793 1690 Star
-5947 1692 Star
-6101 1694 Star
-6255 1696 Star
-6408 1698 Star
-6562 1700 Star
-6716 1702 Star
-6870 1705 Star
-1473 4206 Star
-% End plot #3
+0.34 0.71 0.91 C 1418 2547 Star
+1518 1815 Star
+1618 1482 Star
+1718 1419 Star
+1817 1423 Star
+1917 1415 Star
+2017 1391 Star
+2117 1375 Star
+2217 3127 Star
+2317 2699 Star
+2417 2359 Star
+2517 2116 Star
+2616 1940 Star
+2716 1799 Star
+2816 1696 Star
+2916 1631 Star
+3016 1578 Star
+3116 1534 Star
+3216 1501 Star
+3316 1478 Star
+3415 1459 Star
+3515 1444 Star
+3615 1433 Star
+3715 1426 Star
+3815 1421 Star
+3915 1419 Star
+4015 1419 Star
+4115 1418 Star
+4214 1418 Star
+4314 1419 Star
+4414 1419 Star
+4514 1420 Star
+4614 1420 Star
+4714 1422 Star
+4814 1423 Star
+4914 1424 Star
+5013 1426 Star
+5113 1427 Star
+5213 1428 Star
+5313 1430 Star
+3583 2756 Star
 2.000 UL
 LTb
 LCb setrgbcolor
+LTb
 1.000 UL
 LTb
-LCb setrgbcolor
-854 4619 N
-854 448 L
-6093 0 V
-0 4171 V
--6093 0 V
+1408 3369 N
+0 -2775 V
+3955 0 V
+0 2775 V
+-3955 0 V
 Z stroke
 1.000 UP
 1.000 UL
 LTb
-LCb setrgbcolor
 stroke
 grestore
 end
 showpage
 %%Trailer
-%%DocumentFonts: Helvetica
-%%Pages: 1
