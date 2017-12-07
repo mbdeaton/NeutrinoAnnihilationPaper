@@ -1199,15 +1199,15 @@ pseudo-spectral grid composed of 11 spherical-shell subdomains
 comprising a total of 62 radial grid points spaced approximately
 logarithmically across $r\in(0,740)$~km.
 The background scattering field $\Phi(\varepsilon)$ is supplied by
-\lstinline{GR1D} in the form of $J(\varepsilon_i)$,
+\lstinline{GR1D} in the form of $J(\tilde{\varepsilon}_i)$,
 with $\varepsilon_i$ representing 18 energy groups
 identical to those in the \lstinline{NuLib} table described in
 Sec.~\ref{ssec:test_equilibrium}.
-For the \emph{spectral} method we use $J(\varepsilon_i)$ directly,
+For the \emph{spectral} method we use $J(\tilde{\varepsilon}_i)$ directly,
 using zeroth-order interpolation between energy groups;
-for the \emph{gray} method we use $J=\sum J(\varepsilon_i) \Delta\varepsilon_i$,
-and $G=\sum J(\varepsilon_i) \Delta\varepsilon_i/\varepsilon_i$ instead,
-with $\Delta\varepsilon_i$ the bin-width of the $i$th energy group.
+for the \emph{gray} method we use $J=\sum J(\tilde{\varepsilon}_i) \Delta\tilde{\varepsilon}_i$,
+and $G=\sum J(\tilde{\varepsilon}_i) \Delta\tilde{\varepsilon}_i/\tilde{\varepsilon}_i$ instead,
+with $\Delta\tilde{\varepsilon}_i$ the bin-width of the $i$th energy group.
 
 For fiducial neutrino distributions we use the matter profile
 as input into a Monte Carlo radiation transport calculation using
@@ -1235,7 +1235,8 @@ Against the fiducial Monte Carlo distribution, we show the
 \emph{spectral} method and the \emph{gray} method.
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{fig-collapse_profile_avg_eps_vs_cosA}
+  %\includegraphics[width=\columnwidth]{fig-collapse_profile_avg_eps_vs_cosA}
+  \resizebox{\columnwidth}{!}{\input{fig-collapse_profile_avg_eps_vs_cosA.tex}}
   % Data:   $DIR/
   % Script: $DIR_GRAY_SC/../plot-compare_spectral_vs_gray-angular_distribution_avg_eps-production.gnu
   % w/  DIR_MC     =$DIR/ResultsSherwood-03/Spectra
@@ -1244,7 +1245,7 @@ Against the fiducial Monte Carlo distribution, we show the
   %     DIR_GRAY_AB=$DIR/ResultsBrett-B-03/Test-noscat-01
   % and DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20161007-ray_tracing_tests/CollapseProfile/
   \caption{Angular distribution of $\nu_x$ average energies
-    $\langle\varepsilon\rangle(\cos A)$
+    $\langle\tilde{\varepsilon}\rangle(\cos A)$
     in the collapse profile test (described in Sec.~\ref{ssec:test_collapse}).
     The observer is at 500~km, and the shock at 150~km,
     so that the half-opening angle of the shock is $\cos A\approx0.954$.
