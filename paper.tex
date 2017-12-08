@@ -1480,7 +1480,6 @@ Radial grid spacings are $\Delta r \approx 0.15$~km in the star
 and $\Delta r \approx 2.5$~km in the disk,
 with 12 cells spanning polar angles $\theta\in[0,\pi]$
 and 24 cells spanning azimuthal angles $\phi\in[0,2\pi]$.
-\footnote{TODO: way too-low angular resolution}
 Though a pseudospectral representation of non-smooth hydrodynamic data
 introduces some Gibbs-like oscillations in the variables,
 we choose to use this representation instead of the mesh-refined
@@ -1820,6 +1819,18 @@ of neutrinos coming from the disk.
 
 \subsection{Neutrino Oscillations at High Neutrino Densities}
 \label{ssec:V_nunu}
+In this section we examine the importance of elastic scattering in neutrino
+flavor oscillation above the hypermassive neutron star--disk configuration
+presented in Sec.~\ref{ssec:test_disk_comparison}.
+Our treatment of the flavor evolution equation assumes flat space and small fluid
+velocities.
+In consequence we treat some of gauge-dependent quantities inconsistently,
+and we ignore potentially important features of relativistic flavor evolution
+near compact objects.
+\footnote{TODO: cite Yang et Kneller}
+Such a cursory treatment is sufficient, however, for the following qualitative
+exploration.
+
 The Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) is one limiting
 form of the quantum kinetic equations for neutrinos
 \cite{vlas2014-neutrino_qkes},
@@ -1843,7 +1854,8 @@ and the quantum kinetic equations take a Schr\"{o}dinger-like form:
   \label{eqn:schroedinger}
   i \frac{d}{ds} S = H S,
 \end{equation}
-where $ds$ is an interval of proper length, and
+where $ds$ is an interval of proper length traversed by the neutrino as
+measured by our observer, and
 \footnote{TODO: mention $\bar{\nu}$ eqn}
 $S$ is the flavor evolution matrix describing a mixed state
 \begin{equation}
