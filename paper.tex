@@ -1467,39 +1467,21 @@ evolving fluid and spacetime through the
 final inspiral and merger of two identical neutron stars of
 isolated gravitational mass 1.2~$M_{\odot}$. The postmerger configuration
 was simulated using a gray M1 transport scheme for the neutrinos, evolving the
-energy density, number density, and energy flux \cite{fouc2016-m1_evolve_n}
-for $\sim10\,{\rm ms}$ following merger.
+energy density, number density, and energy flux in addition to the standard
+fluid and metric variables for $\sim10\,{\rm ms}$ following merger
+\cite{fouc2016-m1_evolve_n}.
 The fluid was modeled using the LS220 equation of state \cite{latt1991-nuc_eos}.
 
 We use a single time snapshot from that configuration
 at $t=11\,{\rm ms}$ after merger.
 In this way we approximate the system as stationary over a light-crossing time
 of around 1~ms, which is far below the thermal timescale of the remnant.
-The volume data are represented on a pseudospectral domain of a
-sphere with concentric shells extending to $r\approx1400$~km.
-Radial grid spacings are $\Delta r \approx 0.15$~km in the star
-and $\Delta r \approx 2.5$~km in the disk,
-with 12 cells spanning polar angles $\theta\in[0,\pi]$
-and 24 cells spanning azimuthal angles $\phi\in[0,2\pi]$.
-Though a pseudospectral representation of non-smooth hydrodynamic data
-introduces some Gibbs-like oscillations in the variables,
-we choose to use this representation instead of the mesh-refined
-finite difference grid of the evolution because the pseudospectral
-representation uses much less memory:
-95~MB in pseuspectral vs.\ 3~GB in finite difference representation.
-Obviously, memory loads of this order are not insurmountable;
-but they would require some modifications to our
-volume data interpolation infrastructure.
-For the purposes of this analysis the pseudospectral representation is adequate.
-
 Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat}
-show slices of density and temperature from the finite difference volume data.
+show slices of density and temperature from the finite difference
+fluid and M1 radiation data.
 These data were evolved on a rectilinear grid spanning approximately 400~km in
 both the $x$ and $y$ directions, and 150~km in the $z$ direction in our
-evolution coordinates. We extrapolate the fluid and M1 radiation data from
-this grid to the larger ray tracing grid by setting all variables to their
-floor values. This simple extrapolation is adequate for ray tracing since
-the neutrinos are almost entirely free-streaming outside the smaller domain.
+evolution coordinates.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{production-colormap-merid-rho}
@@ -1537,6 +1519,31 @@ the neutrinos are almost entirely free-streaming outside the smaller domain.
     star and disk configuration (Sec.~\ref{ssec:test_disk_comparison}).}
   \label{fig:nsns_temp_equat}
 \end{figure}
+
+We extrapolate the fluid and M1 radiation data from
+the domain shown in Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat}
+to a larger ray tracing domain by setting all fluid and M1 radiation variables
+to their floor values outside the smaller domain.
+This simple extrapolation is adequate for ray tracing since
+the neutrinos are almost entirely free-streaming outside the smaller domain.
+Since the metric data were evolved on this larger domain no extrapolation is
+needed for them.
+The larger domain is represented as a pseudospectral grid
+composed of a sphere with concentric shells extending to $r\approx1400$~km.
+Radial grid spacings are $\Delta r \approx 0.15$~km in the star
+and $\Delta r \approx 2.5$~km in the disk,
+with 12 cells spanning polar angles $\theta\in[0,\pi]$
+and 24 cells spanning azimuthal angles $\phi\in[0,2\pi]$.
+Though a pseudospectral representation of non-smooth hydrodynamic data
+introduces some Gibbs-like oscillations in the variables,
+we choose to use this representation instead of the mesh-refined
+finite difference grid of the evolution because the pseudospectral
+representation uses much less memory:
+95~MB in pseuspectral vs.\ 3~GB in finite difference representation.
+Obviously, memory loads of this order are not insurmountable;
+but they would require some modifications to our
+volume data interpolation infrastructure.
+For the purposes of this analysis the pseudospectral representation is adequate.
 
 Opacities are computed from the LS220 equation of state using
 \lstinline{NuLib} and are stored as a table covering
