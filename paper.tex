@@ -1742,6 +1742,7 @@ When we turn on scattering, the disk is no longer transparent to $\nu_x$,
 and $\nu_x$ luminosities present the same qualitative $\theta$-dependence
 as that of the other species.
 In general, scattering increases luminosities for polar observers
+\footnote{TODO: in compute-eta data not true anymore for $\nu_e$}
 ($\theta \sim 0^\circ$) because additional high energy neutrinos
 from the hypermassive neutron star are scattered by the disk back up to
 the observer.
@@ -1790,11 +1791,34 @@ for the observer on the polar axis $\theta=0^\circ$,
 and in the equatorial plane $\theta=90^\circ$,
 defined analagously to Eqn.~\ref{eqn:J_per_cosA}.
 As in the case of the collapse profile in Sec.~\ref{ssec:test_collapse},
-the dominant effect of \emph{scat} on $\tilde{G}(\cos A)$
+the dominant effect of elastic scattering on $\tilde{G}(\cos A)$
 is to spread the distribution out to larger angles, by generally decreasing
 the number of neutrinos coming from the core while increasing the number
 of neutrinos coming from the disk.
-\footnote{TODO: also examine spectra or average energies}
+\footnote{TODO: with compute-eta data also explain why $G_{\nu_e}>G_{\bar{\nu}_e}$
+  for $\theta=0$ at $\cos A>0.995$.}
+
+For the observer in the equatorial plane,
+Fig.~\ref{fig:nsns_cosA_distrib_G_90deg}, the disk is so optically thick to
+$\nu_e$ that there is very little difference between \emph{scat} and
+\emph{noscat} treatments for incoming angles $\cos A \lesssim 0.95$
+corresponding to the volume inside of $r \lesssim 80$~km.
+Also the stepped temperature gradient in the disk's spiral arms visible in
+Figs.~\ref{fig:nsns_temp_merid} and \ref{fig:nsns_temp_equat} presents as a
+stepped heavy-lepton neutrino number density distribution in
+Fig.~\ref{fig:nsns_cosA_distrib_G_90deg} in the \emph{noscat} treatment,
+since the pair production rate due to $e^{-}e^{+}$ annihilation,
+producing $\nu_x$, is especially sensitive to temperature, going as
+$T^9$ \cite[Sec.~7]{burr2006-neutrino_opacities}.
+This stepped distribution is not visible in $\nu_e$ and $\bar{\nu}_e$ emission,
+since we ignore pair processes for these species due to the dominance of
+absorption and emission processes, obeying a shallower temperature-dependence;
+nor is it visible in the \emph{scat} treatment of $\nu_x$, since scattering
+tends to smear the incoming angle of the emission;
+nor is it visible for any species or treatment in
+Fig.~\ref{fig:nsns_cosA_distrib_G_00deg}, since the integration over the
+azimuthal angle $B$ averages out any spiral structure for the observer
+on the polar axis.
 
 \begin{figure}
   %\includegraphics[width=\columnwidth]{cosA_distrib-intensity-250km-00deg}
