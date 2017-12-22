@@ -2009,7 +2009,24 @@ self-interaction potential \cite{malk2016-mnr_3}.
 
 The matter potential along this test ray is from an analytic wind
 model qualitatively consistent with the densities in the
-simulated volume (i.e.\ inside $r\sim70$~km).
+simulated volume (i.e.\ inside $r\sim70$~km) and asymptoting to the $r^{-3}$
+density field of a spherical steady-state wind.
+\footnote{TODO: confirm whether this is accurate}
+The rest density from this model is plotted in Fig.~\ref{fig:test_traj_density}.
+\footnote{TODO: cite Surman \& McLaughlin ApJ 618, 2005}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{profile-density-000Mo-025deg}
+  % Plot:    $DIR/RunBA/RunBA-025deg-noscat-production01/profile-density-000Mo-025deg.pdf
+  % Script:  $DIR/nu_potentials-production.nb
+  % Configs: $DIR/nu_potentials-wind_model.nb
+  %          $DIR/RunBA/RunBA-025deg-noscat-production01/nu_potentials-config-production.nb
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/
+  \caption{Assumed matter density along the neutrino test trajectory
+    used to calculate the matter potential $V_e$.
+    }
+  \label{fig:test_traj_density}
+\end{figure}
 
 In Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}
 we show the total unoscillated self-interaction potential
