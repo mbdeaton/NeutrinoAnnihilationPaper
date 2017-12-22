@@ -1912,7 +1912,8 @@ but for clarity we give their order-of-magnitude scales here:
   \label{eqn:scale_H_nunu}
   |H_{\nu\nu}|&\sim G_{\rm F} \left|G_{\nu_e}-G_{\bar{\nu}_e}\right|,
 \end{align}
-where $\Delta m$ is the mass difference between neutrino mass eigenstates,
+where $\Delta m^2$ is the mass-squared differences between neutrino mass
+eigenstates,
 $G_{\rm F}$ is the Fermi coupling constant,
 $n_{e^-}$ and $n_{e^+}$ are the electron and positron number densities,
 and $G_{\nu_e}$ and $G_{\bar{\nu}_e}$ the electron neutrino and antineutrino
@@ -1975,75 +1976,108 @@ or where $V_e - V_{\nu\nu,0}=0$, with
   \label{eqn:V_e}
   V_e &= \sqrt{2} G_{\rm F} \frac{\varrho}{m_N} Y_e, \\
   \label{eqn:V_nunu0}
-  V_{\nu\nu} &= \int d\varepsilon
+  V_{\nu\nu,0} &= \int d\varepsilon
   \big(V_{\nu_e,0}(\varepsilon)-V_{\bar{\nu}_e,0}(\varepsilon)\big),
 \end{align}
 with $\varrho$ the rest density and $m_{N}$ the nucleon mass.
-The matter potential is always positive;
-and outside the accretion disks formed in neutron star mergers,
+The matter potential $V_e$ is always positive;
+and far outside the accretion disks formed in neutron star mergers,
 in which the disrupted neutron-star matter is rapidly releptonizing,
-the neutrino self-interaction potential is large and negative.
+the total unoscillated neutrino self-interaction potential $V_{\nu\nu,0}$
+is large and negative.
 
 We examine this effect in the post-merger configuration already analyzed
 in Sec.~\ref{ssec:test_disk_comparison}.
-We calculate the self-interaction potential at $N_s=5$ points between
-$r\in[30,135]$~km,
-by sampling distribution functions over a grid with extents
-$N_\varepsilon=30$, $N_A=30$, $N_B=10$,
-over all angles and an energy range of $\varepsilon\in(0,100)$~MeV.
-\footnote{TODO: improve resolution and update}
+We calculate the self-interaction potential along a radial coordinate trajectory
+making an angle $\theta=25^\circ$ with the rotation axis,
+at $N_s=7$ positions $r\in\{30,50,82,135,223,368,608\}$~km.
+We sample distribution functions at each of these positions over a grid
+with extents $N_\varepsilon=30$, $N_A=200$, $N_B=30$;
+energies range over $\varepsilon\in(0,100)$~MeV;
+polar angles range over $\cos A \in ((\cos A)_{\rm min}, 1)$, with
+$(\cos A)_{\rm min}\in\{-1,-1,-1,0.488,0.849,0.947,0.981\}$
+for each of the $N_s$ positions;
+and azimuthal angles range over the whole sky $B\in[0,2\pi)$.
 We interpolate the logarithm of the self-interaction potentials
 (Eqn.~\ref{eqn:V_nu_alpha})
 in path length $\log s$ along the ray,
 by fitting a 3rd order spline with continuous derivative,
 across the $N_s$ observation points.
+For $r>608$~km we extrapolate the self-interaction potentials using the
+geometric fall-off of $r^{-4}$ applicable to the far-field limit of the
+self-interaction potential \cite{malk2016-mnr_3}.
+
 The matter potential along this test ray is from an analytic wind
 model qualitatively consistent with the densities in the
 simulated volume (i.e.\ inside $r\sim70$~km).
 
 In Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}
-we show the self-interaction potential and its contributions from
-$\nu_e$ and $\bar{\nu}_e$
-for a test neutrino ray moving out along a coordinate radial trajectory
-from the hypermassive neutron star used in Sec.~\ref{ssec:test_disk_comparison},
-along an angle of $\theta=22^\circ$ with respect to the polar axis.
-\footnote{TODO: note coordinate ray}
+we show the total unoscillated self-interaction potential
+and its contributions from $\nu_e$ and $\bar{\nu}_e$ for a test neutrino
+moving out along the radial coordinate trajectory described above.
 Fig.~\ref{fig:V_nunu-noscat} shows these terms for the \emph{noscat} treatment,
 and Fig.~\ref{fig:V_nunu-scat} for the \emph{scat} treatment.
-Obviously including the effects of elastic scattering
-tends to increase the $\bar{\nu}_e$ contribution relative to the $\nu_e$
-contribution, causing the self-interaction potential to stay negative
+Obviously, including the effects of elastic scattering tends to increase the
+$\bar{\nu}_e$ contribution relative to the $\nu_e$ contribution,
+in this case causing the self-interaction potential to be negative
 along the entire trajectory.
+This effect may be predicted from Fig.~\ref{fig:nsns_cosA_distrib_G_00deg},
+which is calculated for a qualitatively similar observer, in the vacated polar
+funnel of the disk:
+in the \emph{scat} treatment $G_{\bar{\nu}_e}$ dominates over $G_{\nu_e}$ at
+all angles $\cos A \lesssim 0.998$;
+whereas in the \emph{noscat} treatment $G_{\bar{\nu}_e}$ only dominates over
+$G_{\nu_e}$ over a range of forward-peaked angles $\cos A \in (0.965,0.998)$.
+An additional factor supporting this trend is that neutrinos from the most
+forward-peaked angles $\cos A \sim 1$ have a suppressed effect on the
+self-interaction potential due to the $(1-\cos A)$ term arising in the integral
+of Eqn.~\ref{eqn:V_nu_alpha}.
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{20170619-potentials-Vnue_Vnua_Vnu-000Mo-022deg-noscat}
-  % Data:   $DIR/000Mo-022deg-*km/Lev1-e30a60b10-noscat-00
-  % Script: $DIR/nu_potentials.nb
-  % Config: $DIR/RunAB/RunAB-noscat/nu_potentials-config-000Mo-02deg.nb
+  \includegraphics[width=\columnwidth]{20171223-potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg-noscat}
+  % Plot:   $DIR/RunBA/RunBA-025deg-noscat-production01/potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg.pdf
+  % Data:   $DIR/000Mo-025deg-*km/Lev2-e30a200b30-noscat-04
+  % Script: $DIR/nu_potentials-production.nb
+  % Config: $DIR/RunBA/RunBA-025deg-noscat-production01/nu_potentials-config-production.nb
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/
-  \caption{Neutrino self-interaction potential along a test trajectory
+  \caption{Neutrino oscillation potentials
+    along a test trajectory
     originating at the surface of the hypermassive neutron star, and
     proceeding outward along a radial coordinate ray with angle
-    $\psi=22^{\circ}$ with respect to the polar axis.
+    $\theta=25^{\circ}$ with respect to the polar axis.
     The trajectory is parameterized by the coordinate length $s$.
+    We plot the vacuum potential due to mass-squared differences (gray bands),
+    the matter potential $V_e$ due to forward scattering on $e^-$ and $e^+$
+    (dark green),
+    and the self-interaction potential $V_{\nu\nu,0}$ due to forward
+    scattering on ambient neutrinos (light green, solid where positive,
+    dashed where negative);
+    additionally we plot the $\nu_e$ and $\bar{\nu}_e$ components composing
+    the self-interaction potential (light blue and dark blue respectively).
     This calculation was done with scattering turned off.
-    Outside of the symmetric point at $s\sim40\,{\rm km}$, the potential is
-    positive, i.e.\ $\nu_e$-dominated.
-    Compare to Fig.~\ref{fig:V_nunu-scat}.
+    The two gray bands at $V\sim10^{-22}$~erg and $V\sim10^{-24}$~erg
+    indicating the two vacuum energy scales for 10--30~MeV neutrinos,
+    set the positions of possible Mikheyev-Smirnov-Wolfenstein (MSW)
+    or nutation resonances \cite{malk2012-mnr_1}.
+    Inside the symmetric point at $s\sim100\,{\rm km}$ the total unoscillated
+    self-interaction potential $V_{\nu\nu,0}$ is positive,
+    i.e.\ $\nu_e$-dominated.
     }
   \label{fig:V_nunu-noscat}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{20170619-potentials-Vnue_Vnua_Vnu-000Mo-022deg-scat}
-  % Data:   $DIR/000Mo-022deg-*km/Lev1-e30a60b10-scat-00
-  % Script: $DIR/nu_potentials.nb
-  % Config: $DIR/RunAB/RunAB-scat/nu_potentials-config-000Mo-02deg.nb
+  \includegraphics[width=\columnwidth]{20171223-potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg-scat}
+  % Plot:   $DIR/RunBA/RunBA-025deg-scat-production01/potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg.pdf
+  % Data:   $DIR/000Mo-025deg-*km/Lev2-e30a200b30-scat-04
+  % Script: $DIR/nu_potentials-production.nb
+  % Config: $DIR/RunBA/RunBA-025deg-scat-production01/nu_potentials-config-production.nb
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/
   \caption{Same as Fig.~\ref{fig:V_nunu-noscat},
     but with scattering turned on.
-    Unlike the case with scattering turned off, here the potential is
-    everywhere negative, i.e.\ $\bar{\nu}_e$-dominated.
+    Unlike the case with scattering turned off,
+    here the total unoscillated self-interaction potential $V_{\nu\nu,0}$
+    is everywhere negative, i.e.\ $\bar{\nu}_e$-dominated.
     }
   \label{fig:V_nunu-scat}
 \end{figure}
@@ -2054,6 +2088,7 @@ as described in \cite{zhu2016-mnr_nsns_remnant}.
 In Figs.~\ref{fig:survival-noscat} and \ref{fig:survival-scat}
 we show the survival probabilities for $\nu_e$ and $\bar{\nu}_e$
 for the two treatments.
+\footnote{TODO: update this paragraph to new compute-eta data}
 The survival probabilities are the terms of
 the flavor evolution matrix $S$ that describe how much of the original flux
 of a given flavor survives a transition.
@@ -2064,14 +2099,16 @@ is oscillated into $\nu_\mu$ and $\nu_\tau$; but the $\nu_e$ density doesn't
 vanish altogether,
 since some $\nu_\mu$ and $\nu_\tau$ oscillates into $\nu_e$.
 
-We see that the matter-neutrino resonance occurs in both treatments,
-but with the very different behaviors of symmetric and asymmetric
-resonances respectively for the \emph{noscat} and \emph{scat} cases,
-as seen in Figs.~\ref{fig:survival-noscat} and \ref{fig:survival-scat}.
-These two classes of matter-neutrino resonance
+For our assumed matter potential along this one test trajectory
+we see that a matter-neutrino resonance only occurs in the \emph{scat} case;
+though with a slightly higher matter potential it could occur in both cases,
+closer to the disk in the \emph{noscat} case than the \emph{scat} case.
+For this particular test trajectory we only see a standard and not a symmetric
+matter neutrino resonance;
+these two classes of matter-neutrino resonance
 are described for example in \cite{malk2016-mnr_3,vaan2016-uncovering_mnr}.
-This dramatic difference in survival probabilities between the \emph{noscat}
-and \emph{scat} cases along this test ray emphasizes the importance of
+The difference we see in the oscillation physics between the \emph{noscat}
+and \emph{scat} cases along this test trajectory highlights the importance of
 scattering physics in the problem of neutrino oscillations in
 neutron star mergers.
 
@@ -2080,7 +2117,8 @@ neutron star mergers.
   % Flavor evolution by Yonglin, see emails 7.19.17-7.20.17
   % Plot: $DIR/31-900kmNHnoScatterPot.eps
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunAB/probabilityPotential
-  \caption{Neutrino survival probabilties for the \emph{noscat} case.
+  \caption{Neutrino survival probabilities for the \emph{noscat} case.
+    \footnote{TODO: Replace; this is from the old interp-eta data}
     In the lower panel we reproduce the unoscillated self-interaction potential
     $V_{\nu\nu,0}$ from Fig.~\ref{fig:V_nunu-noscat} and a matter potential
     computed assuming a very simple steady state wind consistent with the
@@ -2099,6 +2137,7 @@ neutron star mergers.
   % Plot: $DIR/130-800kmNHScatterPot.eps (normal hierarchy)
   \caption{Same as Fig.~\ref{fig:survival-noscat},
     but with scattering turned on.
+    \footnote{TODO: Replace; this is from the old interp-eta data}
     In this case the neutrinos undergo a standard MNR transition
     outside of $r>200$~km,
     with the $e$-flavor neutrinos and antineutrinos
@@ -2106,12 +2145,6 @@ neutron star mergers.
     }
   \label{fig:survival-scat}
 \end{figure}
-
-%\subsection{Neutrino Annihilation Integral}
-%\label{ssec:q_nunu}
-%In this section we calculate $q_{\nu\bar{\nu}}$ at a representative point
-%in the funnel of the NSNS configuration and show that including scattering makes
-%a difference (or not) in our estimate of the power available to drive a jet.
 
 \section{Conclusions}
 \label{sec:conclusions}
