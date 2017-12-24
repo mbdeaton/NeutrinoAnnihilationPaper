@@ -2009,11 +2009,35 @@ self-interaction potential \cite{malk2016-mnr_3}.
 
 The matter potential along this test ray is from an analytic wind
 model qualitatively consistent with the densities in the
-simulated volume (i.e.\ inside $r\sim70$~km) and asymptoting to the $r^{-3}$
-density field of a spherical steady-state wind.
-\footnote{TODO: confirm whether this is accurate}
+simulated volume (i.e.\ inside $r\sim70$~km) and asymptoting to the $r^{-2}$
+density field of a spherical steady-state wind with a constant asymptotic
+velocity.
+The velocity and density fields of a spherical steady-state wind
+obey the continuity equation $\rho(r)v(r)r^2=\rho_1 v_1 r_1^2$,
+with $\rho_1$ and $v_1$ the density and velocity measured at some fiducial
+radius $r_1$.
+For velocity field we choose a phenomenological wind model used in the
+oscillation literature\footnote{TODO: cite Surman \& McLaughlin ApJ 618, 2005}
+\begin{equation}
+  v(r) = v_1 \left(1-\frac{R}{r_1}\right)^{-\beta}
+  \left(1-\frac{R}{r}\right)^{\beta},
+\end{equation}
+with $R$ the wind launch radius and $\beta$ an acceleration parameter.
+This yields the following density field
+\begin{equation}
+  \rho(r)=\rho_1 C\left[\frac{r_1}{R}\right]
+  \left(1-\frac{R}{r}\right)^{-\beta}\left(\frac{R}{r}\right)^2,
+\end{equation}
+with $C[a]=a^{2-\beta}(a-1)^\beta$.
+We use the parameters $R=10$~km, $R_1=50$~km, $\beta=2$,
+and $\rho_1=10^7\,{\rm g}\,{\rm cm}^{-3}$.
+Additionally we impose a density cap of
+$\rho_{\rm max}=10^{14}\,{\rm g}\,{\rm cm}^{-3}$ inside the radius $r_0=5$~km,
+and smoothly interpolate densities between $r_0$ and $r_1$ with a cubic polynomial,
+enforcing $C^0$ and $C^1$ continuity at the transitions.
 The rest density from this model is plotted in Fig.~\ref{fig:test_traj_density}.
-\footnote{TODO: cite Surman \& McLaughlin ApJ 618, 2005}
+To translate this density field to a matter potential, we assume a constant
+electron fraction of $Y_e=0.5$.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{profile-density-000Mo-025deg}
