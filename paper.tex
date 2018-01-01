@@ -72,10 +72,12 @@
   elastic scattering of neutrinos off of nuclei and nucleons
   (changing the neutrino's direction but not energy)
   by incorporating estimates of the background neutrino fields.
+  Background fields provide information about the spectra and intensities of
+  the neutrinos scattered into each ray.
   These background fields may be taken from a low-order moment simulation
   or be ignored, in which case the method
   reduces to a standard state-of-the-art ray tracing formulation.
-  It handles radiation in regimes spanning optically thick to optically thin.
+  The method handles radiation in regimes spanning optically thick to optically thin.
   We test the new code, highlight its strengths and weaknesses,
   and apply it to a simulation of a neutron star merger
   to compute neutrino fluxes and spectra,
@@ -206,24 +208,16 @@ blackbody spectra by integrating a local emissivity along each geodesic
 \cite{youn2012-gr_radiative_transfer} for photons).
 But no formulations to date account for the important scattering and pair
 processes outlined in Tab.~\ref{tab:neutrino_processes}.
-
-We build upon existing ray tracing formulations
+We build upon these existing ray tracing formulations
 by eschewing any assumptions about the spacetime geometry,
 integrating local emissivities,
 and including elastic scattering in the integration along each geodesic.
-To incorporate scattering processes in our method, we employ estimates of the
-lowest-order moment of the neutrino distribution function
-computed in an M1 transport simulation.
-If moments are not available either from
-an M1 transport evolution or a trustworthy analytical estimate,
-our method reduces to the current state-of-the-art ray tracing method,
-neglecting scattering.
 
 %\subsubsection*{Why does a covariant formulation matter?}
 We formulate the ray tracing equations covariantly---free from
 assumptions about the spacetime geometry or coordinates. This is essential
 because we want to apply the method as a postprocessing step using
-time snapshots of data computed from general relativistic evolutions.
+time snapshots of data computed from time-dependent general relativistic evolutions.
 The spacetime represented in these snapshots is not analytic (i.e. Kerr).
 And even in configurations that are described well by the Kerr metric
 (e.g. a low-mass disk around a massive black hole),
@@ -274,8 +268,13 @@ Tab.~\ref{tab:neutrino_processes}.
 In this paper we outwit this limitation by incorporating coupled source terms
 that depend on either previously-evolved or analytical
 estimates of the neutrino fields.
-We also retain the freedom to drop the coupling terms, in which case our method
-becomes similar to existing state-of-the-art ray tracing methods.
+To incorporate scattering processes in our method, we employ estimates of the
+lowest-order moment of the neutrino distribution function
+computed in an M1 transport simulation.
+If moments are not available either from
+an M1 transport evolution or a trustworthy analytical estimate,
+we may drop the coupling terms and our method reduces to the current
+state-of-the-art ray tracing methods neglecting scattering.
 Our method is not a standalone radiation transport scheme,
 but serves as the final component of a hybrid scheme,
 piggy-backing on a lower-order radiation transport method as a
@@ -426,7 +425,11 @@ on neutrino and antineutrino distribution functions at other momenta
 (i.e.\ Fermi-blocking).
 We consider the two dominant classes of interactions in this work:
 the absorption/emission (AE) and elastic scattering (SE) processes
-listed in Tab.~\ref{tab:neutrino_processes}.
+listed in Tab.~\ref{tab:neutrino_processes};
+note that we also include the important thermal pair processes (PP) for
+heavy-lepton neutrinos by incorporating an approximate pair emissivity
+into their absorption/emission coefficients;
+see App.~\ref{sec:source_terms} for details.
 Thus we separate these coefficients:
 \begin{align}
   \label{eqn:inv_emissivity_components}
@@ -513,17 +516,6 @@ in the free-streaming limit at a distance $r$ from a source,
 $\Phi$ attenuates as $r^{-2}$.
 See App.~\ref{ssec:sources_se} for details.
 
-We may use Eqns.~\ref{eqn:ae_emissivity_feq} and \ref{eqn:se_emissivity}
-to separate the source function thus:
-$\mathscr{S}=\mathscr{S}_{\rm AE}+\mathscr{S}_{\rm SE}$, with
-\begin{align}
-  \label{eqn:source_ae}
-  \mathscr{S}_{\rm AE}
-  &= \frac{\mathscr{K}_{\rm AE}}{\mathscr{K}} f^{\rm eq}, \\
-  \label{eqn:source_se}
-  \mathscr{S}_{\rm SE}
-  &= \frac{\mathscr{K}_{\rm SE}}{\mathscr{K}} \Phi.
-\end{align}
 With these definitions we write a separated form of
 Eqn.~\ref{eqn:boltzmann_linear_s}:
 \begin{equation}
@@ -540,6 +532,18 @@ toward $\Phi$ over an affine lengthscale $\mathscr{K}_{\rm SE}^{-1}$.
 (Eqn.~\ref{eqn:proper_length} translates affine length to proper length
 for a given observer; in this case the proper length scale is
 $\varepsilon/\mathscr{K}$.)
+
+%Also we may use Eqns.~\ref{eqn:ae_emissivity_feq} and \ref{eqn:se_emissivity}
+%to separate the source function thus:
+%$\mathscr{S}=\mathscr{S}_{\rm AE}+\mathscr{S}_{\rm SE}$, with
+%\begin{align}
+%  \label{eqn:source_ae}
+%  \mathscr{S}_{\rm AE}
+%  &= \frac{\mathscr{K}_{\rm AE}}{\mathscr{K}} f^{\rm eq}, \\
+%  \label{eqn:source_se}
+%  \mathscr{S}_{\rm SE}
+%  &= \frac{\mathscr{K}_{\rm SE}}{\mathscr{K}} \Phi.
+%\end{align}
 
 This paper introduces the use of neutrino densities and fluxes evolved in an
 M1 transport simulation to estimate the background field, $\Phi$.
