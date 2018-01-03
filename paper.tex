@@ -564,11 +564,11 @@ $\Phi(\varepsilon)$ in two different ways:
 \subsection{Trajectories}
 \label{ssec:trajectories}
 Each trajectory is uniquely labeled by a pair of vectors
-giving some event on the trajectory, $x^\alpha$,
+giving an event on the trajectory, $x^\alpha$,
 and the momentum at that event, $p_\beta$.
-A family of trajectories shares the same $x^\alpha$; for example,
-the family of emission trajectories is ($x^\alpha_e,p_\beta$),
-and the family of observation trajectories is ($x^\alpha_o,p_\beta$).
+To designate a family of intersecting trajectories, we keep constant either
+the emission event $x^\alpha_e$ or
+the observation event $x^\alpha_o$.
 
 Neutrino trajectories obey the geodesic equation, which may be decomposed into
 the coupled first-order equations
@@ -661,7 +661,6 @@ is the total optical depth.
 
 \subsection{Moments of the Distribution Function}
 \label{ssec:moments}
-\footnote{TODO: code these up}
 We may take angular moments of the distribution function:
 \begin{align}
   \label{eqn:J}
@@ -683,7 +682,7 @@ Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
 momentum space while holding $\varepsilon$ constant:
 $d\Omega \equiv d(\cos a)\,db$.
 \footnote{TODO: consistent with Eqn.~\ref{eqn:def_direction}?}
-We also make use of the number density and flux defined
+We also make use of the specific number density and specific number flux defined
 \begin{align}
   \label{eqn:G}
   G(\varepsilon) &=
@@ -792,18 +791,19 @@ density $\varrho$,
 temperature $T$,
 and electron fraction $Y_e$,
 all defined in App.~\ref{sec:definitions}.
-These fields are stored in spectral representation.
-If they are computed via hydrodynamical simulation, they may be saved to disk
-at specified coordinate times and interpolated
+These fields are computed in a preprocessing step before ray tracing
+and stored in spectral representation.
+If they are computed from a hydrodynamical simulation, they may be saved to disk
+at either one or several specified coordinate times and interpolated
 with spectral interpolation in space,
 and 1st-order polynomial interpolation in time
 (as described in \cite[App.~B]{bohn2016-code}).
-If computed from a quasi-stationary solution to the
-general relativistic hydrodynamics equations,
-a single time is stored to disk, and no time interpolation is needed.
+If computed from a stationary solution to the
+general relativistic hydrodynamics equations no time interpolation is needed.
 In this paper for simplicity and to limit computational memory loads,
-we limit ourselves to quasistationary configurations
-and use single time slices in every test case.
+we use only stationary analytical solutions or
+quasi-stationary configurations evolved in simulation,
+thus using one time slice and no time interpolation in every case.
 
 \section{Code Tests}
 \label{sec:tests}
@@ -1119,8 +1119,11 @@ radiation codes
 We sample the distribution function over a uniform grid of
 30 points in angle $\cos A \in [0.734,1]$ and
 40 points in energy $\tilde{\varepsilon} \in [0,100]$~MeV.
-Because of the step function in fluid variables at radius $R$,
-we throttle the maximum step size at 1.25~km.
+Because of the discontinuity in fluid variables at radius $R$,
+we limit the time step size to a maximum of $t_{\rm max}=1.25$~km,
+since as the ray approaches the discontinuity in the homogeneous environment
+outside the star, the adaptive time-stepper would otherwise
+increase the step size far beyond the relevant fluid scales.
 
 In Fig.~\ref{fig:f_absorption_sphere} we display the samples at
 $\varepsilon=11.25$~MeV, along with the analytic functions
@@ -1448,8 +1451,8 @@ we use $\eta_\nu$ in the \emph{gray} treatment to construct our
 synthetic spectrum from total neutrino densities $J$ and $G$.
 This error and our successful analysis using pinched spectra above,
 points the way to future improvements to the \emph{gray} method:
-making better assumptions about the spectra which don't depend upon
-local fluid quantities.
+making better assumptions about the spectra which are less sensitive
+to local fluid quantities.
 
 \subsection{Hypermassive Neutron Star Remnant:
   Testing Everything}
@@ -1457,22 +1460,22 @@ local fluid quantities.
 The merger of two neutron stars by gravitational wave emission produces a
 postmerger configuration composed of a single neutron star surrounded by a disk.
 Because of strong differential rotation and shock heating,
-the remnant temporarily avoids
-collapse to a black hole, even if its mass exceeds the threshold of dynamical
+the remnant may temporarily avoid collapse to a black hole,
+even if its mass exceeds the threshold of dynamical
 instability for a rigidly rotating neutron star \cite{duez2009-review}.
 These objects, called hypermassive neutron stars,
-may avoid collapse for $X\textrm{--}Y$~s,
-\footnote{TODO: cite $X$, $Y$}
+may avoid collapse for thousands of seconds
+\footnote{TODO: cite Rezzolla et Kumar 2014, Ravi et Lasky 2014},
 depending upon a number of physical factors including thermal pressure,
 magnetic fields, and the microphysics of the fluid.
 
 Such a configuration was modeled in \cite{fouc2016-m1_nsns} by
 evolving fluid and spacetime through the
 final inspiral and merger of two identical neutron stars of
-isolated gravitational mass 1.2~$M_{\odot}$. The postmerger configuration
+isolated gravitational mass 1.2~$M_{\odot}$. The configuration
 was simulated using a gray M1 transport scheme for the neutrinos, evolving the
 energy density, number density, and energy flux in addition to the standard
-fluid and metric variables for $\sim10\,{\rm ms}$ following merger
+fluid and metric variables to $\sim11\,{\rm ms}$ following merger
 \cite{fouc2016-m1_evolve_n}.
 The fluid was modeled using the LS220 equation of state \cite{latt1991-nuc_eos}.
 
@@ -1599,8 +1602,8 @@ with $f_m \equiv f(\tilde{\varepsilon}_m,\cos A_m, B_m)$,
 $\Delta \equiv \Delta\tilde{\varepsilon}\, \Delta(\cos A)\, \Delta B$,
 $N \equiv N_{\tilde{\varepsilon}}\, N_A\, N_B$,
 and $m$ the index labeling each ray.
-Average energies are given by
-$\langle\tilde{\varepsilon}\rangle(\theta)=H^r(\theta)/K^r(\theta)$.
+Average energies in the coordinate frame are given by
+$\langle\tilde{\varepsilon}\rangle(\theta)=\tilde{H}^r(\theta)/\tilde{K}^r(\theta)$.
 We choose $N_{\tilde{\varepsilon}}=30$, $N_A=150$, and $N_B=20$.
 To maintain high angular resolution, we only sample rays that pass within
 approximately 120~km of the star's center by setting $(\cos A)_{\rm min}=0.88$.
@@ -1641,10 +1644,12 @@ of all-sky luminosities, we do not expect perfect agreement since the two
 treatments differ fundamentally. In addition to differences in the physics
 such as the treatment of inelastic scattering,
 M1 fluxes are integrated over the outer boundary of the finite-difference grid
-at radii as small as 75~km,
+at radii ranging from 75~km to 200~km,
 whereas the ray tracing fluxes are integrated over a sphere at radius 250~km,
-introducing a time lag between the two measurements of under a millisecond.
-Furthermore uncertainties from the M1 simulation are around
+introducing a time lag between some of the fluxes used in the measurements
+of order one millisecond.
+Additionally, uncertainties for the M1 simulation may be estimated from
+comparisons between M1 methods to be around
 15\% for energy luminosities and
 10\% for average energies \cite[Sec.~A.6]{fouc2016-m1_evolve_n}.
 
