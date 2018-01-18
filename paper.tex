@@ -681,7 +681,6 @@ Here ``specific'' refers to the quantity being integrable over neutrino energy.
 Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
 momentum space while holding $\varepsilon$ constant:
 $d\Omega \equiv d(\cos a)\,db$.
-\footnote{TODO: consistent with Eqn.~\ref{eqn:def_direction}?}
 We also make use of the specific number density and specific number flux defined
 \begin{align}
   \label{eqn:G}
@@ -957,8 +956,8 @@ $f^{\rm eq}_{\{\nu_e,\bar{\nu}_e,\nu_x\}}=\{0.039, 0.053, 0.046\}$
 within a few mean free paths;
 in the \emph{scat} cases it is the sums $f_{\rm AE}+f_{\rm SE}$ that
 achieve these values.
-And the lengths of the rays are proportional to the mean free paths:
-$L_{\nu_x}>L_{\bar{\nu}_e}>L_{\nu_e}$;
+And the lengths of the rays are proportional to the mean free paths $L$,
+which obey the hierarchy $L_{\nu_x}>L_{\bar{\nu}_e}>L_{\nu_e}$;
 in the \emph{scat} cases these lengths are less than in the \emph{noscat} cases,
 since the total mean free paths are less than the absorption mean free paths
 (significantly so for $\nu_x$, negligibly so for $\nu_e$).
@@ -1198,8 +1197,8 @@ The matter is described by the LS180 equation of state \cite{latt1991-nuc_eos},
 and the opacities are computed and stored in a table
 as described in Sec.~\ref{ssec:test_equilibrium}.
 This standard test is also presented for example in
-\cite{ocon2015-gr1d_with_nu,fouc2015-m1_nsbh,abdi2012-monte_carlo}.
-\footnote{TODO: also lieb2005, mull2010}
+\cite{ocon2015-gr1d_with_nu,fouc2015-m1_nsbh,abdi2012-monte_carlo,
+}.
 
 The matter profile and background field are stored on a spherical
 pseudo-spectral grid composed of 11 spherical-shell subdomains
@@ -1277,16 +1276,15 @@ Although not shown here, the angular distribution contributing to the
 total number density is also strongly affected by elastic scattering.
 Without elastic scattering, the central regions emitting 60\%
 of the neutrinos for the species $\{\nu_e,\bar{\nu}_e,\nu_x\}$
-have scales $R_\nu\approx\{40,35,20\}$~km;
+have length scales $r_\nu\approx\{40,35,20\}$~km;
 with elastic scattering the scales are
-$R_\nu\approx\{50,45,35\}$~km.
-\footnote{TODO: use a consistent lengthscale symbol throughout paper. $d$? $D$? $r$? $l$?}
+$r_\nu\approx\{50,45,35\}$~km.
 % From by-hand summation over histogram G(cosA_i)*dcosA
 % Script: $DIR/plot-compare_scat_vs_noscat-G_angular_distribution-all.gnu
 % DIR=.../20161007-ray_tracing_tests/CollapseProfile/ResultsBrett-B-03
 
-Total luminosities and average energies from the different treatments are
-\footnote{TODO: update MC results 02$\rightarrow0$3}
+The total luminosities and average energies
+measured by the different treatments are
 presented in Tab.~\ref{tab:collapse_rt_vs_mc}.
 \footnote{TODO: give equation for L}
 As expected, $\nu_e$ is least affected by scattering, and $\nu_x$ most.
@@ -1303,7 +1301,7 @@ faithfully describe the high scattered energies from the envelope.
 \begin{table}%[h]
   % to get mc luminosities: tail $MCDATA/Spectra/luminosities_and_avg_eps-501km-nu?.dat
   % to get rt luminosities: tail $RTDATA/Moments-nu?.out
-  % MCDATA=$DIR/ResultsSherwood-02
+  % MCDATA=$DIR/ResultsSherwood-02 (02 data is velocity-independent, but very little diff)
   % RTDATA_NO=$DIR/ResultsBrett-B-03/Test-noscat-01/
   % RTDATA_GR=$DIR/ResultsBrett-B-03/Test-scat-01/
   % RTDATA_SP=$DIR/ResultsBrett-A-03/Test-scat-01/
@@ -1465,9 +1463,9 @@ even if its mass exceeds the threshold of dynamical
 instability for a rigidly rotating neutron star \cite{duez2009-review}.
 These objects, called hypermassive neutron stars,
 may avoid collapse for thousands of seconds
-\footnote{TODO: cite Rezzolla et Kumar 2014, Ravi et Lasky 2014},
 depending upon a number of physical factors including thermal pressure,
-magnetic fields, and the microphysics of the fluid.
+magnetic fields, and the microphysics of the fluid
+\cite{rezz2015-two_winds,ravi2014-hmns_collapse}.
 
 Such a configuration was modeled in \cite{fouc2016-m1_nsns} by
 evolving fluid and spacetime through the
@@ -1868,9 +1866,8 @@ Our treatment of the flavor evolution equation assumes flat space and small flui
 velocities.
 In consequence we treat some of gauge-dependent quantities inconsistently,
 and we ignore potentially important features of relativistic flavor evolution
-near compact objects.
-\footnote{TODO: cite Yang et Kneller}
-Such a cursory treatment is sufficient, however, for the following qualitative
+near compact objects \cite{yang2017-gr_nu_oscillations}.
+We believe our treatment is sufficient, however, for the following qualitative
 exploration.
 
 The Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) is one limiting
@@ -1949,7 +1946,7 @@ This is the so-called single-angle approximation.
 \footnote{TODO: say something about its validity}
 Though widely used in the supernova oscillation literature
 and shown to be qualitatively faithful in those environments,
-\footnote{TODO: cite vlasenko?}
+\footnote{TODO: cite someone}
 a recent study has shown that the single-angle approximation
 may mask certain instabilities in the flavor evolution
 \cite{wu2017-fast_neutrino_conversions}.
@@ -2026,7 +2023,7 @@ obey the continuity equation $\rho(r)v(r)r^2=\rho_1 v_1 r_1^2$,
 with $\rho_1$ and $v_1$ the density and velocity measured at some fiducial
 radius $r_1$.
 For velocity field we choose a phenomenological wind model used in the
-oscillation literature \footnote{TODO: cite Surman \& McLaughlin ApJ 618, 2005}
+oscillation literature \cite{surm2005-nu_and_grb_outflows}
 \begin{equation}
   v(r) = v_1 \left(1-\frac{R}{r_1}\right)^{-\beta}
   \left(1-\frac{R}{r}\right)^{\beta},
@@ -2073,7 +2070,7 @@ Additionally, the true radial profile of the ejecta from this merger
 will have many more features inside this radius, including shock jumps.
 This model density profile is adequate as a backdrop to our study here, however,
 since we expect the remnant to present similar neutrino emission over a thermal
-timescale of a few tens of milliseconds \footnote{cite Nouri et al 2018}
+timescale of a few tens of milliseconds \footnote{TODO: cite someone}
 while the matter field propagates out to larger radii.
 
 In Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}
@@ -2642,7 +2639,7 @@ we call this the \emph{gray} method.
 \subsection{Inelastic scattering}
 \label{ssec:sources_si}
 Neutrino scattering off of electrons is inelastic, changing the
-magnitude and direction of the species' momenta.
+magnitude and direction of the neutrino's momentum.
 \footnote{TODO: cite \cite{keil2003-pinched_spectra} or someone}
 A similar formalism to the above could be used to derive source terms
 for inelastic scattering.
