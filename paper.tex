@@ -1707,7 +1707,10 @@ constant in $\theta$, because the disk is optically thin to $\nu_x$,
 and most of the neutrinos come from the hypermassive neutron star,
 which is roughly spherical.
 The slight upward trend in $\nu_x$ luminosities with $\theta$ may be due to
-asymmetries in the configuration.
+asymmetries in the fluid configuration,
+inhomogeneous coordinate maps used in the hydrodynamics evolution,
+or the fact that equatorial observers are closer to the disk's hot spiral arms
+than are polar observers.
 It is not due to the Doppler shift or relativistic beaming
 from the rapid rotation of the star,
 a hypothesis we tested by setting $u_i=0$ and $W=1$ in the ray
@@ -1716,6 +1719,7 @@ Because of their larger absorption cross section,
 the disk is not optically thin to $\nu_e$ and $\bar{\nu}_e$,
 and observers within view of the hot hypermassive neutron star measure
 the largest radial fluxes of these species.
+
 \begin{figure}
   %\includegraphics[width=\columnwidth]{theta_distrib-250km-Kr}
   \resizebox{\columnwidth}{!}{\input{theta_distrib-250km-Kr.tex}}
@@ -1947,14 +1951,13 @@ This is the so-called single-angle approximation.
 Though widely used in the supernova oscillation literature
 and shown to be qualitatively faithful in those environments,
 \footnote{TODO: cite someone}
-a recent study has shown that the single-angle approximation
+we note that a recent study has shown that the single-angle approximation
 may mask certain instabilities in the flavor evolution
 \cite{wu2017-fast_neutrino_conversions}.
 
-Within the single-angle approximation,
-solving for the flavor evolution history along a given test ray
-requires knowledge of the unoscillated neutrino contribution to the Hamiltonian
-along that trajectory.
+The formalism of the single-angle approximation requires knowledge of
+the unoscillated neutrino contribution to the Hamiltonian
+along a given test trajectory.
 This is a function of the unoscillated neutrino self-interaction potential,
 which for the $\alpha$-th flavor is:
 \begin{equation}
@@ -1969,6 +1972,14 @@ and the cosine of the angle between these given by
 $\varpi'=\psi^{\mu\gamma} \ell_\mu \ell'_\gamma$.
 As in the moment equations (Eqns.~\ref{eqn:J}-\ref{eqn:Ka}),
 the integral is taken over all directions $\ell'_\gamma$.
+
+Implementing the single-angle approximation, we first use ray tracing to compute
+the unoscillated neutrino self-interaction potentials $V_{\nu_\alpha,0}$
+at several points along a test neutrino trajectory.
+We then integrate the flavor evolution matrix $S$ along this test trajectory,
+interpolating $V_{\nu_\alpha,0}$ to all points sampled by the integration.
+And at each integration step we rescale $V_{\nu_\alpha,0}$ according to the
+mixing specified by $S$.
 
 If conditions are right, a resonant flavor transition
 introducing significant mixing may occur very near
