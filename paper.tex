@@ -245,11 +245,51 @@ The ray tracing method we present in this paper captures the dominant effects
 of elastic scattering, while leaving the physics of inelastic scattering and
 pair processes for later work.
 
+\begin{table}%[h]
+  \caption{
+    We analyze neutrino interaction processes in terms of these categories.
+    $\nu$ without a label represents a neutrino or antineutrino of any flavor,
+    $N$ represents a nucleon $n$ or $p$,
+    ${}^ZA$ represents a nucleus with mass number $A$ and charge $Z$, and
+    $\gamma$ represents a high-energy photon.
+    A prime indicates a change in that particle's energy.
+  }
+  \label{tab:neutrino_processes}
+  \begin{tabularx}{\columnwidth}{X X}
+    \hline \hline
+    absorption/emission
+    & $\nu_e + n \leftrightarrow e^- + p$                          \\
+    & $\bar{\nu}_e + p \leftrightarrow e^+ + n$                    \\
+    & $\nu_e + {}^AZ \leftrightarrow e^- + {}^A(Z+1)$              \\
+    & $\bar{\nu}_e + {}^AZ \leftrightarrow e^+ + {}^A(Z-1)$        \\
+    \hline
+    elastic scattering
+    & $\nu + N \leftrightarrow \nu + N$                            \\
+    & $\nu + {}^AZ \leftrightarrow \nu + {}^AZ$                    \\
+    \hline
+    inelastic scattering
+    & $\nu + e^- \leftrightarrow \nu' + e^{-'}$                    \\
+    & $\nu + e^+ \leftrightarrow \nu' + e^{+'}$                    \\
+    \hline
+    thermal pair processes
+    & $\nu + \bar{\nu} \leftrightarrow e^{-} + e^{+}$              \\
+    & $\nu + \bar{\nu} + N + N \leftrightarrow N' + N'$            \\
+    & $\nu + \bar{\nu} \leftrightarrow \gamma$                     \\
+    % & $\nu_\alpha + \bar{\nu}_\alpha \leftrightarrow \nu_\beta + \bar{\nu}_\beta $ \\
+    \hline \hline
+  \end{tabularx}
+\end{table}
+
 %\subsubsection*{In what ways is this method limited?}
 Ray tracing is ideally suited to problems requiring detailed knowledge of
 radiation distribution functions over small regions of spacetime:
 for example along a matter or radiation trajectory,
 or over a small volume outside a source.
+Furthermore, our method is time-dependent, allowing us to compute radiation
+fields in dynamical systems. But it is formulated as a post-processing step,
+with the ray tracing computated on volume data saved in several steps
+of the fluid evolution.
+Thus for dynamical systems the memory demands can be prohibitively large.
 
 More fundamentally, though, ray tracing is limited by its naive
 treatment of the Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}),
@@ -1868,7 +1908,7 @@ flavor oscillation above the hypermassive neutron star--disk configuration
 presented in Sec.~\ref{ssec:test_disk_comparison}.
 Our treatment of the flavor evolution equation assumes flat space and small fluid
 velocities.
-In consequence we treat some of gauge-dependent quantities inconsistently,
+In consequence we treat some of the gauge-dependent quantities inconsistently,
 and we ignore potentially important features of relativistic flavor evolution
 near compact objects \cite{yang2017-gr_nu_oscillations}.
 We believe our treatment is sufficient, however, for the following qualitative
@@ -2391,41 +2431,6 @@ library \lstinline{NuLib}~\footnote{\url{http://www.nulib.org}}.
 We compile a table of sources defined over the four dimensions of
 density, temperature, electron-fraction, and neutrino energy, and
 interpolate quad-linearly to the points sampled along each ray.
-
-\begin{table}%[h]
-  \caption{
-    We analyze neutrino interaction processes in terms of these categories.
-    $\nu$ without a label represents a neutrino or antineutrino of any flavor,
-    $N$ represents a nucleon $n$ or $p$,
-    ${}^ZA$ represents a nucleus with mass number $A$ and charge $Z$, and
-    $\gamma$ represents a high-energy photon.
-    A prime indicates a change in that particle's energy.
-  }
-  \label{tab:neutrino_processes}
-  \begin{tabularx}{\columnwidth}{X X}
-    \hline \hline
-    absorption/emission
-    & $\nu_e + n \leftrightarrow e^- + p$                          \\
-    & $\bar{\nu}_e + p \leftrightarrow e^+ + n$                    \\
-    & $\nu_e + {}^AZ \leftrightarrow e^- + {}^A(Z+1)$              \\
-    & $\bar{\nu}_e + {}^AZ \leftrightarrow e^+ + {}^A(Z-1)$        \\
-    \hline
-    elastic scattering
-    & $\nu + N \leftrightarrow \nu + N$                            \\
-    & $\nu + {}^AZ \leftrightarrow \nu + {}^AZ$                    \\
-    \hline
-    inelastic scattering
-    & $\nu + e^- \leftrightarrow \nu' + e^{-'}$                    \\
-    & $\nu + e^+ \leftrightarrow \nu' + e^{+'}$                    \\
-    \hline
-    thermal pair processes
-    & $\nu + \bar{\nu} \leftrightarrow e^{-} + e^{+}$              \\
-    & $\nu + \bar{\nu} + N + N \leftrightarrow N' + N'$            \\
-    & $\nu + \bar{\nu} \leftrightarrow \gamma$                     \\
-    % & $\nu_\alpha + \bar{\nu}_\alpha \leftrightarrow \nu_\beta + \bar{\nu}_\beta $ \\
-    \hline \hline
-  \end{tabularx}
-\end{table}
 
 \subsection{Absorption and emission via charged current}
 \label{ssec:sources_ae}
