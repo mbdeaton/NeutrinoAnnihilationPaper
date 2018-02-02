@@ -931,7 +931,7 @@ at this thermodynamic point over two energy decades.
 For this test we choose a slab large enough for neutrinos of all
 energies to be trapped.
 We sample the distribution function with ray tracing over a uniform grid
-of 40 points in energy $\varepsilon \in [0,100]$~MeV.
+of 40 points in energy $\varepsilon \in (0,100)$~MeV.
 The domain extends to $\tau_{\rm term}\,L_{\rm mfp,max}\approx10^7\,{\rm km}$,
 since our ray tracing algorithm integrates rays to terminal optical
 depths of $\tau_{\rm term}\geq14$.
@@ -1010,7 +1010,7 @@ since the total mean free paths are less than the absorption mean free paths
 (significantly so for $\nu_x$, negligibly so for $\nu_e$).
 
 As Fig.~\ref{fig:mfps-50km} reveals, integrating the distribution functions
-over the energies $\varepsilon\in[0,100]$~MeV
+over the energies $\varepsilon\in(0,100)$~MeV
 probes the numerical solution over length scales from
 0.1~km to $10^{5}\,{\rm km}$.
 Fig.~\ref{fig:homogeneous_isotropic} shows the error in our results for
@@ -1077,8 +1077,8 @@ Eqn.~\ref{eqn:doppler_avg_eps} describes the well-known Doppler effect.
 
 We sample the distribution function $f(\tilde{\varepsilon},\cos A,B)$
 with ray tracing
-over a uniform grid of 40 points in energy $\tilde{\varepsilon}\in[0,100]$
-and 30 points in angle $\cos A\in[-1,1]$, holding fixed $B=\pi$.
+over a uniform grid of 40 points in energy $\tilde{\varepsilon}\in(0,100)$
+and 30 points in angle $\cos A\in(-1,1)$, holding fixed $B=\pi$.
 Results are shown in Fig.~\ref{fig:avg_eps_doppler} for
 the velocities $v=\{0,0.1,0.8\}$.
 The ray tracing results are computed from total densities in each angular bin,
@@ -1088,14 +1088,19 @@ that is
   \langle \tilde{\varepsilon} \rangle (\cos A) =
   \frac{\tilde{J}(\cos A)}{\tilde{G}(\cos A)},
 \end{equation}
-with the Eulerian energy density per angular bin given by
-\begin{equation}
+with the Eulerian densities per angular bin given by sums over the samples
+\begin{align}
+  \label{eqn:G_per_cosA}
+  \tilde{G}(\cos A) &=
+  \frac{\Delta}{(2\pi)^3} \sum\limits_{m=0}^{N_{\tilde{\varepsilon}}-1}\tilde{\varepsilon}_m^2 f_m(\cos A),\\
   \label{eqn:J_per_cosA}
-  \tilde{J}(\cos A) =
-  \frac{1}{(2\pi)^3} \int_0^{\infty} d\tilde{\varepsilon} \, \tilde{\varepsilon}^3
-  \int_0^{2\pi} dB \, f(\tilde{\varepsilon},\cos A,B),
-\end{equation}
-and $\tilde{G}(\cos A)$ defined analogously.
+  \tilde{J}(\cos A) &=
+  \frac{\Delta}{(2\pi)^3} \sum\limits_{m=0}^{N_{\tilde{\varepsilon}}-1}\tilde{\varepsilon}_m^3 f_m(\cos A),
+\end{align}
+with $\Delta \equiv 2\pi \Delta\tilde{\varepsilon}$,
+$N_{\tilde{\varepsilon}}$ the number of energy seamples,
+$f_m(\cos A) \equiv f(\tilde{\varepsilon}_m,\cos A,B)$,
+and $m$ labeling each energy bin.
 Results are identical for all \emph{scat} and \emph{noscat} methods.
 In Fig.~\ref{fig:avg_eps_doppler}
 we see the common features of a red-shifted spectrum for receding fluid
@@ -1162,13 +1167,13 @@ This scenario has been widely used in the literature as a test for
 radiation codes
 \cite{smit1997-two_moment,abdi2012-monte_carlo,fouc2015-m1_nsbh}.
 We sample the distribution function over a uniform grid of
-30 points in angle $\cos A \in [0.734,1]$ and
-40 points in energy $\tilde{\varepsilon} \in [0,100]$~MeV.
+30 points in angle $\cos A \in (0.734,1)$ (holding fixed $B=\pi$) and
+40 points in energy $\tilde{\varepsilon} \in (0,100)$~MeV.
 Because of the discontinuity in fluid variables at radius $R$,
 we limit the time step size to a maximum of $t_{\rm max}=1.25$~km,
-since as the ray approaches the discontinuity in the homogeneous environment
-outside the star, the adaptive time-stepper would otherwise
-increase the step size far beyond the relevant fluid scales.
+so that as the ray approaches the discontinuity in the homogeneous environment
+outside the star, the adaptive time-stepper avoids increasing
+the step size beyond the relevant fluid scales.
 
 In Fig.~\ref{fig:f_absorption_sphere} we display the samples at
 $\varepsilon=11.25$~MeV, along with the analytic functions
@@ -1275,6 +1280,34 @@ and we turn off general relativistic effects in the ray tracing code,
 since the Monte Carlo code assumes Minkowski spacetime.
 
 We place a stationary observer at $r=500$~km.
+Taking advantage of the spherical symmetry, we sample the distribution function
+$f(\tilde{\varepsilon},\cos A,B)$ with ray tracing
+over a uniform grid of 40 points in energy $\tilde{\varepsilon}\in(0,100)$
+and 80 points in angle $\cos A\in(0.9,1)$, holding fixed $B=\pi$.
+With these samples we compute energy luminosity from the
+radial momentum density $\tilde{H}^r$,
+using the midpoint rule to convert the integral in Eqn.~\ref{eqn:Ha} to a sum:
+\begin{equation}
+  \label{eqn:L_minkowski}
+  L =
+  C \frac{\Delta}{(2\pi)^3} \sum\limits_{m=0}^{N-1} \varepsilon_m^3
+  \cos A_m f_m,
+\end{equation}
+with $C=4\pi r^2$,
+$\Delta \equiv 2\pi\Delta\tilde{\varepsilon}\Delta(\cos A)$,
+$N \equiv N_A N_{\tilde{\varepsilon}}$,
+$N_A$ and $N_{\tilde{\varepsilon}}$ the number of samples in angle and energy,
+and $m$ labeling each ray.
+We also compute average energy as a function of incoming angle
+$\langle\tilde{\varepsilon}\rangle(\cos A)$ using
+Eqns.~\ref{eqn:avg_eps_per_cosA}--\ref{eqn:J_per_cosA},
+and the average energy of all neutrinos measured by our observer using
+\begin{equation}
+  \label{eqn:avg_eps_minkowski}
+  \langle\tilde{\varepsilon}\rangle =
+  \frac{1}{N_A}\sum\limits_{m=0}^{N_A-1}\langle\tilde{\varepsilon}\rangle(\cos A_m).
+\end{equation}
+
 Fig.~\ref{fig:avg_eps_collapse} shows the distribution of average $\nu_x$
 energies across incoming angles to this observer.
 We show $\nu_x$ because they present the largest scattering effects:
@@ -1594,7 +1627,7 @@ composed of a sphere with concentric shells extending to $r\approx1400$~km.
 Radial grid spacings are $\Delta r \approx 0.15$~km in the star
 and $\Delta r \approx 2.5$~km in the disk,
 with 12 cells spanning polar angles $\theta\in[0,\pi]$
-and 24 cells spanning azimuthal angles $\phi\in[0,2\pi]$.
+and 24 cells spanning azimuthal angles $\phi\in[0,2\pi)$.
 Though a pseudospectral representation of non-smooth hydrodynamic data
 introduces some Gibbs-like oscillations in the variables,
 we choose to use this representation instead of the mesh-refined
@@ -1644,15 +1677,15 @@ Taking these fluxes in the radial direction,
 and using the midpoint rule to convert the integral to a sum, we have
 \begin{align}
   \label{eqn:Kr_minkowski}
-  \tilde{K}^r &= \Delta
+  \tilde{K}^r(\theta) &= \frac{\Delta}{(2\pi)^3}
   \sum\limits_{m=0}^{N-1}
-  \tilde{\varepsilon}_m^2 \cos A_m f_m,\\
+  \tilde{\varepsilon}_m^2 \cos A_m f_m(\theta),\\
   \label{eqn:Hr_minkowski}
-  \tilde{H}^r &= \Delta
+  \tilde{H}^r(\theta) &= \frac{\Delta}{(2\pi)^3}
   \sum\limits_{m=0}^{N-1}
-  \tilde{\varepsilon}_m^3 \cos A_m f_m,
+  \tilde{\varepsilon}_m^3 \cos A_m f_m(\theta),
 \end{align}
-with $f_m \equiv f(\tilde{\varepsilon}_m,\cos A_m, B_m)$,
+with $f_m(\theta) \equiv f(\theta;\tilde{\varepsilon}_m,\cos A_m, B_m)$,
 $\Delta \equiv \Delta\tilde{\varepsilon}\, \Delta(\cos A)\, \Delta B$,
 $N \equiv N_{\tilde{\varepsilon}}\, N_A\, N_B$,
 and $m$ the index labeling each ray.
@@ -1676,15 +1709,16 @@ Using the trapezoid rule the number and energy luminosities become sums:
   \label{eqn:luminosity_R}
   R &= C
   \left(\frac{1}{2}(\tilde{K}^r_0+\tilde{K}^r_{N_\theta-1})
-  +\sum\limits_{m=1}^{N_\theta-2}\tilde{K}^r_m\right),\\
+  +\sum\limits_{n=1}^{N_\theta-2}\tilde{K}^r_n\right),\\
   \label{eqn:luminosity_L}
   L &= C
   \left(\frac{1}{2}(\tilde{H}^r_0+\tilde{H}^r_{N_\theta-1})
-  +\sum\limits_{m=1}^{N_\theta-2}\tilde{H}^r_m\right),
+  +\sum\limits_{n=1}^{N_\theta-2}\tilde{H}^r_n\right),
 \end{align}
-with $C \equiv 4\pi r^2\, \Delta(\cos \theta)$,
-$\tilde{K}^r_m \equiv \tilde{K}^r(\theta_m)$, and
-$\tilde{H}^r_m \equiv \tilde{H}^r(\theta_m)$.
+with $C \equiv 2\pi r^2\, \Delta(\cos \theta)$,
+$\tilde{K}^r_n \equiv \tilde{K}^r(\theta_n)$,
+$\tilde{H}^r_n \equiv \tilde{H}^r(\theta_n)$,
+and $n$ labeling each observer's position.
 Average energies over the whole sky are then
 $\langle\tilde{\varepsilon}\rangle=L/R$.
 Note, for simplicity we use the coordinate radius $r$ in this expression even
