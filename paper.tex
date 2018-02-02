@@ -103,15 +103,15 @@ seven-dimensional solutions to the Boltzmann Equation are not feasible.
 Leakage approximations
 \citep{ruff1996-leakage_part1,ross2003-leakage_part2,
   deat2013-leakage, pere2016-asl, radi2016-dynamical}
-\footnote{TODO: cite others}
+\footnote{TODO (Evan): cite others}
 capture some of the qualitative effects of neutrinos on the matter, but
 provide extremely limited information about the neutrino field itself.
-\footnote{TODO: discuss mc more clearly}
 Monte Carlo methods like those
 used in supernova simulations \cite{abdi2012-monte_carlo}
 and stationary models of accretion disks \cite{rich2015-monte_carlo}
 are an excellent tool but require large computational resources
 because of their global treatment of the problem.
+\footnote{TODO (Evan): discuss mc more clearly}
 
 The state of the art today for neutron star merger calculations
 couples radiation and matter using a truncated moment formalism
@@ -187,7 +187,6 @@ reducing it to a one-dimensional ordinary differential equation.
 It is numerically cheap because it confines computations of
 $f^{\nu_\sigma}(x_o^\alpha;p_\beta)$ to the past light-cone of $x_o^\alpha$,
 with the history of that light-cone truncated at large optical depth.
-\footnote{TODO: state scaling $\mathscr{O}(n)$?}
 It easily extends to high resolution in energy and angle by simply
 increasing the number of rays sampled.
 And it parallelizes trivially by ray, since each ray is computed
@@ -232,15 +231,15 @@ Elastic scattering (see Tab.~\ref{tab:neutrino_processes}) can signicantly
 modify neutrino distributions in angle and dilute the emitted spectrum over a
 larger emitting surface \citep{pere2016-asl}.
 This is especially pronounced in the case of heavy-lepton neutrinos.
-\footnote{TODO: cite}
 Inelastic scattering and pair processes can introduce further modifications.
 Any phenomena that involve neutrino-neutrino interactions,
-for example neutrino oscillations and neutrino-antineutrino annihilation,
-\footnote{TODO: cite}
+for example neutrino oscillations \footnote{TODO (Gail): cite an example study}
+and neutrino-antineutrino annihilation \cite{asan2000-nunubar},
 depend sensitively on the angular distribution.
-And spectral changes can strongly affect the nucleosynthesis
-occuring in the ejected and irradiated material.
-\footnote{TODO: justify these statements}
+And spectral changes can strongly affect the nucleosynthesis.
+occuring in the ejected and irradiated material
+\footnote{TODO (Evan, Francois, Gail): cite energy-dependent
+neutrino+nucleosynthesis study}
 The ray tracing method we present in this paper captures the dominant effects
 of elastic scattering, while leaving the physics of inelastic scattering and
 pair processes for later work.
@@ -294,7 +293,6 @@ Thus for dynamical systems the memory demands can be prohibitively large.
 More fundamentally, though, ray tracing is limited by its naive
 treatment of the Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}),
 a treatment which essentially decouples different neutrino momenta and species.
-\footnote{TODO: clarify how momenta are decoupled}
 When solving for $f^{\nu_\sigma}(x^\alpha;p_\beta)$,
 we have no information about the distribution at different momenta
 $f^{\nu_\sigma}(x^\alpha;p'_\beta)$,
@@ -323,9 +321,9 @@ post-processing step.
 In Sec.~\ref{sec:formulation} we derive the ray tracing equations from the
 Boltzmann Equation and describe our numerical scheme.
 In Sec.~\ref{sec:tests} we present tests of the code.
-In Sec.~\ref{sec:applications} we present an application
-in the dynamical environment following the merger of two neutron stars,
-computing neutrino flavor oscillation along an outgoing ray,
+In Sec.~\ref{sec:applications} we present neutrino fields in
+the dynamical environment following the merger of two neutron stars,
+and compute neutrino flavor oscillation along an outgoing ray,
 including the effects of coherent forward scattering with ambient neutrinos.
 In Sec.~\ref{sec:conclusions} we summarize our work and anticipate improvements.
 
@@ -412,14 +410,14 @@ For explicit definitions see App.~\ref{sec:definitions}.
 In Minkowski spacetime, and for a stationary observer
 $u_\beta\rightarrow(-1,0,0,0)$, we would have $s=0$, $q=1$,
 and $\varepsilon=-p_t$. In that case $\cos A$ may be identified
-\footnote{TODO: cite someone that uses $\mu$}
-with the familiar forward direction cosine $\mu$.
+with the familiar forward direction cosine $\mu$
+\citep{shu1991-book_radiation,miha1999-foundations}.
 
 \subsection{Boltzmann Equation}
 \label{ssec:boltzmann}
-Neutrino radiation obeys the relativistic Boltzmann Equation,
+In the limit of large oscillation lengths (see Sec.~\ref{ssec:V_nunu}),
+neutrino radiation obeys the relativistic Boltzmann Equation,
 which, suppressing the arguments of $f$ for simplicity, is written,
-\footnote{TODO: point out limit of QKEs}
 \begin{equation}
   \label{eqn:boltzmann}
   \frac{d}{d\lambda}f = C[f],
@@ -427,7 +425,7 @@ which, suppressing the arguments of $f$ for simplicity, is written,
 where $d/d\lambda$ denotes a derivative with respect to the affine
 parameter defining the neutrino momentum (Eqn.~\ref{eqn:geodesic_x} below)
 and $C[f]$ is the source term arising from interactions with the medium.
-By Eqn.~\ref{eqn:geodesic_x},
+As we will show below in Eqn.~\ref{eqn:proper_length},
 the affine parameter has dimension ${\rm length}\,{\rm energy}^{-1}$,
 so the source term has dimension ${\rm energy}\,{\rm length}^{-1}$.
 The source term varies over phase space $(x^\alpha,p_\beta)$,
@@ -525,9 +523,10 @@ write the emissivity in terms of the equilibrium distribution function:
   \mathscr{E}_{\rm AE}(\varepsilon)
   = \mathscr{K}_{\rm AE}(\varepsilon) f^{\rm eq}(\varepsilon).
 \end{equation}
+Note that the stimulated absorption coefficient $\mathscr{K}_{\rm AE}$ is
+identical to the coefficient $\kappa^*$
+defined in \cite{hari2010-gr_nunubar_collapsar}.
 See App.~\ref{ssec:sources_ae} for details.
-\footnote{TODO: identify $\mathscr{K}_{\rm AE}$ and $\kappa^*$,
-  in e.g.\ \cite{hari2010-gr_nunubar_collapsar}}
 
 The elastic scattering coefficients are computed from
 a background field, and a sum over opacities for
@@ -717,7 +716,6 @@ defining the specific energy density,
 specific momentum density, and
 specific radiation pressure tensor, respectively.
 Here ``specific'' refers to the quantity being integrable over neutrino energy.
-\footnote{TODO: relate moments to other frames?}
 Integrals~\ref{eqn:J}--\ref{eqn:Sab} are performed over a solid angle in
 momentum space while holding $\varepsilon$ constant:
 $d\Omega \equiv d(\cos a)\,db$.
@@ -803,22 +801,32 @@ We begin each integration by setting initial values for the variables at $t_o$:
 the observer specifies $x^i_o$ and $p_{i,o}$,
 and we set $f_{{\rm AE},o}=f_{{\rm SE},o}=0$ and $\tau_o=0$.
 
-We integrate Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} with adaptive step sizes,
+We integrate Eqns.~\ref{eqn:num_x}--\ref{eqn:num_fse} with adaptive step sizes,
 using the 3rd order Runge-Kutta algorithm
 which produces an error estimate by comparing the 3rd and 2nd order solutions.
 After each step is taken, the errors for each of the nine variables of
-Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau} are compared.
-If the maximum of these errors exceeds some absolute or relative threshold
-\footnote{TODO: specify ScaledAbsRel algorithm}
-the step size is decreased and the step recomputed,
-if it is below some threshold the next step size is increased.
+Eqns.~\ref{eqn:num_x}--\ref{eqn:num_fse} are compared to an absolute and
+a relative threshold.
+If the error in any variable exceeds its threshold
+the step size is decreased and the step recomputed;
+if all errors are below threshold, the next step size is increased.
 % see OdeIntegrators::AdaptiveDense
 % and OdeSteppers::RungeKutta3
 % and OdeSteppers::DormandPrince5
 % and OdeController
 % and OdeControllers::ProportionalIntegral_Base::StepSizeToAttempt
 % and OdeErrorMeasures::ScaledAbsRel
-\footnote{TODO: specify}
+% For example, the parameters I use in the nsns data:
+%OdeErrorMeasure = ScaledAbsRel
+%     (
+%      ATol = 0.000555555555555556;
+%      RTol = 0.000555555555555556;
+%      ScaledVars = q,p,s0,sn,tau,fa,fs;
+%      Scales = 4,1,4,4,1e-20,1e-20,1e-20;
+In practice, the controlling errors come from the radiation variables
+$\tau$, $f_{\rm AE}$, and $f_{\rm SE}$,
+for which the relative tolerances are set to $6\times10^{-4}$,
+and the absolute tolerances are set to $6\times10^{-24}$.
 
 We integrate these equations through the simulated spacetime
 over which the following volume data are known:
@@ -847,37 +855,37 @@ thus using one time slice and no time interpolation in every case.
 \section{Code Tests}
 \label{sec:tests}
 
-To test our algorithm, we integrate the ray tracing equations
-(Eqns.~\ref{eqn:num_x}--\ref{eqn:num_tau}) for various observers
+To test the algorithm, we integrate the ray tracing equations
+(Eqns.~\ref{eqn:num_x}--\ref{eqn:num_fse}) for various observers
 in the following configurations. This suite of configurations
-may be understood as a hierarchy of increasing physical realism:
+defines a hierarchy of increasing physical realism:
 beginning with a homogeneous medium of effectively
 infinite extent (i.e.\ optically thick) and progressing to a model of a
 1D pre-supernova, post-bounce collapse profile
 evolved using an M1 transport hydrodynamical simulation.
 In the pre-supernova model, we compare ray tracing distributions
 to those calculated in a Monte Carlo transport simulation.
-Finally, we calculate global measures of the neutrino fields outside of the
-hypermassive neutron star and disk formed in a binary neutron star
-merger simulated by \cite{fouc2016-m1_nsns, fouc2016-m1_evolve_n},
-and compare ray tracing results to those from the M1 transport simulation.
 
 In the following we present two forms of the integrated distribution functions,
 Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse}:
-1) the full form  by which the solution is $f_{\rm scat}=f_{\rm AE,scat}+f_{\rm SE,scat}$
-(labeled \emph{scat} since we include elastic scattering), and
-2) the form treating only absorption/emission interactions
-in which we set $\mathscr{K}_{\rm SE}=0$ so that $f_{\rm noscat}=f_{\rm AE,noscat}$
-(labeled \emph{noscat} since we ignore elastic scattering).
-There is no simple relation between these forms
-(i.e.\ $f_{\rm AE,scat} \neq f_{\rm AE,noscat}$)
-because $f_{\rm AE}$ is integrated using the absorption plus scattering optical depth
-in the first form and solely the absorption optical depth in the second form.
+\begin{itemize}
+\item the \emph{scat} form including elastic scattering,
+  for which the solution is
+  $f=f_{\rm AE,scat}+f_{\rm SE,scat}$,
+\item the \emph{noscat} form treating only absorption/emission interactions
+  by setting $\mathscr{K}_{\rm SE}=0$,
+  for which the solution is
+  $f=f_{\rm AE,noscat}$.
+\end{itemize}
+Note that $f_{\rm AE,scat} \neq f_{\rm AE,noscat}$ because $f_{\rm AE}$
+is integrated using the absorption plus scattering optical depth in
+the first form and using only the absorption optical depth in the second form.
+So there is no simple algebraic relation between the \emph{scat} and
+\emph{noscat} distribution functions.
 The differences between the two methods is apparent
-in Fig.~\ref{fig:cumulative_f_homogeneous}.
-Before this work, the \emph{noscat} form of the equations has been the standard for
-\footnote{TODO: explain why; cite others}
-ray tracing, though many authors include the scattering optical depth in
+in Fig.~\ref{fig:cumulative_f_homogeneous} below.
+Before this work, the \emph{noscat} form of the equations was the standard
+for ray tracing, though many authors included the scattering optical depth in
 the integration of Eqn.~\ref{eqn:num_fae}
 (see for example \cite{hari2010-gr_nunubar_collapsar}).
 
@@ -899,7 +907,7 @@ $\eta_{\nu_e}=-0.1555$
 (with $\eta_{\bar{\nu}_e}=-\eta_{\nu_e}$ and $\eta_{\nu_x}=0$).
 The opacity table is computed using \lstinline{NuLib} from cross-sections
 neglecting weak magnetism
-\footnote{TODO: anything else?}
+\footnote{TODO (Evan): neglecting anything else?}
 and is stored on a grid covering energy, density, temperature, and composition
 ranges spanning $\varepsilon_i\in[1,280.5]$~MeV logarithmically,
 $\varrho\in[10^6,6.3\times10^{15}]\,{\rm g}\,{\rm cm}^{-3}$ logarithmically,
@@ -963,11 +971,10 @@ Eqns.~\ref{eqn:num_fae} and \ref{eqn:num_fse} in their integral form:
 \begin{equation}
   \label{eqn:cumulative_f}
   f(t)
-  = - \int_{0}^t \frac{dt'}{p^t}e^{-\tau(0,t')}
+  = - \int_{0}^t \frac{dt'}{\varepsilon}e^{-\tau(0,t')}
   \mathscr{K}(t')f^{\rm eq}(t'),
 \end{equation}
 and the integration proceeds backwards in time, from $t=0$
-\footnote{TODO: could write more simply because Minkowski}
 to some terminal $t<0$.
 The figure shows this backwards-in-time integration proceeding left to right.
 
@@ -1014,7 +1021,7 @@ In the following inhomogeneous configurations,
 errors from the integration dominate over the boundary term.
 In this test and only this test, we used a higher-order integrator, a 5th
 order Dormand-Prince algorithm \cite{pres2007-nr_3rd_ed}. This is because
-\footnote{TODO: discuss with Matt}
+\footnote{TODO (Matt, Brett): look at Brett's tests and make clearer statement}
 our default 3rd order Runge-Kutta algorithm estimates a vanishing error
 in this configuration.
 
@@ -1089,7 +1096,6 @@ with the Eulerian energy density per angular bin given by
   \int_0^{2\pi} dB \, f(\tilde{\varepsilon},\cos A,B),
 \end{equation}
 and $\tilde{G}(\cos A)$ defined analogously.
-\footnote{TODO: add metric terms for these integrals}
 Results are identical for all \emph{scat} and \emph{noscat} methods.
 In Fig.~\ref{fig:avg_eps_doppler}
 we see the common features of a red-shifted spectrum for receding fluid
@@ -1214,7 +1220,7 @@ $\cos A \gtrsim 0.8$.
 Unfinished: describe and point readers to Asano-Fukuyama test presented
 in thesis ~\cite[Sec.~4.3.3]{deat2015-thesis}.
 Also compare a few geodesics in Kerr to analytic.
-\footnote{TODO: compute some geodesics in Kerr}
+\footnote{TODO (Brett): compute some geodesics in Kerr}
 
 \subsection{Post-Bounce Collapse Profile:
   Testing Scattering}
@@ -1224,7 +1230,6 @@ collapsed 15~${\rm M}_\odot$ star, 100~ms after core bounce,
 comparing ray tracing fields to those from a Monte Carlo transport calculation.
 Elastic scattering interior to the shock at $r\approx150$~km
 significantly modifies the neutrinos' spectra,
-\footnote{TODO: demonstrate}
 and the extended envelope outside the shock becomes a source of
 higher-than-average-energy neutrinos.
 
@@ -1237,12 +1242,11 @@ The matter is described by the LS180 equation of state \cite{latt1991-nuc_eos},
 and the opacities are computed and stored in a table
 as described in Sec.~\ref{ssec:test_equilibrium}.
 This standard test is also presented for example in
-\cite{ocon2015-gr1d_with_nu,fouc2015-m1_nsbh,abdi2012-monte_carlo,
-}.
+\cite{ocon2015-gr1d_with_nu,fouc2015-m1_nsbh,abdi2012-monte_carlo}.
 
 The matter profile and background field are stored on a spherical
 pseudo-spectral grid composed of 11 spherical-shell subdomains
-\footnote{TODO: cite early SpEC paper}
+\cite{kidd2000-spec,szil2009-spec}
 comprising a total of 62 radial grid points spaced approximately
 logarithmically across $r\in(0,740)$~km.
 The background scattering field $\Phi(\varepsilon)$ is supplied by
@@ -1326,7 +1330,7 @@ $r_\nu\approx\{50,45,35\}$~km.
 The total luminosities and average energies
 measured by the different treatments are
 presented in Tab.~\ref{tab:collapse_rt_vs_mc}.
-\footnote{TODO: give equation for L}
+\footnote{TODO (Brett): give equation for L and avg eps.}
 As expected, $\nu_e$ is least affected by scattering, and $\nu_x$ most.
 In fact, without scattering, $\nu_x$ luminosities are overestimated by more than
 two orders of magnitude, due to the steep increase in temperature with depth
@@ -1350,9 +1354,9 @@ faithfully describe the high scattered energies from the envelope.
     From the post-bounce collapse profile test (Sec.~\ref{ssec:test_collapse}),
     a comparison of total luminosities and average energies between
     the following methods:
-    ray tracing ignoring elastic scattering `RT noscat',
-    ray tracing with the gray scattering treatment `RT scat gr',
-    ray tracing with the spectral scattering treatment `RT scat sp', and
+    ray tracing ignoring elastic scattering `noscat',
+    ray tracing with the gray scattering treatment `scat gray',
+    ray tracing with the spectral scattering treatment `scat spectral', and
     a fiducial Monte Carlo transport evolution `MC'.
     We also show average energies of the scattering envelope
     $\langle\tilde{\varepsilon}\rangle^{\rm sc}$, which are estimated by eye
@@ -1364,7 +1368,7 @@ faithfully describe the high scattered energies from the envelope.
   }
   \label{tab:collapse_rt_vs_mc}
   \begin{tabularx}{\columnwidth}{X r r r r}
-    & {\bf RT noscat} & \,\,{\bf RT scat gr} & \,\,{\bf RT scat sp} & \,\,{\bf MC} \\
+    & {\bf noscat} & \,\,{\bf scat gray} & \,\,{\bf scat spectral} & \,\,{\bf MC} \\
     \hline
     $L_{\nu_e}$                                         &  3.53 & 3.14 & 3.04 & 3.48 \\
     $L_{\bar{\nu}_e}$                                   & 5.19 & 3.05 & 3.03 & 3.01 \\
@@ -1403,7 +1407,7 @@ with $\zeta$ approximately constant), we have
   &= \varepsilon^2 \zeta_s \,\Phi(\varepsilon)\,s,
 \end{align}
 where $s$ is the length of scattering envelope passed through by the ray.
-\footnote{TODO: should be $\chi_a^*=\varepsilon\zeta_a$ for $\nu_x$}
+% note, for nux we should use $\chi_a^*=\varepsilon\zeta_a$
 In the envelope the local temperature is low so $f^{\rm eq}/\Phi\ll 1$,
 and also $\zeta_a/\zeta_s\ll 1$,
 so $f_{\rm SE}$ strongly dominates over $f_{\rm AE}$.
@@ -1492,8 +1496,20 @@ points the way to future improvements to the \emph{gray} method:
 making better assumptions about the spectra which are less sensitive
 to local fluid quantities.
 
-\subsection{Hypermassive Neutron Star Remnant:
-  Testing Everything}
+\section{Applications}
+\label{sec:applications}
+
+In this section we use the ray tracing code to
+first calculate global measures
+of the neutrino fields outside of the hypermassive neutron star and disk
+formed in a binary neutron star merger simulated by
+\cite{fouc2016-m1_nsns, fouc2016-m1_evolve_n},
+and compare ray tracing results to those from the M1 transport simulation.
+Second, we examine neutrino oscillations in this environment,
+using results from ray tracing to include the effect of neutrino-neutrino
+interactions on flavor evolution.
+
+\subsection{Neutrinos from a Hypermassive Neutron Star Remnant}
 \label{ssec:test_disk_comparison}
 The merger of two neutron stars by gravitational wave emission produces a
 postmerger configuration composed of a single neutron star surrounded by a disk.
@@ -1611,7 +1627,7 @@ in our calculation of moments at the observer positions,
 we make the simplifying assumption of Minkowski spacetime.
 This assumption introduces errors in our moments of order
 $GM/r=4\,{\rm km}/250\,{\rm km}$
-\footnote{TODO: too simplistic}
+\footnote{TODO (Brett, Francois, Matt): improve; this is too simplistic}
 (with $G$ the gravitational constant and $M$ the central mass),
 or $\sim 1\%$.
 
@@ -1667,11 +1683,16 @@ Using the trapezoid rule the number and energy luminosities become sums:
   +\sum\limits_{m=1}^{N_\theta-2}\tilde{H}^r_m\right),
 \end{align}
 with $C \equiv 4\pi r^2\, \Delta(\cos \theta)$,
-\footnote{TODO: source of GR error in coordinate $r$}
 $\tilde{K}^r_m \equiv \tilde{K}^r(\theta_m)$, and
 $\tilde{H}^r_m \equiv \tilde{H}^r(\theta_m)$.
 Average energies over the whole sky are then
 $\langle\tilde{\varepsilon}\rangle=L/R$.
+Note, for simplicity we use the coordinate radius $r$ in this expression even
+though the earlier merger evolution did not necessarily produce
+areal coordinates. The effect of this choice is to artificially scale the
+ray tracing luminosities by some factor we believe to be very close to 1.
+In future work we can correct this error by computing the proper area over
+a coordinate sphere at the observer's location.
 
 Tab.~\ref{tab:nsns_rt_vs_m1} compares the all-sky
 luminosities and average energies from ray tracing and from
@@ -1700,8 +1721,8 @@ comparisons between M1 methods to be around
     Comparison of total luminosities and average energies
     of the hypermassive neutron star configuration
     (presented in Sec.~\ref{ssec:test_disk_comparison}).
-    The methods are ray tracing using the \emph{noscat} method `RT noscat',
-    ray tracing using the \emph{gray} \emph{scat} method `RT scat',
+    The methods are ray tracing using the \emph{noscat} method `noscat',
+    ray tracing using the \emph{gray} \emph{scat} method `scat',
     and the M1 transport simulation `M1'.
     The ray tracing totals were computed from sums over
     observers placed in the $y$-$z$ plane.
@@ -1714,7 +1735,7 @@ comparisons between M1 methods to be around
   }
   \label{tab:nsns_rt_vs_m1}
   \begin{tabularx}{\columnwidth}{X r r r}
-    & {\bf RT noscat} & \,\,{\bf RT scat} & \,\,{\bf M1} \\
+    & {\bf noscat} & \,\,{\bf scat} & \,\,{\bf M1} \\
     \hline
     $L_{\nu_e}$                                 & 5.87 & 5.40 & 5 \\
     $L_{\bar{\nu}_e}$                           & 9.70 & 10.7 & 12 \\
@@ -1744,7 +1765,7 @@ The distributions of radial fluxes over observer position are shown
 in Figs.~\ref{fig:nsns_theta_distrib_Kr} and \ref{fig:nsns_theta_distrib_Hr}.
 With the \emph{noscat} treatment the $\nu_x$ luminosities are relatively
 constant in $\theta$, because the disk is optically thin to $\nu_x$,
-and most of the neutrinos come from the hypermassive neutron star,
+and most of the heavy-lepton neutrinos come from the hypermassive neutron star,
 which is roughly spherical.
 The slight upward trend in $\nu_x$ luminosities with $\theta$ may be due to
 asymmetries in the fluid configuration,
@@ -1757,8 +1778,11 @@ a hypothesis we tested by setting $u_i=0$ and $W=1$ in the ray
 tracing equations.
 Because of their larger absorption cross section,
 the disk is not optically thin to $\nu_e$ and $\bar{\nu}_e$,
-and observers within view of the hot hypermassive neutron star measure
-the largest radial fluxes of these species.
+and observers at small angles within view of the hot hypermassive neutron star
+measure the largest radial fluxes of these species.
+When we turn on scattering, the disk is no longer transparent to $\nu_x$,
+and $\nu_x$ luminosities present the same qualitative $\theta$-dependence
+as that of the other species.
 
 \begin{figure}
   %\includegraphics[width=\columnwidth]{theta_distrib-250km-Kr}
@@ -1789,18 +1813,22 @@ the largest radial fluxes of these species.
   \label{fig:nsns_theta_distrib_Hr}
 \end{figure}
 
-When we turn on scattering, the disk is no longer transparent to $\nu_x$,
-and $\nu_x$ luminosities present the same qualitative $\theta$-dependence
-as that of the other species.
-In general, scattering increases luminosities for polar observers
-\footnote{TODO: in compute-eta data not true anymore for $\nu_e$}
-($\theta \sim 0^\circ$) because additional high energy neutrinos
-from the hypermassive neutron star are scattered by the disk back up to
-the observer.
+From Figs.~\ref{fig:nsns_theta_distrib_Kr} and \ref{fig:nsns_theta_distrib_Hr}
+we also see that for observers near the poles ($\theta \sim 0^\circ$)
+scattering generally increases fluxes of $\bar{\nu}_e$ and $\nu_x$
+and decreases fluxes of $\nu_e$.
+When scattering is turned on, all three fluxes experience a similar
+loss of neutrinos from the central star.
+But the $\bar{\nu}_e$ and $\nu_x$ fluxes experience a more dominant
+gain of high energy neutrinos scattered by the disk back to the observer.
+The $\nu_e$ fluxes, however, experience only a minor gain of neutrinos
+from the disk, since $\nu_e$ presents a lower average energy,
+and the scattering cross-section depends strongly on energy.
 For observers in the equatorial plane ($\theta \sim 90^\circ$)
-the effect of scattering is a decrease in energy luminosities,
-since some of the highest energy neutrinos from deep in the interior
-are scattered away from the line of sight by the disk.
+the effect of scattering is a decrease in energy fluxes for all species.
+This is because more matter pollutes the equatorial regions than the
+polar regions, causing the losses from the star to dominate
+over the gains from the disk for all three species.
 
 Fig.~\ref{fig:nsns_theta_distrib_avg_eps} shows the distribution of
 average energies of radial fluxes over observer positions.
@@ -1818,7 +1846,7 @@ $\nu_x>\bar{\nu}_e>\nu_e$ due to two factors:
 the average energies of the spectra obey the same ranking,
 and the thicknesses of the different species' scattering envelopes
 also obey the same ranking.
-As we showed in the toy models with a homogeneous background scattering field
+As we showed in the toy models with a homogeneous background scattering field,
 the scattering contribution $f_{\rm SE}$ is
 proportional to energy $\varepsilon^2$ and path length $s$
 (Eqn.~\ref{eqn:fse_homogeneous_thin_limit}).
@@ -1846,7 +1874,7 @@ the dominant effect of elastic scattering on $\tilde{G}(\cos A)$
 is to spread the distribution out to larger angles, by generally decreasing
 the number of neutrinos coming from the core while increasing the number
 of neutrinos coming from the disk.
-\footnote{TODO: with compute-eta data also explain why $G_{\nu_e}>G_{\bar{\nu}_e}$
+\footnote{TODO (Evan, Brett): also explain why $G_{\nu_e}>G_{\bar{\nu}_e}$
   for $\theta=0$ at $\cos A>0.995$.}
 
 For the observer in the equatorial plane,
@@ -1898,12 +1926,9 @@ on the polar axis.
   \label{fig:nsns_cosA_distrib_G_90deg}
 \end{figure}
 
-\section{Applications}
-\label{sec:applications}
-
 \subsection{Neutrino Oscillations at High Neutrino Densities}
 \label{ssec:V_nunu}
-In this section we examine the importance of elastic scattering in neutrino
+Here we examine the importance of elastic scattering in neutrino
 flavor oscillation above the hypermassive neutron star--disk configuration
 presented in Sec.~\ref{ssec:test_disk_comparison}.
 Our treatment of the flavor evolution equation assumes flat space and small fluid
@@ -1939,8 +1964,7 @@ and the quantum kinetic equations take a Schr\"{o}dinger-like form:
 \end{equation}
 where $ds$ is an interval of proper length traversed by the neutrino as
 measured by our observer, and
-\footnote{TODO: mention $\bar{\nu}$ eqn}
-$S$ is the flavor evolution matrix describing a mixed state
+$S$ is the neutrino flavor evolution matrix describing a mixed state
 \begin{equation}
   \label{eq:density_evolution}
   \rho = S \, \rho_0 \, S^\dagger.
@@ -1978,7 +2002,6 @@ vacuum, solar, atmospheric, and terrestrial oscillations,
 as well as oscillations in supernova envelopes.
 Where neutrino densities are relatively high, however,
 as in neutron star mergers, the problem must be solved globally.
-\footnote{TODO: be clearer}
 To date, no method has been devised to handle this problem.
 
 However, we can solve a similar but tractable problem along a single ray.
@@ -1986,11 +2009,10 @@ Assume all the neutrino rays intersecting an event along a given test ray
 have undergone the same flavor evolution history as that of the test ray,
 i.e.\ $S$ is the same for all rays sharing that event.
 This is the so-called single-angle approximation.
-\footnote{TODO: cite someone}
-\footnote{TODO: say something about its validity}
+\footnote{TODO (Gail, Yonglin): citation?}
 Though widely used in the supernova oscillation literature
 and shown to be qualitatively faithful in those environments,
-\footnote{TODO: cite someone}
+\footnote{TODO (Gail, Yonglin): citation?}
 we note that a recent study has shown that the single-angle approximation
 may mask certain instabilities in the flavor evolution
 \cite{wu2017-fast_neutrino_conversions}.
@@ -2121,7 +2143,8 @@ Additionally, the true radial profile of the ejecta from this merger
 will have many more features inside this radius, including shock jumps.
 This model density profile is adequate as a backdrop to our study here, however,
 since we expect the remnant to present similar neutrino emission over a thermal
-timescale of a few tens of milliseconds \footnote{TODO: cite someone}
+timescale of a few tens of milliseconds
+\footnote{TODO (Matt, Francois): reasonable assumption? citation?}
 while the matter field propagates out to larger radii.
 
 In Figs.~\ref{fig:V_nunu-noscat} and \ref{fig:V_nunu-scat}
@@ -2201,11 +2224,12 @@ as described in \cite{zhu2016-mnr_nsns_remnant}.
 In Figs.~\ref{fig:survival-noscat} and \ref{fig:survival-scat}
 we show the survival probabilities for $\nu_e$ and $\bar{\nu}_e$
 for the two treatments.
-\footnote{TODO: update this paragraph to new compute-eta data}
+\footnote{TODO (Brett, Yonglin): update this paragraph to new compute-eta data}
 The survival probabilities are the terms of
 the flavor evolution matrix $S$ that describe how much of the original flux
 of a given flavor survives a transition.
-\footnote{TODO: define explicitly}
+\footnote{TODO (Yonglin): define $P_{\nu_\alpha\rightarrow\nu_\alpha}$
+  in terms of $S$}
 Where $P_{\nu_e\rightarrow\nu_e}$ vanishes, for example in
 Fig.~\ref{fig:survival-noscat}, all the original $\nu_e$ content of the beam
 is oscillated into $\nu_\mu$ and $\nu_\tau$; but the $\nu_e$ density doesn't
@@ -2231,7 +2255,7 @@ neutron star mergers.
   % Plot: $DIR/31-900kmNHnoScatterPot.eps
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunAB/probabilityPotential
   \caption{Neutrino survival probabilities for the \emph{noscat} case.
-    \footnote{TODO: Replace; this is from the old interp-eta data}
+    \footnote{TODO (Brett, Yonglin): Replace; this is from the old interp-eta data}
     In the lower panel we reproduce the unoscillated self-interaction potential
     $V_{\nu\nu,0}$ from Fig.~\ref{fig:V_nunu-noscat} and a matter potential
     computed assuming a very simple steady state wind consistent with the
@@ -2250,7 +2274,7 @@ neutron star mergers.
   % Plot: $DIR/130-800kmNHScatterPot.eps (normal hierarchy)
   \caption{Same as Fig.~\ref{fig:survival-noscat},
     but with scattering turned on.
-    \footnote{TODO: Replace; this is from the old interp-eta data}
+    \footnote{TODO (Brett, Yonglin): Replace; this is from the old interp-eta data}
     In this case the neutrinos undergo a standard MNR transition
     outside of $r>200$~km,
     with the $e$-flavor neutrinos and antineutrinos
@@ -2262,13 +2286,13 @@ neutron star mergers.
 \section{Conclusions}
 \label{sec:conclusions}
 Add some conclusions.
-\footnote{TODO: note some improvements needed: implement implicit time-stepping,
+\footnote{TODO (Brett): note some improvements needed: implement implicit time-stepping,
   use finite-difference grid for fluid vars, improve gray spectral assumptions}
 
 \subsubsection*{Acknowledgements}
 This research is supported in part by the Joint Institute for Nuclear
 Astrophysics---Center for the Evolution of the Elements (JINA-CEE)
-and the National Science Fondation under grant numbers X. \footnote{TODO: grant nos?}
+and the National Science Fondation under grant numbers X. \footnote{TODO (all): grant nos?}
 We thank Sherwood Richers for providing his neutrino transport code
 \lstinline{Sedonu} for comparisons,
 Fran\c{c}ois H\'{e}bert for his timely help in finding and
@@ -2422,7 +2446,7 @@ $C^{\nu_e}_{{\rm AE}} = \sum_i\,C^{\nu_e}_{{\rm AE},i}$,
 where $i$ labels the absorption/emission processes involving $\nu_e$
 in Tab.~\ref{tab:neutrino_processes}.
 By contrast $C^{\nu_x}_{{\rm AE}} = 0$,
-\footnote{TODO: but we use a nonzero $C^{\nu_x}_{{\rm AE}}$}
+\footnote{TODO (Evan, Brett): note that we use a nonzero $C^{\nu_x}_{{\rm AE}}$}
 where $\nu_x$ stands for any of the four heavy-lepton neutrinos and
 antineutrinos.
 
@@ -2440,7 +2464,6 @@ only charged current processes involving $\nu_e$ and $\bar{\nu}_e$ are allowed.
 For each of these processes, $i$, we may write an emission and absorption
 coefficient as a function of the interaction cross-section
 (e.g. \cite[Eqn.~A5]{brue1985-core_collapse}):
-\footnote{TODO: explain Fermi-blocking}
 \begin{align}
   \label{eqn:sources_ae_1}
   C_{{\rm AE},i}
@@ -2549,7 +2572,7 @@ and the background scattering field $\Phi$:
   \ell_\alpha H^\alpha(\varepsilon)\right),
 \end{align}
 with $\chi^{\rm tr}_{s,i}$ the transport scattering opacity,
-\footnote{TODO: drop anisotropic term and defend}
+\footnote{TODO (Evan): can we defend dropping the anisotropic term?}
 \begin{equation}
   \label{eqn:opacity_s_tr}
   \chi^{\rm tr}_{s,i}(\varepsilon)
@@ -2562,7 +2585,6 @@ background field:
   = \frac{(2\pi)^3}{\varepsilon^3}\frac{1}{4\pi}
   J(\varepsilon).
 \end{equation}
-\footnote{TODO: defend}
 
 Thus computing sums over the opacities
 $\chi_s\equiv\sum_i\chi_{s,i}$ and
@@ -2656,10 +2678,11 @@ we call this the \emph{gray} method.
 \label{ssec:sources_si}
 Neutrino scattering off of electrons is inelastic, changing the
 magnitude and direction of the neutrino's momentum.
-\footnote{TODO: cite \cite{keil2003-pinched_spectra} or someone}
+\footnote{TODO (Evan): citation? maybe \cite{keil2003-pinched_spectra}?}
 A similar formalism to the above could be used to derive source terms
 for inelastic scattering.
-\footnote{TODO: compare relative amounts of inelastic to elastic scattering}
+\footnote{TODO (Evan): can we compare relative amounts of inelastic to
+  elastic scattering?}
 We save that for future work, pointing out here that inelastic scattering
 treated this way is very sensitive to the energy-dependence of
 the background field.
@@ -2667,13 +2690,13 @@ the background field.
 \subsection{Thermal pair annihilation and production}
 \label{ssec:sources_pp}
 We do not include thermal pair processes within the above formalism,
-\footnote{TODO: explain this choice, and cite \cite{keil2003-pinched_spectra} or someone}
+\footnote{TODO (Evan): can we explain this choice better? and add citation?}
 but as mentioned in App.~\ref{ssec:sources_ae}, we do include
 these processes in an effective absorption opacity for $\mu$ and $\tau$
 neutrinos and antineutrinos. \lstinline{NuLib} follows
 \cite{brue1985-core_collapse,burr2006-neutrino_opacities}
 by computing the emissivity of the pair processes in
-\footnote{TODO: describe better}
+\footnote{TODO (Evan): improve description?}
 Tab.~\ref{tab:neutrino_processes}, and applying Kirchoff's law,
 Eqn.~\ref{eqn:kirchoffs_law}, to convert this to an effective absorption opacity,
 and its corresponding emissivity obeying Kirchoff's law.
