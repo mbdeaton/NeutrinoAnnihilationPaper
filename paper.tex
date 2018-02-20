@@ -2255,20 +2255,20 @@ of Eqn.~\ref{eqn:V_nu_alpha}.
 We also solve for the flavor evolution of this system,
 integrating $S$ according to Eqn.~\ref{eqn:schroedinger},
 as described in \cite{zhu2016-mnr_nsns_remnant}.
-In Figs.~\ref{fig:survival-noscat} and \ref{fig:survival-scat}
+In Fig.~\ref{fig:survival-scat}
 we show the survival probabilities for $\nu_e$ and $\bar{\nu}_e$
-for the two treatments.
-\footnote{TODO (Brett, Yonglin): update this paragraph to new compute-eta data}
+for the \emph{scat} treatment. (There is no flavor transformation
+in the \emph{noscat} treatment.)
 The survival probabilities are the terms of
 the flavor evolution matrix $S$ that describe how much of the original flux
 of a given flavor survives a transition.
 \footnote{TODO (Yonglin): define $P_{\nu_\alpha\rightarrow\nu_\alpha}$
   in terms of $S$}
-Where $P_{\nu_e\rightarrow\nu_e}$ vanishes, for example in
-Fig.~\ref{fig:survival-noscat}, all the original $\nu_e$ content of the beam
-is oscillated into $\nu_\mu$ and $\nu_\tau$; but the $\nu_e$ density doesn't
-vanish altogether,
-since some $\nu_\mu$ and $\nu_\tau$ oscillates into $\nu_e$.
+Where $P_{\nu_e\rightarrow\nu_e}$ decreases, for example in
+Fig.~\ref{fig:survival-scat} outside of $r\sim400$~km,
+a fraction of the original $\nu_e$ content of the beam oscillates into
+$\nu_\mu$ and $\nu_\tau$, and a fraction of $\nu_\mu$ and $\nu_\tau$
+oscillates into $\nu_e$.
 
 For our assumed matter potential along this one test trajectory
 we see that a matter-neutrino resonance only occurs in the \emph{scat} case;
@@ -2284,36 +2284,21 @@ scattering physics in the problem of neutrino oscillations in
 neutron star mergers.
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{fig-survival_prob-noscat_nh}
-  % Flavor evolution by Yonglin, see emails 7.19.17-7.20.17
-  % Plot: $DIR/31-900kmNHnoScatterPot.eps
-  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunAB/probabilityPotential
-  \caption{Neutrino survival probabilities for the \emph{noscat} case.
-    \footnote{TODO (Brett, Yonglin): Replace; this is from the old interp-eta data}
-    In the lower panel we reproduce the unoscillated self-interaction potential
-    $V_{\nu\nu,0}$ from Fig.~\ref{fig:V_nunu-noscat} and a matter potential
-    computed assuming a very simple steady state wind consistent with the
-    densities within the simulation volume inside of $r<70$~km
-    along this trajectory.
-    In this case the neutrinos undergo a symmetric MNR transition
-    inside of $r<50$~km,
-    with the $e$-flavor neutrinos and antineutrinos fully converting to $\nu_x$.
-  }
-  \label{fig:survival-noscat}
-\end{figure}
-
-\begin{figure}
   \includegraphics[width=\columnwidth]{fig-survival_prob-scat_nh}
-  % see notes from fig-survival_prob-noscat_nh
-  % Plot: $DIR/130-800kmNHScatterPot.eps (normal hierarchy)
-  \caption{Same as Fig.~\ref{fig:survival-noscat},
-    but with scattering turned on.
-    \footnote{TODO (Brett, Yonglin): Replace; this is from the old interp-eta data}
+  % Flavor evolution by Yonglin, see emails 11.28.17 and 1.31.18
+  % Plot: $DIR/brett4sfnew300-600kmACC12Step2NE30NH012518m12sc.pdf
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunBA/probabilityPotential-production01
+  \caption{Neutrino survival probabilities for the \emph{scat} case.
+    In the lower panel we reproduce the self-interaction potential $V_{\nu\nu,0}$
+    and matter potential $V_e$ from Fig.~\ref{fig:V_nunu-noscat}.
+    \footnote{TODO (Yonglin): change colors and symbols to be consistent with
+    text and above plots. Of if you can give me the raw data being plotted, I
+    can make the plot.}
     In this case the neutrinos undergo a standard MNR transition
-    outside of $r>200$~km,
-    with the $e$-flavor neutrinos and antineutrinos
-    partially converting to $\nu_x$.
-    }
+    beginning around $r\sim400$~km,
+    with the $e$-flavor neutrinos and antineutrinos partially converting to
+    $\nu_x$.
+  }
   \label{fig:survival-scat}
 \end{figure}
 
