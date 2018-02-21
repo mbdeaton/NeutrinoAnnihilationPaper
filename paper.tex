@@ -2392,9 +2392,87 @@ neutron star mergers.
 
 \section{Conclusions}
 \label{sec:conclusions}
-Add some conclusions.
-\footnote{TODO (Brett): note some improvements needed: implement implicit time-stepping,
-  use finite-difference grid for fluid vars, improve gray spectral assumptions}
+We have introduced a new general relativistic ray tracing method to compute
+neutrino distribution functions around compact objects in dynamical configurations,
+and which incorporates the effects of elastic scattering for the first time
+within a ray tracing framework.
+Elastic scattering of neutrinos into and out of each ray is included in our
+method by using estimates of the background neutrino fields from an
+M1 transport simulation.
+To capture the energy spectrum of the background field, we have described a
+\emph{spectral} method which uses neutrino energy densities over multiple
+energy groups as input, and a
+\emph{gray} method which uses neutrino energy and number densities averaged
+over all energies as input.
+We have also successfully tested the ray tracing code with a comprehensive
+battery of tests.
+
+In our tests (Sec.~\ref{sec:tests}) we have confirmed that elastic scattering
+plays a significant role in redistributing neutrino energy- and
+angle-distributions in common compact-object configurations.
+The largest effects are seen in $\nu_x$ distributions
+and to a lesser extent $\bar{\nu}_e$,
+with the dominant effect a decrease in average energies from the central body,
+and an increase in average energies from the scattering envelope.
+More specifically, in the disk configuration formed by the merger of two neutron
+stars (Sec.~\ref{ssec:test_disk_comparison}), elastic scattering causes
+\begin{enumerate}
+\item a decrease in average energies of neutrinos emerging from the remnant at
+  all angles and for all species,
+\item an increase in $\bar{\nu}_e$ and $\nu_x$ fluxes and a decrease in $\nu_e$
+  fluxes viewed from along the rotation axis, and
+\item a decrease in all species' fluxes viewed from the equatorial plane.
+\end{enumerate}
+Furthermore we find good agreement in overall number and energy luminosities
+and average energies in comparisons with neutrino transport methods,
+e.g.\ Monte Carlo in Sec.~\ref{ssec:test_collapse} and
+M1 transport in Sec.~\ref{ssec:test_disk_comparison}.
+
+We have also employed the ray tracing code to examine neutrino flavor
+oscillations along one toy trajectory exiting the neutrino-dense environment
+of the neutron star post-merger configuration (Sec.~\ref{ssec:V_nunu}).
+Along that trajectory,
+$25^\circ$ from the polar axis, elastic scattering increases the
+$\bar{\nu}_e$ relative to the $\nu_e$ self-interaction potential,
+introducing a standard matter neutrino
+resonance (MNR) where there was none before.
+In a similar configuration, but with matter densities lower
+by a factor of a few, the effect of elastic scattering would have been to push
+the MNR out to larger radii.
+This example demonstrates the importance of the physics of elastic scattering
+in the phenomenon of neutrino flavor oscillation.
+We caution the reader, however, to avoid drawing general conclusions from this
+particular example, since a single astrophysical configuration can present
+dramatically different oscillation resonances along test trajectories emerging
+at different angles \cite{zhu2016-mnr_nsns_remnant},
+and since the MNR is extremely sensitive to a host of parameters.
+
+Finally, we propose the following improvements to the ray tracing code to make
+it a more useful and robust astrophysical simulation tool:
+\begin{enumerate}
+\item Use the finite-difference hydrodynamics simulation grid to represent
+  background fluid and neutrino variables instead of interpolating all
+  input variables to the pseudo-spectral spacetime simulation grid in order
+  to begin ray tracing.
+  We have found that though the interpolation of fluid and neutrino variables
+  to a lower-resolution pseudo-spectral grid saves computational memory, it
+  introduces more costly problems, the foremost being Gibbs-like oscillations
+  at shocks and discontinuities present in fluid fields.
+\item Replace explicit with implicit time stepping in the integrations along
+  each ray. We have found that the stability of the time-integration demands
+  extremely small step sizes of the adaptive time-stepping algorithm, especially
+  for higher-energy rays. Large errors are possible if time-stepping thresholds
+  are not fine-tuned to each new configuration.
+\item Improve the spectral assumptions made in the \emph{gray} method.
+  The test of both \emph{gray} and \emph{spectral} methods against
+  the fiducial Monte Carlo calculation presented in Sec.~\ref{ssec:test_collapse}
+  indicated strong agreement for overall average energies for all species. 
+  However, the average energy of $\bar{\nu}_e$ emerging from the envelope
+  (which contributed only a tiny fraction to the total luminosity)
+  differed between the \emph{gray} treatment and the Monte Carlo by 30\%.
+  Agreement could be improved with better spectral assumptions, for example
+  employing pinched spectra.
+\end{enumerate}
 
 \subsubsection*{Acknowledgements}
 This research is supported in part by the Joint Institute for Nuclear
