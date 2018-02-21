@@ -1222,10 +1222,98 @@ $\cos A \gtrsim 0.8$.
 \subsection{Idealized Compact Star:
   Testing Gravitational Redshift and Geodesic Curvature}
 \label{ssec:test_gravity}
-Unfinished: describe and point readers to Asano-Fukuyama test presented
-in thesis ~\cite[Sec.~4.3.3]{deat2015-thesis}.
-Also compare a few geodesics in Kerr to analytic.
-\footnote{TODO (Brett): compute some geodesics in Kerr}
+To test the general relativistic terms in our formulation, which account for
+the gravitational redshift and geodesic curvature of the neutrinos,
+we sample distribution functions outside an idealized hot compact star,
+and compute a neutrino-antineutrino interaction integral describing the
+energy deposited per time per volume due to the process
+$\nu \bar{\nu} \rightarrow e^{-} e^{+}$.
+We describe this code test in detail in
+\cite[Sec.~4.3]{deat2015-thesis}, and here give a brief summary.
+
+The $\nu \bar{\nu}$-annihilation integral outside a compact star was computed
+semi-analytically in \cite{asan2000-nunubar}. Since then many studies of
+$\nu \bar{\nu}$-annihilation in more realistic configurations have used the
+compact star as a standard code test \cite{birk2007-nunubar,
+  hari2010-gr_nunubar_collapsar,zala2011-nunubar}.
+We compute the power density (energy per time per volume) due to
+$\nu\bar{\nu}$-annihilation measured by a stationary observer above the star
+using:
+\begin{equation}
+  \label{eqn:q_nunubar}
+  q_{\nu\bar{\nu}} = A \int d^3p_{\nu} d^3p_{\bar{\nu}}
+  f_{\nu}(p_{\nu j})f_{\bar{\nu}}(p_{\bar{\nu} k})
+  \frac{p_{\nu t}+p_{\bar{\nu} t}}{p_{\nu}^t p_{\bar{\nu}}^t}
+  (p_{\nu\alpha}p_{\bar{\nu}}^\alpha)^2
+\end{equation}
+where as in \cite{asan2000-nunubar} we account for the energy redshift to
+infinite separation by the energy weighting $p_{\nu t}+p_{\bar{\nu} t}$,
+$A=2 c^3 K G_{\rm F}^2$,
+the Fermi constant is $G_{\rm F}=5.29\times10^{-44}\,{\rm cm}^2\,{\rm MeV}^{-2}$,
+\begin{equation}
+  K \left\{ {e \atop \mu\,\tau} \right\} = 
+  \frac{1}{6\pi}
+  \left(1 \, \left\{ {+ \atop -} \right\}
+  \, 4 \sin^2 \theta_w + 8 \sin^4 \theta_w\right)
+\end{equation}
+and the weak mixing angle is $\sin^2\theta_w=0.23$.
+
+Because Eqn.~\ref{eqn:q_nunubar} has such high dimension,
+a simple unigrid integral solution---sampling $f_\nu$ and $f_{\bar{\nu}}$
+over fixed step sizes in momentum space---is impractical.
+We compute the integral using the adaptive Monte Carlo Vegas technique
+\cite{pres2007-nr_3rd_ed},
+which iteratively samples those regions of momentum space that contribute
+most to the integral. At each iterative stage the algorithm estimates the
+error, and terminates when some error threshold is achieved.
+
+In order to stress-test the gravity-dependence of the code,
+we choose an unphysically compact star configuration with
+radius $R=4.43$~km,
+in a Schwarzschild metric with
+gravitational radius $R_g=2.95$~km.
+To compare to the calculation in \cite{asan2000-nunubar},
+instead of integrating the formal solution for $f_\nu$ and $f_{\bar{\nu}}$
+using Eqns.~\ref{eqn:rendering_fae} and \ref{eqn:rendering_fse},
+we compute only the boundary term using Eqn.~\ref{eqn:rendering_fbdry},
+and neglect the attenuation due to the optical depth,
+This method is equivalent to transporting the neutrino distribution function
+in a state of radiative equilibrium with the matter in the star
+up to the observer assuming no interactions along the trajectory.
+To define the neutrino distribution function in the star,
+we make the star homogeneous, with
+temperature $T=5$~MeV and
+chemical potentials $\eta_{\nu_e}=-\eta_{\bar{\nu}_e}=0.1$,
+and we assume stationary fluid.
+
+% Data from
+% DATA=$RUNDIR//q.dat
+% RUNDIR=$RESEARCHDIR/20150423-thesis_data_and_figures/NeutrinoAnnihilationConvergence/AsanoFukuyamaSphere/Run-01.0/Lev2
+% RESEARCHDIR=$HOME/Documents/ResearchGraveyard/NumericalRelativity/DataAndVis
+% The integrals computed were the following 12:
+% qs={6.87957*^27, 6.83298*^27, 6.76573*^27, 7.02744*^27, 6.88277*^27, 6.89031*^27,
+%     6.84114*^27, 6.85656*^27, 6.90977*^27, 6.82969*^27, 6.83426*^27, 6.93181*^27}
+The power density deposited by this interaction at a coordinate radius $r=7.38$~km
+is computed from formulae in \cite{asan2000-nunubar} as
+\begin{equation}
+  q_{\nu\bar{\nu}}=6.89\times10^{27}\,{\rm erg}\,{\rm cm^3}\,{\rm s}^{-1}.
+\end{equation}
+We computed the integral twelve times at an error threshold of 1\% and measured
+a mean of
+\begin{equation}
+  q_{\nu\bar{\nu}}=6.87\pm0.07\times10^{27}\,{\rm erg}\,{\rm cm^3}\,{\rm s}^{-1},
+\end{equation}
+with the error bars expressing the standard deviation between the twelve
+calculations. Each run computed the integral using $N$ samples of the integrand
+(requiring $2N$ rays, one for each sample of $f_\nu$ and $f_{\bar{\nu}}$),
+with $N$ ranging from 56,000 to 72,000.
+
+The success of this test gives us confidence in the code's ability to handle a
+general spacetime metric, since errors in gravitational redshift would have
+affected samples of $f$ in the integrand (e.g.\ sampling the distribution function
+at the wrong local energy), and errors in geodesic integration would have
+affected the angular size of the star (e.g.\ causing the star to look larger
+or smaller).
 
 \subsection{Post-Bounce Collapse Profile:
   Testing Scattering}
