@@ -102,16 +102,16 @@ which generally lacks any spatial symmetries, so that fully general
 seven-dimensional solutions to the Boltzmann Equation are not feasible.
 Leakage approximations
 \citep{ruff1996-leakage_part1,ross2003-leakage_part2,
-  deat2013-leakage, pere2016-asl, radi2016-dynamical}
-\footnote{TODO (Evan): cite others}
+  deat2013-leakage, gale2013-gr_rad_trans, pere2016-asl, radi2016-dynamical}
 capture some of the qualitative effects of neutrinos on the matter, but
 provide extremely limited information about the neutrino field itself.
 Monte Carlo methods like those
 used in supernova simulations \cite{abdi2012-monte_carlo}
 and stationary models of accretion disks \cite{rich2015-monte_carlo}
 are an excellent tool but require large computational resources
-because of their global treatment of the problem.
-\footnote{TODO (Evan): discuss mc more clearly}
+because of the need to use a large number of particles to fully and precisely
+sample the high dimensional parameter space
+(seven-dimensional in the general case).
 
 The state of the art today for neutron star merger calculations
 couples radiation and matter using a truncated moment formalism
@@ -236,10 +236,9 @@ Any phenomena that involve neutrino-neutrino interactions,
 for example neutrino oscillations \footnote{TODO (Gail): cite an example study}
 and neutrino-antineutrino annihilation \cite{asan2000-nunubar},
 depend sensitively on the angular distribution.
-And spectral changes can strongly affect the nucleosynthesis.
-occuring in the ejected and irradiated material
-\footnote{TODO (Evan, Francois, Gail): cite energy-dependent
-neutrino+nucleosynthesis study}
+And spectral changes in neutrino distributions can strongly affect the nuclear
+processes occuring in the ejected and irradiated material
+\cite{fouc2016-m1_evolve_n}.
 The ray tracing method we present in this paper captures the dominant effects
 of elastic scattering, while leaving the physics of inelastic scattering and
 pair processes for later work.
@@ -900,15 +899,24 @@ in the test presented in Sec.~\ref{ssec:test_collapse}---a
 massive collapsed star following core bounce---where
 $\varrho=10^{11}\,{\rm g}\,{\rm cm}^{-3}$, $T=3.7$~MeV, and $Y_e=0.12$.
 For comparision with that test we use the LS180 equation of state
-\cite{latt1991-nuc_eos}
-\footnote{available at \lstinline{stellarcollapse.org}}
+\cite{latt1991-nuc_eos, ocon2010-gr1d}
 in which the equilibrium $\nu_e$ neutrino chemical potential is
 $\eta_{\nu_e}=-0.1555$
 (with $\eta_{\bar{\nu}_e}=-\eta_{\nu_e}$ and $\eta_{\nu_x}=0$).
-The opacity table is computed using \lstinline{NuLib} from cross-sections
-neglecting weak magnetism
-\footnote{TODO (Evan): neglecting anything else?}
-and is stored on a grid covering energy, density, temperature, and composition
+
+The opacity table is computed using \lstinline{NuLib}
+\cite{ocon2015-gr1d_with_nu}
+and is identical to the LS180 opacity table used in the referenced paper.
+The scattering opacity is computed taking into account elastic scattering on
+nucleons, alpha particles, and heavy nuclei.
+The absorption opacities consist of electron neutrino absorption on neutrons
+and heavy nuclei as well as electron antineutrino absorption on protons.
+We use Kirchhoff's law to compute emissivities based on these absorption
+opacities.
+For heavy lepton neutrinos we consider thermal emission processes including
+electron-positron annihilation and nucleon-nucleon Bremsstrahlung.
+The table is stored on a grid covering energy, density, temperature,
+and composition
 ranges spanning $\varepsilon_i\in[1,280.5]$~MeV logarithmically,
 $\varrho\in[10^6,6.3\times10^{15}]\,{\rm g}\,{\rm cm}^{-3}$ logarithmically,
 $T\in[0.05,200]$~MeV logarithmically, and 
