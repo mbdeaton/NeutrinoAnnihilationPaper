@@ -239,7 +239,7 @@ and neutrino-antineutrino annihilation \cite{asan2000-nunubar},
 depend sensitively on the angular distribution.
 And spectral changes in neutrino distributions can strongly affect the nuclear
 processes occuring in the ejected and irradiated material
-\cite{fouc2016-m1_evolve_n}.
+\cite{surm2006-grb_nucsynth,malk2012-mnr_1,caba2012-nu_spectra,fouc2016-m1_evolve_n}.
 The ray tracing method we present in this paper captures the dominant effects
 of elastic scattering, while leaving the physics of inelastic scattering and
 pair processes for later work.
@@ -2136,17 +2136,17 @@ as in neutron star mergers, the problem must be solved globally.
 To date, no method has been devised to handle this problem.
 
 However, we can solve a similar but tractable problem along a single ray.
-Assume all the neutrino rays intersecting an event along a given test ray
+We assume that all the neutrino rays intersecting an event along a given test ray
 have undergone the same flavor evolution history as that of the test ray,
 i.e.\ $S$ is the same for all rays sharing that event.
 This is the so-called single-angle approximation.
-\footnote{TODO (Gail, Yonglin): citation?}
 Though widely used in the supernova oscillation literature
 and shown to be qualitatively faithful in those environments,
-\footnote{TODO (Gail, Yonglin): citation?}
-we note that a recent study has shown that the single-angle approximation
-may mask certain instabilities in the flavor evolution
-\cite{wu2017-fast_neutrino_conversions}.
+we note that recent studies have discovered configurations in which
+the single-angle approximation masks certain instabilities
+in the flavor evolution \cite{wu2017-fast_neutrino_conversions},
+or introduces qualitatively different flavor evolution behavior
+than that of the full multi-angle calculation \cite{vlas2018-multiangle}.
 
 The formalism of the single-angle approximation requires knowledge of
 the unoscillated neutrino contribution to the Hamiltonian
@@ -2354,17 +2354,16 @@ as described in \cite{zhu2016-mnr_nsns_remnant}.
 In Fig.~\ref{fig:survival-scat}
 we show the survival probabilities for $\nu_e$ and $\bar{\nu}_e$
 for the \emph{scat} treatment. (There is no flavor transformation
-in the \emph{noscat} treatment.)
-The survival probabilities are the terms of
-the flavor evolution matrix $S$ that describe how much of the original flux
-of a given flavor survives a transition.
-\footnote{TODO (Yonglin): define $P_{\nu_\alpha\rightarrow\nu_\alpha}$
-  in terms of $S$}
-Where $P_{\nu_e\rightarrow\nu_e}$ decreases, for example in
-Fig.~\ref{fig:survival-scat} outside of $r\sim400$~km,
-a fraction of the original $\nu_e$ content of the beam oscillates into
-$\nu_\mu$ and $\nu_\tau$, and a fraction of $\nu_\mu$ and $\nu_\tau$
-oscillates into $\nu_e$.
+in the \emph{noscat} treatment. \footnote{TODO (Brett): ubpdate with new plots})
+The survival probability is the probability that a neutrino, if measured,
+will be found to be in its original flavor state.
+The survival probabilities are computed at each point along the trajectory
+from the flavor evolution matrix,
+$P_{\nu_\alpha \to \nu_\alpha} = |S_{\alpha \alpha}(E)|^2$.
+When $P_{\nu_e \to \nu_e}$ decreases,
+as can be seen for example in Fig.~\ref{fig:survival-scat} for $s>400$~km,
+some of the electron-type neutrinos have oscillated into
+mu- or tau-type neutrinos.
 
 For our assumed matter potential along this one test trajectory
 we see that a matter-neutrino resonance only occurs in the \emph{scat} case;
