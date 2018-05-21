@@ -2351,10 +2351,9 @@ of Eqn.~\ref{eqn:V_nu_alpha}.
 We also solve for the flavor evolution of this system,
 integrating $S$ according to Eqn.~\ref{eqn:schroedinger},
 as described in \cite{zhu2016-mnr_nsns_remnant}.
-In Fig.~\ref{fig:survival-scat}
-we show the survival probabilities for $\nu_e$ and $\bar{\nu}_e$
-for the \emph{scat} treatment. (There is no flavor transformation
-in the \emph{noscat} treatment. \footnote{TODO (Brett): ubpdate with new plots})
+We show the survival probabilities for $\nu_e$ and $\bar{\nu}_e$
+for the \emph{noscat} treatment in Fig.~\ref{fig:survival-noscat},
+and for the \emph{scat} treatment in Fig.~\ref{fig:survival-scat}.
 The survival probability is the probability that a neutrino, if measured,
 will be found to be in its original flavor state.
 The survival probabilities are computed at each point along the trajectory
@@ -2365,18 +2364,45 @@ as can be seen for example in Fig.~\ref{fig:survival-scat} for $s>400$~km,
 some of the electron-type neutrinos have oscillated into
 mu- or tau-type neutrinos.
 
-For our assumed matter potential along this one test trajectory
+In Fig.~\ref{fig:survival-noscat}, we report the survival probabilities
+from the calculation with elastic scattering turned off.
+Using neutrino mixing angle $\theta_{12}$ and the inverted hierarchy
+(the normal hierarchy gives qualitatively similar results)
+electron neutrinos and antineutrinos start to oscillate around
+700~km in the form of a collective neutrino oscillation,
+causing both $\nu_e$ and $\bar{\nu}_e$ to convert to heavy lepton neutrinos
+and antineutrinos respectively.
+A similar effect was seen in \cite{fren2017-flavor_bns,tian2017-flavor_bns}.
+In Fig.~\ref{fig:survival-scat}, we report the survival probabilities
+of an otherwise identical calculation, but with elastic scattering turned on.
+In this case, electron neutrinos and antineutrinos start to oscillate around
+400~km in the form of a standard matter neutrino resonance:
+at first both $\nu_e$ and $\bar{\nu}_e$ convert to heavy lepton neutrinos,
+but as the transformation progresses, the $\bar{\nu}_e$ partially
+return to their original flavor.
+
+Note that during the latter part of the matter neutrino resonance
+depicted in Fig.~\ref{fig:survival-scat},
+where the self-interaction potential approaches the vacuum scale,
+the survival probabilities show some small-scale oscillations
+different than the standard matter neutrino resonance
+introduced in \cite{malk2015-mnr_2}.
+This occurs because the self-interaction potential and matter potential
+fall close to the vacuum potential scale.
+
+The collective neutrino oscillation occuring in the \emph{noscat} case
+(Fig.~\ref{fig:survival-noscat})
+not only produces a very different flavor mixture,
+the transformation also starts further from the remnant,
+and it extends much further before it completes.
+For these potentials along this test trajectory,
 we see that a matter-neutrino resonance only occurs in the \emph{scat} case;
 though with a slightly higher matter potential it could occur in both cases,
 closer to the disk in the \emph{noscat} case than the \emph{scat} case.
 For this particular test trajectory we only see a standard and not a symmetric
-matter neutrino resonance;
-these two classes of matter-neutrino resonance
-are described for example in \cite{malk2016-mnr_3,vaan2016-uncovering_mnr}.
-The difference we see in the oscillation physics between the \emph{noscat}
-and \emph{scat} cases along this test trajectory highlights the importance of
-scattering physics in the problem of neutrino oscillations in
-neutron star mergers.
+matter neutrino resonance \cite{malk2016-mnr_3,vaan2016-uncovering_mnr}.
+As we can see from these calculations, the final outcome of the flavor
+transformation is quite different in the two scenarios.
 
 \begin{figure}
   \includegraphics[width=\columnwidth]{fig-survival_prob-noscat_ih}
@@ -2454,21 +2480,29 @@ M1 transport in Sec.~\ref{ssec:test_disk_comparison}.
 We have also employed the ray tracing code to examine neutrino flavor
 oscillations along one toy trajectory exiting the neutrino-dense environment
 of the neutron star post-merger configuration (Sec.~\ref{ssec:V_nunu}).
-Along that trajectory,
-$25^\circ$ from the polar axis, elastic scattering increases the
-$\bar{\nu}_e$ relative to the $\nu_e$ self-interaction potential,
-introducing a standard matter neutrino
-resonance (MNR) where there was none before.
-In a similar configuration, but with matter densities lower
-by a factor of a few, the effect of elastic scattering would have been to push
-the MNR out to larger radii.
+The trajectory starts from 300~km, and moves out radially at
+$25^\circ$ from the polar axis.
+Along that trajectory, elastic scattering has the effect of increasing
+the ratio of $\bar{\nu}_e$ relative to $\nu_e$.
+This creates a negative self-interaction potential
+which introduces a complete standard matter neutrino resonance
+(see Fig.~\ref{fig:survival-scat}).
+At about 400~km from the merger core,
+both electron neutrinos and electron antineutrinos begin to transform.
+At about 1200~km
+electron neutrinos have almost completely converted to mu or tau neutrinos,
+while the electron antineutrinos have returned back to their original flavor.
+In an otherwise identical calculation, ignoring elastic scattering
+causes the flavor transformation to be very different (see Fig.~\ref{fig:survival-noscat}).
+
 This example demonstrates the importance of the physics of elastic scattering
 in the phenomenon of neutrino flavor oscillation.
-We caution the reader, however, to avoid drawing general conclusions from this
-particular example, since a single astrophysical configuration can present
-dramatically different oscillation resonances along test trajectories emerging
-at different angles \cite{zhu2016-mnr_nsns_remnant},
-and since the MNR is extremely sensitive to a host of parameters.
+However, we avoid drawing general conclusions from this particular example,
+since a single astrophysical configuration can present dramatically different
+oscillation resonances along test trajectories emerging at different angles
+\cite{zhu2016-mnr_nsns_remnant},
+and since the matter neutrino resonance is extremely sensitive to a host
+of parameters.
 
 Finally, we propose the following improvements to the ray tracing code to make
 it a more useful and robust astrophysical simulation tool:
