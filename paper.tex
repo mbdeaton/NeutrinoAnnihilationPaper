@@ -2307,6 +2307,7 @@ of Eqn.~\ref{eqn:V_nu_alpha}.
   % Config: $DIR/RunBA/RunBA-025deg-noscat-production01/nu_potentials-config-production.nb
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/
   \caption{Neutrino oscillation potentials
+    for the \emph{noscat} case
     along a test trajectory
     originating at the surface of the hypermassive neutron star, and
     proceeding outward along a radial coordinate ray with angle
@@ -2320,7 +2321,6 @@ of Eqn.~\ref{eqn:V_nu_alpha}.
     dashed where negative);
     additionally we plot the $\nu_e$ and $\bar{\nu}_e$ components composing
     the self-interaction potential (light blue and dark blue respectively).
-    This calculation was done with scattering turned off.
     The two gray bands at $V\sim10^{-22}$~erg and $V\sim10^{-24}$~erg
     indicating the two vacuum energy scales for 10--30~MeV neutrinos,
     set the positions of possible Mikheyev-Smirnov-Wolfenstein (MSW)
@@ -2340,7 +2340,7 @@ of Eqn.~\ref{eqn:V_nu_alpha}.
   % Config: $DIR/RunBA/RunBA-025deg-scat-production01/nu_potentials-config-production.nb
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/
   \caption{Same as Fig.~\ref{fig:V_nunu-noscat},
-    but with scattering turned on.
+    but for the \emph{scat} case.
     Unlike the case with scattering turned off,
     here the total unoscillated self-interaction potential $V_{\nu\nu,0}$
     is everywhere negative, i.e.\ $\bar{\nu}_e$-dominated.
@@ -2379,20 +2379,36 @@ scattering physics in the problem of neutrino oscillations in
 neutron star mergers.
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{fig-survival_prob-scat_nh}
-  % Flavor evolution by Yonglin, see emails 11.28.17 and 1.31.18
-  % Plot: $DIR/brett4sfnew300-600kmACC12Step2NE30NH012518m12sc.pdf
-  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunBA/probabilityPotential-production01
-  \caption{Neutrino survival probabilities for the \emph{scat} case.
+  \includegraphics[width=\columnwidth]{fig-survival_prob-noscat_ih}
+  % Flavor evolution by Yonglin, see emails 5.9.18, 5.16.18
+  % Data: $DIR/300-1499kmACC12Step2NE30IH051418m12sc.dat2p
+  % Script: $DIR/plot.gp
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunBA/RunBA-025deg-noscat/flavor_evolution
+  \caption{Neutrino survival probabilities for the \emph{noscat} case.
     In the lower panel we reproduce the self-interaction potential $V_{\nu\nu,0}$
     and matter potential $V_e$ from Fig.~\ref{fig:V_nunu-noscat}.
-    \footnote{TODO (Yonglin): change colors and symbols to be consistent with
-    text and above plots. Of if you can give me the raw data being plotted, I
-    can make the plot.}
+    In this case, the neutrinos undergo collective neutrino oscillation
+    beginning around $r\sim700$~km,
+    with both the electron neutrinos and antineutrinos almost converting to mu
+    or tau neutrinos completely.
+  }
+  \label{fig:survival-noscat}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{fig-survival_prob-scat_ih}
+  % Flavor evolution by Yonglin, see emails 5.9.18, 5.16.18
+  % Data: $DIR/300-1499kmACC12Step2NE30IH051418m12sc.dat2p
+  % Script: $DIR/plot.gp
+  % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunBA/RunBA-025deg-scat/flavor_evolution
+  \caption{Same as Fig.~\ref{fig:survival-noscat},
+    but for the \emph{scat} case.
     In this case the neutrinos undergo a standard MNR transition
     beginning around $r\sim400$~km,
-    with the $e$-flavor neutrinos and antineutrinos partially converting to
-    $\nu_x$.
+    with the electron neutrinos converting to mu or tau neutrinos almost
+    completely,
+    and the electron antineutrinos oscillating back to their original flavor
+    after partially converting to mu and tau.
   }
   \label{fig:survival-scat}
 \end{figure}
