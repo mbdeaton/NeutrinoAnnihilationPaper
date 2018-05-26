@@ -2534,10 +2534,14 @@ it a more useful and robust astrophysical simulation tool:
 \subsubsection*{Acknowledgements}
 This research is supported in part by the Joint Institute for Nuclear
 Astrophysics---Center for the Evolution of the Elements (JINA-CEE)
-and the National Science Foundation under grant numbers X,
-and the U.S.\ Department of Energy, Office of Science, Office of Nuclear Physics,
-under Award Number DE-FG02-02ER41216.
-\footnote{TODO (all): grant nos?}
+and the National Science Foundation under grant numbers \lstinline{X} (MBD),
+by NASA through the Hubble Fellowship under grant \lstinline{51344.001-A},
+awarded by the Space Telescope Science Institute,
+which is operated  by the Association of Universities for Research in Astronomy, Inc.,
+for NASA under contract \lstinline{NAS 5-26555} (EO),
+and through the U.S.\ Department of Energy, Office of Science, Office of Nuclear Physics,
+under award number \lstinline{DE-FG02-02ER41216} (GCM).
+\footnote{TODO (Matt, Francois): grant nos?}
 We thank Sherwood Richers for providing his neutrino transport code
 \lstinline{Sedonu} for comparisons,
 Fran\c{c}ois H\'{e}bert for his timely help in finding and
@@ -2684,22 +2688,24 @@ they take the same numerical value in any frame of reference
 and are completely independent of our choice of fiducial observer $u^\alpha$
 (see discussion around Eqn.~\ref{eqn:boltzmann_linear}).
 
+We compute our rates using the open source neutrino interaction
+library \lstinline{NuLib} \cite{ocon2015-gr1d_with_nu}.
+We compile a table of sources defined over the four dimensions of
+density, temperature, electron-fraction, and neutrino energy, and
+interpolate quad-linearly to the points sampled along each ray.
+
 Each source term is unique to the neutrino or antineutrino species modeled,
 and consists of a sum over all of the processes contributing to that
 category of interaction. For example:
 $C^{\nu_e}_{{\rm AE}} = \sum_i\,C^{\nu_e}_{{\rm AE},i}$,
 where $i$ labels the absorption/emission processes involving $\nu_e$
 in Tab.~\ref{tab:neutrino_processes}.
-By contrast $C^{\nu_x}_{{\rm AE}} = 0$,
-\footnote{TODO (Evan, Brett): note that we use a nonzero $C^{\nu_x}_{{\rm AE}}$}
-where $\nu_x$ stands for any of the four heavy-lepton neutrinos and
-antineutrinos.
-
-We compute our rates using the open source neutrino interaction
-library \lstinline{NuLib}~\footnote{\url{http://www.nulib.org}}.
-We compile a table of sources defined over the four dimensions of
-density, temperature, electron-fraction, and neutrino energy, and
-interpolate quad-linearly to the points sampled along each ray.
+By contrast $C^{\nu_x}_{{\rm AE}}$ is formally equal to zero.
+However, in practice, \lstinline{NuLib} implements the thermal pair processes
+via an effective emission/absorption term in order to avoid the need
+to couple energy groups and species (see Sec.~\ref{ssec:sources_pp}).
+This has been shown to work well for core-collapse supernovae
+\cite{ocon2015-gr1d_with_nu}.
 
 \subsection{Absorption and emission via charged current}
 \label{ssec:sources_ae}
