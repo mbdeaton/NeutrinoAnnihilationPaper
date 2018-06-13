@@ -1,0 +1,128 @@
+% GNUPLOT: LaTeX picture with Postscript
+\begingroup
+  \makeatletter
+  \providecommand\color[2][]{%
+    \GenericError{(gnuplot) \space\space\space\@spaces}{%
+      Package color not loaded in conjunction with
+      terminal option `colourtext'%
+    }{See the gnuplot documentation for explanation.%
+    }{Either use 'blacktext' in gnuplot or load the package
+      color.sty in LaTeX.}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\includegraphics[2][]{%
+    \GenericError{(gnuplot) \space\space\space\@spaces}{%
+      Package graphicx or graphics not loaded%
+    }{See the gnuplot documentation for explanation.%
+    }{The gnuplot epslatex terminal needs graphicx.sty or graphics.sty.}%
+    \renewcommand\includegraphics[2][]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \@ifundefined{ifGPcolor}{%
+    \newif\ifGPcolor
+    \GPcolortrue
+  }{}%
+  \@ifundefined{ifGPblacktext}{%
+    \newif\ifGPblacktext
+    \GPblacktexttrue
+  }{}%
+  % define a \g@addto@macro without @ in the name:
+  \let\gplgaddtomacro\g@addto@macro
+  % define empty templates for all commands taking text:
+  \gdef\gplbacktext{}%
+  \gdef\gplfronttext{}%
+  \makeatother
+  \ifGPblacktext
+    % no textcolor at all
+    \def\colorrgb#1{}%
+    \def\colorgray#1{}%
+  \else
+    % gray or color?
+    \ifGPcolor
+      \def\colorrgb#1{\color[rgb]{#1}}%
+      \def\colorgray#1{\color[gray]{#1}}%
+      \expandafter\def\csname LTw\endcsname{\color{white}}%
+      \expandafter\def\csname LTb\endcsname{\color{black}}%
+      \expandafter\def\csname LTa\endcsname{\color{black}}%
+      \expandafter\def\csname LT0\endcsname{\color[rgb]{1,0,0}}%
+      \expandafter\def\csname LT1\endcsname{\color[rgb]{0,1,0}}%
+      \expandafter\def\csname LT2\endcsname{\color[rgb]{0,0,1}}%
+      \expandafter\def\csname LT3\endcsname{\color[rgb]{1,0,1}}%
+      \expandafter\def\csname LT4\endcsname{\color[rgb]{0,1,1}}%
+      \expandafter\def\csname LT5\endcsname{\color[rgb]{1,1,0}}%
+      \expandafter\def\csname LT6\endcsname{\color[rgb]{0,0,0}}%
+      \expandafter\def\csname LT7\endcsname{\color[rgb]{1,0.3,0}}%
+      \expandafter\def\csname LT8\endcsname{\color[rgb]{0.5,0.5,0.5}}%
+    \else
+      % gray
+      \def\colorrgb#1{\color{black}}%
+      \def\colorgray#1{\color[gray]{#1}}%
+      \expandafter\def\csname LTw\endcsname{\color{white}}%
+      \expandafter\def\csname LTb\endcsname{\color{black}}%
+      \expandafter\def\csname LTa\endcsname{\color{black}}%
+      \expandafter\def\csname LT0\endcsname{\color{black}}%
+      \expandafter\def\csname LT1\endcsname{\color{black}}%
+      \expandafter\def\csname LT2\endcsname{\color{black}}%
+      \expandafter\def\csname LT3\endcsname{\color{black}}%
+      \expandafter\def\csname LT4\endcsname{\color{black}}%
+      \expandafter\def\csname LT5\endcsname{\color{black}}%
+      \expandafter\def\csname LT6\endcsname{\color{black}}%
+      \expandafter\def\csname LT7\endcsname{\color{black}}%
+      \expandafter\def\csname LT8\endcsname{\color{black}}%
+    \fi
+  \fi
+    \setlength{\unitlength}{0.0500bp}%
+    \ifx\gptboxheight\undefined%
+      \newlength{\gptboxheight}%
+      \newlength{\gptboxwidth}%
+      \newsavebox{\gptboxtext}%
+    \fi%
+    \setlength{\fboxrule}{0.5pt}%
+    \setlength{\fboxsep}{1pt}%
+\begin{picture}(5760.00,4030.00)%
+    \gplgaddtomacro\gplbacktext{%
+      \csname LTb\endcsname%
+      \put(1020,2149){\makebox(0,0)[r]{\strut{}$0$}}%
+      \put(1020,2418){\makebox(0,0)[r]{\strut{}$0.2$}}%
+      \put(1020,2686){\makebox(0,0)[r]{\strut{}$0.4$}}%
+      \put(1020,2955){\makebox(0,0)[r]{\strut{}$0.6$}}%
+      \put(1020,3223){\makebox(0,0)[r]{\strut{}$0.8$}}%
+      \put(1020,3492){\makebox(0,0)[r]{\strut{}$1$}}%
+    }%
+    \gplgaddtomacro\gplfronttext{%
+      \csname LTb\endcsname%
+      \put(580,2820){\rotatebox{-270}{\makebox(0,0){\strut{}survival prob}}}%
+      \put(3311,3956){\makebox(0,0){\strut{}Flavor Evolution (noscat)}}%
+      \csname LTb\endcsname%
+      \put(1809,2469){\makebox(0,0)[r]{\strut{}$P_{\nu_e \to \nu_e}$}}%
+      \csname LTb\endcsname%
+      \put(1809,2249){\makebox(0,0)[r]{\strut{}$P_{\bar{\nu}_e \to \bar{\nu}_e}$}}%
+    }%
+    \gplgaddtomacro\gplbacktext{%
+      \csname LTb\endcsname%
+      \put(1020,716){\makebox(0,0)[r]{\strut{}$10^{-23}$}}%
+      \put(1020,1090){\makebox(0,0)[r]{\strut{}$10^{-22}$}}%
+      \put(1020,1463){\makebox(0,0)[r]{\strut{}$10^{-21}$}}%
+      \put(1020,1836){\makebox(0,0)[r]{\strut{}$10^{-20}$}}%
+      \put(1152,384){\makebox(0,0){\strut{} 300}}%
+      \put(1872,384){\makebox(0,0){\strut{} 500}}%
+      \put(2592,384){\makebox(0,0){\strut{} 700}}%
+      \put(3312,384){\makebox(0,0){\strut{} 900}}%
+      \put(4031,384){\makebox(0,0){\strut{} 1100}}%
+      \put(4751,384){\makebox(0,0){\strut{} 1300}}%
+      \put(5471,384){\makebox(0,0){\strut{} 1500}}%
+    }%
+    \gplgaddtomacro\gplfronttext{%
+      \csname LTb\endcsname%
+      \put(316,1309){\rotatebox{-270}{\makebox(0,0){\strut{}potentials [erg]}}}%
+      \put(3311,164){\makebox(0,0){\strut{}$r$ [km]}}%
+      \csname LTb\endcsname%
+      \put(1809,988){\makebox(0,0)[r]{\strut{}$V_e$}}%
+      \csname LTb\endcsname%
+      \put(1809,768){\makebox(0,0)[r]{\strut{}$-|H_{\nu\nu}|$}}%
+    }%
+    \gplbacktext
+    \put(0,0){\includegraphics{fig-survival_prob-noscat_ih}}%
+    \gplfronttext
+  \end{picture}%
+\endgroup
