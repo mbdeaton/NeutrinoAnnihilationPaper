@@ -2074,8 +2074,8 @@ The Boltzmann Equation (Eqn.~\ref{eqn:boltzmann}) is one limiting
 form of the quantum kinetic equations for neutrinos
 \cite{vlas2014-neutrino_qkes},
 the limit where collisional mean free paths are much shorter
-than oscillation lengths, i.e.\ $\varepsilon/\mathscr{K} \ll |H|^{-1}$
-with $H$ the Hamiltonian describing coherent forward scattering interactions.
+than oscillation lengths, i.e.\ $\varepsilon/\mathscr{K} \ll |H|^{-1}$ with
+$H$ the Hamiltonian matrix describing coherent forward scattering interactions.
 In this limit the neutrino density matrix takes the form
 \begin{equation}
   \label{eqn:density_rho_0}
@@ -2100,15 +2100,15 @@ $S$ is the neutrino flavor evolution matrix describing a mixed state
   \label{eq:density_evolution}
   \rho = S \, \rho_0 \, S^\dagger.
 \end{equation}
-In this limit, we may decompose the Hamiltonian into vacuum,
+In this limit, we may decompose the Hamiltonian matrix into vacuum,
 matter, and neutrino contributions:
 \begin{equation}
   \label{eqn:decompose_H}
   H = H_{\rm V} + H_e + H_{\nu\nu}.
 \end{equation}
-Explicit formulas for these terms may be found in the oscillation literature,
+Explicit formulas for these matrices may be found in the oscillation literature,
 e.g.\ \cite{duan2009-review},
-but for clarity we give their order-of-magnitude scales here:
+but for clarity we only give their order-of-magnitude scales here:
 \begin{align}
   \label{eqn:scale_H_V}
   |H_{\rm V}| &\sim \frac{\Delta m^2}{\varepsilon}, \\
@@ -2123,33 +2123,37 @@ $G_{\rm F}$ is the Fermi coupling constant,
 $n_{e^-}$ and $n_{e^+}$ are the electron and positron number densities,
 and $G_{\nu_e}$ and $G_{\bar{\nu}_e}$ the electron neutrino and antineutrino
 number densities defined in Eqn.~\ref{eqn:G}.
-For the scale of $H_{\nu\nu}$ we have only included the isotropic
-components of the neutrino fields.
+In this statement of scale for $H_{\nu\nu}$ we only include the isotropic
+components of the neutrino fields; for our calculations below, however, we
+include the full angular distributions found via ray tracing.
 
 In regimes in which $|H_{\nu\nu}|\ll|H_{\rm V},H_e|$,
-the flavor evolution along the ray is soluble, and reveals a rich
-and physically important phenonenology including
+the flavor evolution is locally soluble in a ray-by-ray method,
+and reveals a rich and physically important phenonenology including
 vacuum, solar, atmospheric, and terrestrial oscillations,
 as well as oscillations in supernova envelopes.
 Where neutrino densities are relatively high, however,
 as in neutron star mergers, the problem must be solved globally.
-To date, no method has been devised to handle this problem.
+To date, no method has been devised to handle this problem in systems lacking
+spherical symmetry.
 
 However, we can solve a similar but tractable problem along a single ray.
 We assume that all the neutrino rays intersecting an event along a given test ray
-have undergone the same flavor evolution history as that of the test ray,
-i.e.\ $S$ is the same for all rays sharing that event.
-This is the so-called single-angle approximation.
-Though widely used in the supernova oscillation literature
-and shown to be qualitatively faithful in those environments,
-we note that recent studies have discovered configurations in which
-the single-angle approximation masks certain instabilities
-in the flavor evolution \cite{wu2017-fast_neutrino_conversions},
-or introduces qualitatively different flavor evolution behavior
-than that of the full multi-angle calculation \cite{vlas2018-multiangle}.
+have undergone the same flavor evolution history as that of the test ray:
+i.e.\ the evolution matrix $S$ is the same for all rays sharing that event.
+This is the so-called single-angle approximation,
+which is widely used in the supernova oscillation literature
+and has been shown to be qualitatively faithful in those environments.
+We note, however, that recent studies have discovered 1) spherically symmetric
+configurations for which a single-angle calculation produces qualitatively
+different flavor evolution behavior than a full multi-angle calculation
+\cite{vlas2018-multiangle},
+and 2) azimuthally-symmetric configurations for which the single-angle
+approximation masks certain instabilities
+in the flavor evolution \cite{wu2017-fast_neutrino_conversions}.
 
 The formalism of the single-angle approximation requires knowledge of
-the unoscillated neutrino contribution to the Hamiltonian
+the unoscillated neutrino contribution to the Hamiltonian matrix
 along a given test trajectory.
 This is a function of the unoscillated neutrino self-interaction potential,
 which for the $\alpha$-th flavor is:
@@ -2181,7 +2185,7 @@ The matter-neutrino resonance
 \cite{malk2012-mnr_1,malk2015-mnr_2,malk2016-mnr_3},
 can occur where the matter potential and
 neutrino self-interaction potentials cancel,
-or where $V_e - V_{\nu\nu,0}=0$, with
+or where $V_e + V_{\nu\nu,0}=0$, with
 \begin{align}
   \label{eqn:V_e}
   V_e &= \sqrt{2} G_{\rm F} \frac{\varrho}{m_N} Y_e, \\
@@ -2200,19 +2204,19 @@ We examine this effect in the post-merger configuration already analyzed
 in Sec.~\ref{ssec:test_disk_comparison}.
 We calculate the self-interaction potential along a radial coordinate trajectory
 making an angle $\theta=25^\circ$ with the rotation axis,
-at $N_s=7$ positions $r\in\{30,50,82,135,223,368,608\}$~km.
+at $N_r=7$ positions $r\in\{30,50,82,135,223,368,608\}$~km.
 We sample distribution functions at each of these positions over a grid
 with extents $N_\varepsilon=30$, $N_A=200$, $N_B=30$;
 energies range over $\varepsilon\in(0,100)$~MeV;
 polar angles range over $\cos A \in ((\cos A)_{\rm min}, 1)$, with
 $(\cos A)_{\rm min}\in\{-1,-1,-1,0.488,0.849,0.947,0.981\}$
-for each of the $N_s$ positions;
+for each of the $N_r$ positions;
 and azimuthal angles range over the whole sky $B\in[0,2\pi)$.
 We interpolate the logarithm of the self-interaction potentials
 (Eqn.~\ref{eqn:V_nu_alpha})
-in path length $\log s$ along the ray,
+in path length $\log r$ along the ray,
 by fitting a 3rd order spline with continuous derivative,
-across the $N_s$ observation points.
+across the $N_r$ observation points.
 For $r>608$~km we extrapolate the self-interaction potentials using the
 geometric fall-off of $r^{-4}$ applicable to the far-field limit of the
 self-interaction potential \cite{malk2016-mnr_3}.
@@ -2272,7 +2276,7 @@ will have reached no further than $r_{\rm max} \sim 10^8$~cm.
 Additionally, the true radial profile of the ejecta from this merger
 (which our computational model does not follow)
 will have many more features inside this radius, including shock jumps.
-This model density profile is adequate as a backdrop to our study here, however,
+However, this model density profile is adequate as a backdrop to our study here
 since we expect the remnant to present similar neutrino emission over a thermal
 timescale of a few tens of milliseconds
 while the matter field propagates out to larger radii.
@@ -2357,10 +2361,10 @@ and for the \emph{scat} treatment in Fig.~\ref{fig:survival-scat}.
 The survival probability is the probability that a neutrino, if measured,
 will be found to be in its original flavor state.
 The survival probabilities are computed at each point along the trajectory
-from the flavor evolution matrix,
-$P_{\nu_\alpha \to \nu_\alpha} = |S_{\alpha \alpha}(E)|^2$.
+from the absolute square of the diagonal terms of the flavor evolution matrix,
+$P_{\nu_\alpha \to \nu_\alpha} = |S_{\alpha \alpha}|^2$.
 When $P_{\nu_e \to \nu_e}$ decreases,
-as can be seen for example in Fig.~\ref{fig:survival-scat} for $s>400$~km,
+as can be seen for example in Fig.~\ref{fig:survival-scat} for $r>400$~km,
 some of the electron-type neutrinos have oscillated into
 mu- or tau-type neutrinos.
 
@@ -2644,7 +2648,7 @@ are rest density $\varrho=m_b n_b$, temperature $T$, and electron fraction
 \begin{equation}
   Y_e = \frac{n_{e^-} - n_{e^+}}{n_b},
 \end{equation}
-where $n_{e^-}$, $n_{e^+}$, and $n_b$ are the number densities of electrons
+where $n_{e^-}$, $n_{e^+}$, and $n_b$ are the number densities of electrons,
 positrons, and baryons, and $m_b$ is the average baryon mass.
 
 \section{Source Terms}
