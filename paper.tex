@@ -2356,8 +2356,17 @@ We also solve for the flavor evolution of this system,
 integrating $S$ according to Eqn.~\ref{eqn:schroedinger},
 as described in \cite{zhu2016-mnr_nsns_remnant}.
 We show the survival probabilities for $\nu_e$ and $\bar{\nu}_e$
-for the \emph{noscat} treatment in Fig.~\ref{fig:survival-noscat},
-and for the \emph{scat} treatment in Fig.~\ref{fig:survival-scat}.
+in Figs.~\ref{fig:survival-noscat} and \ref{fig:survival-scat},
+comparing the \emph{noscat} and \emph{scat} treatments.
+In these figures we also show the evolved self-interaction potential
+$V_{\rm osc}$,
+\begin{equation}
+  \label{eqn:V_osc}
+  V_{\rm osc} \equiv (H_{\nu\nu})_{ee}-{\rm Tr}(H_{\nu\nu})/3,
+\end{equation}
+to show how the neutrino interactions driving the oscillation evolve with flavor.
+Note that $V_{\rm osc}$ is identical to $V_{\nu\nu,0}$ if no flavor
+evolution takes place.
 The survival probability is the probability that a neutrino, if measured,
 will be found to be in its original flavor state.
 The survival probabilities are computed at each point along the trajectory
@@ -2414,12 +2423,14 @@ transformation is quite different in the two scenarios.
   % Script: $DIR/plot-noscat.gp
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170412-self_interaction_potentials_M12_M12-LS220-M1/Run03/RunBA/RunBA-025deg-noscat/flavor_evolution
   \caption{Neutrino survival probabilities for the \emph{noscat} case.
-    In the lower panel we reproduce the self-interaction potential $V_{\nu\nu,0}$
-    and matter potential $V_e$ from Fig.~\ref{fig:V_nunu-noscat}.
+    In the lower panel we show the matter potential $V_e$ from
+    Fig.~\ref{fig:V_nunu-noscat},
+    and the evolved self-interaction potential $V_{\rm osc}$ from
+    Eqn.~\ref{eqn:V_osc}.
     In this case, the neutrinos undergo collective neutrino oscillation
     beginning around $r\sim700$~km,
-    with both the electron neutrinos and antineutrinos almost converting to mu
-    or tau neutrinos completely.
+    with both the electron neutrinos and antineutrinos converting to
+    heavy-lepton neutrinos and antineutrinos almost completely.
   }
   \label{fig:survival-noscat}
 \end{figure}
@@ -2434,10 +2445,10 @@ transformation is quite different in the two scenarios.
     but for the \emph{scat} case.
     In this case the neutrinos undergo a standard MNR transition
     beginning around $r\sim400$~km,
-    with the electron neutrinos converting to mu or tau neutrinos almost
+    with the electron neutrinos converting to heavy-lepton neutrinos almost
     completely,
     and the electron antineutrinos oscillating back to their original flavor
-    after partially converting to mu and tau antineutrinos.
+    after partially converting to heavy-lepton antineutrinos.
   }
   \label{fig:survival-scat}
 \end{figure}
