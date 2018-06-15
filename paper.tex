@@ -2719,7 +2719,8 @@ This has been shown to work well for core-collapse supernovae
 At neutrino and thermal energies well below the masses of the muon or tauon
 ($m_{\mu}\sim100\,{\rm MeV}$)
 only charged current processes involving $\nu_e$ and $\bar{\nu}_e$ are allowed.
-For each of these processes, $i$, we may write an emission and absorption
+For each of these processes $i$ in Tab.~\ref{tab:neutrino_processes},
+we may write an emission and absorption
 coefficient as a function of the interaction cross-section
 (e.g. \cite[Eqn.~A5]{brue1985-core_collapse}):
 \begin{align}
@@ -2782,7 +2783,7 @@ This is described in App.~\ref{ssec:sources_pp}.
 \subsection{Elastic scattering}
 \label{ssec:sources_se}
 Neutrino scattering on particles of mass much greater than $\varepsilon$
-(i.e. nucleons) is essentially iso-energetic. Following 
+(i.e. nucleons and nuclei) is essentially iso-energetic. Following 
 \cite[Eqn.~A8]{brue1985-core_collapse} or
 \cite[Eqn.~4.20]{shib2011-truncated_moment} the collision term for the
 $i$-th process takes the form
@@ -2809,44 +2810,53 @@ $\omega$ (as in~\cite[Eqn.~4.21]{shib2011-truncated_moment}):
   R_{{\rm SE},i}(\varepsilon,\omega) \approx
   R_{{\rm SE},i}^0(\varepsilon) + \omega \, R_{{\rm SE},i}^1(\varepsilon).
 \end{equation}
-Using this expansion, and the moments defined in Eqns.~\ref{eqn:J}
-and \ref{eqn:Ha} we may write Eqn.~\ref{eqn:sources_se_1}:
+Using this definition and the moments defined in Eqns.~\ref{eqn:J}
+and \ref{eqn:Ha}, and writing $\omega'=\ell_\alpha\ell'^\alpha$,
+we expand Eqn.~\ref{eqn:sources_se_1} into four terms.
+The term containing $\oint d\Omega' \ell'^\alpha$ vanishes by construction,
+and the remaining three terms may be written in the form
 \begin{equation}
   \label{eqn:sources_se_2}
   C_{{\rm SE},i}
-  = \varepsilon \chi_{s,i} \Phi_i - \varepsilon \chi_{s,i} f,
+  = \varepsilon \chi^0_i \Phi_i - \varepsilon \chi^0_i f,
 \end{equation}
-where we have introduced the scattering opacity $\chi_{s,i}$
-and the background scattering field $\Phi$:
+where we have introduced the scattering opacity $\chi^0_i$
+for each of the elastic scattering processes $i$ in
+Tab.~\ref{tab:neutrino_processes} and the background scattering field $\Phi$:
 \begin{align}
   \label{eqn:opacity_s}
-  \chi_{s,i}(\varepsilon)
-  &= \frac{4\pi\varepsilon^3}{(2\pi)^3}R_{{\rm SE},i}^0(\varepsilon), \\
+  \chi^0_i(\varepsilon)
+  &= \frac{4\pi\varepsilon^2}{(2\pi)^3}R_{{\rm SE},i}^0(\varepsilon), \\
   \label{eqn:background_phi}
   \Phi_i(\varepsilon,\ell_\alpha)
   &= \frac{(2\pi)^3}{\varepsilon^3}\frac{1}{4\pi}
   \left(J(\varepsilon)+
-  \frac{\chi^{\rm tr}_{s,i}(\varepsilon)}{\chi_{s,i}(\varepsilon)}
+  \frac{\chi^1_i(\varepsilon)}{\chi^0_i(\varepsilon)}
   \ell_\alpha H^\alpha(\varepsilon)\right),
 \end{align}
-with $\chi^{\rm tr}_{s,i}$ the transport scattering opacity,
-\footnote{TODO (Evan): can we defend dropping the anisotropic term?}
+and with $\chi^1_i$ defined
 \begin{equation}
   \label{eqn:opacity_s_tr}
-  \chi^{\rm tr}_{s,i}(\varepsilon)
-  = \frac{4\pi\varepsilon^3}{(2\pi)^3}R_{{\rm SE},i}^1(\varepsilon).
+  \chi^1_i(\varepsilon)
+  = \frac{4\pi\varepsilon^2}{(2\pi)^3}R_{{\rm SE},i}^1(\varepsilon).
 \end{equation}
-In our treatment we only retain the isotropic contribution to the
-background field:
+
+Note that $\chi^1_i/\chi^0_i$ in Eqn.~\ref{eqn:background_phi}
+is the degree of non-isotropy in the scattering.
+This term is roughly $-0.1$ for scattering on free neutrons,
+$-0.2$ on free protons, and $1$ on heavy nuclei;
+and at disk temperatures the composition is almost entirely free nucleons.
+Therefore in our treatment, for simplicity,
+we only retain the isotropic contribution to the background field:
 \begin{equation}
   \Phi(\varepsilon)
   = \frac{(2\pi)^3}{\varepsilon^3}\frac{1}{4\pi}
   J(\varepsilon).
 \end{equation}
 
-Thus computing sums over the opacities
-$\chi_s\equiv\sum_i\chi_{s,i}$ and
-$\chi^{\rm tr}_s\equiv\sum_i\chi^{\rm tr}_{s,i}$,
+Computing sums over the opacities
+$\chi_s\equiv\sum_i\chi^0_i$ and
+$\chi^1_s\equiv\sum_i\chi^1_i$,
 the invariant emissivity and opacity for elastic scattering are
 \begin{align}
   \label{eqn:se_emissivity_summed}
