@@ -86,6 +86,8 @@
   and apply it to a simulation of a neutron star merger
   to compute neutrino fluxes and spectra,
   and to demonstrate a neutrino flavor oscillation calculation.
+  In that environment, we find qualitatively different fluxes, spectra,
+  and oscillation behaviors when elastic scattering is included.
 \end{abstract}
 
 \maketitle
@@ -103,7 +105,7 @@ drastically from geometrically simple distributions in thermodynamic equilibrium
 
 This is a challenging task in the environment of a merger,
 which generally lacks any spatial symmetries, so that fully general
-seven-dimensional solutions to the Boltzmann Equation are not feasible.
+solutions to the Boltzmann Equation are not feasible.
 Leakage approximations
 \citep{ruff1996-leakage_part1,ross2003-leakage_part2,
   deat2013-leakage, gale2013-gr_rad_trans, pere2016-asl, radi2016-dynamical}
@@ -332,7 +334,8 @@ including the effects of coherent forward scattering with ambient neutrinos.
 In Sec.~\ref{sec:conclusions} we summarize our work and anticipate improvements.
 
 Greek tensor indices ($\alpha, \beta, ...$) range over all four coordinates,
-whereas Latin indices ($i, j, ...$) range over the spatial coordinates 1--3.
+whereas Latin indices ($i, j, ...$) range over the spatial coordinates 1--3,
+or over a more general set, e.g. the set of all elastic scattering interactions.
 We use naturalized units in which $\{\hbar,c,k_{\rm B}\}=1$.
 And for most of the remainder of this article we suppress neutrino species label
 $\nu_\sigma$ since the formulation is general to any species.
@@ -1116,9 +1119,9 @@ and $m$ labeling each energy bin.
 Results are identical for all \emph{scat} and \emph{noscat} methods.
 In Fig.~\ref{fig:avg_eps_doppler}
 we see the common features of a red-shifted spectrum for receding fluid
-($\cos A\ll0$),
+($\cos A \sim -1$),
 a blue-shifted spectrum for approaching fluid
-($\cos A\gg0$),
+($\cos A \sim 1$),
 and a slightly red-shifted spectrum for fluid moving transverse to the
 observer ($\cos A=0$).
 
@@ -2010,7 +2013,7 @@ of neutrinos coming from the disk.
 For the observer in the equatorial plane,
 Fig.~\ref{fig:nsns_cosA_distrib_G_90deg}, the disk is so optically thick to
 $\nu_e$ that there is very little difference between \emph{scat} and
-\emph{noscat} treatments for incoming angles $\cos A \lesssim 0.95$
+\emph{noscat} treatments for incoming angles $\cos A \gtrsim 0.95$
 corresponding to the volume inside of $r \lesssim 80$~km.
 Also the stepped temperature gradient in the disk's spiral arms visible in
 Figs.~\ref{fig:nsns_temp_merid} and \ref{fig:nsns_temp_equat} presents as a
@@ -2503,8 +2506,8 @@ which introduces a complete standard matter neutrino resonance transition
 At about 400~km from the merger core,
 both electron neutrinos and electron antineutrinos begin to transform.
 At about 1200~km
-electron neutrinos have almost completely converted to mu or tau neutrinos,
-while the electron antineutrinos have returned back to their original flavor.
+$e$ neutrinos have almost completely converted to $\mu$ or $\tau$ neutrinos,
+while the $e$ antineutrinos have returned back to their original flavor.
 In an otherwise identical calculation, ignoring elastic scattering
 causes the flavor transformation to be very different (see Fig.~\ref{fig:survival-noscat}).
 
@@ -2555,6 +2558,7 @@ for NASA under contract \lstinline{NAS 5-26555} [EO];
 and through the U.S.\ Department of Energy, Office of Science,
 Office of Nuclear Physics,
 under award number \lstinline{DE-FG02-02ER41216} [GCM].
+We thank James P.\ Kneller his original flavor evolution code base.
 We thank the Spectral Einstein Code collaboration
 \footnote{\url{https://www.black-holes.org/code/SpEC.html}} for a powerful and
 robust numerical relativity code base, and in particular
