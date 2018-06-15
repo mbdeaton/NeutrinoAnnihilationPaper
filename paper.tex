@@ -2161,12 +2161,12 @@ which for the $\alpha$-th flavor is:
   \label{eqn:V_nu_alpha}
   V_{\nu_\alpha,0}(\varepsilon,\ell_\mu) =
   \frac{\sqrt{2}G_{\rm F}}{(2\pi)^3} \varepsilon^2
-  \oint d\Omega'(1-\varpi')f^{\nu_\alpha}(\varepsilon,\ell'_\gamma),
+  \oint d\Omega'(1-\omega')f^{\nu_\alpha}(\varepsilon,\ell'_\gamma),
 \end{equation}
 with the test ray propagating in direction $\ell_\mu$,
 ambient rays propagating in directions $\ell'_\gamma$,
 and the cosine of the angle between these given by
-$\varpi'=\psi^{\mu\gamma} \ell_\mu \ell'_\gamma$.
+$\omega'=\psi^{\mu\gamma} \ell_\mu \ell'_\gamma$.
 As in the moment equations (Eqns.~\ref{eqn:J}-\ref{eqn:Ka}),
 the integral is taken over all directions $\ell'_\gamma$.
 
@@ -2304,7 +2304,7 @@ self-interaction potential due to the $(1-\cos A)$ term arising in the integral
 of Eqn.~\ref{eqn:V_nu_alpha}.
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{20171223-potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg-noscat}
+  \includegraphics[width=\columnwidth]{20180615-potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg-noscat}
   % Plot:   $DIR/RunBA/RunBA-025deg-noscat-production01/potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg.pdf
   % Data:   $DIR/000Mo-025deg-*km/Lev2-e30a200b30-noscat-04
   % Script: $DIR/nu_potentials-production.nb
@@ -2316,7 +2316,7 @@ of Eqn.~\ref{eqn:V_nu_alpha}.
     originating at the surface of the hypermassive neutron star, and
     proceeding outward along a radial coordinate ray with angle
     $\theta=25^{\circ}$ with respect to the polar axis.
-    The trajectory is parameterized by the coordinate length $s$.
+    The trajectory is parameterized by the coordinate radius $r$.
     We plot the vacuum potential due to mass-squared differences (gray bands),
     the matter potential $V_e$ due to forward scattering on $e^-$ and $e^+$
     (dark green),
@@ -2329,7 +2329,7 @@ of Eqn.~\ref{eqn:V_nu_alpha}.
     indicating the two vacuum energy scales for 10--30~MeV neutrinos,
     set the positions of possible Mikheyev-Smirnov-Wolfenstein (MSW)
     or nutation resonances \cite{malk2012-mnr_1}.
-    Inside the symmetric point at $s\sim100\,{\rm km}$ the total unoscillated
+    Inside the symmetric point at $r\sim100\,{\rm km}$ the total unoscillated
     self-interaction potential $V_{\nu\nu,0}$ is positive,
     i.e.\ $\nu_e$-dominated.
     }
@@ -2337,7 +2337,7 @@ of Eqn.~\ref{eqn:V_nu_alpha}.
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{20171223-potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg-scat}
+  \includegraphics[width=\columnwidth]{20180615-potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg-scat}
   % Plot:   $DIR/RunBA/RunBA-025deg-scat-production01/potentials-Ve_Vnue_Vnua_Vnu-000Mo-025deg.pdf
   % Data:   $DIR/000Mo-025deg-*km/Lev2-e30a200b30-scat-04
   % Script: $DIR/nu_potentials-production.nb
@@ -2367,7 +2367,7 @@ When $P_{\nu_e \to \nu_e}$ decreases,
 as can be seen for example in Fig.~\ref{fig:survival-scat} for $r>400$~km,
 some of the $e$ neutrinos have oscillated into $\mu$ or $\tau$ neutrinos.
 
-In Fig.~\ref{fig:survival-noscat}, we report the survival probabilities
+Fig.~\ref{fig:survival-noscat} shows the survival probabilities
 from the calculation with elastic scattering turned off.
 Using neutrino mixing angle $\theta_{12}$ and the inverted hierarchy
 (the normal hierarchy gives qualitatively similar results)
@@ -2376,7 +2376,7 @@ electron neutrinos and antineutrinos start to oscillate around
 causing both $\nu_e$ and $\bar{\nu}_e$ to convert to heavy lepton neutrinos
 and antineutrinos respectively.
 A similar effect was seen in \cite{fren2017-flavor_bns,tian2017-flavor_bns}.
-In Fig.~\ref{fig:survival-scat}, we report the survival probabilities
+Fig.~\ref{fig:survival-scat} shows the survival probabilities
 of an otherwise identical calculation, but with elastic scattering turned on.
 In this case, electron neutrinos and antineutrinos start to oscillate around
 400~km in the form of a standard matter neutrino resonance:
