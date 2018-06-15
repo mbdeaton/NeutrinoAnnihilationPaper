@@ -2365,8 +2365,7 @@ from the absolute square of the diagonal terms of the flavor evolution matrix,
 $P_{\nu_\alpha \to \nu_\alpha} = |S_{\alpha \alpha}|^2$.
 When $P_{\nu_e \to \nu_e}$ decreases,
 as can be seen for example in Fig.~\ref{fig:survival-scat} for $r>400$~km,
-some of the electron-type neutrinos have oscillated into
-mu- or tau-type neutrinos.
+some of the $e$ neutrinos have oscillated into $\mu$ or $\tau$ neutrinos.
 
 In Fig.~\ref{fig:survival-noscat}, we report the survival probabilities
 from the calculation with elastic scattering turned off.
@@ -2747,7 +2746,7 @@ and absorbed by the matter for any length traversed.
 We also know in this case that the neutrino distribution function must be
 $f^{\rm eq}$, the equilibrium Fermi-Dirac distribution function of
 Eqn.~\ref{eqn:feq}.
-With these facts we can rerrange Eqn.~\ref{eqn:sources_ae_1} to give us
+With these facts we can rearrange Eqn.~\ref{eqn:sources_ae_1} to give us
 Kirchoff's Law:
 \begin{align}
   \label{eqn:kirchoffs_law}
@@ -2945,32 +2944,33 @@ we call this the \emph{gray} method.
 \subsection{Inelastic scattering}
 \label{ssec:sources_si}
 Neutrino scattering off of electrons is inelastic, changing the
-magnitude and direction of the neutrino's momentum.
-\footnote{TODO (Evan): citation? maybe \cite{keil2003-pinched_spectra}?}
+magnitude and direction of the neutrino's momentum \cite{brue1985-core_collapse}.
+In a supernova environment we expect inelastic scattering off of electrons
+and nucleons to shift the neutrino spectra to lower energies, most noticeably
+for heavy-lepton neutrinos \cite{thom2003-ccsne_neutrinos}.
 A similar formalism to the above could be used to derive source terms
 for inelastic scattering.
-\footnote{TODO (Evan): can we compare relative amounts of inelastic to
-  elastic scattering?}
 We save that for future work, pointing out here that inelastic scattering
 treated this way is very sensitive to the energy-dependence of
-the background field.
+the background field. In this work we take $C_{\rm SI}=0$.
 
 \subsection{Thermal pair annihilation and production}
 \label{ssec:sources_pp}
-We do not include thermal pair processes within the above formalism,
-\footnote{TODO (Evan): can we explain this choice better? and add citation?}
-but as mentioned in App.~\ref{ssec:sources_ae}, we do include
-these processes in an effective absorption opacity for $\mu$ and $\tau$
-neutrinos and antineutrinos. \lstinline{NuLib} follows
-\cite{brue1985-core_collapse,burr2006-neutrino_opacities}
-by computing the emissivity of the pair processes in
-\footnote{TODO (Evan): improve description?}
-Tab.~\ref{tab:neutrino_processes}, and applying Kirchoff's law,
-Eqn.~\ref{eqn:kirchoffs_law}, to convert this to an effective absorption opacity,
-and its corresponding emissivity obeying Kirchoff's law.
-We only use this effective opacity for heavy-lepton neutrinos because
-it is subdominant to the true absorption opacity for
-$\nu_e$ and $\bar{\nu}_e$.
+We do not include thermal pair processes within the standard pair-process
+formalism; in other words we take $C_{\rm PP}=0$.
+But as mentioned in App.~\ref{ssec:sources_ae}, we do include
+these processes in an effective emission/absorption opacity for $\mu$
+and $\tau$ neutrinos and antineutrinos.
+This has been shown to work well for core-collapse supernovae
+\cite{ocon2015-gr1d_with_nu}. Within \lstinline{NuLib}, we compute
+the energy-dependent emissivity of the pair processes in
+Tab.~\ref{tab:neutrino_processes}, ignoring final state neutrino blocking.
+We then apply Kirchoff's law, Eqn.~\ref{eqn:kirchoffs_law},
+to convert this to an effective absorption opacity.
+We only use this effective opacity for heavy-lepton neutrinos
+because the charged-current emission/absorption processes for $\nu_e$
+and $\bar{\nu}_e$ dominate in the environments we study: early merger
+remnants and supernovae.
 
 % ******************************************************************************
 \bibliography{references}
