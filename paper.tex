@@ -266,7 +266,6 @@ pair processes for later work.
     & $\nu_e + n \leftrightarrow e^- + p$                          \\
     & $\bar{\nu}_e + p \leftrightarrow e^+ + n$                    \\
     & $\nu_e + {}^AZ \leftrightarrow e^- + {}^A(Z+1)$              \\
-    & $\bar{\nu}_e + {}^AZ \leftrightarrow e^+ + {}^A(Z-1)$        \\
     \hline
     elastic scattering
     & $\nu + N \leftrightarrow \nu + N$                            \\
@@ -385,7 +384,7 @@ $f(x^\alpha;\varepsilon,\ell_\beta)$.
 
 Because $\ell_\beta$ is subject to two constraints
 (normalization and orthogonality to the observer's velocity)
-it has two degrees of freedom; we make this explicit by defining its
+it has only two remaining degrees of freedom; we make this explicit by defining its
 spatial cartesian components with respect to spherical polar angles
 \begin{equation}
   \label{eqn:def_direction}
@@ -489,8 +488,7 @@ for the reactions
 \begin{align}
   \nu_e + n            &\leftrightarrow e^- + p,\nonumber\\
   \bar{\nu}_e + p      &\leftrightarrow e^+ + n,\nonumber\\
-  \nu_e + {}^AZ        &\leftrightarrow e^- + {}^A(Z+1),\nonumber\\
-  \bar{\nu}_e + {}^AZ  &\leftrightarrow e^+ + {}^A(Z-1),\nonumber
+  \nu_e + {}^AZ        &\leftrightarrow e^- + {}^A(Z+1),\nonumber
 \end{align}
 with ${}^AZ$ representing a nucleus of mass number $A$ and charge $Z$.
 In terms of the emissivity $j(\varepsilon)$ describing number of neutrinos
@@ -971,7 +969,7 @@ depths of $\tau_{\rm term}\geq14$.
     (see App.~\ref{sec:source_terms} for definitions).
     Note that elastic scattering opacities are identical across species
     below energies at which weak magnetism plays a role \cite{horo2002-weak_mag}.
-    In this data they are exactly identical
+    In these data they are exactly identical
     because we have turned off weak magnetism in our opacity calculations
     in order to compare our results with the historical literature.
     Computed using \lstinline{NuLib}.
@@ -1068,7 +1066,7 @@ but with the matter and observer in relative motion.
 We use a stationary observer
 and fluid moving in the positive $z$-direction:
 with $u^\alpha \rightarrow W(1,0,0,v)$ and $W=(1-v^2)^{-1/2}$,
-where $W$ is the Lorentz factor defined in App.~\ref{sec:definitions}.
+where $W$ is the relativistic Lorentz factor.
 All other thermodynamic variables and background fields are unchanged
 since our ray integration uses these quantities in the fluid frame.
 
@@ -1113,7 +1111,7 @@ with the Eulerian densities per angular bin given by sums over the samples
   \frac{\Delta}{(2\pi)^3} \sum\limits_{m=0}^{N_{\tilde{\varepsilon}}-1}\tilde{\varepsilon}_m^3 f_m(\cos A),
 \end{align}
 with $\Delta \equiv 2\pi \Delta\tilde{\varepsilon}$,
-$N_{\tilde{\varepsilon}}$ the number of energy seamples,
+$N_{\tilde{\varepsilon}}$ the number of energy samples,
 $f_m(\cos A) \equiv f(\tilde{\varepsilon}_m,\cos A,B)$,
 and $m$ labeling each energy bin.
 Results are identical for all \emph{scat} and \emph{noscat} methods.
@@ -1342,7 +1340,7 @@ and the extended envelope outside the shock becomes a source of
 higher-than-average-energy neutrinos.
 
 The 1D matter profile and M1 transport evolution are computed using
-open source supernova evolution code \lstinline{GR1D}
+the open source supernova evolution code \lstinline{GR1D}
 \footnote{\url{http://www.gr1dcode.org}}
 \cite{ocon2010-gr1d, ocon2015-gr1d_with_nu},
 using a progenitor profile from \cite{woos1995-sn_progenitors}.
@@ -1377,10 +1375,9 @@ To homogenize the physics modeled across these three treatments
 (M1 transport to provide the background fields,
 ray tracing to compute neutrino distributions, and
 Monte Carlo transport for a fiducial comparison)
-we turn off inelastic scattering in the M1 and Monte Carlo codes,
-since we have not incorporated that physics into this ray tracing code,
-and we turn off general relativistic effects in the ray tracing code,
-since the Monte Carlo code assumes Minkowski spacetime.
+we turn off inelastic scattering where it is included (in the Monte Carlo code),
+and we turn off general relativistic effects where they are included
+(in the ray tracing and M1 codes).
 
 We place a stationary observer at $r=500$~km.
 Taking advantage of the spherical symmetry, we sample the distribution function
@@ -1760,7 +1757,8 @@ We choose $N_\theta=30$.
 Though the ray tracing sampling of $f$ is done in full general relativity,
 in our calculation of moments at the observer positions,
 we make the simplifying assumption of Minkowski spacetime.
-This assumption introduces errors in our moments of order
+The errors in our moments introduced by this assumption
+may be estimated to be of order
 $GM/r=4\,{\rm km}/250\,{\rm km}$
 (with $G$ the gravitational constant and $M$ the central mass),
 or $\sim 1\%$.
@@ -1805,7 +1803,7 @@ equatorial plane. Figs.~\ref{fig:nsns_rho_merid}--\ref{fig:nsns_temp_equat}
 indicate the approximate validity of these assumptions at 11~ms after merger.
 Total luminosities are then computed as integrals of the radial fluxes
 over $\cos\theta$.
-Using the trapezoid rule the number and energy luminosities become sums:
+Using the trapezoid rule, the number and energy luminosities become sums:
 \begin{align}
   \label{eqn:luminosity_R}
   R &= C
@@ -1827,17 +1825,17 @@ though the earlier merger evolution did not necessarily produce
 areal coordinates. The effect of this choice is to artificially scale the
 ray tracing luminosities by some factor we believe to be very close to 1.
 In future work we can correct this error by computing the proper area over
-a coordinate sphere at the observer's location.
+coordinate spheres at the observers' locations.
 
 Tab.~\ref{tab:nsns_rt_vs_m1} compares the all-sky
 luminosities and average energies from ray tracing and from
 the M1 transport simulation,
 which serves for qualitative comparison.
 Even if M1 and ray tracing methods both provide faithful measurements
-of all-sky luminosities, we do not expect perfect agreement since the two
-treatments differ fundamentally. In addition to differences in the physics
-such as the treatment of inelastic scattering,
-M1 fluxes are integrated over the outer boundary of the finite-difference grid
+of all-sky luminosities, we expect some disagreement since the two
+treatments differ fundamentally.
+In addition to differences in transport methodologies,
+the M1 fluxes are integrated over the outer boundary of the finite-difference grid
 at radii ranging from 75~km to 200~km,
 whereas the ray tracing fluxes are integrated over a sphere at radius 250~km,
 introducing a time lag between some of the fluxes used in the measurements
@@ -1892,7 +1890,7 @@ significantly so for the heavy-lepton neutrinos.
 For example, with scattering turned off the ray tracing and M1 measurements
 of $L_{\nu_x}$ disagree by 200\%;
 but with scattering turned on agreement is within 10\%.
-And as the ray tracing and M1 measurements both show,
+As the ray tracing and M1 measurements both show,
 $R_{\bar{\nu}_e}$ dominates over $R_{\nu_e}$ significantly,
 because the disrupted neutron star material is releptonizing.
 
@@ -2000,10 +1998,21 @@ proportional to energy $\varepsilon^2$ and path length $s$
 
 In Figs.~\ref{fig:nsns_cosA_distrib_G_00deg}
 and \ref{fig:nsns_cosA_distrib_G_90deg}, we show the distributions of neutrino
-number density over incoming angle
+number density over incoming polar angle $\cos A$
 for the observer on the polar axis $\theta=0^\circ$,
-and in the equatorial plane $\theta=90^\circ$,
-defined analogously to Eqn.~\ref{eqn:J_per_cosA}.
+and in the equatorial plane $\theta=90^\circ$.
+This number density is defined
+\begin{align}
+  \label{eqn:G_per_cosA_2}
+  \tilde{G}(\cos A) &=
+  \frac{\Delta}{(2\pi)^3} \sum\limits_{m=0}^{N-1}\tilde{\varepsilon}_m^2 f_m(\cos A),
+\end{align}
+with $\Delta \equiv \Delta\tilde{\varepsilon} \Delta B$,
+$N \equiv N_{\tilde{\varepsilon}} N_B$,
+$f_m(\cos A) \equiv f(\tilde{\varepsilon}_m,\cos A,B_m)$,
+and $m$ the index labeling each ray at polar angle $\cos A$.
+The integral of this quantity over $d\cos A$ gives
+the total number density $\tilde{G}$, according to Eqn.~\ref{eqn:G}.
 As in the case of the collapse profile in Sec.~\ref{ssec:test_collapse},
 the dominant effect of elastic scattering on $\tilde{G}(\cos A)$
 is to spread the distribution out to larger angles, by generally decreasing
@@ -2019,7 +2028,7 @@ Also the stepped temperature gradient in the disk's spiral arms visible in
 Figs.~\ref{fig:nsns_temp_merid} and \ref{fig:nsns_temp_equat} presents as a
 stepped heavy-lepton neutrino number density distribution in
 Fig.~\ref{fig:nsns_cosA_distrib_G_90deg} in the \emph{noscat} treatment,
-since the pair production rate due to $e^{-}e^{+}$ annihilation,
+since the energy emission due to $e^{-}e^{+}$ annihilation,
 producing $\nu_x$, is especially sensitive to temperature, going as
 $T^9$ \cite[Sec.~7]{burr2006-neutrino_opacities}.
 This stepped distribution is not visible in $\nu_e$ and $\bar{\nu}_e$ emission,
@@ -2039,7 +2048,7 @@ on the polar axis.
   % Script: $DIR/plot-angular_distribution-number_density-compare.gnu
   % w/ DIR=/Users/mbdeaton/Documents/ResearchGraveyard/NuclearAstrophysics/DataAndVis/20170324-ray_tracing_nsns/Run03/000Mo-000.0deg-250km
   \caption{Distribution of number density $\tilde{G}(\cos A)$ over incoming angle,
-    defined analogously to Eqn.~\ref{eqn:J_per_cosA}.
+    defined in Eqn.~\ref{eqn:G_per_cosA_2}.
     The integral of this quantity over $d\cos A$ gives the total number density
     measured by this observer on the rotation axis.
     Volume data from the hypermassive neutron star configuration
@@ -2269,7 +2278,7 @@ matter in the disk's funnel \cite[Fig.~8]{fouc2016-m1_evolve_n}.
   \label{fig:test_traj_density}
 \end{figure}
 
-In fact a spherical steady-state wind model, though providing an adequate
+In fact, a spherical steady-state wind model, though providing an adequate
 backdrop for the qualitative study presented in this section,
 is less than ideal for this post-merger configuration,
 most obviously because in the 10~ms since merger,
@@ -2477,7 +2486,7 @@ plays a significant role in redistributing neutrino energy- and
 angle-distributions in common compact-object configurations.
 The largest effects are seen in $\nu_x$ distributions
 and to a lesser extent $\bar{\nu}_e$,
-with the dominant effect a decrease in average energies from the central body,
+with the dominant effect being a decrease in average energies from the central body,
 and an increase in average energies from the scattering envelope.
 More specifically, in the disk configuration formed by the merger of two neutron
 stars (Sec.~\ref{ssec:test_disk_comparison}), elastic scattering causes
