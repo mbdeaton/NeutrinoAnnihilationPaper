@@ -846,7 +846,8 @@ temperature $T$,
 and electron fraction $Y_e$,
 all defined in App.~\ref{sec:definitions}.
 These fields are computed in a preprocessing step before ray tracing
-and stored in spectral representation.
+and stored in pseudospectral representation \cite{duez2008-first_spec_bhns},
+an efficient scheme for representing a continuous field with a finite set of data points.
 If they are computed from a hydrodynamical simulation, they may be saved to disk
 at either one or several specified coordinate times and interpolated
 with spectral interpolation in space,
@@ -1353,7 +1354,7 @@ This standard test is also presented for example in
 \cite{ocon2015-gr1d_with_nu,fouc2015-m1_nsbh,abdi2012-monte_carlo}.
 
 The matter profile and background field are stored on a spherical
-pseudo-spectral grid composed of 11 spherical-shell subdomains
+pseudospectral grid composed of 11 spherical-shell subdomains
 \cite{kidd2000-spec,szil2009-spec}
 comprising a total of 62 radial grid points spaced approximately
 logarithmically across $r\in(0,740)$~km.
@@ -2536,10 +2537,10 @@ it a more useful and robust astrophysical simulation tool:
 \begin{enumerate}
 \item Use the finite-difference hydrodynamics simulation grid to represent
   background fluid and neutrino variables instead of interpolating all
-  input variables to the pseudo-spectral spacetime simulation grid in order
+  input variables to the pseudospectral spacetime simulation grid in order
   to begin ray tracing.
   We have found that though the interpolation of fluid and neutrino variables
-  to a lower-resolution pseudo-spectral grid saves computational memory, it
+  to a lower-resolution pseudospectral grid saves computational memory, it
   introduces more costly problems, the foremost being Gibbs-like oscillations
   at shocks and discontinuities present in fluid fields.
 \item Replace explicit with implicit time stepping in the integrations along
