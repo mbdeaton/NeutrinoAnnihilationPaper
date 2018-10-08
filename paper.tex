@@ -809,31 +809,42 @@ the observer specifies $x^i_o$ and $p_{i,o}$,
 and we set $f_{{\rm AE},o}=f_{{\rm SE},o}=0$ and $\tau_o=0$.
 
 We integrate Eqns.~\ref{eqn:num_x}--\ref{eqn:num_fse} with adaptive step sizes,
-using the 3rd order Runge-Kutta algorithm
-which produces an error estimate by comparing the 3rd and 2nd order solutions.
-After each step is taken, the errors for each of the nine variables of
-Eqns.~\ref{eqn:num_x}--\ref{eqn:num_fse} are compared to an absolute and
-a relative threshold.
-If the error in any variable exceeds its threshold
-the step size is decreased and the step recomputed;
-if all errors are below threshold, the next step size is increased.
-% see OdeIntegrators::AdaptiveDense
-% and OdeSteppers::RungeKutta3
-% and OdeSteppers::DormandPrince5
-% and OdeController
-% and OdeControllers::ProportionalIntegral_Base::StepSizeToAttempt
-% and OdeErrorMeasures::ScaledAbsRel
+using the 3rd order Runge-Kutta algorithm,
+from which we compute an error estimate by comparing the 3rd and 2nd order solutions.
+After each step is taken, the error estimates $\Delta_i$ for each of the
+nine variables of Eqns.~\ref{eqn:num_x}--\ref{eqn:num_fse} are used
+to compute an overall error measure of the step, $D$, given by
+\begin{equation}
+  \label{eqn:err_measure}
+  D = \max\left(\frac{\Delta_i}{A+R|V_i|}\right),
+\end{equation}
+where the max is taken over the set of all variables $V_i$
+and their error estimates $\Delta_i$,
+and $A$ and $R$ are the absolute and relative error tolerances.
+If $D \geq 1$ the step size is decreased and the step recomputed;
+if $D < 1$ the next step size is increased.
+% The whole integration is run by OdeIntegrator::AdaptiveDense, which contains
+%   some essential pieces: 1) OdeStepper calculates the change in the variables,
+%   2) OdeErrorMeasure calculates a single double representing the overall error
+%   of the step, and 3) OdeController either initiating a step redo or
+%   calculating the next step size.
+% See:
+% * OdeIntegrators::AdaptiveDense
+% * OdeErrorMeasures::ScaledAbsRel
+% * OdeSteppers::RungeKutta3 and OdeSteppers::DormandPrince5
+% * OdeControllers::ProportionalIntegral_Base::StepSizeToAttempt
 % For example, the parameters I use in the nsns data:
-%OdeErrorMeasure = ScaledAbsRel
-%     (
-%      ATol = 0.000555555555555556;
-%      RTol = 0.000555555555555556;
-%      ScaledVars = q,p,s0,sn,tau,fa,fs;
-%      Scales = 4,1,4,4,1e-20,1e-20,1e-20;
+% ```
+% OdeErrorMeasure = ScaledAbsRel(
+%   ATol = 0.000555555555555556;
+%   RTol = 0.000555555555555556;
+%   ScaledVars = q,p,s0,sn,tau,fa,fs;
+%   Scales = 4,1,4,4,1e-20,1e-20,1e-20;)
+%```
 In practice, the controlling errors come from the radiation variables
 $\tau$, $f_{\rm AE}$, and $f_{\rm SE}$,
-for which the relative tolerances are set to $6\times10^{-4}$,
-and the absolute tolerances are set to $6\times10^{-24}$.
+for which the relative tolerances are set to $R=6\times10^{-4}$,
+and the absolute tolerances are set to $A=6\times10^{-24}$.
 
 We integrate these equations through the simulated spacetime
 over which the following volume data are known:
